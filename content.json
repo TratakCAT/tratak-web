@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Centro de Aprendizaje Tecno-Ontológico",
+    "title_line1": "Contempla y biofabrica",
+    "title_pre": "la materia ",
+    "title_em": "viva",
+    "title_line3": "del mundo.",
+    "lede": "Vinculamos biomateria, código y contemplación en un laboratorio donde la naturaleza es el primer maestro. Guadalajara, México.",
+    "image": "images/hero-pieza.jpg"
+  },
+  "stats": [
+    { "number": "[X] años", "label": "formando creadores de biomateria" },
+    { "number": "[X]", "label": "estudiantes han pasado por el laboratorio" },
+    { "number": "[X]", "label": "conferencias y talleres impartidos" }
+  ],
+  "pilares": [
+    { "num": "01 · contemplación", "title": "Mirada sostenida", "text": "Observar sin prisa. El primer paso para crear es aprender a ver lo que la materia ya está haciendo." },
+    { "num": "02 · materia", "title": "Tierra aprendida", "text": "Tocar, mezclar, fallar. El conocimiento vive en las manos, no solo en la pantalla." },
+    { "num": "03 · lenguaje", "title": "Verbo cuidadoso", "text": "Nombrar con precisión. El código y la receta comparten la misma disciplina: cada palabra importa." },
+    { "num": "04 · tiempo", "title": "Ritmo del aprendiz", "text": "Sin prisas industriales. Cada proceso tiene su tiempo — el micelio, la cerámica, el algoritmo." }
+  ],
+  "taller": {
+    "eyebrow": "El espacio",
+    "title": "El taller",
+    "text1": "Un laboratorio donde los residuos se convierten en objetos vivos. Impresión 3D de biomateriales, cerámica computacional, cultivo de micelio — todo bajo el mismo techo en Guadalajara.",
+    "text2": "Cada mesa tiene tierra, cada pantalla tiene código. Aquí no separamos las manos de la mente.",
+    "bg_image": "images/taller-ldm.jpg"
+  },
+  "plan": {
+    "eyebrow": "Formación S.T.E.A.M. · 6 programas",
+    "title": "Plan de estudios",
+    "items": [
+      { "code": "TÓPICO: CUL_BIO // 00", "title": "Cultura Biomaterial", "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías", "price": "$9,000 MXN" },
+      { "code": "TÓPICO: IMP_3D_LDM // 00", "title": "Impresión 3D LDM", "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías", "price": "$9,000 MXN" },
+      { "code": "TÓPICO: DIS_VR // 00", "title": "Diseño en Realidad Virtual", "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías", "price": "$9,000 MXN" },
+      { "code": "P.E.S. · Individual", "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR", "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final", "price": "$25,000 MXN" },
+      { "code": "P.E.S.2 · Grupal (2–4 personas)", "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR", "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final", "price": "$19,000 MXN" },
+      { "code": "P.E.S.3 · Grupal (2–4 personas)", "title": "1 Tópico a elegir", "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías", "price": "$7,000 MXN" }
+    ]
+  },
+  "tienda": {
+    "eyebrow": "Hecho en el taller",
+    "title": "Tienda",
+    "items": [
+      { "name": "Hábitat de insectos", "cat": "Cerámica", "price": "$600 MXN", "image": "" },
+      { "name": "Gestos Materiales", "cat": "Escultura de pared", "price": "$300 MXN", "image": "" },
+      { "name": "Disco cerámico impreso", "cat": "Decoración", "price": "$950 MXN", "image": "" },
+      { "name": "Maceta de nopal compuesto", "cat": "Botánica", "price": "$1,600 MXN", "image": "" }
+    ]
+  },
+  "galeria": {
+    "eyebrow": "Proyectos",
+    "title": "Galería",
+    "items": [
+      { "image": "", "caption": "Cerámica — Jarrón ceremonial" },
+      { "image": "", "caption": "Biomaterial — Red micelial" },
+      { "image": "", "caption": "Fotografía — Macro botánico" },
+      { "image": "images/galeria-vestigio.png", "caption": "Generativo — Vestigio Contemplativo" },
+      { "image": "images/galeria-pieza-impresa.jpg", "caption": "Escultura — Pieza impresa" },
+      { "image": "", "caption": "Fotografía — Canopy aéreo" }
+    ]
+  },
+  "multimedia": {
+    "eyebrow": "Proceso en movimiento",
+    "title": "Video y animación en vivo",
+    "video_url": "https://www.youtube.com/watch?v=qFo8yMZ-vzM",
+    "video_caption": "Video de proceso",
+    "p5_url": "https://editor.p5js.org/thadrv/full/s6iVhCf1Z",
+    "p5_caption": "Animación generativa (p5.js) — interactiva"
+  },
+  "manifiesto": "Creemos que aprender es un acto de contemplación. Que la materia viva del mundo —el micelio, la arcilla, la fibra, el código— nos enseña si sabemos mirar. No fabricamos rápido. Fabricamos con sentido.",
+  "contacto": {
+    "titulo": "¿Listo para ir más allá de la industria con tu proyecto?",
+    "texto": "Escríbenos para conocer más sobre nuestros programas, agendar una visita al taller o resolver cualquier duda.",
+    "whatsapp": "523332480698",
+    "whatsapp_display": "+52 333 248 0698",
+    "email": "tratakceramics@gmail.com",
+    "ubicacion": "Guadalajara, Jalisco, México",
+    "horario": "Lun – Vie, 9:00 – 18:00"
+  }
+}

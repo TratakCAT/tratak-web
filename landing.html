@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAT en REDi — Taller demostrativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#e9e2d1;
+    --paper-2:#ddd4bd;
+    --ink:#241f18;
+    --clay:#a3552b;
+    --moss:#39514c;
+    --dust:#8a7f68;
+    --line: rgba(36,31,24,0.18);
+    --maxw: 760px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36,31,24,0.06) 1px, transparent 0);
+    background-size: 22px 22px;
+    opacity:0.5;
+    z-index:0;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width: var(--maxw);
+    margin:0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- top mark ---------- */
+  header{
+    padding: 28px 0 0;
+  }
+  .mark{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    font-size:13px;
+    letter-spacing:0.02em;
+    color: var(--dust);
+  }
+  .mark strong{ color: var(--ink); font-weight:600; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 56px 0 40px;
+  }
+  .hero .kicker{
+    font-size:14px;
+    color: var(--moss);
+    margin: 0 0 18px;
+    max-width: 46ch;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-style:normal;
+    font-size: clamp(38px, 7vw, 64px);
+    line-height:1.04;
+    margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:300;
+    color: var(--clay);
+  }
+  .hero p.lede{
+    font-size:17px;
+    max-width: 52ch;
+    color:#3a352c;
+    margin: 0 0 34px;
+  }
+
+  .facts{
+    display:grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 28px 40px;
+    padding: 22px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin-bottom: 34px;
+  }
+  .fact .k{ font-size:12px; color:var(--dust); margin-bottom:4px; }
+  .fact .v{ font-size:16px; font-weight:500; }
+  .fact .v.editable{ border-bottom: 1px dashed var(--clay); color:var(--clay); }
+
+  .cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 13px 22px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    font-weight:500;
+    text-decoration:none;
+    border-radius: 3px;
+    transition: transform .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn.primary{
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn.ghost{
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .aporte-note{
+    margin-top:14px;
+    font-size:13px;
+    color:var(--dust);
+  }
+
+  /* ---------- explora ---------- */
+  section.explora{
+    padding: 50px 0 46px;
+    border-top: 1px solid var(--line);
+  }
+  section.explora h2{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size: 26px;
+    margin: 0 0 30px;
+  }
+  .topics{
+    display:flex;
+    flex-direction:column;
+  }
+  .topic{
+    display:grid;
+    grid-template-columns: 64px 1fr;
+    gap: 18px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .topic:last-child{ border-bottom: 1px solid var(--line); }
+  .topic .tag{
+    font-size:12px;
+    color: var(--moss);
+    padding-top:3px;
+  }
+  .topic h3{
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .topic p{
+    margin:0;
+    font-size:14.5px;
+    color:#3a352c;
+    max-width:50ch;
+  }
+
+  /* ---------- para quien ---------- */
+  section.para-quien{
+    padding: 46px 0;
+    border-top: 1px solid var(--line);
+  }
+  section.para-quien h2{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size: 26px;
+    margin: 0 0 18px;
+  }
+  section.para-quien p{
+    font-size: 16px;
+    max-width: 56ch;
+    color:#3a352c;
+  }
+  .perfil-list{
+    margin-top: 22px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px 12px;
+  }
+  .perfil-list span{
+    font-size:13px;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+  }
+
+  /* ---------- despues ---------- */
+  section.despues{
+    padding: 46px 0;
+    border-top: 1px solid var(--line);
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  section.despues .label{
+    font-size:12px;
+    color: var(--dust);
+  }
+  section.despues p{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size: 20px;
+    line-height:1.4;
+    max-width: 48ch;
+    color: var(--moss);
+    margin: 8px 0 0;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+    font-size:13px;
+    color: var(--dust);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  footer a{ color: var(--ink); }
+
+  @media (max-width: 560px){
+    .facts{ grid-template-columns: 1fr 1fr; }
+    .topic{ grid-template-columns: 1fr; }
+    .topic .tag{ padding-top:0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="mark">
+      <a href="index.html" style="text-decoration:none; color:inherit;"><strong>CAT</strong> — Contemplación Aplicada a la Tecnología</a>
+      <span>en REDi · Guadalajara</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Taller demostrativo — cupo abierto</p>
+    <h1 id="landing-titulo"></h1>
+    <p class="lede" id="landing-desc"></p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="k">Fecha</div>
+        <div class="v" id="landing-fecha"></div>
+      </div>
+      <div class="fact">
+        <div class="k">Horario</div>
+        <div class="v" id="landing-horario"></div>
+      </div>
+      <div class="fact">
+        <div class="k">Sede</div>
+        <div class="v editable" id="landing-sede"></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn primary" id="landing-form-link" href="#">Reservar mi lugar →</a>
+      <a class="btn ghost" id="landing-whatsapp-link" href="#">Dudas por WhatsApp</a>
+    </div>
+    <p class="aporte-note" id="landing-aporte"></p>
+  </section>
+
+  <section class="explora">
+    <h2>Qué vas a explorar</h2>
+    <div class="topics" id="landing-temas"></div>
+  </section>
+
+  <section class="para-quien">
+    <h2>Para quién es</h2>
+    <p>Pensado para gente que ya trabaja con las manos y con ideas — y que le interesa ver qué pasa cuando la tecnología entra a ese proceso sin quitarle el oficio.</p>
+    <div class="perfil-list" id="landing-perfil"></div>
+  </section>
+
+  <section class="despues">
+    <div class="label">Después de este taller</div>
+    <p id="landing-despues"></p>
+  </section>
+
+  <footer>
+    <span><a href="index.html" style="text-decoration:none; color:inherit;">CAT · Contemplación Aplicada a la Tecnología</a></span>
+    <span>Dudas — <a href="https://wa.me/523332480698" id="landing-whatsapp-footer">WhatsApp</a></span>
+  </footer>
+
+<script>
+  fetch('landing-content.json?_=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      document.getElementById('landing-titulo').innerHTML = d.titulo_evento_html;
+      document.getElementById('landing-desc').textContent = d.descripcion;
+      document.getElementById('landing-fecha').textContent = d.fecha;
+      document.getElementById('landing-horario').textContent = d.horario;
+      document.getElementById('landing-sede').textContent = d.sede;
+      document.getElementById('landing-form-link').href = d.google_form_url;
+      document.getElementById('landing-whatsapp-link').href = 'https://wa.me/' + d.whatsapp;
+      document.getElementById('landing-whatsapp-footer').href = 'https://wa.me/' + d.whatsapp;
+      document.getElementById('landing-aporte').textContent = d.aporte_texto;
+      document.getElementById('landing-temas').innerHTML = d.temas.map(function(t){
+        return '<div class="topic"><div class="tag">' + t.tag + '</div><h3>' + t.title + '</h3><p>' + t.text + '</p></div>';
+      }).join('');
+      document.getElementById('landing-perfil').innerHTML = d.perfil.map(function(p){
+        return '<span>' + p + '</span>';
+      }).join('');
+      document.getElementById('landing-despues').textContent = d.despues_texto;
+    })
+    .catch(function(err){ console.error('No se pudo cargar landing-content.json', err); });
+</script>
+
+</div>
+</body>
+</html>
