@@ -16,7 +16,7 @@
   }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#e9e2d1;
@@ -27,6 +27,8 @@
     --dust:#8a7f68;
     --line: rgba(36,31,24,0.18);
     --maxw: 1080px;
+    --font-heading: 'Fraunces', serif;
+    --font-body: 'Space Grotesk', sans-serif;
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
@@ -34,14 +36,14 @@
     margin:0;
     background: var(--paper);
     color: var(--ink);
-    font-family:'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
   a{ color:inherit; }
   .wrap{ max-width: var(--maxw); margin:0 auto; padding:0 28px; }
 
-  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:400; margin:0; }
+  h1,h2,h3{ font-family: var(--font-heading); font-weight:400; margin:0; }
 
   /* ---- placeholder de imagen: reemplázalo por <img src="tu-foto.jpg"> ---- */
   .ph{
@@ -59,12 +61,13 @@
   .hero-image, .taller-image, .galeria-grid img{ width:100%; height:100%; object-fit:cover; display:block; }
   .taller-bg{
     position:relative;
-    background-image: linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.75)), url('images/taller-ldm.jpg');
-    background-size:cover;
-    background-position:center;
+    overflow:hidden;
     color: var(--paper);
     padding: 90px 0;
   }
+  .taller-bg-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .taller-bg-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.75)); z-index:1; }
+  .taller-bg .wrap{ position:relative; z-index:2; }
   .taller-bg .eyebrow{ color: #cfc6ae; }
   .taller-bg h2{ color: var(--paper); max-width:26ch; }
   .taller-bg p{ color: #ece6d6; max-width:52ch; margin-bottom:24px; font-size:16px; }
@@ -226,15 +229,16 @@
       <h1 id="hero-title"></h1>
       <p class="lede" id="hero-lede"></p>
       <div class="cta-row">
-        <a class="btn primary" href="#plan">Ver programas →</a>
-        <a class="btn ghost" href="#taller">Conocer el taller →</a>
-        <a class="btn ghost" href="landing.html">Próximos eventos →</a>
+        <a class="btn primary" id="hero-cta1" href="#plan"></a>
+        <a class="btn ghost" id="hero-cta2" href="#taller"></a>
+        <a class="btn ghost" id="hero-cta3" href="landing.html"></a>
       </div>
     </div>
     <img class="hero-image" id="hero-image" src="" alt="Pieza cerámica destacada de TRATAK CAT">
   </div>
 </header>
 
+<div id="main-sections">
 <section class="wrap" id="impacto">
   <p class="eyebrow">Impacto</p>
   <div class="stats" id="stats-list"></div>
@@ -247,12 +251,13 @@
 </section>
 
 <section class="taller-bg" id="taller">
+  <div class="taller-bg-overlay"></div>
   <div class="wrap">
     <p class="eyebrow" id="taller-eyebrow"></p>
     <h2 id="taller-title"></h2>
     <p id="taller-text1"></p>
     <p id="taller-text2"></p>
-    <a class="btn primary" href="#contacto">Agendar visita →</a>
+    <a class="btn primary" id="taller-cta" href="#contacto"></a>
   </div>
 </section>
 
@@ -288,10 +293,11 @@
   <div class="media-grid" id="multimedia-list"></div>
 </section>
 
-<section class="wrap manifiesto">
+<section class="wrap manifiesto" id="manifiesto">
   <p class="eyebrow">Manifiesto</p>
   <p id="manifiesto-text"></p>
 </section>
+</div>
 
 <section class="wrap" id="contacto">
   <div class="contacto-grid">
@@ -353,15 +359,51 @@
     return m ? m[1] : '';
   }
 
+  var FONT_PAIRS = {
+    fraunces_space: { heading: "'Fraunces', serif", body: "'Space Grotesk', sans-serif" },
+    playfair_inter: { heading: "'Playfair Display', serif", body: "'Inter', sans-serif" },
+    baskerville_plex: { heading: "'Libre Baskerville', serif", body: "'IBM Plex Sans', sans-serif" },
+    dmserif_work: { heading: "'DM Serif Display', serif", body: "'Work Sans', sans-serif" },
+    cormorant_manrope: { heading: "'Cormorant Garamond', serif", body: "'Manrope', sans-serif" }
+  };
+
   fetch('content.json?_=' + Date.now())
     .then(function(r){ return r.json(); })
     .then(function(d){
+
+      // Tema: colores
+      if (d.theme) {
+        var root = document.documentElement.style;
+        if (d.theme.color_paper) root.setProperty('--paper', d.theme.color_paper);
+        if (d.theme.color_ink) root.setProperty('--ink', d.theme.color_ink);
+        if (d.theme.color_clay) root.setProperty('--clay', d.theme.color_clay);
+        if (d.theme.color_moss) root.setProperty('--moss', d.theme.color_moss);
+        var fp = FONT_PAIRS[d.theme.font_pair] || FONT_PAIRS.fraunces_space;
+        root.setProperty('--font-heading', fp.heading);
+        root.setProperty('--font-body', fp.body);
+      }
+
+      // Orden de secciones (arrastrado desde el panel)
+      if (d.orden_secciones && d.orden_secciones.length) {
+        var container = document.getElementById('main-sections');
+        d.orden_secciones.forEach(function(item){
+          var key = item.key || item; // soporta string simple u objeto {key: '...'}
+          var el = document.getElementById(key);
+          if (el && container) container.appendChild(el);
+        });
+      }
 
       // Hero
       document.getElementById('hero-kicker').textContent = d.hero.kicker;
       document.getElementById('hero-title').innerHTML = d.hero.title_line1 + '<br>' + d.hero.title_pre + '<em>' + d.hero.title_em + '</em><br>' + d.hero.title_line3;
       document.getElementById('hero-lede').textContent = d.hero.lede;
       document.getElementById('hero-image').src = d.hero.image;
+      document.getElementById('hero-cta1').textContent = d.hero.cta1_label;
+      document.getElementById('hero-cta1').href = d.hero.cta1_link;
+      document.getElementById('hero-cta2').textContent = d.hero.cta2_label;
+      document.getElementById('hero-cta2').href = d.hero.cta2_link;
+      document.getElementById('hero-cta3').textContent = d.hero.cta3_label;
+      document.getElementById('hero-cta3').href = d.hero.cta3_link;
 
       // Stats
       document.getElementById('stats-list').innerHTML = d.stats.map(function(s){
@@ -378,8 +420,23 @@
       document.getElementById('taller-title').textContent = d.taller.title;
       document.getElementById('taller-text1').textContent = d.taller.text1;
       document.getElementById('taller-text2').textContent = d.taller.text2;
-      document.querySelector('.taller-bg').style.backgroundImage =
-        "linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.75)), url('" + d.taller.bg_image + "')";
+      document.getElementById('taller-cta').textContent = d.taller.cta_label;
+      document.getElementById('taller-cta').href = d.taller.cta_link;
+      var tallerSection = document.getElementById('taller');
+      var oldMedia = tallerSection.querySelector('.taller-bg-media');
+      if (oldMedia) oldMedia.remove();
+      var mediaEl;
+      if (d.taller.bg_video) {
+        mediaEl = document.createElement('video');
+        mediaEl.src = d.taller.bg_video;
+        mediaEl.autoplay = true; mediaEl.muted = true; mediaEl.loop = true; mediaEl.playsInline = true;
+      } else {
+        mediaEl = document.createElement('img');
+        mediaEl.src = d.taller.bg_image;
+        mediaEl.alt = d.taller.title;
+      }
+      mediaEl.className = 'taller-bg-media';
+      tallerSection.insertBefore(mediaEl, tallerSection.firstChild);
 
       // Plan
       document.getElementById('plan-eyebrow').textContent = d.plan.eyebrow;
