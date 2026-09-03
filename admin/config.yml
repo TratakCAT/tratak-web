@@ -3,7 +3,7 @@ backend:
   branch: main
 
 media_folder: "images"
-public_folder: "images"
+public_folder: "/images"
 
 collections:
   - name: "sitio"
@@ -13,6 +13,41 @@ collections:
         label: "Contenido del sitio"
         name: "content"
         fields:
+          - label: "Tema (colores y tipografía)"
+            name: "theme"
+            widget: object
+            fields:
+              - { label: "Color de fondo", name: "color_paper", widget: color }
+              - { label: "Color de texto principal", name: "color_ink", widget: color }
+              - { label: "Color de acento (arcilla)", name: "color_clay", widget: color }
+              - { label: "Color de acento (moss)", name: "color_moss", widget: color }
+              - label: "Pareja de tipografías"
+                name: "font_pair"
+                widget: select
+                options:
+                  - { label: "Fraunces + Space Grotesk (editorial cálido)", value: "fraunces_space" }
+                  - { label: "Playfair Display + Inter (clásico elegante)", value: "playfair_inter" }
+                  - { label: "Libre Baskerville + IBM Plex Sans (literario)", value: "baskerville_plex" }
+                  - { label: "DM Serif Display + Work Sans (moderno editorial)", value: "dmserif_work" }
+                  - { label: "Cormorant Garamond + Manrope (delicado)", value: "cormorant_manrope" }
+
+          - label: "Orden de las secciones (arrastra para reordenar)"
+            name: "orden_secciones"
+            widget: list
+            fields:
+              - label: "Sección"
+                name: "key"
+                widget: select
+                options:
+                  - { label: "Impacto (números)", value: "impacto" }
+                  - { label: "Pilares", value: "pilares" }
+                  - { label: "El taller", value: "taller" }
+                  - { label: "Plan de estudios", value: "plan" }
+                  - { label: "Tienda", value: "tienda" }
+                  - { label: "Galería", value: "galeria" }
+                  - { label: "Video y animación", value: "multimedia" }
+                  - { label: "Manifiesto", value: "manifiesto" }
+
           - label: "Portada (Hero)"
             name: "hero"
             widget: object
@@ -24,6 +59,12 @@ collections:
               - { label: "Título — línea final", name: "title_line3", widget: string }
               - { label: "Texto debajo del título", name: "lede", widget: text }
               - { label: "Foto de portada", name: "image", widget: image }
+              - { label: "Botón 1 — texto", name: "cta1_label", widget: string }
+              - { label: "Botón 1 — link", name: "cta1_link", widget: string }
+              - { label: "Botón 2 — texto", name: "cta2_label", widget: string }
+              - { label: "Botón 2 — link", name: "cta2_link", widget: string }
+              - { label: "Botón 3 — texto", name: "cta3_label", widget: string }
+              - { label: "Botón 3 — link", name: "cta3_link", widget: string }
 
           - label: "Impacto (números)"
             name: "stats"
@@ -49,6 +90,9 @@ collections:
               - { label: "Párrafo 1", name: "text1", widget: text }
               - { label: "Párrafo 2", name: "text2", widget: text }
               - { label: "Foto de fondo", name: "bg_image", widget: image }
+              - { label: "Video de fondo (opcional, formato .mp4 — si lo llenas, gana sobre la foto)", name: "bg_video", widget: file, required: false }
+              - { label: "Botón — texto", name: "cta_label", widget: string }
+              - { label: "Botón — link", name: "cta_link", widget: string }
 
           - label: "Plan de estudios"
             name: "plan"
