@@ -23,6 +23,9 @@ collections:
               - { label: "Color de texto principal", name: "color_ink", widget: color }
               - { label: "Color de acento (arcilla)", name: "color_clay", widget: color }
               - { label: "Color de acento (moss)", name: "color_moss", widget: color }
+              - { label: "Color de texto secundario (etiquetas, notas)", name: "color_dust", widget: color }
+              - { label: "Logo TRATAK (opcional, deja vacío para solo mostrar texto)", name: "logo_tratak", widget: image, required: false }
+              - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
               - label: "Pareja de tipografías"
                 name: "font_pair"
                 widget: select
