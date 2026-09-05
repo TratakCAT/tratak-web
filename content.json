@@ -1,9 +1,9 @@
 {
   "theme": {
-    "color_paper": "#4b2260",
+    "color_paper": "#2c1919",
     "color_ink": "#fafaf1",
     "color_clay": "#64cade",
-    "color_moss": "#961992",
+    "color_moss": "#fff3ff",
     "font_pair": "playfair_inter"
   },
   "plan": {
