@@ -1,35 +1,17 @@
 {
-  "horario": "4:00 – 6:00 pm",
-  "aporte_texto": "Aportación voluntaria sugerida: $200–300. Nadie se queda fuera por no poder cubrirla.",
-  "despues_texto": "Quien quiera ir más lejos podrá inscribirse al siguiente paso: hacer su propia pieza en el taller de costo.",
-  "perfil": [
-    "Ceramistas",
-    "Diseñadores industriales",
-    "Arquitectos",
-    "Artistas y creativos",
-    "Investigadores"
-  ],
-  "descripcion": "Dos horas para conocer de cerca cómo se cruzan la realidad virtual, los biomateriales y la impresión LDM con espacio para preguntar, vivir el proceso y conocer hacia dónde puedes llevarlo tú.",
-  "temas": [
-    {
-      "tag": "01 · Diseño en VR",
-      "title": "Modelar en el espacio, no en la pantalla",
-      "text": "Una introducción a diseñar piezas directamente en realidad virtual, con Gravity Sketch como puente entre el gesto y la forma."
-    },
-    {
-      "tag": "02 · Cultura biomaterial",
-      "title": "Residuo como materia prima",
-      "text": "De dónde salen los biomateriales que usamos — comunidades existentes y hábitos de aprovechamiento de residuos para la biofabricación"
-    },
-    {
-      "tag": "03 · Impresión LDM",
-      "title": "Manufactura consciente",
-      "text": "Cómo se imprime en geopolímero y qué cambia cuando el proceso se hace con atención, intención y amor,  en vez de automatizmo."
-    }
-  ],
   "titulo_evento_html": "Materia, máquina<br>y <em>contemplación</em>",
+  "descripcion": "Dos horas para conocer de cerca cómo se cruzan la realidad virtual, los biomateriales y la impresión LDM — con espacio para preguntar, tocar el proceso y ver hacia dónde puedes llevarlo tú.",
+  "fecha": "10 de septiembre",
+  "horario": "4:00 – 6:00 pm",
+  "sede": "REDi — dirección por confirmar",
+  "aporte_texto": "Aportación voluntaria sugerida: $200–300. Nadie se queda fuera por no poder cubrirla.",
+  "google_form_url": "#",
   "whatsapp": "523332480698",
-  "sede": "REDi AMG — C. Manuel López Cotilla 1505, Col Americana, Lafayette, 44160 Guadalajara, Jal.",
-  "google_form_url": "https://forms.gle/mTSukxXUY2eLRMuS9",
-  "fecha": "10 de septiembre"
+  "temas": [
+    { "tag": "01 · Diseño en VR", "title": "Modelar en el espacio, no en la pantalla", "text": "Una introducción a diseñar piezas directamente en realidad virtual, con Gravity Sketch como puente entre el gesto y la forma." },
+    { "tag": "02 · Cultura biomaterial", "title": "Residuo como materia prima", "text": "De dónde salen los biomateriales que usamos — comunidades existentes y residuos recuperados del Mercado de Abastos." },
+    { "tag": "03 · Impresión LDM", "title": "Manufactura consciente", "text": "Cómo se imprime en geopolímero y qué cambia cuando el proceso se hace con atención, no solo con velocidad." }
+  ],
+  "perfil": ["Ceramistas", "Diseñadores industriales", "Arquitectos", "Artistas y creativos", "Investigadores"],
+  "despues_texto": "Quien quiera ir más lejos podrá inscribirse al siguiente paso: hacer su propia pieza en el taller de costo."
 }
