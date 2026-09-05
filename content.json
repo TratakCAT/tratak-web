@@ -1,8 +1,8 @@
 {
   "theme": {
-    "color_paper": "#2c1919",
-    "color_ink": "#fafaf1",
-    "color_clay": "#64cade",
+    "color_paper": "#432158",
+    "color_ink": "#ffffff",
+    "color_clay": "#f4a8ea",
     "color_moss": "#fff3ff",
     "font_pair": "playfair_inter"
   },
