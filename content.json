@@ -6,7 +6,12 @@
     "color_moss": "#39514c",
     "font_pair": "fraunces_space",
     "logo_tratak": "/images/logo-tratak.png",
-    "logo_cat": "/images/logo-cat.png"
+    "logo_cat": "/images/logo-cat.png",
+    "modo_oscuro": {
+      "color_paper": "#1c1a17",
+      "color_ink": "#ece6d6",
+      "color_dust": "#a89d86"
+    }
   },
   "hero": {
     "kicker": "Centro de Aprendizaje Tecno-Ontológico",
@@ -21,7 +26,11 @@
     "cta2_label": "Conocer el taller →",
     "cta2_link": "#taller",
     "cta3_label": "Próximos eventos →",
-    "cta3_link": "landing.html"
+    "cta3_link": "landing.html",
+    "layout": "imagen_lado",
+    "color_acento": "",
+    "fuente_titulo": "",
+    "estilo": "lado"
   },
   "secciones": [
     {
@@ -43,7 +52,10 @@
           "number": "[X]",
           "label": "conferencias y talleres impartidos"
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": "",
+      "titulo": ""
     },
     {
       "id": "pilares",
@@ -73,7 +85,9 @@
           "title": "Ritmo del aprendiz",
           "text": "Sin prisas industriales. Cada proceso tiene su tiempo — el micelio, la cerámica, el algoritmo."
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "taller",
@@ -87,7 +101,18 @@
       "texto1": "Un laboratorio donde los residuos se convierten en objetos vivos. Impresión 3D de biomateriales, cerámica computacional, cultivo de micelio — todo bajo el mismo techo en Guadalajara.",
       "texto2": "Cada mesa tiene tierra, cada pantalla tiene código. Aquí no separamos las manos de la mente.",
       "boton_texto": "Agendar visita →",
-      "boton_link": "#contacto"
+      "boton_link": "#contacto",
+      "color_acento": "",
+      "fuente_titulo": "",
+      "layout": "fondo_completo",
+      "estilo": "fondo"
+    },
+    {
+      "id": "proximo-evento",
+      "type": "evento_proximo",
+      "fondo": "ninguno",
+      "color_texto": "oscuro",
+      "eyebrow": "Próximo evento"
     },
     {
       "id": "plan",
@@ -101,39 +126,47 @@
           "code": "TÓPICO: CUL_BIO // 00",
           "title": "Cultura Biomaterial",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$9,000 MXN"
+          "price": "$9,000 MXN",
+          "imagen": ""
         },
         {
           "code": "TÓPICO: IMP_3D_LDM // 00",
           "title": "Impresión 3D LDM",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$9,000 MXN"
+          "price": "$9,000 MXN",
+          "imagen": ""
         },
         {
           "code": "TÓPICO: DIS_VR // 00",
           "title": "Diseño en Realidad Virtual",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$9,000 MXN"
+          "price": "$9,000 MXN",
+          "imagen": ""
         },
         {
           "code": "P.E.S. · Individual",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
           "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final",
-          "price": "$25,000 MXN"
+          "price": "$25,000 MXN",
+          "imagen": ""
         },
         {
           "code": "P.E.S.2 · Grupal (2–4 personas)",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
           "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final",
-          "price": "$19,000 MXN"
+          "price": "$19,000 MXN",
+          "imagen": ""
         },
         {
           "code": "P.E.S.3 · Grupal (2–4 personas)",
           "title": "1 Tópico a elegir",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$7,000 MXN"
+          "price": "$7,000 MXN",
+          "imagen": ""
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "tienda",
@@ -167,7 +200,9 @@
           "price": "$1,600 MXN",
           "image": ""
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "galeria",
@@ -201,7 +236,9 @@
           "image": "",
           "caption": "Fotografía — Canopy aéreo"
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "multimedia",
@@ -213,7 +250,9 @@
       "video_url": "https://www.youtube.com/watch?v=qFo8yMZ-vzM",
       "video_caption": "Video de proceso",
       "p5_url": "https://editor.p5js.org/thadrv/full/s6iVhCf1Z",
-      "p5_caption": "Animación generativa (p5.js) — interactiva"
+      "p5_caption": "Animación generativa (p5.js) — interactiva",
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "blog",
@@ -230,7 +269,9 @@
           "imagen": "",
           "link": "#"
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "personajes",
@@ -246,7 +287,9 @@
           "imagen": "",
           "bio": "Edita o borra esta tarjeta de ejemplo desde el panel."
         }
-      ]
+      ],
+      "color_acento": "",
+      "fuente_titulo": ""
     },
     {
       "id": "manifiesto",
@@ -254,7 +297,11 @@
       "fondo": "ninguno",
       "color_texto": "oscuro",
       "eyebrow": "Manifiesto",
-      "texto": "Creemos que aprender es un acto de contemplación. Que la materia viva del mundo —el micelio, la arcilla, la fibra, el código— nos enseña si sabemos mirar. No fabricamos rápido. Fabricamos con sentido."
+      "texto": "Creemos que aprender es un acto de contemplación. Que la materia viva del mundo —el micelio, la arcilla, la fibra, el código— nos enseña si sabemos mirar. No fabricamos rápido. Fabricamos con sentido.",
+      "color_acento": "",
+      "fuente_titulo": "",
+      "titulo": "",
+      "imagen": ""
     }
   ],
   "contacto": {

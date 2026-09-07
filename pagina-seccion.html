@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRATAK · CAT</title>
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon_180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e9e2d1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .volver-link{ display:inline-block; margin: 28px 0 0; font-size:14px; color:var(--dust); text-decoration:none; }
+  .pagina-dedicada-header{ padding-top: 40px; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <p style="padding:40px;font-family:sans-serif;">Cargando…</p>
+</div>
+
+<script src="assets/site.js"></script>
+<script>
+  function getParam(name) {
+    var params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  var seccionId = getParam('id');
+
+  fetch('content.json?_=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (content) {
+      var seccion = (content.secciones || []).find(function (s) { return s.id === seccionId; });
+
+      var html = '';
+      html += TratakRender.themeStyleTag(content.theme);
+      html += TratakRender.renderNav(content.theme);
+
+      if (!seccion) {
+        html += '<div class="wrap pagina-dedicada-header"><h1 style="font-family:var(--font-heading);">No se encontró esta sección</h1>' +
+          '<a class="volver-link" href="index.html">← Volver al inicio</a></div>';
+      } else {
+        html += '<div class="wrap pagina-dedicada-header"><a class="volver-link" href="index.html">← Volver al inicio</a></div>';
+        html += TratakRender.renderSecciones([seccion], content.contacto, { todos: true });
+      }
+
+      html += TratakRender.renderContacto(content.contacto);
+      html += TratakRender.renderFooter();
+      html += TratakRender.renderLightbox();
+      html += TratakRender.renderFloatingButtons(content.contacto);
+
+      document.getElementById('app').innerHTML = html;
+      TratakRender.applyTheme(content.theme, document.documentElement.style);
+      TratakRender.bindGlobalInteractions(content.theme);
+
+      if (seccion && seccion.titulo) {
+        document.title = seccion.titulo + ' — TRATAK · CAT';
+      }
+    })
+    .catch(function (err) {
+      console.error('No se pudo cargar el contenido', err);
+      document.getElementById('app').innerHTML = '<p style="padding:40px;font-family:sans-serif;">Hubo un problema cargando el contenido.</p>';
+    });
+</script>
+
+</body>
+</html>
