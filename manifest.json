@@ -1,0 +1,12 @@
+{
+  "name": "TRATAK CAT",
+  "short_name": "TRATAK CAT",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e9e2d1",
+  "theme_color": "#e9e2d1",
+  "icons": [
+    { "src": "/icons/icon_192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon_512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

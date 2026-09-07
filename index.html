@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TRATAK · CAT — Centro de Aprendizaje Tecno-Ontológico</title>
 <meta name="description" content="Centro de aprendizaje que vincula biomateria, código y contemplación. Guadalajara, México.">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon_180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e9e2d1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -161,6 +166,38 @@
   .evento-card #evento-desc{ max-width:56ch; color: color-mix(in srgb, var(--ink) 88%, transparent); font-size:15px; margin-top:10px; }
   .manifiesto p{ font-family:'Fraunces', serif; font-style:italic; font-size: clamp(20px,3vw,28px); line-height:1.5; max-width:64ch; color:var(--moss); }
 
+  /* ---------- sistema de bloques ---------- */
+  .seccion-bloque{ position:relative; padding: 64px 0; border-top: 1px solid var(--line); overflow:hidden; }
+  .seccion-bloque.bloque-media-bg{ padding: 90px 0; }
+  .bloque-media-el{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .bloque-media-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.75)); z-index:1; }
+  .bloque-contenido{ position:relative; z-index:2; }
+  .bloque-claro .bloque-contenido{ color: var(--paper); }
+  .bloque-claro .bloque-contenido .eyebrow{ color:#cfc6ae; }
+  .bloque-claro .bloque-contenido h2{ color: var(--paper); max-width:26ch; }
+  .bloque-claro .bloque-contenido p{ color:#ece6d6; }
+  .bloque-claro .bloque-contenido .btn.primary{ background: var(--paper); color: var(--ink); }
+  .seccion-bloque h2{ font-size:30px; margin-bottom:28px; max-width:20ch; }
+
+  /* ---------- blog ---------- */
+  .blog-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+  .blog-card{ display:block; text-decoration:none; color:inherit; }
+  .blog-card-img .ph, .blog-card-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; margin-bottom:12px; }
+  .blog-card-fecha{ font-size:12px; color:var(--dust); margin-bottom:4px; }
+  .blog-card h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; margin-bottom:6px; }
+  .blog-card p{ font-size:14px; color:#3a352c; margin:0; }
+  @media (max-width:820px){ .blog-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .blog-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- personajes ---------- */
+  .personajes-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+  .personaje-card .ph, .personaje-card .personaje-img img{ width:100%; aspect-ratio:1; object-fit:cover; margin-bottom:12px; }
+  .personaje-card h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; margin-bottom:2px; }
+  .personaje-rol{ font-size:12px; color:var(--dust); margin-bottom:8px; }
+  .personaje-card p{ font-size:14px; color:#3a352c; margin:0; }
+  @media (max-width:820px){ .personajes-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .personajes-grid{ grid-template-columns:1fr; } }
+
   /* ---------- WhatsApp flotante ---------- */
   .whatsapp-flotante{
     position: fixed;
@@ -180,6 +217,41 @@
     transition: transform .15s ease;
   }
   .whatsapp-flotante:hover{ transform: scale(1.06); }
+
+  .modo-noche-toggle{
+    position: fixed;
+    right: 20px;
+    bottom: 86px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    z-index: 90;
+    transition: transform .15s ease;
+  }
+  .modo-noche-toggle:hover{ transform: scale(1.06); }
+  body.modo-noche{
+    --paper: #1c1a17;
+    --paper-2: #26221d;
+    --ink: #ece6d6;
+    --line: rgba(236,230,214,0.16);
+    --dust: #a89d86;
+  }
+  body.modo-noche .bloque-oscuro .bloque-contenido p,
+  body.modo-noche .hero p.lede,
+  body.modo-noche .pilar p,
+  body.modo-noche .blog-card p,
+  body.modo-noche .personaje-card p,
+  body.modo-noche .evento-card #evento-desc{
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
+  }
   .galeria-grid figure{ cursor: zoom-in; margin:0; }
   .lightbox{
     display:none;
@@ -264,66 +336,7 @@
   </div>
 </header>
 
-<div id="main-sections">
-<section class="wrap" id="impacto">
-  <p class="eyebrow">Impacto</p>
-  <div class="stats" id="stats-list"></div>
-</section>
-
-<section class="wrap" id="pilares">
-  <p class="eyebrow">Fundamentos</p>
-  <h2>Cuatro pilares</h2>
-  <div class="pilares" id="pilares-list"></div>
-</section>
-
-<section class="taller-bg" id="taller">
-  <div class="taller-bg-overlay"></div>
-  <div class="wrap">
-    <p class="eyebrow" id="taller-eyebrow"></p>
-    <h2 id="taller-title"></h2>
-    <p id="taller-text1"></p>
-    <p id="taller-text2"></p>
-    <a class="btn primary" id="taller-cta" href="#contacto"></a>
-  </div>
-</section>
-
-<section class="wrap" id="plan">
-  <p class="eyebrow" id="plan-eyebrow"></p>
-  <h2 id="plan-title"></h2>
-  <div class="plan-list" id="plan-list"></div>
-</section>
-
-<section class="wrap" id="tienda">
-  <p class="eyebrow" id="tienda-eyebrow"></p>
-  <h2 id="tienda-title"></h2>
-  <div class="productos" id="tienda-list"></div>
-</section>
-
-<section class="wrap" id="galeria">
-  <p class="eyebrow" id="galeria-eyebrow"></p>
-  <h2 id="galeria-title"></h2>
-  <div class="galeria-grid" id="galeria-list"></div>
-</section>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close">✕</span>
-  <div class="lightbox-inner">
-    <img id="lightbox-img" src="" alt="">
-    <p id="lightbox-caption"></p>
-  </div>
-</div>
-
-<section class="wrap" id="multimedia">
-  <p class="eyebrow" id="multimedia-eyebrow"></p>
-  <h2 id="multimedia-title"></h2>
-  <div class="media-grid" id="multimedia-list"></div>
-</section>
-
-<section class="wrap manifiesto" id="manifiesto">
-  <p class="eyebrow">Manifiesto</p>
-  <p id="manifiesto-text"></p>
-</section>
-</div>
+<div id="main-sections"></div>
 
 <section class="wrap evento-destacado" id="evento-destacado" style="display:none;">
   <p class="eyebrow">Próximo evento</p>
@@ -382,6 +395,10 @@
   <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.02 4a8.94 8.94 0 0 0-7.75 13.4L3 21l3.72-1.24a8.9 8.9 0 0 0 4.28 1.1h.01c4.94 0 8.96-4.02 8.96-8.96a8.9 8.9 0 0 0-2.37-6.28ZM12.02 19.2h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.93.94-2.73-.18-.28a7.42 7.42 0 0 1-1.14-3.96 7.46 7.46 0 0 1 12.72-5.29 7.4 7.4 0 0 1 2.18 5.29c0 4.12-3.35 7.47-7.47 7.47Zm4.08-5.6c-.22-.11-1.32-.65-1.53-.72-.2-.08-.35-.11-.5.11-.15.22-.58.72-.71.87-.13.15-.26.16-.48.05a6.06 6.06 0 0 1-3-2.63c-.23-.39.23-.36.65-1.2.07-.15.04-.28-.02-.4-.05-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.4.05-.6.28-.2.22-.8.78-.8 1.9s.82 2.2.94 2.36c.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.07 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.05-.1-.2-.16-.42-.27Z"/></svg>
 </a>
 
+<button id="modo-noche-toggle" class="modo-noche-toggle" aria-label="Cambiar a modo noche" title="Modo noche">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+</button>
+
 <script>
   function openLightbox(figureEl){
     var img = figureEl.querySelector('img');
@@ -395,6 +412,17 @@
   function closeLightbox(){
     document.getElementById('lightbox').classList.remove('open');
   }
+
+  // Modo noche: recuerda preferencia del visitante en su navegador
+  (function(){
+    var btn = document.getElementById('modo-noche-toggle');
+    var saved = localStorage.getItem('tratak-modo-noche');
+    if (saved === '1') document.body.classList.add('modo-noche');
+    btn.addEventListener('click', function(){
+      document.body.classList.toggle('modo-noche');
+      localStorage.setItem('tratak-modo-noche', document.body.classList.contains('modo-noche') ? '1' : '0');
+    });
+  })();
 
   function youtubeIdFromUrl(url){
     var m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{6,})/);
@@ -436,14 +464,127 @@
         root.setProperty('--font-body', fp.body);
       }
 
-      // Orden de secciones (arrastrado desde el panel)
-      if (d.orden_secciones && d.orden_secciones.length) {
-        var container = document.getElementById('main-sections');
-        d.orden_secciones.forEach(function(item){
-          var key = item.key || item; // soporta string simple u objeto {key: '...'}
-          var el = document.getElementById(key);
-          if (el && container) container.appendChild(el);
-        });
+      // ---- Renderizadores por tipo de bloque ----
+      function wrapAbre(s){
+        var bgAttr = '';
+        var style = '';
+        if (s.fondo === 'color' && s.color_fondo) {
+          style += 'background:' + s.color_fondo + ';';
+        }
+        var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
+        var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
+        return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="sec-' + s.id + '" style="' + style + '">';
+      }
+      function mediaFondoHTML(s){
+        if (s.fondo === 'video' && s.video_fondo) {
+          return '<video class="bloque-media-el" autoplay muted loop playsinline src="' + s.video_fondo + '"></video><div class="bloque-media-overlay"></div>';
+        }
+        if (s.fondo === 'imagen' && s.imagen_fondo) {
+          return '<img class="bloque-media-el" src="' + s.imagen_fondo + '" alt="">' + '<div class="bloque-media-overlay"></div>';
+        }
+        return '';
+      }
+      function renderEstadisticas(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p>' +
+          '<div class="stats">' + s.stats.map(function(st){
+            return '<div class="stat"><div class="n editable">' + st.number + '</div><div class="l">' + st.label + '</div></div>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderPilares(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="pilares">' + s.items.map(function(p){
+            return '<div class="pilar"><div class="num">' + p.num + '</div><h3>' + p.title + '</h3><p>' + p.text + '</p></div>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderDestacado(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<p>' + (s.texto1||'') + '</p><p>' + (s.texto2||'') + '</p>' +
+          (s.boton_texto ? '<a class="btn primary" href="' + s.boton_link + '">' + s.boton_texto + '</a>' : '') +
+          '</div></section>';
+      }
+      function renderListaPrecios(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="plan-list">' + s.items.map(function(it){
+            return '<div class="plan-item"><div><span class="code">' + it.code + '</span><h3>' + it.title + '</h3><div class="meta">' + it.meta + '</div></div><div class="price">' + it.price + '</div></div>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderProductos(s, contacto){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="productos">' + s.items.map(function(p){
+            var msg = encodeURIComponent('Hola, me interesa la pieza "' + p.name + '" (' + p.price + ')');
+            var img = p.image ? '<img src="' + p.image + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;">' : ('Foto: ' + p.name);
+            return '<a class="producto" href="https://wa.me/' + contacto.whatsapp + '?text=' + msg + '">' +
+              '<div class="ph">' + img + '</div><div class="cat">' + p.cat + '</div><h3>' + p.name + '</h3><div class="price">' + p.price + '</div></a>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderGaleria(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="galeria-grid">' + s.items.map(function(g){
+            var inner = g.image ? ('<img src="' + g.image + '" alt="' + g.caption + '">') : ('<div class="ph">Foto: ' + g.caption + '</div>');
+            return '<figure onclick="openLightbox(this)">' + inner + '<figcaption>' + g.caption + '</figcaption></figure>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderMedia(s){
+        var ytId = youtubeIdFromUrl(s.video_url || '');
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="media-grid">' +
+          '<div class="media-item"><div class="media-frame"><iframe src="https://www.youtube.com/embed/' + ytId + '" title="video" frameborder="0" allowfullscreen></iframe></div><p class="media-caption">' + (s.video_caption||'') + '</p></div>' +
+          '<div class="media-item"><div class="media-frame"><iframe src="' + (s.p5_url||'') + '" title="p5" frameborder="0"></iframe></div><p class="media-caption">' + (s.p5_caption||'') + '</p></div>' +
+          '</div></div></section>';
+      }
+      function renderBlog(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="blog-grid">' + s.items.map(function(b){
+            var img = b.imagen ? '<img src="' + b.imagen + '" alt="' + b.titulo + '">' : ('<div class="ph">Foto: ' + b.titulo + '</div>');
+            return '<a class="blog-card" href="' + (b.link||'#') + '">' +
+              '<div class="blog-card-img">' + img + '</div>' +
+              '<div class="blog-card-fecha">' + (b.fecha||'') + '</div>' +
+              '<h3>' + b.titulo + '</h3><p>' + (b.resumen||'') + '</p></a>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderPersonajes(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido"><p class="eyebrow">' + (s.eyebrow||'') + '</p><h2>' + (s.titulo||'') + '</h2>' +
+          '<div class="personajes-grid">' + s.items.map(function(p){
+            var img = p.imagen ? '<img src="' + p.imagen + '" alt="' + p.nombre + '">' : ('<div class="ph">Foto: ' + p.nombre + '</div>');
+            return '<div class="personaje-card">' +
+              '<div class="personaje-img">' + img + '</div>' +
+              '<h3>' + p.nombre + '</h3><div class="personaje-rol">' + (p.rol||'') + '</div><p>' + (p.bio||'') + '</p></div>';
+          }).join('') + '</div></div></section>';
+      }
+      function renderTextoDestacado(s){
+        return wrapAbre(s) + mediaFondoHTML(s) +
+          '<div class="bloque-contenido manifiesto"><p class="eyebrow">' + (s.eyebrow||'') + '</p><p>' + (s.texto||'') + '</p></div></section>';
+      }
+
+      var RENDERERS = {
+        estadisticas: renderEstadisticas,
+        pilares: renderPilares,
+        destacado: renderDestacado,
+        lista_precios: renderListaPrecios,
+        productos: renderProductos,
+        galeria: renderGaleria,
+        media: renderMedia,
+        blog: renderBlog,
+        personajes: renderPersonajes,
+        texto_destacado: renderTextoDestacado
+      };
+
+      if (d.secciones && d.secciones.length) {
+        var cont = document.getElementById('main-sections');
+        cont.innerHTML = d.secciones.map(function(s){
+          var fn = RENDERERS[s.type];
+          if (!fn) return '';
+          return fn(s, d.contacto);
+        }).join('');
       }
 
       // Hero
@@ -457,79 +598,6 @@
       document.getElementById('hero-cta2').href = d.hero.cta2_link;
       document.getElementById('hero-cta3').textContent = d.hero.cta3_label;
       document.getElementById('hero-cta3').href = d.hero.cta3_link;
-
-      // Stats
-      document.getElementById('stats-list').innerHTML = d.stats.map(function(s){
-        return '<div class="stat"><div class="n editable">' + s.number + '</div><div class="l">' + s.label + '</div></div>';
-      }).join('');
-
-      // Pilares
-      document.getElementById('pilares-list').innerHTML = d.pilares.map(function(p){
-        return '<div class="pilar"><div class="num">' + p.num + '</div><h3>' + p.title + '</h3><p>' + p.text + '</p></div>';
-      }).join('');
-
-      // Taller
-      document.getElementById('taller-eyebrow').textContent = d.taller.eyebrow;
-      document.getElementById('taller-title').textContent = d.taller.title;
-      document.getElementById('taller-text1').textContent = d.taller.text1;
-      document.getElementById('taller-text2').textContent = d.taller.text2;
-      document.getElementById('taller-cta').textContent = d.taller.cta_label;
-      document.getElementById('taller-cta').href = d.taller.cta_link;
-      var tallerSection = document.getElementById('taller');
-      var oldMedia = tallerSection.querySelector('.taller-bg-media');
-      if (oldMedia) oldMedia.remove();
-      var mediaEl;
-      if (d.taller.bg_video) {
-        mediaEl = document.createElement('video');
-        mediaEl.src = d.taller.bg_video;
-        mediaEl.autoplay = true; mediaEl.muted = true; mediaEl.loop = true; mediaEl.playsInline = true;
-      } else {
-        mediaEl = document.createElement('img');
-        mediaEl.src = d.taller.bg_image;
-        mediaEl.alt = d.taller.title;
-      }
-      mediaEl.className = 'taller-bg-media';
-      tallerSection.insertBefore(mediaEl, tallerSection.firstChild);
-
-      // Plan
-      document.getElementById('plan-eyebrow').textContent = d.plan.eyebrow;
-      document.getElementById('plan-title').textContent = d.plan.title;
-      document.getElementById('plan-list').innerHTML = d.plan.items.map(function(it){
-        return '<div class="plan-item"><div><span class="code">' + it.code + '</span><h3>' + it.title + '</h3><div class="meta">' + it.meta + '</div></div><div class="price">' + it.price + '</div></div>';
-      }).join('');
-
-      // Tienda
-      document.getElementById('tienda-eyebrow').textContent = d.tienda.eyebrow;
-      document.getElementById('tienda-title').textContent = d.tienda.title;
-      document.getElementById('tienda-list').innerHTML = d.tienda.items.map(function(p){
-        var msg = encodeURIComponent('Hola, me interesa la pieza "' + p.name + '" (' + p.price + ')');
-        var img = p.image ? '<img src="' + p.image + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;">' : ('Foto: ' + p.name);
-        return '<a class="producto" href="https://wa.me/' + d.contacto.whatsapp + '?text=' + msg + '">' +
-          '<div class="ph">' + img + '</div>' +
-          '<div class="cat">' + p.cat + '</div>' +
-          '<h3>' + p.name + '</h3>' +
-          '<div class="price">' + p.price + '</div>' +
-          '</a>';
-      }).join('');
-
-      // Galería
-      document.getElementById('galeria-eyebrow').textContent = d.galeria.eyebrow;
-      document.getElementById('galeria-title').textContent = d.galeria.title;
-      document.getElementById('galeria-list').innerHTML = d.galeria.items.map(function(g){
-        var inner = g.image ? ('<img src="' + g.image + '" alt="' + g.caption + '">') : ('<div class="ph">Foto: ' + g.caption + '</div>');
-        return '<figure onclick="openLightbox(this)">' + inner + '<figcaption>' + g.caption + '</figcaption></figure>';
-      }).join('');
-
-      // Multimedia
-      document.getElementById('multimedia-eyebrow').textContent = d.multimedia.eyebrow;
-      document.getElementById('multimedia-title').textContent = d.multimedia.title;
-      var ytId = youtubeIdFromUrl(d.multimedia.video_url);
-      document.getElementById('multimedia-list').innerHTML =
-        '<div class="media-item"><div class="media-frame"><iframe src="https://www.youtube.com/embed/' + ytId + '" title="video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="media-caption">' + d.multimedia.video_caption + '</p></div>' +
-        '<div class="media-item"><div class="media-frame"><iframe src="' + d.multimedia.p5_url + '" title="p5" frameborder="0"></iframe></div><p class="media-caption">' + d.multimedia.p5_caption + '</p></div>';
-
-      // Manifiesto
-      document.getElementById('manifiesto-text').textContent = d.manifiesto;
 
       // Contacto
       document.getElementById('contacto-titulo').textContent = d.contacto.titulo;
