@@ -15,21 +15,25 @@ collections:
         label: "Contenido del sitio"
         name: "content"
         fields:
+
           - label: "Tema (colores, tipografía y logos)"
             name: "theme"
             widget: object
             fields:
-              - { label: "Color de fondo", name: "color_paper", widget: color }
-              - { label: "Color de texto principal", name: "color_ink", widget: color }
+              - { label: "Color de fondo (modo día)", name: "color_paper", widget: color }
+              - { label: "Color de texto principal (modo día)", name: "color_ink", widget: color }
               - { label: "Color de acento (arcilla)", name: "color_clay", widget: color }
               - { label: "Color de acento (moss)", name: "color_moss", widget: color }
               - { label: "Color de texto secundario (etiquetas, notas)", name: "color_dust", widget: color }
+              - { label: "Color de fondo (modo noche)", name: "color_paper_oscuro", widget: color, required: false, hint: "Si lo dejas vacío, se usa un oscuro por default" }
+              - { label: "Color de texto (modo noche)", name: "color_ink_oscuro", widget: color, required: false }
+              - { label: "Color de texto secundario (modo noche)", name: "color_dust_oscuro", widget: color, required: false }
               - { label: "Logo TRATAK (opcional)", name: "logo_tratak", widget: image, required: false }
               - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
-              - label: "Pareja de tipografías"
+              - label: "Pareja de tipografías (global, por default)"
                 name: "font_pair"
                 widget: select
-                options:
+                options: &font_pairs
                   - { label: "Fraunces + Space Grotesk (editorial cálido)", value: "fraunces_space" }
                   - { label: "Playfair Display + Inter (clásico elegante)", value: "playfair_inter" }
                   - { label: "Libre Baskerville + IBM Plex Sans (literario)", value: "baskerville_plex" }
@@ -40,13 +44,14 @@ collections:
             name: "hero"
             widget: object
             fields:
+              - { label: "Layout", name: "estilo", widget: select, options: [{label: "Imagen al lado del texto", value: "lado"}, {label: "Imagen de fondo completo", value: "fondo"}], default: "lado" }
               - { label: "Frase pequeña arriba del título", name: "kicker", widget: string }
               - { label: "Título — línea 1", name: "title_line1", widget: string }
               - { label: "Título — antes de la palabra en cursiva", name: "title_pre", widget: string }
               - { label: "Título — palabra en cursiva", name: "title_em", widget: string }
               - { label: "Título — línea final", name: "title_line3", widget: string }
               - { label: "Texto debajo del título", name: "lede", widget: text }
-              - { label: "Foto de portada", name: "image", widget: image }
+              - { label: "Foto (al lado o de fondo, según el layout elegido)", name: "image", widget: image }
               - { label: "Botón 1 — texto", name: "cta1_label", widget: string }
               - { label: "Botón 1 — link", name: "cta1_link", widget: string }
               - { label: "Botón 2 — texto", name: "cta2_label", widget: string }
@@ -61,13 +66,15 @@ collections:
 
               - label: "Estadísticas / números"
                 name: "estadisticas"
-                fields:
-                  - { label: "Identificador único (sin espacios, ej. impacto)", name: "id", widget: string }
+                fields: &comunes_sin_lado
+                  - { label: "Identificador único (sin espacios)", name: "id", widget: string }
                   - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
-                  - { label: "Color de fondo (si elegiste 'color')", name: "color_fondo", widget: color, required: false }
-                  - { label: "Imagen de fondo (si elegiste 'imagen')", name: "imagen_fondo", widget: image, required: false }
-                  - { label: "Video de fondo .mp4 (si elegiste 'video')", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio (opcional, si no usa el del tema)", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia (opcional, si no usa la del tema)", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - label: "Números"
                     name: "stats"
@@ -85,6 +92,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Tarjetas"
@@ -95,15 +104,18 @@ collections:
                       - { label: "Título", name: "title", widget: string }
                       - { label: "Texto", name: "text", widget: text }
 
-              - label: "Sección destacada (texto + fondo grande)"
+              - label: "Sección destacada (texto + imagen)"
                 name: "destacado"
                 fields:
                   - { label: "Identificador único", name: "id", widget: string }
-                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "imagen" }
+                  - { label: "Layout", name: "estilo", widget: select, options: [{label: "Imagen de fondo completo", value: "fondo"}, {label: "Imagen al lado del texto", value: "lado"}], default: "fondo" }
+                  - { label: "Fondo (solo aplica con layout 'fondo')", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "imagen" }
                   - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
-                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
-                  - { label: "Video de fondo .mp4 (gana sobre la foto si lo llenas)", name: "video_fondo", widget: file, required: false }
+                  - { label: "Imagen (de fondo, o al lado según el layout)", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4 (solo layout 'fondo'; gana sobre la foto)", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "claro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título", name: "titulo", widget: string }
                   - { label: "Párrafo 1", name: "texto1", widget: text }
@@ -120,12 +132,15 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Programas"
                     name: "items"
                     widget: list
                     fields:
+                      - { label: "Foto (opcional)", name: "imagen", widget: image, required: false }
                       - { label: "Código", name: "code", widget: string }
                       - { label: "Nombre del programa", name: "title", widget: string }
                       - { label: "Detalles (formato, sesiones)", name: "meta", widget: string }
@@ -140,6 +155,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Productos"
@@ -160,6 +177,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Piezas de la galería"
@@ -178,6 +197,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - { label: "Link de YouTube", name: "video_url", widget: string }
@@ -194,6 +215,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Entradas del blog"
@@ -215,6 +238,8 @@ collections:
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
                   - label: "Personajes"
@@ -230,13 +255,29 @@ collections:
                 name: "texto_destacado"
                 fields:
                   - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo (elige 'imagen' para agregarle una foto)", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Texto", name: "texto", widget: text }
+
+              - label: "Próximo evento"
+                name: "evento_proximo"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
                   - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
                   - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
                   - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
-                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-                  - { label: "Texto", name: "texto", widget: text }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Próximo evento" }
+                  - { label: "Nota", name: "_nota", widget: hidden, default: "El título, fecha y descripción se jalan automáticamente de tu Landing del próximo evento — edítalos allá." }
 
           - label: "Contacto"
             name: "contacto"
