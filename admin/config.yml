@@ -15,7 +15,7 @@ collections:
         label: "Contenido del sitio"
         name: "content"
         fields:
-          - label: "Tema (colores y tipografía)"
+          - label: "Tema (colores, tipografía y logos)"
             name: "theme"
             widget: object
             fields:
@@ -24,7 +24,7 @@ collections:
               - { label: "Color de acento (arcilla)", name: "color_clay", widget: color }
               - { label: "Color de acento (moss)", name: "color_moss", widget: color }
               - { label: "Color de texto secundario (etiquetas, notas)", name: "color_dust", widget: color }
-              - { label: "Logo TRATAK (opcional, deja vacío para solo mostrar texto)", name: "logo_tratak", widget: image, required: false }
+              - { label: "Logo TRATAK (opcional)", name: "logo_tratak", widget: image, required: false }
               - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
               - label: "Pareja de tipografías"
                 name: "font_pair"
@@ -35,23 +35,6 @@ collections:
                   - { label: "Libre Baskerville + IBM Plex Sans (literario)", value: "baskerville_plex" }
                   - { label: "DM Serif Display + Work Sans (moderno editorial)", value: "dmserif_work" }
                   - { label: "Cormorant Garamond + Manrope (delicado)", value: "cormorant_manrope" }
-
-          - label: "Orden de las secciones (arrastra para reordenar)"
-            name: "orden_secciones"
-            widget: list
-            fields:
-              - label: "Sección"
-                name: "key"
-                widget: select
-                options:
-                  - { label: "Impacto (números)", value: "impacto" }
-                  - { label: "Pilares", value: "pilares" }
-                  - { label: "El taller", value: "taller" }
-                  - { label: "Plan de estudios", value: "plan" }
-                  - { label: "Tienda", value: "tienda" }
-                  - { label: "Galería", value: "galeria" }
-                  - { label: "Video y animación", value: "multimedia" }
-                  - { label: "Manifiesto", value: "manifiesto" }
 
           - label: "Portada (Hero)"
             name: "hero"
@@ -71,89 +54,189 @@ collections:
               - { label: "Botón 3 — texto", name: "cta3_label", widget: string }
               - { label: "Botón 3 — link", name: "cta3_link", widget: string }
 
-          - label: "Impacto (números)"
-            name: "stats"
+          - label: "Secciones de la página (arrastra para reordenar, agrega o quita las que quieras)"
+            name: "secciones"
             widget: list
-            fields:
-              - { label: "Número", name: "number", widget: string }
-              - { label: "Descripción", name: "label", widget: string }
+            types:
 
-          - label: "Pilares"
-            name: "pilares"
-            widget: list
-            fields:
-              - { label: "Número/etiqueta (ej. 01 · contemplación)", name: "num", widget: string }
-              - { label: "Título", name: "title", widget: string }
-              - { label: "Texto", name: "text", widget: text }
-
-          - label: "El taller"
-            name: "taller"
-            widget: object
-            fields:
-              - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-              - { label: "Título", name: "title", widget: string }
-              - { label: "Párrafo 1", name: "text1", widget: text }
-              - { label: "Párrafo 2", name: "text2", widget: text }
-              - { label: "Foto de fondo", name: "bg_image", widget: image }
-              - { label: "Video de fondo (opcional, formato .mp4 — si lo llenas, gana sobre la foto)", name: "bg_video", widget: file, required: false }
-              - { label: "Botón — texto", name: "cta_label", widget: string }
-              - { label: "Botón — link", name: "cta_link", widget: string }
-
-          - label: "Plan de estudios"
-            name: "plan"
-            widget: object
-            fields:
-              - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-              - { label: "Título de la sección", name: "title", widget: string }
-              - label: "Programas"
-                name: "items"
-                widget: list
+              - label: "Estadísticas / números"
+                name: "estadisticas"
                 fields:
-                  - { label: "Código", name: "code", widget: string }
-                  - { label: "Nombre del programa", name: "title", widget: string }
-                  - { label: "Detalles (formato, sesiones)", name: "meta", widget: string }
-                  - { label: "Precio", name: "price", widget: string }
+                  - { label: "Identificador único (sin espacios, ej. impacto)", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo (si elegiste 'color')", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo (si elegiste 'imagen')", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4 (si elegiste 'video')", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - label: "Números"
+                    name: "stats"
+                    widget: list
+                    fields:
+                      - { label: "Número", name: "number", widget: string }
+                      - { label: "Descripción", name: "label", widget: string }
 
-          - label: "Tienda"
-            name: "tienda"
-            widget: object
-            fields:
-              - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-              - { label: "Título de la sección", name: "title", widget: string }
-              - label: "Productos"
-                name: "items"
-                widget: list
+              - label: "Pilares / tarjetas cortas"
+                name: "pilares"
                 fields:
-                  - { label: "Nombre de la pieza", name: "name", widget: string }
-                  - { label: "Categoría", name: "cat", widget: string }
-                  - { label: "Precio", name: "price", widget: string }
-                  - { label: "Foto", name: "image", widget: image, required: false }
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Tarjetas"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Número/etiqueta (ej. 01 · contemplación)", name: "num", widget: string }
+                      - { label: "Título", name: "title", widget: string }
+                      - { label: "Texto", name: "text", widget: text }
 
-          - label: "Galería"
-            name: "galeria"
-            widget: object
-            fields:
-              - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-              - { label: "Título de la sección", name: "title", widget: string }
-              - label: "Piezas de la galería"
-                name: "items"
-                widget: list
+              - label: "Sección destacada (texto + fondo grande)"
+                name: "destacado"
                 fields:
-                  - { label: "Foto", name: "image", widget: image, required: false }
-                  - { label: "Descripción (ej. Cerámica — Jarrón)", name: "caption", widget: string }
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "imagen" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4 (gana sobre la foto si lo llenas)", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "claro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título", name: "titulo", widget: string }
+                  - { label: "Párrafo 1", name: "texto1", widget: text }
+                  - { label: "Párrafo 2", name: "texto2", widget: text, required: false }
+                  - { label: "Botón — texto", name: "boton_texto", widget: string, required: false }
+                  - { label: "Botón — link", name: "boton_link", widget: string, required: false }
 
-          - label: "Video y animación"
-            name: "multimedia"
-            widget: object
-            fields:
-              - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
-              - { label: "Título de la sección", name: "title", widget: string }
-              - { label: "Link de YouTube", name: "video_url", widget: string }
-              - { label: "Descripción del video", name: "video_caption", widget: string }
-              - { label: "Link del sketch de p5.js (formato /full/)", name: "p5_url", widget: string }
-              - { label: "Descripción de la animación", name: "p5_caption", widget: string }
+              - label: "Lista de precios / programas"
+                name: "lista_precios"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Programas"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Código", name: "code", widget: string }
+                      - { label: "Nombre del programa", name: "title", widget: string }
+                      - { label: "Detalles (formato, sesiones)", name: "meta", widget: string }
+                      - { label: "Precio", name: "price", widget: string }
 
-          - { label: "Manifiesto", name: "manifiesto", widget: text }
+              - label: "Productos / tienda"
+                name: "productos"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Productos"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Nombre de la pieza", name: "name", widget: string }
+                      - { label: "Categoría", name: "cat", widget: string }
+                      - { label: "Precio", name: "price", widget: string }
+                      - { label: "Foto", name: "image", widget: image, required: false }
+
+              - label: "Galería de fotos"
+                name: "galeria"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Piezas de la galería"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Foto", name: "image", widget: image, required: false }
+                      - { label: "Descripción (ej. Cerámica — Jarrón)", name: "caption", widget: string }
+
+              - label: "Video y animación en vivo"
+                name: "media"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - { label: "Link de YouTube", name: "video_url", widget: string }
+                  - { label: "Descripción del video", name: "video_caption", widget: string }
+                  - { label: "Link del sketch de p5.js (formato /full/)", name: "p5_url", widget: string }
+                  - { label: "Descripción de la animación", name: "p5_caption", widget: string }
+
+              - label: "Blog"
+                name: "blog"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Entradas del blog"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Título de la entrada", name: "titulo", widget: string }
+                      - { label: "Fecha", name: "fecha", widget: string }
+                      - { label: "Resumen corto", name: "resumen", widget: text }
+                      - { label: "Foto", name: "imagen", widget: image, required: false }
+                      - { label: "Link (a dónde lleva al hacer clic)", name: "link", widget: string, required: false }
+
+              - label: "Personajes / referentes"
+                name: "personajes"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - label: "Personajes"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Nombre", name: "nombre", widget: string }
+                      - { label: "Rol o disciplina", name: "rol", widget: string }
+                      - { label: "Foto", name: "imagen", widget: image, required: false }
+                      - { label: "Biografía corta", name: "bio", widget: text }
+
+              - label: "Texto destacado / manifiesto"
+                name: "texto_destacado"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Texto", name: "texto", widget: text }
 
           - label: "Contacto"
             name: "contacto"
