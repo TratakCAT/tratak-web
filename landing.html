@@ -172,17 +172,20 @@
     font-size:12px;
     color: var(--moss);
     padding-top:3px;
+    grid-column: 1;
   }
   .topic h3{
     font-size:17px;
     font-weight:600;
     margin:0 0 6px;
+    grid-column: 2;
   }
   .topic p{
     margin:0;
     font-size:14.5px;
     color:#3a352c;
     max-width:50ch;
+    grid-column: 2;
   }
 
   /* ---------- para quien ---------- */
@@ -253,6 +256,7 @@
   @media (max-width: 560px){
     .facts{ grid-template-columns: 1fr 1fr; }
     .topic{ grid-template-columns: 1fr; }
+    .topic .tag, .topic h3, .topic p{ grid-column: 1; }
     .topic .tag{ padding-top:0; }
   }
 </style>
