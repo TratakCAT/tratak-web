@@ -193,7 +193,7 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="productos">' + mostrar.map(function (p) { return productoCard(p, contacto ? contacto.whatsapp : ''); }).join('') + '</div>' +
-      (!opts.todos && items.length > 8 ? verTodoLink(s.id, 'Ver toda la tienda') : '') +
+      (!opts.todos ? verTodoLink(s.id, 'Ver toda la tienda') : '') +
       '</div></section>';
   }
 
@@ -209,7 +209,7 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="galeria-grid">' + mostrar.map(galeriaFigure).join('') + '</div>' +
-      (!opts.todos && items.length > 6 ? verTodoLink(s.id, 'Ver galería completa') : '') +
+      (!opts.todos ? verTodoLink(s.id, 'Ver galería completa') : '') +
       '</div></section>';
   }
 
@@ -238,7 +238,7 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="blog-grid">' + mostrar.map(blogCard).join('') + '</div>' +
-      (!opts.todos && items.length > 3 ? verTodoLink(s.id, 'Ver todo el blog') : '') +
+      (!opts.todos ? verTodoLink(s.id, 'Ver todo el blog') : '') +
       '</div></section>';
   }
 
@@ -256,7 +256,7 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="personajes-grid">' + mostrar.map(personajeCard).join('') + '</div>' +
-      (!opts.todos && items.length > 3 ? verTodoLink(s.id, 'Ver todos') : '') +
+      (!opts.todos ? verTodoLink(s.id, 'Ver todos') : '') +
       '</div></section>';
   }
 
