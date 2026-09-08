@@ -38,8 +38,8 @@
       "id": "proximo-evento",
       "type": "evento_proximo",
       "fondo": "imagen",
-      "color_texto": "oscuro",
-      "eyebrow": "Próximo evento",
+      "color_texto": "claro",
+      "eyebrow": "Experiencias",
       "imagen_fondo": "/images/img_20221209_121249.jpg"
     },
     {
@@ -122,45 +122,51 @@
     {
       "items": [
         {
-          "code": "TÓPICO: CUL_BIO // 00",
-          "title": "Cultura Biomaterial",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$9,000 MXN",
-          "imagen": ""
-        },
-        {
-          "code": "TÓPICO: IMP_3D_LDM // 00",
-          "title": "Impresión 3D LDM",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
-          "price": "$9,000 MXN",
-          "imagen": ""
+          "title": "Asesoría Catalizadora de Creatividad",
+          "code": "ASESORÍA: 00",
+          "meta": "Una hora de acompañamiento especializado para tu proyecto",
+          "price": "$100"
         },
         {
           "code": "TÓPICO: DIS_VR // 00",
           "title": "Diseño en Realidad Virtual",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "$9,000 MXN",
+          "imagen": ""
+        },
+        {
+          "code": "TÓPICO: CUL_BIO // 00",
+          "title": "Cultura Biomaterial",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
           "price": "$9,000 MXN",
           "imagen": ""
         },
         {
           "code": "P.E.S. · Individual",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
-          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final",
+          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
           "price": "$25,000 MXN",
           "imagen": ""
         },
         {
           "code": "P.E.S.2 · Grupal (2–4 personas)",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
-          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final",
+          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
           "price": "$19,000 MXN",
           "imagen": ""
         },
         {
           "code": "P.E.S.3 · Grupal (2–4 personas)",
           "title": "1 Tópico a elegir",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
           "price": "$7,000 MXN",
+          "imagen": ""
+        },
+        {
+          "code": "TÓPICO: IMP_3D_LDM // 00",
+          "title": "Impresión 3D LDM",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "$9,000 MXN",
           "imagen": ""
         }
       ],
@@ -179,35 +185,36 @@
           "name": "Hábitat de insectos",
           "cat": "Cerámica",
           "price": "$600 MXN",
-          "image": ""
+          "image": "/images/whatsapp-image-2026-05-27-at-12.52.08-pm.jpeg"
         },
         {
           "name": "Gestos Materiales",
           "cat": "Escultura de pared",
           "price": "$300 MXN",
-          "image": ""
+          "image": "/images/whatsapp-image-2026-05-27-at-12.53.11-pm.jpeg"
         },
         {
-          "name": "Disco cerámico impreso",
+          "name": "Bio-Kits",
           "cat": "Decoración",
           "price": "$950 MXN",
-          "image": ""
+          "image": "/images/whatsapp-image-2026-09-07-at-7.43.51-pm.jpeg"
         },
         {
-          "name": "Maceta de nopal compuesto",
-          "cat": "Botánica",
-          "price": "$1,600 MXN",
-          "image": ""
+          "name": "Proyectos Especiales",
+          "cat": "Personalizado",
+          "price": "A Cotizar",
+          "image": "/images/whatsapp-image-2026-09-07-at-7.44.03-pm.jpeg"
         }
       ],
       "color_acento": "",
       "color_texto": "oscuro",
-      "eyebrow": "Hecho en el taller",
+      "eyebrow": "Neo-Artesanías",
       "fuente_titulo": "",
-      "fondo": "ninguno",
-      "titulo": "Tienda",
+      "fondo": "color",
+      "color_fondo": "#d0f6d0",
+      "titulo": "Materializaciones bajo pedido",
       "type": "productos",
-      "id": "tienda"
+      "id": "tienda bajo pedido"
     },
     {
       "items": [
