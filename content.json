@@ -16,7 +16,7 @@
   },
   "hero": {
     "color_acento": "",
-    "estilo": "lado",
+    "estilo": "fondo",
     "layout": "imagen_lado",
     "fuente_titulo": "",
     "title_em": "viva",
@@ -34,14 +34,6 @@
     "title_pre": "la materia "
   },
   "secciones": [
-    {
-      "id": "proximo-evento",
-      "type": "evento_proximo",
-      "fondo": "imagen",
-      "color_texto": "claro",
-      "eyebrow": "Experiencias",
-      "imagen_fondo": "/images/img_20221209_121249.jpg"
-    },
     {
       "estilo_fuente": null,
       "color_acento": "",
@@ -67,6 +59,14 @@
           "label": "Conferencias y talleres impartidos"
         }
       ]
+    },
+    {
+      "id": "proximo-evento",
+      "type": "evento_proximo",
+      "fondo": "imagen",
+      "color_texto": "claro",
+      "eyebrow": "Experiencias",
+      "imagen_fondo": "/images/img_20221209_121249.jpg"
     },
     {
       "color_acento": "",
