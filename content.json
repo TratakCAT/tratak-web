@@ -219,15 +219,15 @@
     {
       "items": [
         {
-          "image": "",
-          "caption": "Cerámica — Jarrón ceremonial"
+          "image": "/images/img_20230109_224809.jpg",
+          "caption": "El primer biomaterial — Biopasta de hueso de aguacate"
         },
         {
-          "image": "",
-          "caption": "Biomaterial — Red micelial"
+          "image": "/images/img_20221204_110137.jpg",
+          "caption": "Logo de Tratak — La flor"
         },
         {
-          "image": "",
+          "image": "/images/img_8488.heic",
           "caption": "Fotografía — Macro botánico"
         },
         {
@@ -245,12 +245,12 @@
       ],
       "color_acento": "",
       "color_texto": "oscuro",
-      "eyebrow": "Proyectos",
+      "eyebrow": "Proyectos, eventos y momentos",
       "fuente_titulo": "",
       "fondo": "ninguno",
-      "titulo": "Galería",
+      "titulo": "Memoria Digital",
       "type": "galeria",
-      "id": "galeria"
+      "id": "Memoria Digital"
     },
     {
       "color_acento": "",
