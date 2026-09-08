@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — TRATAK CAT</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity.js"></script>
+</head>
+<body>
+  <script>
+    netlifyIdentity.init({
+      APIUrl: "https://tratak.netlify.app/.netlify/identity"
+    });
+  </script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Motor compartido de renderizado: el mismo que usa el sitio real -->
+  <script src="../assets/site.js?v=2"></script>
+
+  <script>
+    // Estilos del sitio real, aplicados dentro del iframe de preview
+    CMS.registerPreviewStyle("../styles.css?v=2");
+    CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap");
+
+    // Preview del archivo "content.json" (sitio principal)
+    var SitioPreview = createClass({
+      render: function () {
+        var data = this.props.entry.getIn(['data']);
+        var plain = data ? data.toJS() : {};
+        var html = TratakRender.renderFullPage(plain, null);
+        return h('div', { dangerouslySetInnerHTML: { __html: html } });
+      }
+    });
+    CMS.registerPreviewTemplate('content', SitioPreview);
+
+    // Preview del archivo "eventos.json" (lista de eventos)
+    var EventosPreview = createClass({
+      render: function () {
+        var data = this.props.entry.getIn(['data']);
+        var plain = data ? data.toJS() : {};
+        var eventos = plain.eventos || [];
+        var html = eventos.map(function (plainEv) {
+          var temas = (plainEv.temas || []).map(function (t) {
+            return '<div class="topic"><div class="tag">' + (t.tag || '') + '</div><h3>' + (t.title || '') + '</h3><p>' + (t.text || '') + '</p></div>';
+          }).join('');
+          var perfil = (plainEv.perfil || []).map(function (p) {
+            return '<span>' + (typeof p === 'string' ? p : (p.perfil_item || '')) + '</span>';
+          }).join('');
+          return (
+            '<div style="border-bottom:4px solid #ccc;margin-bottom:24px;padding-bottom:24px;">' +
+            (plainEv.es_proximo ? '<p style="color:green;font-weight:bold;">★ Marcado como "el próximo" (aparece en el home)</p>' : '') +
+            '<section class="hero"><p class="kicker">Taller demostrativo — cupo abierto</p>' +
+            '<h1>' + (plainEv.titulo_evento_html || '') + '</h1>' +
+            '<p class="lede">' + (plainEv.descripcion || '') + '</p>' +
+            '<div class="facts">' +
+            '<div class="fact"><div class="k">Fecha</div><div class="v">' + (plainEv.fecha || '') + '</div></div>' +
+            '<div class="fact"><div class="k">Horario</div><div class="v">' + (plainEv.horario || '') + '</div></div>' +
+            '<div class="fact"><div class="k">Sede</div><div class="v editable">' + (plainEv.sede || '') + '</div></div>' +
+            '</div><p class="aporte-note">' + (plainEv.aporte_texto || '') + '</p></section>' +
+            '<section class="explora"><h2>Qué vas a explorar</h2><div class="topics">' + temas + '</div></section>' +
+            '<section class="para-quien"><h2>Para quién es</h2><div class="perfil-list">' + perfil + '</div></section>' +
+            '</div>'
+          );
+        }).join('');
+        return h('div', { dangerouslySetInnerHTML: { __html: html } });
+      }
+    });
+    CMS.registerPreviewTemplate('eventos_data', EventosPreview);
+  </script>
+</body>
+</html>
