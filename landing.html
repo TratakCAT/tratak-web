@@ -316,9 +316,25 @@
   </footer>
 
 <script>
-  fetch('landing-content.json?_=' + Date.now())
+  function getParam(name) {
+    var params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  fetch('eventos.json?_=' + Date.now())
     .then(function(r){ return r.json(); })
-    .then(function(d){
+    .then(function(data){
+      var eventos = data.eventos || [];
+      var slug = getParam('evento');
+      var d = slug
+        ? eventos.find(function(e){ return e.slug === slug; })
+        : (eventos.find(function(e){ return e.es_proximo; }) || eventos[0]);
+
+      if (!d) {
+        document.querySelector('.wrap').innerHTML = '<p style="padding:60px 0;">No se encontró este evento. <a href="index.html">Volver al inicio</a></p>';
+        return;
+      }
+
       document.getElementById('landing-titulo').innerHTML = d.titulo_evento_html;
       document.getElementById('landing-desc').textContent = d.descripcion;
       document.getElementById('landing-fecha').textContent = d.fecha;
@@ -328,15 +344,27 @@
       document.getElementById('landing-whatsapp-link').href = 'https://wa.me/' + d.whatsapp;
       document.getElementById('landing-whatsapp-footer').href = 'https://wa.me/' + d.whatsapp;
       document.getElementById('landing-aporte').textContent = d.aporte_texto;
-      document.getElementById('landing-temas').innerHTML = d.temas.map(function(t){
+      document.getElementById('landing-temas').innerHTML = (d.temas || []).map(function(t){
         return '<div class="topic"><div class="tag">' + t.tag + '</div><h3>' + t.title + '</h3><p>' + t.text + '</p></div>';
       }).join('');
-      document.getElementById('landing-perfil').innerHTML = d.perfil.map(function(p){
+      document.getElementById('landing-perfil').innerHTML = (d.perfil || []).map(function(p){
         return '<span>' + p + '</span>';
       }).join('');
       document.getElementById('landing-despues').textContent = d.despues_texto;
+
+      if (eventos.length > 1) {
+        var otros = eventos.filter(function(e){ return e.slug !== d.slug; });
+        if (otros.length) {
+          var listaHTML = '<div class="wrap" style="padding:20px 0 40px;"><p style="font-size:13px;color:var(--dust,#8a7f68);margin-bottom:10px;">Otros eventos:</p>' +
+            otros.map(function(e){
+              return '<a href="landing.html?evento=' + encodeURIComponent(e.slug) + '" style="display:block;margin-bottom:6px;">' +
+                (e.titulo_evento_html ? e.titulo_evento_html.replace(/<[^>]+>/g,' ') : e.slug) + ' — ' + (e.fecha || '') + '</a>';
+            }).join('') + '</div>';
+          document.querySelector('footer').insertAdjacentHTML('beforebegin', listaHTML);
+        }
+      }
     })
-    .catch(function(err){ console.error('No se pudo cargar landing-content.json', err); });
+    .catch(function(err){ console.error('No se pudo cargar eventos.json', err); });
 </script>
 
 </div>

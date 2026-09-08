@@ -128,6 +128,8 @@
     border: 1px solid var(--line);
     padding: 32px;
   }
+  .evento-item + .evento-item{ margin-top:0; }
+  .evento-divisor{ border:none; border-top:1px solid var(--line); margin:28px 0; }
   .evento-card-bloque h2{ font-size:24px; margin-bottom:8px; }
   .evento-card-bloque > p{ margin:0 0 6px; font-size:14px; color: var(--dust); }
   .evento-bloque-desc{ max-width:56ch; color: color-mix(in srgb, var(--ink) 88%, transparent); font-size:15px; margin: 10px 0 20px; }
