@@ -7,12 +7,12 @@
       "color_dust": "#a89d86"
     },
     "font_pair": "fraunces_space",
-    "color_ink": "#ffffff",
+    "color_ink": "#26326a",
     "color_dust": "#000000",
     "logo_tratak": "/images/logo-tratak.png",
-    "color_paper": "#eacaff",
+    "color_paper": "#e5bbff",
     "color_clay": "#d946da",
-    "color_moss": "#ffffff"
+    "color_moss": "#1a0000"
   },
   "hero": {
     "color_acento": "",
@@ -27,9 +27,9 @@
     "cta2_label": "Conocer el taller →",
     "cta2_link": "#taller",
     "cta1_link": "#plan",
-    "title_line3": "del mundo.",
+    "title_line3": "del cosmos.",
     "cta3_label": "Próximos eventos →",
-    "lede": "Vinculamos biomateria, código y contemplación en un laboratorio donde la naturaleza es el primer maestro. Guadalajara, México.",
+    "lede": "...",
     "image": "/images/hero-pieza.jpg",
     "title_pre": "la materia "
   },
@@ -40,7 +40,9 @@
       "fondo": "imagen",
       "color_texto": "claro",
       "eyebrow": "Experiencias",
-      "imagen_fondo": "/images/img_20221209_121249.jpg"
+      "imagen_fondo": "/images/img_20221209_121249.jpg",
+      "color_acento": "#360707",
+      "estilo_fuente": "fraunces_space"
     },
     {
       "estilo_fuente": null,
