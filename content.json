@@ -45,6 +45,14 @@
       "estilo_fuente": "fraunces_space"
     },
     {
+      "type": "evento_proximo",
+      "fondo": "ninguno",
+      "color_texto": "oscuro",
+      "eyebrow": "Próximo evento",
+      "_nota": "El título, fecha y descripción se jalan automáticamente de tu Landing del próximo evento — edítalos allá.",
+      "id": "próximo-evento 2"
+    },
+    {
       "estilo_fuente": null,
       "color_acento": "",
       "color_texto": "oscuro",
