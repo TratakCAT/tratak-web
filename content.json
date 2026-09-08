@@ -1,111 +1,115 @@
 {
   "theme": {
-    "color_paper": "#e9e2d1",
-    "color_ink": "#241f18",
-    "color_clay": "#a3552b",
-    "color_moss": "#39514c",
-    "font_pair": "fraunces_space",
-    "logo_tratak": "/images/logo-tratak.png",
     "logo_cat": "/images/logo-cat.png",
     "modo_oscuro": {
       "color_paper": "#1c1a17",
       "color_ink": "#ece6d6",
       "color_dust": "#a89d86"
-    }
+    },
+    "font_pair": "fraunces_space",
+    "color_ink": "#241f18",
+    "color_dust": "#000000",
+    "logo_tratak": "/images/logo-tratak.png",
+    "color_paper": "#c2b3ec",
+    "color_clay": "#cc21e1",
+    "color_moss": "#ffffff"
   },
   "hero": {
-    "kicker": "Centro de Aprendizaje Tecno-Ontológico",
-    "title_line1": "Contempla y biofabrica",
-    "title_pre": "la materia ",
+    "color_acento": "",
+    "estilo": "lado",
+    "layout": "imagen_lado",
+    "fuente_titulo": "",
     "title_em": "viva",
-    "title_line3": "del mundo.",
-    "lede": "Vinculamos biomateria, código y contemplación en un laboratorio donde la naturaleza es el primer maestro. Guadalajara, México.",
-    "image": "/images/hero-pieza.jpg",
+    "kicker": "Centro de Aprendizaje Tecno-Ontológico",
     "cta1_label": "Ver programas →",
-    "cta1_link": "#plan",
+    "title_line1": "Contempla y biofabrica",
+    "cta3_link": "landing.html",
     "cta2_label": "Conocer el taller →",
     "cta2_link": "#taller",
+    "cta1_link": "#plan",
+    "title_line3": "del mundo.",
     "cta3_label": "Próximos eventos →",
-    "cta3_link": "landing.html",
-    "layout": "imagen_lado",
-    "color_acento": "",
-    "fuente_titulo": "",
-    "estilo": "lado"
+    "lede": "Vinculamos biomateria, código y contemplación en un laboratorio donde la naturaleza es el primer maestro. Guadalajara, México.",
+    "image": "/images/hero-pieza.jpg",
+    "title_pre": "la materia "
   },
   "secciones": [
     {
-      "id": "impacto",
-      "type": "estadisticas",
-      "fondo": "ninguno",
+      "estilo_fuente": null,
+      "color_acento": "",
       "color_texto": "oscuro",
       "eyebrow": "Impacto",
+      "fuente_titulo": "",
+      "fondo": "color",
+      "color_fondo": "#d0f6d0",
+      "titulo": "",
+      "type": "estadisticas",
+      "id": "impacto",
       "stats": [
         {
-          "number": "[X] años",
-          "label": "formando creadores de biomateria"
+          "number": "3 años",
+          "label": "Formando catalizando creatividad"
         },
         {
-          "number": "[X]",
-          "label": "estudiantes han pasado por el laboratorio"
+          "number": "+250",
+          "label": "Creativos transformados por el contenido"
         },
         {
-          "number": "[X]",
-          "label": "conferencias y talleres impartidos"
+          "number": "+50",
+          "label": "Conferencias y talleres impartidos"
         }
-      ],
-      "color_acento": "",
-      "fuente_titulo": "",
-      "titulo": ""
+      ]
     },
     {
-      "id": "pilares",
-      "type": "pilares",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Fundamentos",
-      "titulo": "Cuatro pilares",
       "items": [
         {
-          "num": "01 · contemplación",
-          "title": "Mirada sostenida",
-          "text": "Observar sin prisa. El primer paso para crear es aprender a ver lo que la materia ya está haciendo."
+          "num": "01 · Materialidad",
+          "title": "Mater (madre, la fuente o el origen de donde proviene algo)",
+          "text": "La materia es nuestro punto de partida. Antes de transformarla, aprendemos a observarla: su origen, sus propiedades, sus comportamientos y las relaciones que establece con el entorno. Diseñar es entrar en diálogo con aquello que nos da forma."
         },
         {
-          "num": "02 · materia",
-          "title": "Tierra aprendida",
-          "text": "Tocar, mezclar, fallar. El conocimiento vive en las manos, no solo en la pantalla."
+          "num": "02 · Tecnología",
+          "title": "Téchnē (τέχνη) (arte u oficio)",
+          "text": "El conocimiento que emerge del hacer: de la mano que prueba, de la herramienta que transforma y del material que responde.  Aprendemos experimentando, construyendo, fallando y volviendo a intentar."
         },
         {
-          "num": "03 · lenguaje",
-          "title": "Verbo cuidadoso",
-          "text": "Nombrar con precisión. El código y la receta comparten la misma disciplina: cada palabra importa."
+          "num": "03 · Contemplación (Tratak)",
+          "title": "Tratak ( त्राटक ) (mirar, observar o contemplar)",
+          "text": "Contemplar es detenerse para observar con atención. La contemplación no es separarse de la acción, sino hacer consciente nuestra manera de percibir, crear y relacionarnos con la tecnología y la materia. Tratak viene del sánscrito y quiere decir contemplación."
         },
         {
-          "num": "04 · tiempo",
-          "title": "Ritmo del aprendiz",
-          "text": "Sin prisas industriales. Cada proceso tiene su tiempo — el micelio, la cerámica, el algoritmo."
+          "num": "Diseño Tranpersonal",
+          "title": "La liberación del tecno-estrés.",
+          "text": "Material, hacer y con atención forman una práctica: observar lo que existe, intervenir mediante la no-acción y permanecer atentos a lo que emerge. Sin prisas industriales, ofrecer soluciones para el bienestar de todos los seres sintientes."
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Fundamentos",
+      "fuente_titulo": "",
+      "fondo": "color",
+      "color_fondo": "#71b7dc",
+      "titulo": "Nuestra Filosofía",
+      "type": "pilares",
+      "id": "Nuestra filosofía"
     },
     {
-      "id": "taller",
-      "type": "destacado",
-      "fondo": "imagen",
-      "imagen_fondo": "/images/taller-ldm.jpg",
-      "video_fondo": "",
-      "color_texto": "claro",
-      "eyebrow": "El espacio",
-      "titulo": "El taller",
-      "texto1": "Un laboratorio donde los residuos se convierten en objetos vivos. Impresión 3D de biomateriales, cerámica computacional, cultivo de micelio — todo bajo el mismo techo en Guadalajara.",
-      "texto2": "Cada mesa tiene tierra, cada pantalla tiene código. Aquí no separamos las manos de la mente.",
-      "boton_texto": "Agendar visita →",
-      "boton_link": "#contacto",
       "color_acento": "",
-      "fuente_titulo": "",
+      "imagen_fondo": "/images/taller-ldm.jpg",
+      "estilo": "fondo",
+      "color_texto": "claro",
+      "boton_texto": "Agendar visita →",
+      "eyebrow": "El espacio",
       "layout": "fondo_completo",
-      "estilo": "fondo"
+      "video_fondo": "",
+      "fuente_titulo": "",
+      "texto1": "Un laboratorio donde los residuos se convierten en objetos vivos. Impresión 3D de biomateriales, cerámica computacional, cultivo de micelio — todo bajo el mismo techo en Guadalajara.",
+      "fondo": "imagen",
+      "texto2": "Cada mesa tiene tierra, cada pantalla tiene código. Aquí no separamos las manos de la mente.",
+      "boton_link": "#contacto",
+      "titulo": "El taller",
+      "type": "destacado",
+      "id": "Contemplación "
     },
     {
       "id": "proximo-evento",
@@ -115,12 +119,6 @@
       "eyebrow": "Próximo evento"
     },
     {
-      "id": "plan",
-      "type": "lista_precios",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Formación S.T.E.A.M. · 6 programas",
-      "titulo": "Plan de estudios",
       "items": [
         {
           "code": "TÓPICO: CUL_BIO // 00",
@@ -166,15 +164,15 @@
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Formación S.T.E.A.M. · 6 programas",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "titulo": "Plan de estudios",
+      "type": "lista_precios",
+      "id": "plan"
     },
     {
-      "id": "tienda",
-      "type": "productos",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Hecho en el taller",
-      "titulo": "Tienda",
       "items": [
         {
           "name": "Hábitat de insectos",
@@ -202,15 +200,15 @@
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Hecho en el taller",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "titulo": "Tienda",
+      "type": "productos",
+      "id": "tienda"
     },
     {
-      "id": "galeria",
-      "type": "galeria",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Proyectos",
-      "titulo": "Galería",
       "items": [
         {
           "image": "",
@@ -238,29 +236,29 @@
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Proyectos",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "titulo": "Galería",
+      "type": "galeria",
+      "id": "galeria"
     },
     {
-      "id": "multimedia",
-      "type": "media",
-      "fondo": "ninguno",
+      "color_acento": "",
+      "video_caption": "Video de proceso",
       "color_texto": "oscuro",
       "eyebrow": "Proceso en movimiento",
-      "titulo": "Video y animación en vivo",
       "video_url": "https://www.youtube.com/watch?v=qFo8yMZ-vzM",
-      "video_caption": "Video de proceso",
-      "p5_url": "https://editor.p5js.org/thadrv/full/s6iVhCf1Z",
       "p5_caption": "Animación generativa (p5.js) — interactiva",
-      "color_acento": "",
-      "fuente_titulo": ""
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "p5_url": "https://editor.p5js.org/thadrv/full/s6iVhCf1Z",
+      "titulo": "Video y animación en vivo",
+      "type": "media",
+      "id": "multimedia"
     },
     {
-      "id": "blog",
-      "type": "blog",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Bitácora",
-      "titulo": "Blog",
       "items": [
         {
           "titulo": "Primera entrada — bienvenida al blog",
@@ -271,15 +269,15 @@
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Bitácora",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "titulo": "Blog",
+      "type": "blog",
+      "id": "blog"
     },
     {
-      "id": "personajes",
-      "type": "personajes",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Comunidad",
-      "titulo": "Personajes y referentes",
       "items": [
         {
           "nombre": "Nombre de ejemplo",
@@ -289,19 +287,25 @@
         }
       ],
       "color_acento": "",
-      "fuente_titulo": ""
+      "color_texto": "oscuro",
+      "eyebrow": "Comunidad",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "titulo": "Personajes y referentes",
+      "type": "personajes",
+      "id": "personajes"
     },
     {
-      "id": "manifiesto",
-      "type": "texto_destacado",
-      "fondo": "ninguno",
+      "color_acento": "",
+      "texto": "Creemos que aprender es un acto de contemplación. Que la materia viva del mundo —el micelio, la arcilla, la fibra, el código— nos enseña si sabemos mirar. No fabricamos rápido. Fabricamos con sentido.",
       "color_texto": "oscuro",
       "eyebrow": "Manifiesto",
-      "texto": "Creemos que aprender es un acto de contemplación. Que la materia viva del mundo —el micelio, la arcilla, la fibra, el código— nos enseña si sabemos mirar. No fabricamos rápido. Fabricamos con sentido.",
-      "color_acento": "",
       "fuente_titulo": "",
+      "fondo": "ninguno",
+      "imagen": "",
       "titulo": "",
-      "imagen": ""
+      "type": "texto_destacado",
+      "id": "manifiesto"
     }
   ],
   "contacto": {
