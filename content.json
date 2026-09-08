@@ -10,8 +10,8 @@
     "color_ink": "#ffffff",
     "color_dust": "#000000",
     "logo_tratak": "/images/logo-tratak.png",
-    "color_paper": "#c2b3ec",
-    "color_clay": "#cc21e1",
+    "color_paper": "#c581f0",
+    "color_clay": "#d946da",
     "color_moss": "#ffffff"
   },
   "hero": {
@@ -34,6 +34,14 @@
     "title_pre": "la materia "
   },
   "secciones": [
+    {
+      "id": "proximo-evento",
+      "type": "evento_proximo",
+      "fondo": "imagen",
+      "color_texto": "claro",
+      "eyebrow": "Experiencias",
+      "imagen_fondo": "/images/img_20221209_121249.jpg"
+    },
     {
       "estilo_fuente": null,
       "color_acento": "",
@@ -59,14 +67,6 @@
           "label": "Conferencias y talleres impartidos"
         }
       ]
-    },
-    {
-      "id": "proximo-evento",
-      "type": "evento_proximo",
-      "fondo": "imagen",
-      "color_texto": "claro",
-      "eyebrow": "Experiencias",
-      "imagen_fondo": "/images/img_20221209_121249.jpg"
     },
     {
       "color_acento": "",
@@ -292,12 +292,12 @@
         {
           "nombre": "Mentes que conectan ciencia, conciencia y filosofía:",
           "rol": "Proximamente",
-          "imagen": "",
+          "imagen": "/images/gemini_generated_image_ek3zt8ek3zt8ek3z.jpg",
           "bio": "\nRudolf Steiner: Escuelas Waldorf, Agricultura Biodinámca.\n\nAlan Watts: Filosofía oriental.\n\nMarie Curie: Ciencia y física.\n\nTerence McKenna: Conciencia y etnobotánica.\n\nDonna Haraway: Tecnología y cultura.\n\nJacobo Grinberg: Teoría sintérgica.\n\nPróximamente perfiles individuales."
         }
       ],
       "color_acento": "",
-      "imagen_fondo": "/images/gemini_generated_image_ek3zt8ek3zt8ek3z.jpg",
+      "imagen_fondo": "",
       "color_texto": "oscuro",
       "eyebrow": "Comunidad",
       "fuente_titulo": "",
