@@ -287,7 +287,7 @@
           '</div>';
       }).join('<hr class="evento-divisor">');
     } else {
-      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" — eventos.json)</p>';
+      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" en la colección Eventos)</p>';
     }
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido evento-card-bloque"><p class="eyebrow">' + esc(s.eyebrow || 'Próximo evento') + '</p>' + inner + '</div></section>';
