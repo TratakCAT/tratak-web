@@ -15,11 +15,11 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <!-- Motor compartido de renderizado: el mismo que usa el sitio real -->
-  <script src="../assets/site.js"></script>
+  <script src="../assets/site.js?v=2"></script>
 
   <script>
     // Estilos del sitio real, aplicados dentro del iframe de preview
-    CMS.registerPreviewStyle("../styles.css");
+    CMS.registerPreviewStyle("../styles.css?v=2");
     CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap");
 
     // Preview del archivo "content.json" (sitio principal)
@@ -33,33 +33,50 @@
     });
     CMS.registerPreviewTemplate('content', SitioPreview);
 
-    // Preview del archivo "landing-content.json" (landing del evento)
-    var LandingPreview = createClass({
+    // Preview del archivo "eventos.json" (lista de eventos) — también aplica el tema real
+    var EventosPreview = createClass({
+      getInitialState: function () {
+        return { theme: null };
+      },
+      componentDidMount: function () {
+        var self = this;
+        fetch('../content.json?_=' + Date.now())
+          .then(function (r) { return r.json(); })
+          .then(function (content) { self.setState({ theme: content.theme }); })
+          .catch(function () { /* si falla, se queda sin tema, no rompe nada */ });
+      },
       render: function () {
         var data = this.props.entry.getIn(['data']);
         var plain = data ? data.toJS() : {};
-        var temas = (plain.temas || []).map(function (t) {
-          return '<div class="topic"><div class="tag">' + (t.tag || '') + '</div><h3>' + (t.title || '') + '</h3><p>' + (t.text || '') + '</p></div>';
+        var eventos = plain.eventos || [];
+        var estiloTema = this.state.theme ? TratakRender.themeStyleTag(this.state.theme) : '';
+        var html = estiloTema + eventos.map(function (plainEv) {
+          var temas = (plainEv.temas || []).map(function (t) {
+            return '<div class="topic"><div class="tag">' + (t.tag || '') + '</div><h3>' + (t.title || '') + '</h3><p>' + (t.text || '') + '</p></div>';
+          }).join('');
+          var perfil = (plainEv.perfil || []).map(function (p) {
+            return '<span>' + (typeof p === 'string' ? p : (p.perfil_item || '')) + '</span>';
+          }).join('');
+          return (
+            '<div style="border-bottom:4px solid #ccc;margin-bottom:24px;padding-bottom:24px;">' +
+            (plainEv.es_proximo ? '<p style="color:green;font-weight:bold;">★ Marcado como "el próximo" (aparece en el home)</p>' : '') +
+            '<section class="hero"><p class="kicker">Taller demostrativo — cupo abierto</p>' +
+            '<h1>' + (plainEv.titulo_evento_html || '') + '</h1>' +
+            '<p class="lede">' + (plainEv.descripcion || '') + '</p>' +
+            '<div class="facts">' +
+            '<div class="fact"><div class="k">Fecha</div><div class="v">' + (plainEv.fecha || '') + '</div></div>' +
+            '<div class="fact"><div class="k">Horario</div><div class="v">' + (plainEv.horario || '') + '</div></div>' +
+            '<div class="fact"><div class="k">Sede</div><div class="v editable">' + (plainEv.sede || '') + '</div></div>' +
+            '</div><p class="aporte-note">' + (plainEv.aporte_texto || '') + '</p></section>' +
+            '<section class="explora"><h2>Qué vas a explorar</h2><div class="topics">' + temas + '</div></section>' +
+            '<section class="para-quien"><h2>Para quién es</h2><div class="perfil-list">' + perfil + '</div></section>' +
+            '</div>'
+          );
         }).join('');
-        var perfil = (plain.perfil || []).map(function (p) {
-          return '<span>' + (typeof p === 'string' ? p : (p.perfil_item || '')) + '</span>';
-        }).join('');
-        var html =
-          '<section class="hero"><p class="kicker">Taller demostrativo — cupo abierto</p>' +
-          '<h1>' + (plain.titulo_evento_html || '') + '</h1>' +
-          '<p class="lede">' + (plain.descripcion || '') + '</p>' +
-          '<div class="facts">' +
-          '<div class="fact"><div class="k">Fecha</div><div class="v">' + (plain.fecha || '') + '</div></div>' +
-          '<div class="fact"><div class="k">Horario</div><div class="v">' + (plain.horario || '') + '</div></div>' +
-          '<div class="fact"><div class="k">Sede</div><div class="v editable">' + (plain.sede || '') + '</div></div>' +
-          '</div><p class="aporte-note">' + (plain.aporte_texto || '') + '</p></section>' +
-          '<section class="explora"><h2>Qué vas a explorar</h2><div class="topics">' + temas + '</div></section>' +
-          '<section class="para-quien"><h2>Para quién es</h2><div class="perfil-list">' + perfil + '</div></section>' +
-          '<section class="despues"><div class="label">Después de este taller</div><p>' + (plain.despues_texto || '') + '</p></section>';
         return h('div', { dangerouslySetInnerHTML: { __html: html } });
       }
     });
-    CMS.registerPreviewTemplate('landing', LandingPreview);
+    CMS.registerPreviewTemplate('eventos_data', EventosPreview);
   </script>
 </body>
 </html>
