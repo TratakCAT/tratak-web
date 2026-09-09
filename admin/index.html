@@ -24,10 +24,23 @@
 
     // Preview del archivo "content.json" (sitio principal)
     var SitioPreview = createClass({
+      getInitialState: function () {
+        return { eventosProximos: [] };
+      },
+      componentDidMount: function () {
+        var self = this;
+        fetch('../eventos.json?_=' + Date.now())
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var eventos = (data && data.eventos) || [];
+            self.setState({ eventosProximos: eventos.filter(function (e) { return e.es_proximo; }) });
+          })
+          .catch(function () { /* si falla, se queda con el placeholder, no rompe nada */ });
+      },
       render: function () {
         var data = this.props.entry.getIn(['data']);
         var plain = data ? data.toJS() : {};
-        var html = TratakRender.renderFullPage(plain, null);
+        var html = TratakRender.renderFullPage(plain, this.state.eventosProximos);
         return h('div', { dangerouslySetInnerHTML: { __html: html } });
       }
     });
