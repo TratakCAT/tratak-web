@@ -85,6 +85,12 @@
   // ---------- hero ----------
   function renderHero(hero) {
     if (!hero) return '';
+    var estiloInline = '';
+    if (hero.color_acento) estiloInline += '--clay:' + hero.color_acento + ';';
+    if (hero.estilo_fuente && FONT_PAIRS[hero.estilo_fuente]) {
+      var fph = FONT_PAIRS[hero.estilo_fuente];
+      estiloInline += '--font-heading:' + fph.heading + ';--font-body:' + fph.body + ';';
+    }
     var ctas =
       '<div class="cta-row">' +
       '<a class="btn primary" href="' + esc(hero.cta1_link) + '">' + esc(hero.cta1_label) + '</a>' +
@@ -98,13 +104,13 @@
 
     if (hero.estilo === 'fondo') {
       return (
-        '<header class="hero hero-fondo"><div class="hero-fondo-media"><img src="' + esc(hero.image) + '" alt=""></div>' +
+        '<header class="hero hero-fondo" style="' + estiloInline + '"><div class="hero-fondo-media"><img src="' + esc(hero.image) + '" alt=""></div>' +
         '<div class="hero-fondo-overlay"></div>' +
         '<div class="wrap hero-fondo-contenido">' + textoHTML + '</div></header>'
       );
     }
     return (
-      '<header class="hero wrap"><div class="hero-grid"><div>' + textoHTML + '</div>' +
+      '<header class="hero wrap" style="' + estiloInline + '"><div class="hero-grid"><div>' + textoHTML + '</div>' +
       '<img class="hero-image" src="' + esc(hero.image) + '" alt="Pieza destacada"></div></header>'
     );
   }
@@ -267,19 +273,49 @@
   }
 
   function renderEventoProximo(s, _contacto, opts) {
-    var landing = opts && opts.landing;
+    var eventos = (opts && opts.eventosProximos) || [];
     var inner;
-    if (landing) {
-      var fechaLinea = [landing.fecha, landing.horario].filter(Boolean).join(' · ');
-      var tituloPlano = landing.titulo_evento_html ? landing.titulo_evento_html.replace(/<[^>]+>/g, ' ') : '';
-      inner = '<h2>' + esc(tituloPlano) + '</h2><p>' + esc(fechaLinea) + '</p>' +
-        '<p class="evento-bloque-desc">' + esc(landing.descripcion) + '</p>' +
-        '<a class="btn primary" href="landing.html">Ver detalles e inscribirme →</a>';
+    if (eventos.length) {
+      inner = eventos.map(function (landing) {
+        var fechaLinea = [landing.fecha, landing.horario].filter(Boolean).join(' · ');
+        var tituloPlano = landing.titulo_evento_html ? landing.titulo_evento_html.replace(/<[^>]+>/g, ' ') : '';
+        var link = 'landing.html' + (landing.slug ? ('?evento=' + encodeURIComponent(landing.slug)) : '');
+        return '<div class="evento-item">' +
+          '<h2>' + esc(tituloPlano) + '</h2><p>' + esc(fechaLinea) + '</p>' +
+          '<p class="evento-bloque-desc">' + esc(landing.descripcion) + '</p>' +
+          '<a class="btn primary" href="' + link + '">Ver detalles e inscribirme →</a>' +
+          '</div>';
+      }).join('<hr class="evento-divisor">');
     } else {
-      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrará automáticamente la información de tu landing de eventos — landing-content.json)</p>';
+      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" — eventos.json)</p>';
     }
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido evento-card-bloque"><p class="eyebrow">' + esc(s.eyebrow || 'Próximo evento') + '</p>' + inner + '</div></section>';
+  }
+
+  function eventoPasadoCard(ev, whatsapp) {
+    var img = ev.foto ? '<img src="' + esc(ev.foto) + '" alt="' + esc(ev.titulo) + '">' : ('<div class="ph">Foto: ' + esc(ev.titulo) + '</div>');
+    var mensaje = ev.mensaje_whatsapp || ('Hola, me interesa que se repita el taller "' + ev.titulo + '"');
+    var link = 'https://wa.me/' + esc(whatsapp) + '?text=' + encodeURIComponent(mensaje);
+    return (
+      '<div class="evento-pasado-card">' +
+      '<div class="evento-pasado-img">' + img + '</div>' +
+      '<div class="evento-pasado-fecha">' + esc(ev.fecha) + '</div>' +
+      '<h3>' + esc(ev.titulo) + '</h3><p>' + esc(ev.descripcion) + '</p>' +
+      '<a class="btn ghost evento-pasado-btn" href="' + link + '" target="_blank" rel="noopener">Solicitar que se repita →</a>' +
+      '</div>'
+    );
+  }
+
+  function renderEventosPasados(s, contacto, opts) {
+    opts = opts || {};
+    var items = s.items || [];
+    var mostrar = opts.todos ? items : items.slice(0, 3);
+    return wrapAbre(s) + mediaFondoHTML(s) +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      '<div class="eventos-pasados-grid">' + mostrar.map(function (ev) { return eventoPasadoCard(ev, contacto ? contacto.whatsapp : ''); }).join('') + '</div>' +
+      (!opts.todos ? verTodoLink(s.id, 'Ver todos los eventos pasados') : '') +
+      '</div></section>';
   }
 
   var RENDERERS = {
@@ -293,11 +329,12 @@
     blog: renderBlog,
     personajes: renderPersonajes,
     texto_destacado: renderTextoDestacado,
-    evento_proximo: renderEventoProximo
+    evento_proximo: renderEventoProximo,
+    eventos_pasados: renderEventosPasados
   };
 
   // Tipos de bloque que soportan "página dedicada" (listado completo)
-  var TIPOS_CON_PAGINA_DEDICADA = { galeria: true, blog: true, personajes: true, productos: true };
+  var TIPOS_CON_PAGINA_DEDICADA = { galeria: true, blog: true, personajes: true, productos: true, eventos_pasados: true };
 
   function renderSecciones(secciones, contacto, opts) {
     opts = opts || {};
@@ -326,8 +363,11 @@
   // ---------- contacto ----------
   function renderContacto(contacto) {
     if (!contacto) return '';
+    var style = '';
+    if (contacto.color_fondo) style += 'background:' + contacto.color_fondo + ';';
+    if (contacto.color_acento) style += '--clay:' + contacto.color_acento + ';';
     return (
-      '<section class="wrap" id="contacto"><div class="contacto-grid"><div>' +
+      '<section class="wrap" id="contacto" style="' + style + '"><div class="contacto-grid"><div>' +
       '<p class="eyebrow">Contacto</p><h2>' + esc(contacto.titulo) + '</h2><p>' + esc(contacto.texto) + '</p>' +
       '<div class="info-list">' +
       '<div><div class="k">WhatsApp</div><div class="v"><a href="https://wa.me/' + esc(contacto.whatsapp) + '">' + esc(contacto.whatsapp_display) + '</a></div></div>' +
@@ -377,12 +417,12 @@
   }
 
   // ---------- página completa del sitio ----------
-  function renderFullPage(content, landing) {
+  function renderFullPage(content, eventosProximos) {
     var html = '';
     html += themeStyleTag(content.theme);
     html += renderNav(content.theme);
     html += renderHero(content.hero);
-    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { landing: landing }) + '</div>';
+    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { eventosProximos: eventosProximos || [] }) + '</div>';
     html += renderContacto(content.contacto);
     html += renderFooter();
     html += renderLightbox();
