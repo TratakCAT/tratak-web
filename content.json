@@ -122,6 +122,20 @@
       "id": "Nuestra filosofía"
     },
     {
+      "type": "eventos_pasados",
+      "fondo": "ninguno",
+      "color_texto": "oscuro",
+      "eyebrow": "¿Lo quieres vivir de nuevo?",
+      "titulo": "Eventos y Conferencias Pasadas",
+      "items": [
+        {
+          "titulo": "Workshop VR + LDM",
+          "fecha": "16/07/2023",
+          "descripcion": "Experiencia de exploración en Gravity Sketch en realidad virtual para modelar en 3D y poder imprimir en cerámica utilizando una impresora LDM. 3 días."
+        }
+      ]
+    },
+    {
       "items": [
         {
           "title": "Asesoría Catalizadora de Creatividad",
