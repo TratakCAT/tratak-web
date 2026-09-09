@@ -191,7 +191,16 @@
   @media (max-width:820px){ .personajes-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:560px){ .personajes-grid{ grid-template-columns:1fr; } }
 
-  /* ---------- ver todo (páginas dedicadas) ---------- */
+  /* ---------- eventos pasados ---------- */
+  .eventos-pasados-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+  .evento-pasado-card{ display:flex; flex-direction:column; }
+  .evento-pasado-img .ph, .evento-pasado-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; margin-bottom:12px; }
+  .evento-pasado-fecha{ font-size:12px; color:var(--dust); margin-bottom:4px; }
+  .evento-pasado-card h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; margin-bottom:6px; }
+  .evento-pasado-card p{ font-size:14px; color:#3a352c; margin:0 0 14px; flex:1; }
+  .evento-pasado-btn{ align-self:flex-start; }
+  @media (max-width:820px){ .eventos-pasados-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .eventos-pasados-grid{ grid-template-columns:1fr; } }
   .ver-todo-link{
     display:inline-block;
     margin-top: 24px;
