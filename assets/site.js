@@ -59,8 +59,8 @@
     var brandInner;
     if (theme && (theme.logo_tratak || theme.logo_cat)) {
       brandInner =
-        (theme.logo_tratak ? '<img src="' + esc(theme.logo_tratak) + '" alt="TRATAK" style="height:26px;margin-right:10px;vertical-align:middle;">' : '') +
-        (theme.logo_cat ? '<img src="' + esc(theme.logo_cat) + '" alt="CAT" style="height:26px;margin-right:10px;vertical-align:middle;">' : '');
+        (theme.logo_tratak ? '<img src="' + esc(theme.logo_tratak) + '" data-logo-oscuro="' + esc(theme.logo_tratak_oscuro || '') + '" class="logo-tema" alt="TRATAK" style="height:26px;margin-right:10px;vertical-align:middle;">' : '') +
+        (theme.logo_cat ? '<img src="' + esc(theme.logo_cat) + '" data-logo-oscuro="' + esc(theme.logo_cat_oscuro || '') + '" class="logo-tema" alt="CAT" style="height:26px;margin-right:10px;vertical-align:middle;">' : '');
     } else {
       brandInner = '<span>tratak·cat</span>';
     }
@@ -537,6 +537,19 @@
     var el = document.getElementById('lightbox');
     if (el) el.classList.remove('open');
   }
+  function aplicarLogosOscuros(activar) {
+    var logos = document.querySelectorAll('.logo-tema');
+    logos.forEach(function (img) {
+      if (!img.dataset.logoClaro) img.dataset.logoClaro = img.src;
+      var oscuro = img.getAttribute('data-logo-oscuro');
+      if (activar && oscuro) {
+        img.src = oscuro;
+      } else {
+        img.src = img.dataset.logoClaro;
+      }
+    });
+  }
+
   function bindGlobalInteractions(theme) {
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
@@ -551,6 +564,7 @@
         // Regresa a los colores normales del tema (modo día)
         applyTheme(theme, root);
       }
+      aplicarLogosOscuros(activar);
     }
 
     var saved = localStorage.getItem('tratak-modo-noche');
