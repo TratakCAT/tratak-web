@@ -30,6 +30,8 @@ collections:
               - { label: "Color de texto secundario (modo noche)", name: "color_dust_oscuro", widget: color, required: false }
               - { label: "Logo TRATAK (opcional)", name: "logo_tratak", widget: image, required: false }
               - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
+              - { label: "Logo TRATAK para modo noche (opcional, si tu logo normal es oscuro y se pierde con fondo oscuro)", name: "logo_tratak_oscuro", widget: image, required: false }
+              - { label: "Logo CAT para modo noche (opcional)", name: "logo_cat_oscuro", widget: image, required: false }
               - label: "Pareja de tipografías (global, por default)"
                 name: "font_pair"
                 widget: select
