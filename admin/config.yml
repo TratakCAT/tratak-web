@@ -281,6 +281,21 @@ collections:
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Próximo evento" }
                   - { label: "Nota", name: "_nota", widget: hidden, default: "El título, fecha y descripción se jalan automáticamente de tus eventos marcados como 'próximo' en la colección Eventos — edítalos allá." }
 
+              - label: "Calendario de eventos"
+                name: "calendario"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio (color de los días con evento)", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Agenda" }
+                  - { label: "Título de la sección", name: "titulo", widget: string, default: "Calendario de eventos" }
+                  - { label: "¿Cuántos meses mostrar?", name: "num_meses", widget: select, options: ["1", "2", "3"], default: "2" }
+
               - label: "Eventos pasados (con botón de 'solicitar que se repita')"
                 name: "eventos_pasados"
                 fields:
@@ -332,9 +347,12 @@ collections:
             fields:
               - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
               - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-10-septiembre)", name: "slug", widget: string }
+              - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
+              - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
               - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
               - { label: "Descripción corta", name: "descripcion", widget: text }
-              - { label: "Fecha", name: "fecha", widget: string }
+              - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
+              - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
               - { label: "Horario", name: "horario", widget: string }
               - { label: "Sede / dirección", name: "sede", widget: string }
               - { label: "Texto de aportación", name: "aporte_texto", widget: string }
