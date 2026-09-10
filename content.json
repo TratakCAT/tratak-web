@@ -10,6 +10,7 @@
     "color_ink": "#ffffff",
     "color_dust": "#000000",
     "logo_tratak": "/images/logo-tratak.png",
+    "logo_cat_oscuro": "/images/cat-blanco.gif",
     "color_paper": "#c776e4",
     "color_clay": "#d946da",
     "color_moss": "#1a0000"
@@ -43,14 +44,6 @@
       "imagen_fondo": "/images/img_20221209_121249.jpg",
       "color_acento": "#360707",
       "estilo_fuente": "fraunces_space"
-    },
-    {
-      "type": "evento_proximo",
-      "fondo": "ninguno",
-      "color_texto": "oscuro",
-      "eyebrow": "Próximo evento",
-      "_nota": "El título, fecha y descripción se jalan automáticamente de tus eventos marcados como 'próximo' en la colección Eventos — edítalos allá.",
-      "id": "retiro-10-noviembre"
     },
     {
       "estilo_fuente": null,
