@@ -280,14 +280,27 @@
         var fechaLinea = [landing.fecha, landing.horario].filter(Boolean).join(' · ');
         var tituloPlano = landing.titulo_evento_html ? landing.titulo_evento_html.replace(/<[^>]+>/g, ' ') : '';
         var link = 'landing.html' + (landing.slug ? ('?evento=' + encodeURIComponent(landing.slug)) : '');
-        return '<div class="evento-item">' +
+        var estiloTarjeta = '';
+        var claseTarjeta = 'evento-item';
+        if (landing.color_acento) estiloTarjeta += 'background:' + landing.color_acento + ';';
+        if (landing.foto_hero) claseTarjeta += ' evento-item-con-foto';
+
+        var contenido =
+          '<div class="evento-item-contenido">' +
           '<h2>' + esc(tituloPlano) + '</h2><p>' + esc(fechaLinea) + '</p>' +
           '<p class="evento-bloque-desc">' + esc(landing.descripcion) + '</p>' +
           '<a class="btn primary" href="' + link + '">Ver detalles e inscribirme →</a>' +
           '</div>';
-      }).join('<hr class="evento-divisor">');
+
+        if (landing.foto_hero) {
+          return '<div class="' + claseTarjeta + '">' +
+            '<img class="evento-item-media" src="' + esc(landing.foto_hero) + '" alt="">' +
+            '<div class="evento-item-overlay"></div>' + contenido + '</div>';
+        }
+        return '<div class="' + claseTarjeta + '" style="' + estiloTarjeta + '">' + contenido + '</div>';
+      }).join('');
     } else {
-      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" en la colección Eventos)</p>';
+      inner = '<div class="evento-item"><h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" en la colección Eventos)</p></div>';
     }
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido evento-card-bloque"><p class="eyebrow">' + esc(s.eyebrow || 'Próximo evento') + '</p>' + inner + '</div></section>';
@@ -318,6 +331,85 @@
       '</div></section>';
   }
 
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var DIAS_SEMANA = ['D','L','M','M','J','V','S'];
+
+  function parseFechaISO(str) {
+    if (!str) return null;
+    var partes = str.split('-');
+    if (partes.length !== 3) return null;
+    return new Date(parseInt(partes[0], 10), parseInt(partes[1], 10) - 1, parseInt(partes[2], 10));
+  }
+
+  function renderMesCalendario(fechaMes, eventosPorDia) {
+    var year = fechaMes.getFullYear();
+    var month = fechaMes.getMonth();
+    var primerDiaSemana = new Date(year, month, 1).getDay();
+    var diasEnMes = new Date(year, month + 1, 0).getDate();
+
+    var celdas = '';
+    for (var i = 0; i < primerDiaSemana; i++) {
+      celdas += '<div class="cal-dia cal-dia-vacio"></div>';
+    }
+    for (var d = 1; d <= diasEnMes; d++) {
+      var key = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+      var tieneEvento = eventosPorDia[key] && eventosPorDia[key].length;
+      var titulo = tieneEvento ? eventosPorDia[key].map(function (e) { return e.titulo; }).join(', ') : '';
+      var link = tieneEvento ? eventosPorDia[key][0].link : '#';
+      if (tieneEvento) {
+        celdas += '<a href="' + link + '" class="cal-dia cal-dia-evento" title="' + esc(titulo) + '">' + d + '<span class="cal-dot"></span></a>';
+      } else {
+        celdas += '<div class="cal-dia">' + d + '</div>';
+      }
+    }
+
+    return (
+      '<div class="cal-mes">' +
+      '<div class="cal-mes-titulo">' + MESES[month] + ' ' + year + '</div>' +
+      '<div class="cal-semana">' + DIAS_SEMANA.map(function (dd) { return '<div class="cal-dia-header">' + dd + '</div>'; }).join('') + '</div>' +
+      '<div class="cal-dias">' + celdas + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCalendario(s, _contacto, opts) {
+    var eventos = (opts && opts.eventos) || [];
+    var eventosPorDia = {};
+    eventos.forEach(function (ev) {
+      if (!ev.fecha_iso) return;
+      if (!eventosPorDia[ev.fecha_iso]) eventosPorDia[ev.fecha_iso] = [];
+      var tituloPlano = ev.titulo_evento_html ? ev.titulo_evento_html.replace(/<[^>]+>/g, ' ') : (ev.slug || 'Evento');
+      eventosPorDia[ev.fecha_iso].push({
+        titulo: tituloPlano,
+        link: 'landing.html' + (ev.slug ? ('?evento=' + encodeURIComponent(ev.slug)) : '')
+      });
+    });
+
+    var hoy = new Date();
+    var mesesHTML = '';
+    var numMeses = (s.num_meses && parseInt(s.num_meses, 10)) || 2;
+    for (var m = 0; m < numMeses; m++) {
+      var fechaMes = new Date(hoy.getFullYear(), hoy.getMonth() + m, 1);
+      mesesHTML += renderMesCalendario(fechaMes, eventosPorDia);
+    }
+
+    var eventosFuturos = eventos
+      .filter(function (ev) { return ev.fecha_iso && parseFechaISO(ev.fecha_iso) >= new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()); })
+      .sort(function (a, b) { return a.fecha_iso < b.fecha_iso ? -1 : 1; });
+
+    var listaHTML = eventosFuturos.map(function (ev) {
+      var tituloPlano = ev.titulo_evento_html ? ev.titulo_evento_html.replace(/<[^>]+>/g, ' ') : (ev.slug || 'Evento');
+      var link = 'landing.html' + (ev.slug ? ('?evento=' + encodeURIComponent(ev.slug)) : '');
+      return '<a class="cal-lista-item" href="' + link + '"><span class="cal-lista-fecha">' + esc(ev.fecha) + '</span><span>' + esc(tituloPlano) + '</span></a>';
+    }).join('');
+
+    return wrapAbre(s) + mediaFondoHTML(s) +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      '<div class="cal-meses-grid">' + mesesHTML + '</div>' +
+      (listaHTML ? '<div class="cal-lista">' + listaHTML + '</div>' : '') +
+      '</div></section>';
+  }
+
   var RENDERERS = {
     estadisticas: renderEstadisticas,
     pilares: renderPilares,
@@ -330,7 +422,8 @@
     personajes: renderPersonajes,
     texto_destacado: renderTextoDestacado,
     evento_proximo: renderEventoProximo,
-    eventos_pasados: renderEventosPasados
+    eventos_pasados: renderEventosPasados,
+    calendario: renderCalendario
   };
 
   // Tipos de bloque que soportan "página dedicada" (listado completo)
@@ -417,12 +510,12 @@
   }
 
   // ---------- página completa del sitio ----------
-  function renderFullPage(content, eventosProximos) {
+  function renderFullPage(content, eventosProximos, todosLosEventos) {
     var html = '';
     html += themeStyleTag(content.theme);
     html += renderNav(content.theme);
     html += renderHero(content.hero);
-    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { eventosProximos: eventosProximos || [] }) + '</div>';
+    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { eventosProximos: eventosProximos || [], eventos: todosLosEventos || [] }) + '</div>';
     html += renderContacto(content.contacto);
     html += renderFooter();
     html += renderLightbox();
