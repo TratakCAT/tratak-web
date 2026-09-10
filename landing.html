@@ -73,6 +73,14 @@
   .hero{
     padding: 56px 0 40px;
   }
+  .hero{ position:relative; }
+  .hero-media-bg{ position:absolute; inset:-24px -24px auto -24px; height:calc(100% + 24px); z-index:0; border-radius:4px; overflow:hidden; }
+  .hero-media-bg img{ width:100%; height:100%; object-fit:cover; }
+  .hero-media-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.85)); }
+  .hero-contenido{ position:relative; z-index:1; }
+  .hero.hero-con-foto .kicker{ color:#cfc6ae; }
+  .hero.hero-con-foto h1{ color:#fff; }
+  .hero.hero-con-foto .lede{ color:#ece6d6; }
   .hero .kicker{
     font-size:14px;
     color: var(--moss);
@@ -273,7 +281,12 @@
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="landing-hero">
+    <div class="hero-media-bg" id="landing-hero-media" style="display:none;">
+      <img id="landing-hero-img" src="" alt="">
+      <div class="hero-media-overlay"></div>
+    </div>
+    <div class="hero-contenido">
     <p class="kicker">Taller demostrativo — cupo abierto</p>
     <h1 id="landing-titulo"></h1>
     <p class="lede" id="landing-desc"></p>
@@ -298,6 +311,7 @@
       <a class="btn ghost" id="landing-whatsapp-link" href="#">Dudas por WhatsApp</a>
     </div>
     <p class="aporte-note" id="landing-aporte"></p>
+    </div>
   </section>
 
   <section class="explora">
@@ -350,6 +364,14 @@
         return;
       }
 
+      if (d.foto_hero) {
+        document.getElementById('landing-hero-img').src = d.foto_hero;
+        document.getElementById('landing-hero-media').style.display = 'block';
+        document.getElementById('landing-hero').classList.add('hero-con-foto');
+      }
+      if (d.color_acento) {
+        document.documentElement.style.setProperty('--clay', d.color_acento);
+      }
       document.getElementById('landing-titulo').innerHTML = d.titulo_evento_html;
       document.getElementById('landing-desc').textContent = d.descripcion;
       document.getElementById('landing-fecha').textContent = d.fecha;

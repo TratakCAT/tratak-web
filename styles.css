@@ -124,16 +124,27 @@
   @media (max-width:820px){ .galeria-grid{ grid-template-columns:1fr 1fr; } }
 
   /* ---------- evento próximo (bloque) ---------- */
-  .evento-card-bloque{
+  .evento-item{
     border: 1px solid var(--line);
     padding: 32px;
+    position: relative;
+    overflow: hidden;
   }
-  .evento-item + .evento-item{ margin-top:0; }
-  .evento-divisor{ border:none; border-top:1px solid var(--line); margin:28px 0; }
-  .evento-card-bloque h2{ font-size:24px; margin-bottom:8px; }
-  .evento-card-bloque > p{ margin:0 0 6px; font-size:14px; color: var(--dust); }
+  .evento-item + .evento-item{ margin-top: 20px; }
+  .evento-item h2{ font-size:24px; margin-bottom:8px; }
+  .evento-item > p{ margin:0 0 6px; font-size:14px; color: var(--dust); }
   .evento-bloque-desc{ max-width:56ch; color: color-mix(in srgb, var(--ink) 88%, transparent); font-size:15px; margin: 10px 0 20px; }
   .bloque-claro .evento-bloque-desc{ color:#ece6d6; }
+
+  /* Tarjeta de evento con foto de fondo propia */
+  .evento-item-con-foto{ border: none; padding: 0; min-height: 320px; display:flex; align-items:flex-end; }
+  .evento-item-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .evento-item-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,31,24,0.35), rgba(36,31,24,0.85)); z-index:1; }
+  .evento-item-contenido{ position:relative; z-index:2; padding:32px; color:#fff; width:100%; }
+  .evento-item-contenido h2{ font-size:24px; margin-bottom:8px; color:#fff; }
+  .evento-item-contenido > p{ margin:0 0 6px; font-size:14px; color:#e8e2d1; }
+  .evento-item-contenido .evento-bloque-desc{ color:#ece6d6; }
+
   .manifiesto p{ font-family:'Fraunces', serif; font-style:italic; font-size: clamp(20px,3vw,28px); line-height:1.5; max-width:64ch; color:var(--moss); }
 
   /* ---------- hero con fondo (layout alterno) ---------- */
@@ -201,6 +212,32 @@
   .evento-pasado-btn{ align-self:flex-start; }
   @media (max-width:820px){ .eventos-pasados-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:560px){ .eventos-pasados-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- calendario de eventos ---------- */
+  .cal-meses-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:32px; margin-bottom:28px; }
+  .cal-mes-titulo{ font-family:var(--font-heading); font-size:18px; margin-bottom:12px; text-transform:capitalize; }
+  .cal-semana{ display:grid; grid-template-columns: repeat(7,1fr); margin-bottom:6px; }
+  .cal-dia-header{ font-size:11px; color:var(--dust); text-align:center; padding:4px 0; }
+  .cal-dias{ display:grid; grid-template-columns: repeat(7,1fr); gap:3px; }
+  .cal-dia{
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    font-size:13px; border-radius:50%; position:relative;
+  }
+  .cal-dia-vacio{ visibility:hidden; }
+  .cal-dia-evento{
+    background:var(--clay); color:var(--paper) !important; text-decoration:none;
+    font-weight:600; cursor:pointer;
+  }
+  .cal-lista{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .cal-lista-item{
+    display:flex; gap:16px; padding:14px 0; border-bottom:1px solid var(--line);
+    text-decoration:none; color:inherit; font-size:14px;
+  }
+  .cal-lista-fecha{ color:var(--clay); font-weight:600; min-width:110px; flex-shrink:0; }
+  .bloque-claro .cal-dia{ color:var(--paper); }
+  .bloque-claro .cal-dia-header{ color:#cfc6ae; }
+  .bloque-claro .cal-lista-item{ border-color: rgba(255,255,255,0.2); }
+  @media (max-width:820px){ .cal-meses-grid{ grid-template-columns:1fr; } }
   .ver-todo-link{
     display:inline-block;
     margin-top: 24px;
