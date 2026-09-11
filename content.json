@@ -154,56 +154,57 @@
           "title": "Asesoría Catalizadora de Creatividad",
           "code": "ASESORÍA: 00",
           "meta": "Una hora de acompañamiento especializado para tu proyecto",
-          "price": "$1000"
+          "price": "Consultar precio"
         },
         {
           "code": "TÓPICO: DIS_VR // 00",
           "title": "Diseño en Realidad Virtual",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "$9,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         },
         {
           "code": "TÓPICO: CUL_BIO // 00",
           "title": "Cultura Biomaterial",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "$9,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         },
         {
           "code": "P.E.S. · Individual",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
           "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
-          "price": "$25,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         },
         {
           "code": "P.E.S.2 · Grupal (2–4 personas)",
           "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
           "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
-          "price": "$19,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         },
         {
           "code": "P.E.S.3 · Grupal (2–4 personas)",
           "title": "1 Tópico a elegir",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "$7,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         },
         {
           "code": "TÓPICO: IMP_3D_LDM // 00",
           "title": "Impresión 3D LDM",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "$9,000 MXN",
+          "price": "Consultar precio",
           "imagen": ""
         }
       ],
       "color_acento": "",
+      "imagen_fondo": "/images/img_1775.heic",
       "color_texto": "oscuro",
       "eyebrow": "Formación S.T.E.A.M. · 6 programas",
       "fuente_titulo": "",
-      "fondo": "ninguno",
+      "fondo": "imagen",
       "titulo": "Plan de estudios",
       "type": "lista_precios",
       "id": "plan"
