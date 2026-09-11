@@ -126,10 +126,17 @@
       "items": [
         {
           "titulo": "Workshop VR + LDM",
-          "fecha": "16/06/2023",
-          "descripcion": "Uso del VR para impresión 3D LDM, 3 días.",
-          "mensaje_whatsapp": "Hola quisiera replicar el workshop de Cerámica VR + LDM",
+          "fecha": "26/07/2023",
+          "descripcion": "Se impartió un workshop de tres días en Cerámica Suro dirigido a estudiantes de la Universidad de Denver, centrado en la intersección entre diseño inmersivo y manufactura aditiva artesanal: Uso del VR para impresión 3D LDM en cerámica.\n\nDurante la sesión, los alumnos exploraron flujos de trabajo avanzados de diseño tridimensional utilizando herramientas de Realidad Virtual como Gravity Sketch para esculpir y modelar formas complejas de manera intuitiva y espacial. Posteriormente, esas geometrías digitales se tradujeron a código G para ser materializadas mediante LDM (Liquid Deposition Modeling), extruyendo arcilla en uno de los talleres de cerámica contemporánea más emblemáticos del país. El taller combinó la tecnología inmersiva de vanguardia con la tradición cerámica y los procesos de producción industrial de Cerámica Suro.",
+          "mensaje_whatsapp": "Hola quisiera replicar el workshop de Cerámica VR + LDM en cerámica",
           "foto": "/images/dee94b54-f8ed-4f0d-836f-4c11b5d4ddd5.jpg"
+        },
+        {
+          "foto": "/images/captura-de-pantalla-2026-09-10-230017.png",
+          "titulo": "Maker Faire 2023 ITERA - Taller de Biomateriales + LDM ",
+          "fecha": "10/11/2023",
+          "descripcion": "En el marco de la Maker Faire 2023 de ITERA en el Tec de Monterrey Campus Guadalajara, se impartió el taller de Impresión 3D de biomateriales.\n\nEste espacio práctico y experimental combinó la biomanufactura con la impresión 3D avanzada por extrusión de pastas. Durante la sesión, las y los participantes exploraron el desarrollo de biopastas sostenibles utilizando residuos orgánicos de hueso de aguacate formulados con goma xantana como aglutinante reológico.\n\nA través del proceso de LDM, los asistentes aprendieron a transformar descartes agrícolas en biomateriales imprimibles, parametrizar la consistencia de la mezcla y configurar la impresora para materializar geometría tridimensional orgánica y sustentable, impulsando la economía circular y la fabricación digital consciente desde el ecosistema del Tec Campus GDL.",
+          "mensaje_whatsapp": "Hola quisiera replicar el Maker Faire 2023 ITERA - Taller de Biomateriales + LDM "
         }
       ],
       "estilo_fuente": "fraunces_space",
