@@ -123,21 +123,23 @@
       "id": "Nuestra filosofía"
     },
     {
-      "type": "eventos_pasados",
-      "fondo": "imagen",
-      "color_texto": "oscuro",
-      "eyebrow": "¿Quieres volverlo a vivir?",
-      "titulo": "Eventos y Conferencias Replicables",
-      "id": "Replicables",
-      "video_fondo": "/images/20180728_114058.jpeg",
       "items": [
         {
           "titulo": "Workshop VR + LDM",
           "fecha": "16/06/2023",
           "descripcion": "Uso del VR para impresión 3D LDM, 3 días.",
-          "mensaje_whatsapp": "Hola quisiera replicar el workshop de Cerámica VR + LDM"
+          "mensaje_whatsapp": "Hola quisiera replicar el workshop de Cerámica VR + LDM",
+          "foto": "/images/dee94b54-f8ed-4f0d-836f-4c11b5d4ddd5.jpg"
         }
-      ]
+      ],
+      "estilo_fuente": "fraunces_space",
+      "color_texto": "oscuro",
+      "eyebrow": "¿Quieres volverlo a vivir?",
+      "video_fondo": "/images/20180728_114058.jpeg",
+      "fondo": "imagen",
+      "titulo": "Eventos y Conferencias Replicables",
+      "type": "eventos_pasados",
+      "id": "Replicables"
     },
     {
       "items": [
