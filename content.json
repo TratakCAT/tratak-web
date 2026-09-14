@@ -146,11 +146,18 @@
           "mensaje_whatsapp": "Hola quisiera replicar la Exposición 5 biomateriales imprimibles en 3D"
         },
         {
-          "titulo": "Desierto Aeroespacial GDL",
+          "titulo": "Desierto Aeroespacial GDL 2024",
           "fecha": "21/09/2024",
           "descripcion": "Desierto Aeroespacial es un archivo vivo de arte, ciencia y territorio nacido en el norte de México que funciona como un laboratorio cultural para explorar el espacio y los ecosistemas áridos.\n\nLa edición tapatía se consolidó principalmente a través de un maratón artístico y exposición colectiva en la Casa Museo López Portillo.\n\nComo científica e investigadora del Jet Propulsion Laboratory (JPL) de la NASA, Vicky Espinoza impartió un conversatorio en el Tec de Monterrey Campus Guadalajara y asesoró directamente a los artistas locales con datos sobre cambio climático y el espacio inspirando así sus obras.",
           "mensaje_whatsapp": "Hola quisiera replicar Desierto Aeroespacial GDL",
           "foto": "/images/img_2425.heic"
+        },
+        {
+          "titulo": "Desierto Aeroespacial - Hermosillo 2024",
+          "fecha": "04/10/2024",
+          "descripcion": "Hermosillo 2024, la conexión con la NASA alcanzó su punto máximo. El colectivo Desierto Aeroespacial formó parte central de las actividades del NASA Space Apps Hermosillo 2024, el hackatón global de la agencia. \n\nVicky Espinoza: Repitió su rol clave, representando a NASA JPL (Jet Propulsion Laboratory). Aportó su experiencia en datos satelitales climáticos y su uso para analizar el territorio y los ecosistemas. \n\nMichael Taylor: Fue el invitado especial proveniente del Centro de Vuelo Espacial Goddard de la NASA, donde se desempeña como científico de divulgación. Él aportó la visión técnica sobre las misiones espaciales y las ciencias de la Tierra.\n\nSe gestionó la convivencia creativa donde los artistas locales plasmaron sus piezas y el archivo visual de Desierto Aeroespacial tomó el espacio de manera física.\n\nMás información: https://desiertoaeroespacial.org/galeria/",
+          "foto": "/images/img_0635.heic",
+          "mensaje_whatsapp": "Hola quisiera replicar Desierto Aeroespacial Hermosillo"
         }
       ],
       "estilo_fuente": "fraunces_space",
