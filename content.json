@@ -170,7 +170,15 @@
           "titulo": "Taller de Impresión 3D de Biomateriales - 3er Festival de la Creatividad UMSNH",
           "fecha": "20 y 21 de Octubre de 2024",
           "descripcion": "El Taller de Impresión 3D de Biomateriales del 3er Festival de la Creatividad de la Facultad de Arquitectura de la Universidad Michoacana de San Nicolás de Hidalgo (FAUM - UMSNH) aborda la fabricación aditiva y el diseño sustentable.\n\nExperimentación con mezclas locales: El LDM funcionó como espacio de prueba para formular pastas biodegradables a base de residuos orgánicos y aglutinantes naturales, sustituyendo los filamentos plásticos comerciales.\n\nAdaptación de tecnología (Extrusión de pastas): Se utilizaron y modificaron impresoras 3D para trabajar con sistemas de jeringa/extrusión neumática capaces de depositar capas de material denso y húmedo.\n\nGeometría y secado: Los participantes exploraron cómo la textura, la viscosidad y la merma por contracción durante el secado influyen en la resistencia del producto final.\n\nEnfoque regenerativo: El taller promovió el desarrollo de prototipos bajo principios de economía circular, utilizando la fabricación digital como herramienta para reducir el impacto ambiental desde la arquitectura y el diseño.",
-          "foto": "/images/img_1044.heic"
+          "foto": "/images/img_1044.heic",
+          "mensaje_whatsapp": "Hola quisiera replicar el Taller de Impresión 3D de Biomateriales "
+        },
+        {
+          "foto": "/images/uaaz6983.jpg",
+          "titulo": "Conferencia: Diseño Transpersonal - Vive el TEC en la FIL",
+          "fecha": "07/12/2024",
+          "descripcion": "impartida en el marco del programa Vive el TEC dentro de la Feria Internacional del Libro de Guadalajara (FIL 2024) el 7 de diciembre de 2024, abordó el diseño desde una perspectiva multidimensional que supera lo puramente funcional o estético.\n\nEl pabellón cerámico del stand fue impreso en el LDM bajo la coordinación del estudio Tratak en alianza con el EIAAD del Tec de Monterrey y diversos alumnos.",
+          "mensaje_whatsapp": "Hola quisiera replicar la Conferencia: Diseño Transpersonal"
         }
       ],
       "estilo_fuente": "fraunces_space",
