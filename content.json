@@ -125,6 +125,13 @@
     {
       "items": [
         {
+          "titulo": "Exposición 5 biomateriales imprimibles en 3D",
+          "fecha": "26/04/2023",
+          "descripcion": "En el marco del 4to Congreso Internacional para el Hábitat y la Sostenibilidad en el ITESO, se realizó la exposición \"Materialis 2\" donde Tratak fue invitado para exponer biomateriales impresos en LDM como: hueso de aguacate, cascarón de huevo, borra de café, micelio ganoderma lúcidum y cáscara de naranja.",
+          "foto": "/images/captura-de-pantalla-2026-09-13-212508.png",
+          "mensaje_whatsapp": "Hola quisiera replicar la Exposición 5 biomateriales imprimibles en 3D"
+        },
+        {
           "titulo": "Workshop VR + LDM",
           "fecha": "26/07/2023",
           "descripcion": "Se impartió un workshop de tres días en Cerámica Suro dirigido a estudiantes de la Universidad de Denver, centrado en la intersección entre diseño inmersivo y manufactura aditiva artesanal: Uso del VR para impresión 3D LDM en cerámica.\n\nDurante la sesión, los alumnos exploraron flujos de trabajo avanzados de diseño tridimensional utilizando herramientas de Realidad Virtual como Gravity Sketch para esculpir y modelar formas complejas de manera intuitiva y espacial. Posteriormente, esas geometrías digitales se tradujeron a código G para ser materializadas mediante LDM (Liquid Deposition Modeling), extruyendo arcilla en uno de los talleres de cerámica contemporánea más emblemáticos del país. El taller combinó la tecnología inmersiva de vanguardia con la tradición cerámica y los procesos de producción industrial de Cerámica Suro.",
@@ -139,11 +146,11 @@
           "mensaje_whatsapp": "Hola quisiera replicar el Maker Faire 2023 ITERA - Taller de Biomateriales + LDM "
         },
         {
-          "titulo": "Exposición 5 biomateriales imprimibles en 3D",
-          "fecha": "26/04/2023",
-          "descripcion": "En el marco del 4to Congreso Internacional para el Hábitat y la Sostenibilidad en el ITESO, se realizó la exposición \"Materialis 2\" donde Tratak fue invitado para exponer biomateriales impresos en LDM como: hueso de aguacate, cascarón de huevo, borra de café, micelio ganoderma lúcidum y cáscara de naranja.",
-          "foto": "/images/captura-de-pantalla-2026-09-13-212508.png",
-          "mensaje_whatsapp": "Hola quisiera replicar la Exposición 5 biomateriales imprimibles en 3D"
+          "titulo": "Exposición biomaterial impreso con hueso de aguacate - Biopolimérica 2023",
+          "fecha": "19/11/2023",
+          "descripcion": "En Biopolimérica 2023 (el Encuentro Latinoamericano de Biodiseño y Biomateriales celebrado en el Espacio Cultural La Leñera en Valdivia, Chile), la participación de Tratak se planteó como una declaración ontológica del biodiseño y la materialidad viva: la convergencia entre la mirada contemplativa y el origen orgánico de la materia en este caso el \"cuesto de palta\" o hueso de aguacate impreso en LDM.",
+          "foto": "/images/img_2169.heic",
+          "mensaje_whatsapp": "Hola quiero que se repita la Exposición biomaterial impreso con hueso de aguacate"
         },
         {
           "titulo": "Desierto Aeroespacial GDL 2024",
@@ -181,11 +188,11 @@
           "mensaje_whatsapp": "Hola quisiera replicar la Conferencia: Diseño Transpersonal"
         },
         {
-          "titulo": "Exposición biomaterial impreso con hueso de aguacate - Biopolimérica 2023",
-          "fecha": "19/11/2023",
-          "descripcion": "En Biopolimérica 2023 (el Encuentro Latinoamericano de Biodiseño y Biomateriales celebrado en el Espacio Cultural La Leñera en Valdivia, Chile), la participación de Tratak se planteó como una declaración ontológica del biodiseño y la materialidad viva: la convergencia entre la mirada contemplativa y el origen orgánico de la materia en este caso el \"cuesto de palta\" o hueso de aguacate impreso en LDM.",
-          "foto": "/images/img_2169.heic",
-          "mensaje_whatsapp": "Hola quiero que se repita la Exposición biomaterial impreso con hueso de aguacate"
+          "titulo": "Desafía tus Sentidos - Exposición Intermedia PAD Jalisco",
+          "descripcion": "En la exposición \"Desafía tus Sentidos\" dentro de la Plataforma Activa de Diseño (PAD) de Jalisco —iniciativa de la Secretaría de Cultura enfocada en el diseño independiente, la investigación de nuevos lenguajes y el impacto social—, la participación de Tratak reconfiguró la relación entre el objeto de diseño, la tecnología intermedia y la percepción del espectador. \n\nEstación de Libros: Punto de partida intelectual y anclaje cognitivo a través de la lectura.\n\nHistoria de las Industrias: Revisión crítica del consumo masivo y la mecanización tradicional.\n\nVR con Gravity Sketch: Modelado virtual inmersivo expuesto a estímulos físicos externos, desafiando la atención del creador.\n\nMuestra de Biomateriales: Contemplación de texturas orgánicas, efímeras y sustentables.\n\nImpresión 3D en Vivo (Tronxy Moore 1): Fabricación en directo con biomateriales, funcionando como el punto focal hipnótico (Tratak) donde el algoritmo se une a la tierra.\n\nEspacio de Meditación: Un área de silencio para cerrar los ojos, procesar la experiencia e integrar el mensaje transpersonal.\n\nEn síntesis: Un viaje que guió al espectador desde la saturación teórica y la tecnología digital hasta la materia viva y el silencio interior.",
+          "mensaje_whatsapp": "Hola quiero replicar Desafía tus Sentidos",
+          "foto": "/images/img_5557.heic",
+          "fecha": "20/09/2023"
         }
       ],
       "estilo_fuente": "fraunces_space",
