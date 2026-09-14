@@ -15,6 +15,35 @@
     cormorant_manrope: { heading: "'Cormorant Garamond', serif", body: "'Manrope', sans-serif" }
   };
 
+  // Lee todos los eventos directamente desde la carpeta /events/ del repositorio en GitHub
+  // (cada evento es su propio archivo — así aparecen como entradas separadas en el panel)
+  var GITHUB_OWNER = 'TratakCAT';
+  var GITHUB_REPO = 'tratak-web';
+
+  function fetchEventosDesdeGitHub() {
+    var url = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/events?_=' + Date.now();
+    return fetch(url)
+      .then(function (r) {
+        if (!r.ok) throw new Error('No se pudo listar la carpeta de eventos (¿el repo es público?)');
+        return r.json();
+      })
+      .then(function (archivos) {
+        var jsonFiles = (archivos || []).filter(function (f) { return f.name && f.name.indexOf('.json') === f.name.length - 5; });
+        return Promise.all(jsonFiles.map(function (f) {
+          return fetch(f.download_url)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data.slug) data.slug = f.name.replace(/\.json$/, '');
+              return data;
+            });
+        }));
+      })
+      .catch(function (err) {
+        console.error('Error cargando eventos desde GitHub:', err);
+        return [];
+      });
+  }
+
   function esc(str) {
     if (str === undefined || str === null) return '';
     return String(str);
@@ -59,8 +88,8 @@
     var brandInner;
     if (theme && (theme.logo_tratak || theme.logo_cat)) {
       brandInner =
-        (theme.logo_tratak ? '<img src="' + esc(theme.logo_tratak) + '" alt="TRATAK" style="height:26px;margin-right:10px;vertical-align:middle;">' : '') +
-        (theme.logo_cat ? '<img src="' + esc(theme.logo_cat) + '" alt="CAT" style="height:26px;margin-right:10px;vertical-align:middle;">' : '');
+        (theme.logo_tratak ? '<img src="' + esc(theme.logo_tratak) + '" data-logo-oscuro="' + esc(theme.logo_tratak_oscuro || '') + '" class="logo-tema" alt="TRATAK" style="height:26px;margin-right:10px;vertical-align:middle;">' : '') +
+        (theme.logo_cat ? '<img src="' + esc(theme.logo_cat) + '" data-logo-oscuro="' + esc(theme.logo_cat_oscuro || '') + '" class="logo-tema" alt="CAT" style="height:26px;margin-right:10px;vertical-align:middle;">' : '');
     } else {
       brandInner = '<span>tratak·cat</span>';
     }
@@ -126,7 +155,7 @@
     }
     var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
     var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
-    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="sec-' + esc(s.id) + '" style="' + style + '">';
+    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="' + esc(s.id) + '" style="' + style + '">';
   }
 
   function mediaFondoHTML(s) {
@@ -179,9 +208,13 @@
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="plan-list">' + (s.items || []).map(function (it) {
         var img = it.imagen ? '<div class="plan-item-img"><img src="' + esc(it.imagen) + '" alt=""></div>' : '';
+        var link = it.slug ? ('programa.html?slug=' + encodeURIComponent(it.slug)) : it.link;
+        var precioHTML = link
+          ? '<a class="price price-link" href="' + esc(link) + '">' + esc(it.price) + '</a>'
+          : '<div class="price">' + esc(it.price) + '</div>';
         return '<div class="plan-item">' + img +
           '<div class="plan-item-main"><span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
-          '<div class="price">' + esc(it.price) + '</div></div>';
+          precioHTML + '</div>';
       }).join('') + '</div></div></section>';
   }
 
@@ -280,17 +313,134 @@
         var fechaLinea = [landing.fecha, landing.horario].filter(Boolean).join(' · ');
         var tituloPlano = landing.titulo_evento_html ? landing.titulo_evento_html.replace(/<[^>]+>/g, ' ') : '';
         var link = 'landing.html' + (landing.slug ? ('?evento=' + encodeURIComponent(landing.slug)) : '');
-        return '<div class="evento-item">' +
+        var estiloTarjeta = '';
+        var claseTarjeta = 'evento-item';
+        if (landing.color_acento) estiloTarjeta += 'background:' + landing.color_acento + ';';
+        if (landing.foto_hero) claseTarjeta += ' evento-item-con-foto';
+
+        var contenido =
+          '<div class="evento-item-contenido">' +
           '<h2>' + esc(tituloPlano) + '</h2><p>' + esc(fechaLinea) + '</p>' +
           '<p class="evento-bloque-desc">' + esc(landing.descripcion) + '</p>' +
           '<a class="btn primary" href="' + link + '">Ver detalles e inscribirme →</a>' +
           '</div>';
-      }).join('<hr class="evento-divisor">');
+
+        if (landing.foto_hero) {
+          return '<div class="' + claseTarjeta + '">' +
+            '<img class="evento-item-media" src="' + esc(landing.foto_hero) + '" alt="">' +
+            '<div class="evento-item-overlay"></div>' + contenido + '</div>';
+        }
+        return '<div class="' + claseTarjeta + '" style="' + estiloTarjeta + '">' + contenido + '</div>';
+      }).join('');
     } else {
-      inner = '<h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" — eventos.json)</p>';
+      inner = '<div class="evento-item"><h2>Próximo evento</h2><p class="evento-bloque-desc" style="opacity:.6;">(Aquí se mostrarán automáticamente tus eventos marcados como "próximo" en la colección Eventos)</p></div>';
     }
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido evento-card-bloque"><p class="eyebrow">' + esc(s.eyebrow || 'Próximo evento') + '</p>' + inner + '</div></section>';
+  }
+
+  function eventoPasadoCard(ev, whatsapp) {
+    var img = ev.foto ? '<img src="' + esc(ev.foto) + '" alt="' + esc(ev.titulo) + '">' : ('<div class="ph">Foto: ' + esc(ev.titulo) + '</div>');
+    var mensaje = ev.mensaje_whatsapp || ('Hola, me interesa que se repita el taller "' + ev.titulo + '"');
+    var link = 'https://wa.me/' + esc(whatsapp) + '?text=' + encodeURIComponent(mensaje);
+    return (
+      '<div class="evento-pasado-card">' +
+      '<div class="evento-pasado-img">' + img + '</div>' +
+      '<div class="evento-pasado-fecha">' + esc(ev.fecha) + '</div>' +
+      '<h3>' + esc(ev.titulo) + '</h3><p>' + esc(ev.descripcion) + '</p>' +
+      '<a class="btn ghost evento-pasado-btn" href="' + link + '" target="_blank" rel="noopener">Solicitar que se repita →</a>' +
+      '</div>'
+    );
+  }
+
+  function renderEventosPasados(s, contacto, opts) {
+    opts = opts || {};
+    var items = s.items || [];
+    var mostrar = opts.todos ? items : items.slice(0, 3);
+    return wrapAbre(s) + mediaFondoHTML(s) +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      '<div class="eventos-pasados-grid">' + mostrar.map(function (ev) { return eventoPasadoCard(ev, contacto ? contacto.whatsapp : ''); }).join('') + '</div>' +
+      (!opts.todos ? verTodoLink(s.id, 'Ver todos los eventos pasados') : '') +
+      '</div></section>';
+  }
+
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var DIAS_SEMANA = ['D','L','M','M','J','V','S'];
+
+  function parseFechaISO(str) {
+    if (!str) return null;
+    var partes = str.split('-');
+    if (partes.length !== 3) return null;
+    return new Date(parseInt(partes[0], 10), parseInt(partes[1], 10) - 1, parseInt(partes[2], 10));
+  }
+
+  function renderMesCalendario(fechaMes, eventosPorDia) {
+    var year = fechaMes.getFullYear();
+    var month = fechaMes.getMonth();
+    var primerDiaSemana = new Date(year, month, 1).getDay();
+    var diasEnMes = new Date(year, month + 1, 0).getDate();
+
+    var celdas = '';
+    for (var i = 0; i < primerDiaSemana; i++) {
+      celdas += '<div class="cal-dia cal-dia-vacio"></div>';
+    }
+    for (var d = 1; d <= diasEnMes; d++) {
+      var key = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+      var tieneEvento = eventosPorDia[key] && eventosPorDia[key].length;
+      var titulo = tieneEvento ? eventosPorDia[key].map(function (e) { return e.titulo; }).join(', ') : '';
+      var link = tieneEvento ? eventosPorDia[key][0].link : '#';
+      if (tieneEvento) {
+        celdas += '<a href="' + link + '" class="cal-dia cal-dia-evento" title="' + esc(titulo) + '">' + d + '<span class="cal-dot"></span></a>';
+      } else {
+        celdas += '<div class="cal-dia">' + d + '</div>';
+      }
+    }
+
+    return (
+      '<div class="cal-mes">' +
+      '<div class="cal-mes-titulo">' + MESES[month] + ' ' + year + '</div>' +
+      '<div class="cal-semana">' + DIAS_SEMANA.map(function (dd) { return '<div class="cal-dia-header">' + dd + '</div>'; }).join('') + '</div>' +
+      '<div class="cal-dias">' + celdas + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCalendario(s, _contacto, opts) {
+    var eventos = (opts && opts.eventos) || [];
+    var eventosPorDia = {};
+    eventos.forEach(function (ev) {
+      if (!ev.fecha_iso) return;
+      if (!eventosPorDia[ev.fecha_iso]) eventosPorDia[ev.fecha_iso] = [];
+      var tituloPlano = ev.titulo_evento_html ? ev.titulo_evento_html.replace(/<[^>]+>/g, ' ') : (ev.slug || 'Evento');
+      eventosPorDia[ev.fecha_iso].push({
+        titulo: tituloPlano,
+        link: 'landing.html' + (ev.slug ? ('?evento=' + encodeURIComponent(ev.slug)) : '')
+      });
+    });
+
+    var hoy = new Date();
+    var mesesHTML = '';
+    var numMeses = (s.num_meses && parseInt(s.num_meses, 10)) || 2;
+    for (var m = 0; m < numMeses; m++) {
+      var fechaMes = new Date(hoy.getFullYear(), hoy.getMonth() + m, 1);
+      mesesHTML += renderMesCalendario(fechaMes, eventosPorDia);
+    }
+
+    var eventosFuturos = eventos
+      .filter(function (ev) { return ev.fecha_iso && parseFechaISO(ev.fecha_iso) >= new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()); })
+      .sort(function (a, b) { return a.fecha_iso < b.fecha_iso ? -1 : 1; });
+
+    var listaHTML = eventosFuturos.map(function (ev) {
+      var tituloPlano = ev.titulo_evento_html ? ev.titulo_evento_html.replace(/<[^>]+>/g, ' ') : (ev.slug || 'Evento');
+      var link = 'landing.html' + (ev.slug ? ('?evento=' + encodeURIComponent(ev.slug)) : '');
+      return '<a class="cal-lista-item" href="' + link + '"><span class="cal-lista-fecha">' + esc(ev.fecha) + '</span><span>' + esc(tituloPlano) + '</span></a>';
+    }).join('');
+
+    return wrapAbre(s) + mediaFondoHTML(s) +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      '<div class="cal-meses-grid">' + mesesHTML + '</div>' +
+      (listaHTML ? '<div class="cal-lista">' + listaHTML + '</div>' : '') +
+      '</div></section>';
   }
 
   var RENDERERS = {
@@ -304,11 +454,13 @@
     blog: renderBlog,
     personajes: renderPersonajes,
     texto_destacado: renderTextoDestacado,
-    evento_proximo: renderEventoProximo
+    evento_proximo: renderEventoProximo,
+    eventos_pasados: renderEventosPasados,
+    calendario: renderCalendario
   };
 
   // Tipos de bloque que soportan "página dedicada" (listado completo)
-  var TIPOS_CON_PAGINA_DEDICADA = { galeria: true, blog: true, personajes: true, productos: true };
+  var TIPOS_CON_PAGINA_DEDICADA = { galeria: true, blog: true, personajes: true, productos: true, eventos_pasados: true };
 
   function renderSecciones(secciones, contacto, opts) {
     opts = opts || {};
@@ -337,8 +489,11 @@
   // ---------- contacto ----------
   function renderContacto(contacto) {
     if (!contacto) return '';
+    var style = '';
+    if (contacto.color_fondo) style += 'background:' + contacto.color_fondo + ';';
+    if (contacto.color_acento) style += '--clay:' + contacto.color_acento + ';';
     return (
-      '<section class="wrap" id="contacto"><div class="contacto-grid"><div>' +
+      '<section class="wrap" id="contacto" style="' + style + '"><div class="contacto-grid"><div>' +
       '<p class="eyebrow">Contacto</p><h2>' + esc(contacto.titulo) + '</h2><p>' + esc(contacto.texto) + '</p>' +
       '<div class="info-list">' +
       '<div><div class="k">WhatsApp</div><div class="v"><a href="https://wa.me/' + esc(contacto.whatsapp) + '">' + esc(contacto.whatsapp_display) + '</a></div></div>' +
@@ -388,12 +543,12 @@
   }
 
   // ---------- página completa del sitio ----------
-  function renderFullPage(content, eventosProximos) {
+  function renderFullPage(content, eventosProximos, todosLosEventos) {
     var html = '';
     html += themeStyleTag(content.theme);
     html += renderNav(content.theme);
     html += renderHero(content.hero);
-    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { eventosProximos: eventosProximos || [] }) + '</div>';
+    html += '<div id="main-sections">' + renderSecciones(content.secciones, content.contacto, { eventosProximos: eventosProximos || [], eventos: todosLosEventos || [] }) + '</div>';
     html += renderContacto(content.contacto);
     html += renderFooter();
     html += renderLightbox();
@@ -415,6 +570,19 @@
     var el = document.getElementById('lightbox');
     if (el) el.classList.remove('open');
   }
+  function aplicarLogosOscuros(activar) {
+    var logos = document.querySelectorAll('.logo-tema');
+    logos.forEach(function (img) {
+      if (!img.dataset.logoClaro) img.dataset.logoClaro = img.src;
+      var oscuro = img.getAttribute('data-logo-oscuro');
+      if (activar && oscuro) {
+        img.src = oscuro;
+      } else {
+        img.src = img.dataset.logoClaro;
+      }
+    });
+  }
+
   function bindGlobalInteractions(theme) {
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
@@ -429,6 +597,7 @@
         // Regresa a los colores normales del tema (modo día)
         applyTheme(theme, root);
       }
+      aplicarLogosOscuros(activar);
     }
 
     var saved = localStorage.getItem('tratak-modo-noche');
@@ -447,6 +616,7 @@
     FONT_PAIRS: FONT_PAIRS,
     applyTheme: applyTheme,
     themeStyleTag: themeStyleTag,
+    fetchEventosDesdeGitHub: fetchEventosDesdeGitHub,
     renderNav: renderNav,
     renderHero: renderHero,
     renderSecciones: renderSecciones,
