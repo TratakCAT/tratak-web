@@ -132,7 +132,7 @@
           "foto": "/images/dee94b54-f8ed-4f0d-836f-4c11b5d4ddd5.jpg"
         },
         {
-          "foto": "/images/captura-de-pantalla-2026-09-10-225710.png",
+          "foto": "/images/018dc75f-adec-4061-9c12-99f4dd1420c0.jpg",
           "titulo": "Maker Faire 2023 ITERA - Taller de Biomateriales + LDM ",
           "fecha": "10/11/2023",
           "descripcion": "En el marco de la Maker Faire 2023 de ITERA en el Tec de Monterrey Campus Guadalajara, se impartió el taller de Impresión 3D de biomateriales.\n\nEste espacio práctico y experimental combinó la biomanufactura con la impresión 3D avanzada por extrusión de pastas. Durante la sesión, las y los participantes exploraron el desarrollo de biopastas sostenibles utilizando residuos orgánicos de hueso de aguacate formulados con goma xantana como aglutinante reológico.\n\nA través del proceso de LDM, los asistentes aprendieron a transformar descartes agrícolas en biomateriales imprimibles, parametrizar la consistencia de la mezcla y configurar la impresora para materializar geometría tridimensional orgánica y sustentable, impulsando la economía circular y la fabricación digital consciente desde el ecosistema del Tec Campus GDL.",
@@ -179,6 +179,13 @@
           "fecha": "07/12/2024",
           "descripcion": "impartida en el marco del programa Vive el TEC dentro de la Feria Internacional del Libro de Guadalajara (FIL 2024) el 7 de diciembre de 2024, abordó el diseño desde una perspectiva multidimensional que supera lo puramente funcional o estético.\n\nEl pabellón cerámico del stand fue impreso en el LDM bajo la coordinación del estudio Tratak en alianza con el EIAAD del Tec de Monterrey y diversos alumnos.",
           "mensaje_whatsapp": "Hola quisiera replicar la Conferencia: Diseño Transpersonal"
+        },
+        {
+          "titulo": "Exposición biomaterial impreso con hueso de aguacate - Biopolimérica 2023",
+          "fecha": "19/11/2023",
+          "descripcion": "En Biopolimérica 2023 (el Encuentro Latinoamericano de Biodiseño y Biomateriales celebrado en el Espacio Cultural La Leñera en Valdivia, Chile), la participación de Tratak se planteó como una declaración ontológica del biodiseño y la materialidad viva: la convergencia entre la mirada contemplativa y el origen orgánico de la materia en este caso el \"cuesto de palta\" o hueso de aguacate impreso en LDM.",
+          "foto": "/images/img_2169.heic",
+          "mensaje_whatsapp": "Hola quiero que se repita la Exposición biomaterial impreso con hueso de aguacate"
         }
       ],
       "estilo_fuente": "fraunces_space",
