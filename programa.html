@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRATAK · CAT</title>
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon_180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e9e2d1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=2">
+<style>
+  .volver-link{ display:inline-block; margin: 28px 0 0; font-size:14px; color:var(--dust); text-decoration:none; }
+  .programa-header{ padding-top: 40px; }
+  .programa-img{ width:100%; max-width:480px; aspect-ratio:4/3; object-fit:cover; margin-bottom:24px; }
+  .programa-precio{ font-size:22px; font-weight:600; margin:20px 0; }
+  .programa-meta{ color:var(--dust); font-size:15px; margin-bottom:20px; }
+  .programa-desc{ font-size:16px; max-width:60ch; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <p style="padding:40px;font-family:sans-serif;">Cargando…</p>
+</div>
+
+<script src="assets/site.js?v=2"></script>
+<script>
+  function getParam(name) {
+    var params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  var slugBuscado = getParam('slug');
+
+  fetch('content.json?_=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (content) {
+      var encontrado = null;
+      (content.secciones || []).forEach(function (s) {
+        if (s.type === 'lista_precios') {
+          (s.items || []).forEach(function (it) {
+            if (it.slug === slugBuscado) encontrado = it;
+          });
+        }
+      });
+
+      var html = '';
+      html += TratakRender.themeStyleTag(content.theme);
+      html += TratakRender.renderNav(content.theme);
+
+      if (!encontrado) {
+        html += '<div class="wrap programa-header"><h1 style="font-family:var(--font-heading);">No se encontró este programa</h1>' +
+          '<a class="volver-link" href="index.html">← Volver al inicio</a></div>';
+      } else {
+        var img = encontrado.imagen ? '<img class="programa-img" src="' + encontrado.imagen + '" alt="">' : '';
+        html += '<div class="wrap programa-header">' +
+          '<a class="volver-link" href="index.html#plan">← Volver al plan de estudios</a>' +
+          '<h1 style="font-family:var(--font-heading);margin:20px 0 10px;">' + (encontrado.title || '') + '</h1>' +
+          '<div class="programa-meta">' + (encontrado.code || '') + (encontrado.meta ? ' · ' + encontrado.meta : '') + '</div>' +
+          img +
+          '<div class="programa-precio">' + (encontrado.price || '') + '</div>' +
+          '<p class="programa-desc">' + (encontrado.descripcion_larga || '') + '</p>' +
+          '<a class="btn primary" href="index.html#contacto" style="margin-top:20px;display:inline-block;">Preguntar por este programa →</a>' +
+          '</div>';
+        document.title = encontrado.title + ' — TRATAK · CAT';
+      }
+
+      html += TratakRender.renderContacto(content.contacto);
+      html += TratakRender.renderFooter();
+      html += TratakRender.renderFloatingButtons(content.contacto);
+
+      document.getElementById('app').innerHTML = html;
+      TratakRender.applyTheme(content.theme, document.documentElement.style);
+      TratakRender.bindGlobalInteractions(content.theme);
+    })
+    .catch(function (err) {
+      console.error('No se pudo cargar el contenido', err);
+      document.getElementById('app').innerHTML = '<p style="padding:40px;font-family:sans-serif;">Hubo un problema cargando el contenido.</p>';
+    });
+</script>
+
+</body>
+</html>

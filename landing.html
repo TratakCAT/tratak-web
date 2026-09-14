@@ -350,10 +350,8 @@
     })
     .catch(function(){ /* si falla, se queda con los colores por default */ });
 
-  fetch('eventos.json?_=' + Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var eventos = data.eventos || [];
+  TratakRender.fetchEventosDesdeGitHub()
+    .then(function(eventos){
       var slug = getParam('evento');
       var d = slug
         ? eventos.find(function(e){ return e.slug === slug; })
@@ -401,7 +399,7 @@
         }
       }
     })
-    .catch(function(err){ console.error('No se pudo cargar eventos.json', err); });
+    .catch(function(err){ console.error('No se pudieron cargar los eventos desde GitHub', err); });
 </script>
 
 </div>

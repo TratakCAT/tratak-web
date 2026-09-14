@@ -25,13 +25,12 @@
 <script>
   Promise.all([
     fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }),
-    fetch('eventos.json?_=' + Date.now()).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    window.TratakRender ? TratakRender.fetchEventosDesdeGitHub() : Promise.resolve([])
   ]).then(function (results) {
     var content = results[0];
-    var eventosData = results[1];
-    var eventos = (eventosData && eventosData.eventos) || [];
+    var eventos = results[1] || [];
     var proximos = eventos.filter(function (e) { return e.es_proximo; });
-    document.getElementById('app').innerHTML = TratakRender.renderFullPage(content, proximos);
+    document.getElementById('app').innerHTML = TratakRender.renderFullPage(content, proximos, eventos);
     TratakRender.applyTheme(content.theme, document.documentElement.style);
     TratakRender.bindGlobalInteractions(content.theme);
   }).catch(function (err) {
