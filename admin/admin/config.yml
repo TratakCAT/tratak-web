@@ -30,6 +30,8 @@ collections:
               - { label: "Color de texto secundario (modo noche)", name: "color_dust_oscuro", widget: color, required: false }
               - { label: "Logo TRATAK (opcional)", name: "logo_tratak", widget: image, required: false }
               - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
+              - { label: "Logo TRATAK para modo noche (opcional, si tu logo normal es oscuro y se pierde con fondo oscuro)", name: "logo_tratak_oscuro", widget: image, required: false }
+              - { label: "Logo CAT para modo noche (opcional)", name: "logo_cat_oscuro", widget: image, required: false }
               - label: "Pareja de tipografías (global, por default)"
                 name: "font_pair"
                 widget: select
@@ -146,7 +148,9 @@ collections:
                       - { label: "Código", name: "code", widget: string }
                       - { label: "Nombre del programa", name: "title", widget: string }
                       - { label: "Detalles (formato, sesiones)", name: "meta", widget: string }
-                      - { label: "Precio", name: "price", widget: string }
+                      - { label: "Precio (o texto tipo 'Consultar precio')", name: "price", widget: string }
+                      - { label: "Identificador único (crea una página propia con más info, ej. taller-vr)", name: "slug", widget: string, required: false }
+                      - { label: "Descripción larga (se muestra en la página propia de este programa)", name: "descripcion_larga", widget: text, required: false }
 
               - label: "Productos / tienda"
                 name: "productos"
@@ -279,12 +283,52 @@ collections:
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Próximo evento" }
-                  - { label: "Nota", name: "_nota", widget: hidden, default: "El título, fecha y descripción se jalan automáticamente de tu Landing del próximo evento — edítalos allá." }
+                  - { label: "Nota", name: "_nota", widget: hidden, default: "El título, fecha y descripción se jalan automáticamente de tus eventos marcados como 'próximo' en la colección Eventos — edítalos allá." }
+
+              - label: "Calendario de eventos"
+                name: "calendario"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio (color de los días con evento)", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Agenda" }
+                  - { label: "Título de la sección", name: "titulo", widget: string, default: "Calendario de eventos" }
+                  - { label: "¿Cuántos meses mostrar?", name: "num_meses", widget: select, options: ["1", "2", "3"], default: "2" }
+
+              - label: "Eventos pasados (con botón de 'solicitar que se repita')"
+                name: "eventos_pasados"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Ya lo hicimos" }
+                  - { label: "Título de la sección", name: "titulo", widget: string, default: "Eventos pasados" }
+                  - label: "Eventos"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Título del evento", name: "titulo", widget: string }
+                      - { label: "Fecha", name: "fecha", widget: string }
+                      - { label: "Descripción", name: "descripcion", widget: text }
+                      - { label: "Foto", name: "foto", widget: image, required: false }
+                      - { label: "Mensaje de WhatsApp precargado (opcional; si lo dejas vacío, se genera uno automático)", name: "mensaje_whatsapp", widget: string, required: false }
 
           - label: "Contacto"
             name: "contacto"
             widget: object
             fields:
+              - { label: "Color de fondo (opcional)", name: "color_fondo", widget: color, required: false }
+              - { label: "Color de acento propio (opcional)", name: "color_acento", widget: color, required: false }
               - { label: "Pregunta principal", name: "titulo", widget: string }
               - { label: "Texto de invitación", name: "texto", widget: text }
               - { label: "WhatsApp (solo números, con código de país, ej. 523332480698)", name: "whatsapp", widget: string }
@@ -293,37 +337,37 @@ collections:
               - { label: "Ubicación", name: "ubicacion", widget: string }
               - { label: "Horario", name: "horario", widget: string }
 
-  - name: "evento"
+  - name: "eventos"
     label: "Eventos"
-    files:
-      - file: "eventos.json"
-        label: "Lista de eventos"
-        name: "eventos_data"
+    folder: "events"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.slug}}"
+    summary: "{{fields.fecha}} — {{fields.titulo_evento_html}}"
+    fields:
+      - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
+      - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-octubre)", name: "slug", widget: string }
+      - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
+      - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
+      - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
+      - { label: "Descripción corta", name: "descripcion", widget: text }
+      - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
+      - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
+      - { label: "Horario", name: "horario", widget: string }
+      - { label: "Sede / dirección", name: "sede", widget: string }
+      - { label: "Texto de aportación", name: "aporte_texto", widget: string }
+      - { label: "Link del Google Form", name: "google_form_url", widget: string }
+      - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
+      - label: "Temas del taller"
+        name: "temas"
+        widget: list
         fields:
-          - label: "Eventos (agrega los que quieras; marca cuál es 'el próximo' para que aparezca destacado en el home)"
-            name: "eventos"
-            widget: list
-            summary: "{{fields.fecha}} — {{fields.titulo_evento_html}}"
-            fields:
-              - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
-              - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-10-septiembre)", name: "slug", widget: string }
-              - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
-              - { label: "Descripción corta", name: "descripcion", widget: text }
-              - { label: "Fecha", name: "fecha", widget: string }
-              - { label: "Horario", name: "horario", widget: string }
-              - { label: "Sede / dirección", name: "sede", widget: string }
-              - { label: "Texto de aportación", name: "aporte_texto", widget: string }
-              - { label: "Link del Google Form", name: "google_form_url", widget: string }
-              - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
-              - label: "Temas del taller"
-                name: "temas"
-                widget: list
-                fields:
-                  - { label: "Etiqueta (ej. 01 · Diseño en VR)", name: "tag", widget: string }
-                  - { label: "Título", name: "title", widget: string }
-                  - { label: "Texto", name: "text", widget: text }
-              - label: "Perfil de asistentes"
-                name: "perfil"
-                widget: list
-                field: { label: "Perfil", name: "perfil_item", widget: string }
-              - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
+          - { label: "Etiqueta (ej. 01 · Diseño en VR)", name: "tag", widget: string }
+          - { label: "Título", name: "title", widget: string }
+          - { label: "Texto", name: "text", widget: text }
+      - label: "Perfil de asistentes"
+        name: "perfil"
+        widget: list
+        field: { label: "Perfil", name: "perfil_item", widget: string }
+      - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
