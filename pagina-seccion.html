@@ -31,7 +31,7 @@
 
   var seccionId = getParam('id');
 
-  fetch('content.json?_=' + Date.now())
+  TratakRender.fetchConTiempoLimite('content.json?_=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (content) {
       var seccion = (content.secciones || []).find(function (s) { return s.id === seccionId; });

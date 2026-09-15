@@ -343,7 +343,7 @@
   }
 
   // Aplica el mismo tema (colores/tipografía) que el sitio principal
-  fetch('content.json?_=' + Date.now())
+  TratakRender.fetchConTiempoLimite('content.json?_=' + Date.now())
     .then(function(r){ return r.json(); })
     .then(function(content){
       TratakRender.applyTheme(content.theme, document.documentElement.style);

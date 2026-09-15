@@ -35,7 +35,7 @@
 
   var slugBuscado = getParam('slug');
 
-  fetch('content.json?_=' + Date.now())
+  TratakRender.fetchConTiempoLimite('content.json?_=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (content) {
       var encontrado = null;

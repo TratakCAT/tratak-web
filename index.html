@@ -23,10 +23,19 @@
 
 <script src="assets/site.js?v=2"></script>
 <script>
+  // Red de seguridad: si después de 12s sigue "Cargando...", muestra un aviso (nunca se queda colgado)
+  var candadoDeCarga = setTimeout(function () {
+    var app = document.getElementById('app');
+    if (app && app.textContent.indexOf('Cargando') !== -1) {
+      app.innerHTML = '<p style="padding:40px;font-family:sans-serif;">Esto está tardando más de lo normal. <a href="javascript:location.reload()">Reintentar</a></p>';
+    }
+  }, 12000);
+
   Promise.all([
-    fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }),
+    TratakRender.fetchConTiempoLimite('content.json?_=' + Date.now()).then(function (r) { return r.json(); }),
     window.TratakRender ? TratakRender.fetchEventosDesdeGitHub() : Promise.resolve([])
   ]).then(function (results) {
+    clearTimeout(candadoDeCarga);
     var content = results[0];
     var eventos = results[1] || [];
     var proximos = eventos.filter(function (e) { return e.es_proximo; });
@@ -34,6 +43,7 @@
     TratakRender.applyTheme(content.theme, document.documentElement.style);
     TratakRender.bindGlobalInteractions(content.theme);
   }).catch(function (err) {
+    clearTimeout(candadoDeCarga);
     console.error('No se pudo cargar el contenido del sitio', err);
     document.getElementById('app').innerHTML = '<p style="padding:40px;font-family:sans-serif;">Hubo un problema cargando el contenido. Intenta recargar la página.</p>';
   });
