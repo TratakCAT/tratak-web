@@ -15,6 +15,47 @@
     cormorant_manrope: { heading: "'Cormorant Garamond', serif", body: "'Manrope', sans-serif" }
   };
 
+  // Lee todos los eventos directamente desde la carpeta /events/ del repositorio en GitHub
+  // (cada evento es su propio archivo — así aparecen como entradas separadas en el panel)
+  var GITHUB_OWNER = 'TratakCAT';
+  var GITHUB_REPO = 'tratak-web';
+
+  // Fetch con límite de tiempo: si tarda demasiado, falla en vez de colgarse para siempre
+  function fetchConTiempoLimite(url, ms) {
+    ms = ms || 8000;
+    return Promise.race([
+      fetch(url),
+      new Promise(function (_, reject) {
+        setTimeout(function () { reject(new Error('Tiempo de espera agotado: ' + url)); }, ms);
+      })
+    ]);
+  }
+
+  function fetchEventosDesdeGitHub() {
+    var url = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/events?_=' + Date.now();
+    return fetchConTiempoLimite(url, 8000)
+      .then(function (r) {
+        if (!r.ok) throw new Error('No se pudo listar la carpeta de eventos (¿el repo es público?)');
+        return r.json();
+      })
+      .then(function (archivos) {
+        var jsonFiles = (archivos || []).filter(function (f) { return f.name && f.name.indexOf('.json') === f.name.length - 5; });
+        return Promise.all(jsonFiles.map(function (f) {
+          return fetchConTiempoLimite(f.download_url, 8000)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data.slug) data.slug = f.name.replace(/\.json$/, '');
+              return data;
+            })
+            .catch(function () { return null; });
+        })).then(function (lista) { return lista.filter(Boolean); });
+      })
+      .catch(function (err) {
+        console.error('Error cargando eventos desde GitHub:', err);
+        return [];
+      });
+  }
+
   function esc(str) {
     if (str === undefined || str === null) return '';
     return String(str);
@@ -126,7 +167,7 @@
     }
     var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
     var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
-    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="sec-' + esc(s.id) + '" style="' + style + '">';
+    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="' + esc(s.id) + '" style="' + style + '">';
   }
 
   function mediaFondoHTML(s) {
@@ -179,9 +220,13 @@
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="plan-list">' + (s.items || []).map(function (it) {
         var img = it.imagen ? '<div class="plan-item-img"><img src="' + esc(it.imagen) + '" alt=""></div>' : '';
+        var link = it.slug ? ('programa.html?slug=' + encodeURIComponent(it.slug)) : it.link;
+        var precioHTML = link
+          ? '<a class="price price-link" href="' + esc(link) + '">' + esc(it.price) + '</a>'
+          : '<div class="price">' + esc(it.price) + '</div>';
         return '<div class="plan-item">' + img +
           '<div class="plan-item-main"><span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
-          '<div class="price">' + esc(it.price) + '</div></div>';
+          precioHTML + '</div>';
       }).join('') + '</div></div></section>';
   }
 
@@ -581,8 +626,10 @@
 
   global.TratakRender = {
     FONT_PAIRS: FONT_PAIRS,
+    fetchConTiempoLimite: fetchConTiempoLimite,
     applyTheme: applyTheme,
     themeStyleTag: themeStyleTag,
+    fetchEventosDesdeGitHub: fetchEventosDesdeGitHub,
     renderNav: renderNav,
     renderHero: renderHero,
     renderSecciones: renderSecciones,
