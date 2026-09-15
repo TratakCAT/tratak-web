@@ -148,7 +148,9 @@ collections:
                       - { label: "Código", name: "code", widget: string }
                       - { label: "Nombre del programa", name: "title", widget: string }
                       - { label: "Detalles (formato, sesiones)", name: "meta", widget: string }
-                      - { label: "Precio", name: "price", widget: string }
+                      - { label: "Precio (o texto tipo 'Consultar precio')", name: "price", widget: string }
+                      - { label: "Identificador único (crea una página propia con más info, ej. taller-vr)", name: "slug", widget: string, required: false }
+                      - { label: "Descripción larga (se muestra en la página propia de este programa)", name: "descripcion_larga", widget: text, required: false }
 
               - label: "Productos / tienda"
                 name: "productos"
@@ -335,40 +337,37 @@ collections:
               - { label: "Ubicación", name: "ubicacion", widget: string }
               - { label: "Horario", name: "horario", widget: string }
 
-  - name: "evento"
+  - name: "eventos"
     label: "Eventos"
-    files:
-      - file: "eventos.json"
-        label: "Lista de eventos"
-        name: "eventos_data"
+    folder: "events"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.slug}}"
+    summary: "{{fields.fecha}} — {{fields.titulo_evento_html}}"
+    fields:
+      - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
+      - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-octubre)", name: "slug", widget: string }
+      - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
+      - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
+      - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
+      - { label: "Descripción corta", name: "descripcion", widget: text }
+      - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
+      - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
+      - { label: "Horario", name: "horario", widget: string }
+      - { label: "Sede / dirección", name: "sede", widget: string }
+      - { label: "Texto de aportación", name: "aporte_texto", widget: string }
+      - { label: "Link del Google Form", name: "google_form_url", widget: string }
+      - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
+      - label: "Temas del taller"
+        name: "temas"
+        widget: list
         fields:
-          - label: "Eventos (agrega los que quieras; marca cuál es 'el próximo' para que aparezca destacado en el home)"
-            name: "eventos"
-            widget: list
-            summary: "{{fields.fecha}} — {{fields.titulo_evento_html}}"
-            fields:
-              - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
-              - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-10-septiembre)", name: "slug", widget: string }
-              - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
-              - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
-              - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
-              - { label: "Descripción corta", name: "descripcion", widget: text }
-              - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
-              - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
-              - { label: "Horario", name: "horario", widget: string }
-              - { label: "Sede / dirección", name: "sede", widget: string }
-              - { label: "Texto de aportación", name: "aporte_texto", widget: string }
-              - { label: "Link del Google Form", name: "google_form_url", widget: string }
-              - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
-              - label: "Temas del taller"
-                name: "temas"
-                widget: list
-                fields:
-                  - { label: "Etiqueta (ej. 01 · Diseño en VR)", name: "tag", widget: string }
-                  - { label: "Título", name: "title", widget: string }
-                  - { label: "Texto", name: "text", widget: text }
-              - label: "Perfil de asistentes"
-                name: "perfil"
-                widget: list
-                field: { label: "Perfil", name: "perfil_item", widget: string }
-              - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
+          - { label: "Etiqueta (ej. 01 · Diseño en VR)", name: "tag", widget: string }
+          - { label: "Título", name: "title", widget: string }
+          - { label: "Texto", name: "text", widget: text }
+      - label: "Perfil de asistentes"
+        name: "perfil"
+        widget: list
+        field: { label: "Perfil", name: "perfil_item", widget: string }
+      - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
