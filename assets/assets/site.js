@@ -20,9 +20,20 @@
   var GITHUB_OWNER = 'TratakCAT';
   var GITHUB_REPO = 'tratak-web';
 
+  // Fetch con límite de tiempo: si tarda demasiado, falla en vez de colgarse para siempre
+  function fetchConTiempoLimite(url, ms) {
+    ms = ms || 8000;
+    return Promise.race([
+      fetch(url),
+      new Promise(function (_, reject) {
+        setTimeout(function () { reject(new Error('Tiempo de espera agotado: ' + url)); }, ms);
+      })
+    ]);
+  }
+
   function fetchEventosDesdeGitHub() {
     var url = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/events?_=' + Date.now();
-    return fetch(url)
+    return fetchConTiempoLimite(url, 8000)
       .then(function (r) {
         if (!r.ok) throw new Error('No se pudo listar la carpeta de eventos (¿el repo es público?)');
         return r.json();
@@ -30,13 +41,14 @@
       .then(function (archivos) {
         var jsonFiles = (archivos || []).filter(function (f) { return f.name && f.name.indexOf('.json') === f.name.length - 5; });
         return Promise.all(jsonFiles.map(function (f) {
-          return fetch(f.download_url)
+          return fetchConTiempoLimite(f.download_url, 8000)
             .then(function (r) { return r.json(); })
             .then(function (data) {
               if (!data.slug) data.slug = f.name.replace(/\.json$/, '');
               return data;
-            });
-        }));
+            })
+            .catch(function () { return null; });
+        })).then(function (lista) { return lista.filter(Boolean); });
       })
       .catch(function (err) {
         console.error('Error cargando eventos desde GitHub:', err);
@@ -614,6 +626,7 @@
 
   global.TratakRender = {
     FONT_PAIRS: FONT_PAIRS,
+    fetchConTiempoLimite: fetchConTiempoLimite,
     applyTheme: applyTheme,
     themeStyleTag: themeStyleTag,
     fetchEventosDesdeGitHub: fetchEventosDesdeGitHub,
