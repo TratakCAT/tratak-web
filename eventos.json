@@ -3,9 +3,17 @@
     {
       "horario": "9:00 am - 6:00 pm",
       "aporte_texto": "Aportación $1200",
-      "despues_texto": "Después de este taller hay una experiencia opcional, acampada en el rio salado (proximamante más información)",
+      "despues_texto": "Después de este taller hay una experiencia opcional, acampada en el rio salado que queda a unos metros (DM para más información)",
       "slug": "retiro-10-noviembre",
-      "descripcion": "El 7 de noviembre nos encontramos cerca del Río Caliente para vivir un día de exploración donde tecnología, materia, naturaleza y contemplación dejan de estar separadas.\n\nDurante la jornada nos moveremos entre realidad virtual, cerámica, biomateriales e impresión 3D, experimentando con las manos y observando cómo una idea puede transformarse en materia.\n\nTambién habrá espacio para composta, alimentación, contemplación y convivencia, recuperando ritmos más lentos y una relación más directa con el entorno.\n\nNo es un taller convencional ni un retiro para desconectarnos de la tecnología.\n\nEs una oportunidad para cambiar nuestra relación con ella: salir de la pantalla, entrar en la materia y experimentar qué sucede cuando diseñamos desde la atención.\n\n🧠 Contemplación\n🥽 Realidad virtual\n🧱 Cerámica\n🌱 Biomateriales\n🖨️ Impresión 3D\n♻️ Composta\n🍲 Comida\n🌊 Naturaleza\n👐 Experiencia directa\n\nUn día para crear, contemplar y experimentar otras formas de relacionarnos con la tecnología.\n",
+      "perfil": [
+        "No necesitas experiencia previa, lleva tu creatividad y curiosidad contigo para aprender nuevos hábitos sustentables para aplicarlos en tu vida diaria."
+      ],
+      "descripcion": "El 7 de noviembre nos encontramos cerca del Río Caliente para vivir un día de exploración donde tecnología, materia, naturaleza y contemplación dejan de estar separadas.\n\nDurante la jornada nos moveremos entre realidad virtual, cerámica, biomateriales e impresión 3D, experimentando con las manos y observando cómo una idea puede transformarse en materia.\n\nUn día para crear, contemplar y experimentar otras formas de relacionarnos con la tecnología.\n",
+      "temas": [
+        {
+          "text": "Tres estaciones: \n-Crea tu propio biomaterial \n-Impresión 3D de cerámica\n-Modelado en Realidad Virtual\n\nTambién habrá espacio para composta, alimentación, contemplación y convivencia, recuperando ritmos más lentos y una relación más directa con el entorno.\n\nNo es un taller convencional ni un retiro para desconectarnos de la tecnología.\n\nEs una oportunidad para cambiar nuestra relación con ella: salir de la pantalla, entrar en la materia y experimentar qué sucede cuando diseñamos desde la atención.\n\n🧠 Contemplación\n🥽 Realidad virtual\n🧱 Cerámica\n🌱 Biomateriales\n🖨️ Impresión 3D\n♻️ Composta\n🍲 Comida\n🌊 Naturaleza\n👐 Experiencia directa"
+        }
+      ],
       "titulo_evento_html": "Naturaleza, tecnología y contemplación",
       "es_proximo": true,
       "whatsapp": "+5233324806998",
