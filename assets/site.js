@@ -215,15 +215,24 @@
     return wrapAbre(s) + mediaFondoHTML(s) + '<div class="bloque-contenido">' + textoHTML + '</div></section>';
   }
 
-  function renderListaPrecios(s) {
+  function renderListaPrecios(s, contacto) {
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="plan-list">' + (s.items || []).map(function (it) {
         var img = it.imagen ? '<div class="plan-item-img"><img src="' + esc(it.imagen) + '" alt=""></div>' : '';
-        var link = it.slug ? ('programa.html?slug=' + encodeURIComponent(it.slug)) : it.link;
-        var precioHTML = link
-          ? '<a class="price price-link" href="' + esc(link) + '">' + esc(it.price) + '</a>'
-          : '<div class="price">' + esc(it.price) + '</div>';
+        var link, esExterno;
+        if (it.slug) {
+          link = 'programa.html?slug=' + encodeURIComponent(it.slug);
+        } else if (it.link) {
+          link = it.link;
+          esExterno = true;
+        } else {
+          var mensaje = 'Hola, me interesa el programa "' + it.title + '"' + (it.price ? ' (' + it.price + ')' : '') + ', ¿me pueden dar más información?';
+          link = 'https://wa.me/' + esc(contacto ? contacto.whatsapp : '') + '?text=' + encodeURIComponent(mensaje);
+          esExterno = true;
+        }
+        var atributos = esExterno ? ' target="_blank" rel="noopener"' : '';
+        var precioHTML = '<a class="price price-link" href="' + esc(link) + '"' + atributos + '>' + esc(it.price) + '</a>';
         return '<div class="plan-item">' + img +
           '<div class="plan-item-main"><span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
           precioHTML + '</div>';
@@ -455,6 +464,28 @@
       '</div></section>';
   }
 
+  function renderCarrusel(s) {
+    var items = s.items || [];
+    var slides = items.map(function (it) {
+      var cap = it.pie ? '<figcaption>' + esc(it.pie) + '</figcaption>' : '';
+      return '<figure class="carrusel-slide"><img src="' + esc(it.imagen) + '" alt="' + esc(it.pie || '') + '">' + cap + '</figure>';
+    }).join('');
+    return wrapAbre(s) + mediaFondoHTML(s) +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      (s.texto ? '<p class="carrusel-texto">' + esc(s.texto) + '</p>' : '') +
+      '<div class="carrusel-wrap">' +
+      '<button class="carrusel-btn carrusel-prev" onclick="TratakRender.carruselMover(this,-1)" aria-label="Anterior">‹</button>' +
+      '<div class="carrusel-track">' + slides + '</div>' +
+      '<button class="carrusel-btn carrusel-next" onclick="TratakRender.carruselMover(this,1)" aria-label="Siguiente">›</button>' +
+      '</div></div></section>';
+  }
+
+  function carruselMover(btn, dir) {
+    var wrap = btn.closest('.carrusel-wrap');
+    var track = wrap.querySelector('.carrusel-track');
+    track.scrollBy({ left: track.clientWidth * dir, behavior: 'smooth' });
+  }
+
   var RENDERERS = {
     estadisticas: renderEstadisticas,
     pilares: renderPilares,
@@ -466,6 +497,7 @@
     blog: renderBlog,
     personajes: renderPersonajes,
     texto_destacado: renderTextoDestacado,
+    carrusel: renderCarrusel,
     evento_proximo: renderEventoProximo,
     eventos_pasados: renderEventosPasados,
     calendario: renderCalendario
@@ -644,6 +676,7 @@
     youtubeIdFromUrl: youtubeIdFromUrl,
     openLightbox: openLightbox,
     closeLightbox: closeLightbox,
+    carruselMover: carruselMover,
     bindGlobalInteractions: bindGlobalInteractions
   };
 
