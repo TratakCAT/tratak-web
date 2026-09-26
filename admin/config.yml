@@ -257,6 +257,27 @@ collections:
                       - { label: "Foto", name: "imagen", widget: image, required: false }
                       - { label: "Biografía corta", name: "bio", widget: text }
 
+              - label: "Carrusel de fotos"
+                name: "carrusel"
+                fields:
+                  - { label: "Identificador único", name: "id", widget: string }
+                  - { label: "Fondo", name: "fondo", widget: select, options: ["ninguno", "color", "imagen", "video"], default: "ninguno" }
+                  - { label: "Color de fondo", name: "color_fondo", widget: color, required: false }
+                  - { label: "Imagen de fondo", name: "imagen_fondo", widget: image, required: false }
+                  - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
+                  - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
+                  - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+                  - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
+                  - { label: "Título de la sección", name: "titulo", widget: string }
+                  - { label: "Texto/descripción (opcional)", name: "texto", widget: text, required: false }
+                  - label: "Fotos del carrusel"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Foto", name: "imagen", widget: image }
+                      - { label: "Pie de foto (opcional)", name: "pie", widget: string, required: false }
+
               - label: "Texto destacado / manifiesto"
                 name: "texto_destacado"
                 fields:
