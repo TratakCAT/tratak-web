@@ -251,6 +251,27 @@
   }
   .bloque-claro .ver-todo-link{ color: var(--paper); border-color: var(--paper); }
 
+  /* ---------- carrusel de fotos ---------- */
+  .carrusel-texto{ max-width:56ch; margin-bottom:20px; }
+  .carrusel-wrap{ position:relative; }
+  .carrusel-track{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:16px;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .carrusel-track::-webkit-scrollbar{ display:none; }
+  .carrusel-slide{ flex:0 0 100%; scroll-snap-align:center; margin:0; }
+  .carrusel-slide img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  .carrusel-slide figcaption{ font-size:14px; color:var(--dust); margin-top:10px; }
+  .bloque-claro .carrusel-slide figcaption{ color:#cfc6ae; }
+  .carrusel-btn{
+    position:absolute; top:calc(50% - 20px); width:40px; height:40px; border-radius:50%;
+    border:none; background:var(--ink); color:var(--paper); font-size:20px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; z-index:5;
+  }
+  .carrusel-prev{ left:-8px; }
+  .carrusel-next{ right:-8px; }
+  @media (max-width:640px){ .carrusel-btn{ display:none; } }
+
   /* ---------- WhatsApp flotante ---------- */
   .whatsapp-flotante{
     position: fixed;
