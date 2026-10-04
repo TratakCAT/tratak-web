@@ -12,6 +12,73 @@
       APIUrl: "https://tratak.netlify.app/.netlify/identity"
     });
   </script>
+  <!-- Conversión automática de fotos HEIC/HEIF (iPhone) a JPG al subirlas -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
+  <script>
+    (function () {
+      var ES_HEIC = /\.(heic|heif)$/i;
+
+      function convertirArchivo(f) {
+        if (!ES_HEIC.test(f.name)) return Promise.resolve(f);
+        return heic2any({ blob: f, toType: "image/jpeg", quality: 0.85 })
+          .then(function (blobConvertido) {
+            var out = Array.isArray(blobConvertido) ? blobConvertido[0] : blobConvertido;
+            var nuevoNombre = f.name.replace(ES_HEIC, ".jpg");
+            return new File([out], nuevoNombre, { type: "image/jpeg" });
+          })
+          .catch(function (err) {
+            console.error("No se pudo convertir " + f.name + " de HEIC a JPG:", err);
+            return f; // si falla la conversión, deja pasar el original
+          });
+      }
+
+      function hayHeic(lista) {
+        for (var i = 0; i < lista.length; i++) {
+          if (ES_HEIC.test(lista[i].name)) return true;
+        }
+        return false;
+      }
+
+      // Selección de archivo normal (botón "Choose an image")
+      document.addEventListener(
+        "change",
+        function (e) {
+          var input = e.target;
+          if (!input || input.tagName !== "INPUT" || input.type !== "file") return;
+          var files = input.files;
+          if (!files || !files.length || !hayHeic(files)) return;
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          Promise.all(Array.prototype.map.call(files, convertirArchivo)).then(function (nuevos) {
+            var dt = new DataTransfer();
+            nuevos.forEach(function (f) { dt.items.add(f); });
+            input.files = dt.files;
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+        },
+        true
+      );
+
+      // Arrastrar y soltar una foto directo a un campo de imagen
+      document.addEventListener(
+        "drop",
+        function (e) {
+          var files = e.dataTransfer && e.dataTransfer.files;
+          if (!files || !files.length || !hayHeic(files)) return;
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          Promise.all(Array.prototype.map.call(files, convertirArchivo)).then(function (nuevos) {
+            var dt = new DataTransfer();
+            nuevos.forEach(function (f) { dt.items.add(f); });
+            var nuevoDrop = new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: dt });
+            e.target.dispatchEvent(nuevoDrop);
+          });
+        },
+        true
+      );
+    })();
+  </script>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <!-- Motor compartido de renderizado: el mismo que usa el sitio real -->
