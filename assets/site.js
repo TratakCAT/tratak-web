@@ -118,7 +118,7 @@
       '<li><a href="' + homeHref + '#multimedia">Video</a></li>' +
       '<li><a href="landing.html">Eventos</a></li>' +
       '</ul>' +
-      '<a class="cta" href="' + homeHref + '#contacto">Inscríbete →</a>' +
+      '<a class="cta" href="' + homeHref + '#plan">Inscríbete →</a>' +
       '</div></nav>'
     );
   }
