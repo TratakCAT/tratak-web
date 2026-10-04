@@ -33,6 +33,6 @@
   ],
   "despues_texto": "Quien quiera ir más lejos podrá inscribirse al siguiente paso: hacer su propia pieza en el taller de costo.",
   "slug": "taller-10-septiembre",
-  "es_proximo": true,
+  "es_proximo": false,
   "fecha_iso": "2026-09-10"
 }
