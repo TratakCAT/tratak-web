@@ -1,18 +1,39 @@
 {
   "horario": "9:00 am - 6:00 pm",
-  "aporte_texto": "Aportación $1200",
+  "aporte_texto": "Early Bird $1350 hasta agotar existencias",
   "despues_texto": "El día anterior a este taller hay una experiencia opcional, acampada en el rio salado que queda a unos metros (DM para más información)",
   "slug": "retiro-8-noviembre",
   "perfil": [
     "No necesitas experiencia previa, lleva tu creatividad y curiosidad contigo para aprender nuevos hábitos sustentables para aplicarlos en tu vida diaria."
   ],
-  "descripcion": "El 8 de noviembre nos encontramos cerca del Río Caliente para vivir un día de exploración donde tecnología, materia, naturaleza y contemplación dejan de estar separadas.\n\nDurante la jornada nos moveremos entre realidad virtual, cerámica, biomateriales e impresión 3D, experimentando con las manos y observando cómo una idea puede transformarse en materia.\n\nUn día para crear, contemplar y experimentar otras formas de relacionarnos con la tecnología.\n",
-  "temas": [],
+  "descripcion": "El 8 de noviembre nos encontramos cerca del Río Caliente para vivir un día de exploración donde tecnología, materia, naturaleza y contemplación dejan de estar separadas.\n\nDurante la jornada nos moveremos entre realidad virtual, cerámica, biomateriales e impresión 3D, experimentando con las manos y observando cómo una idea puede transformarse en materia.\n\nUn día para crear, contemplar y experimentar otras formas de relacionarnos con la tecnología.\n\nActividades:\n\n9:00 – 9:30\nLlegada y registro\n9:30 – 10:00\nBienvenida y explicación del día\n10:00 – 11:00\nRotación 1 de estaciones\n11:00 – 11:15\nReceso corto \n11:15 - 12:15\nRotación 2 de estaciones\n12:15 - 1:30\nReceso corto \n1:30 - 2:45\nRotación 3 de estaciones \n2:45 - 3:45\nComida (shawarma)\n3:45 - 4:00\nReceso corto \n4:00 – 5:45\nComposta\n5:45 – 6:00\nCierre, fotos grupales y despedida\n\n\n",
+  "temas": [
+    {
+      "text": "Procesamiento de residuos orgánicos para crear bioplásticos desde cero. Puedes traer tu propio residuo, de preferencia cáscara de plátano y te enseñamos a procesarlo para convertirlo en un objeto de uso cotidiano totalmente compostable.",
+      "title": "Biomateriales y bioplásticos ",
+      "tag": "BIOM"
+    },
+    {
+      "tag": "IMPR 3D",
+      "title": "Impresión 3D de cerámica",
+      "text": "Conoce la tecnología de LDM (Modelado por deposición líquida) la cual puede procesar tanto biopastas como cerámicos, adentrate en el mundo de la reología, el barro y la fabricación digital."
+    },
+    {
+      "tag": "VR ",
+      "title": "Modelado 3D y VR ",
+      "text": "Conoce ambas maneras de poder llevar a cabo un diseño para imprimirse, ya sea con un casco de realidad virtual donde las ideas pueden fluir aún mejor o con un software de modelado 3D sencillo para que puedas empezar a volver realidad tus ideas."
+    },
+    {
+      "tag": "COMP",
+      "title": "Composta",
+      "text": "Aprende métodos distintos para hacer composta e integrarlo en tus hábitos sin importar el espacio que tengas en casa, veremos como todos los procesos anteriores concluyen en este ciclo de regeneración con la madre tierra."
+    }
+  ],
   "titulo_evento_html": "Naturaleza, tecnología y contemplación",
   "es_proximo": true,
   "whatsapp": "523332480698",
   "sede": "Mansión Esquivias",
   "foto_hero": "/images/whatsapp-image-2026-09-26-at-10.37.21-am.jpeg",
-  "google_form_url": "proximamamente",
+  "google_form_url": "https://forms.gle/7dGB8cBj9veMa6zd9",
   "fecha": "8 de Noviembre"
 }
