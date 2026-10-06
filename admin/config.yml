@@ -380,6 +380,13 @@ collections:
       - { label: "Texto de aportación", name: "aporte_texto", widget: string }
       - { label: "Link del Google Form", name: "google_form_url", widget: string }
       - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
+      - label: "Agenda del día (opcional, una fila por actividad)"
+        name: "agenda"
+        widget: list
+        required: false
+        fields:
+          - { label: "Hora (ej. 9:00 – 9:30)", name: "hora", widget: string }
+          - { label: "Actividad", name: "actividad", widget: string }
       - label: "Temas del taller"
         name: "temas"
         widget: list
