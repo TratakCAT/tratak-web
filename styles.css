@@ -370,3 +370,18 @@
   .foot-grid ul a{ text-decoration:none; }
   .foot-bottom{ margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font-size:14px; color:var(--dust); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
   @media (max-width:780px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+
+/* ---------- pilares como acordeón ---------- */
+.seccion-bloque{ scroll-margin-top:84px; }
+.pilares-acordeon{ border-top:1px solid var(--line); }
+.pilares-acordeon .pilar{ padding:0; border-right:none; border-bottom:1px solid var(--line); }
+.pilares-acordeon summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:16px; padding:20px 4px; }
+.pilares-acordeon summary::-webkit-details-marker{ display:none; }
+.pilares-acordeon .num{ font-size:15px; color:var(--moss); margin:0; min-width:120px; }
+.pilares-acordeon .pilar-titulo{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; flex:1; }
+.pilares-acordeon .pilar-mas{ width:14px; height:14px; position:relative; flex:none; }
+.pilares-acordeon .pilar-mas::before,.pilares-acordeon .pilar-mas::after{ content:''; position:absolute; background:currentColor; left:0; right:0; top:50%; height:2px; margin-top:-1px; transition:transform .2s; }
+.pilares-acordeon .pilar-mas::after{ transform:rotate(90deg); }
+.pilares-acordeon details[open] .pilar-mas::after{ transform:rotate(0deg); }
+.pilares-acordeon .pilar > p{ padding:0 4px 22px 4px; max-width:70ch; font-size:16px; margin:0; }
+@media (max-width:640px){ .pilares-acordeon .num{ min-width:0; display:none; } }

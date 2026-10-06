@@ -110,15 +110,15 @@
       '<nav><div class="wrap bar">' +
       '<a href="' + homeHref + '" class="brand" style="text-decoration:none;color:inherit;">' + brandInner + '</a>' +
       '<ul>' +
-      '<li><a href="' + homeHref + '#pilares">Pilares</a></li>' +
-      '<li><a href="' + homeHref + '#taller">Taller</a></li>' +
-      '<li><a href="' + homeHref + '#plan">Plan</a></li>' +
-      '<li><a href="' + homeHref + '#tienda">Tienda</a></li>' +
-      '<li><a href="' + homeHref + '#galeria">Galería</a></li>' +
-      '<li><a href="' + homeHref + '#multimedia">Video</a></li>' +
+      '<li><a data-ancla="pilares" href="' + homeHref + '#pilares">Pilares</a></li>' +
+      '<li><a data-ancla="taller" href="' + homeHref + '#taller">Taller</a></li>' +
+      '<li><a data-ancla="plan" href="' + homeHref + '#plan">Plan</a></li>' +
+      '<li><a data-ancla="tienda" href="' + homeHref + '#tienda">Tienda</a></li>' +
+      '<li><a data-ancla="galeria" href="' + homeHref + '#galeria">Galería</a></li>' +
+      '<li><a data-ancla="multimedia" href="' + homeHref + '#multimedia">Video</a></li>' +
       '<li><a href="landing.html">Eventos</a></li>' +
       '</ul>' +
-      '<a class="cta" href="' + homeHref + '#plan">Inscríbete →</a>' +
+      '<a class="cta" data-ancla="plan" href="' + homeHref + '#plan">Inscríbete →</a>' +
       '</div></nav>'
     );
   }
@@ -167,7 +167,7 @@
     }
     var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
     var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
-    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="' + esc(s.id) + '" style="' + style + '">';
+    return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="' + esc(s.id) + '" data-tipo="' + esc(s.type) + '" style="' + style + '">';
   }
 
   function mediaFondoHTML(s) {
@@ -195,8 +195,8 @@
   function renderPilares(s) {
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
-      '<div class="pilares">' + (s.items || []).map(function (p) {
-        return '<div class="pilar"><div class="num">' + esc(p.num) + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.text) + '</p></div>';
+      '<div class="pilares-acordeon">' + (s.items || []).map(function (p) {
+        return '<details class="pilar"><summary><span class="num">' + esc(p.num) + '</span><span class="pilar-titulo">' + esc(p.title) + '</span><span class="pilar-mas" aria-hidden="true"></span></summary><p>' + esc(p.text) + '</p></details>';
       }).join('') + '</div></div></section>';
   }
 
@@ -627,7 +627,36 @@
     });
   }
 
+  var TIPO_POR_ANCLA = { pilares: 'pilares', taller: 'destacado', plan: 'lista_precios', tienda: 'productos', galeria: 'galeria', multimedia: 'media' };
+
+  function buscarAncla(ancla) {
+    if (!ancla) return null;
+    var el = document.getElementById(ancla);
+    if (!el && TIPO_POR_ANCLA[ancla]) el = document.querySelector('[data-tipo="' + TIPO_POR_ANCLA[ancla] + '"]');
+    return el;
+  }
+
+  function bindAnclas() {
+    if (bindAnclas.hecho) return;
+    bindAnclas.hecho = true;
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-ancla]');
+      if (!a) return;
+      var el = buscarAncla(a.getAttribute('data-ancla'));
+      if (!el) return; // otra página: navega normal
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', '#' + a.getAttribute('data-ancla'));
+    });
+    var h = (location.hash || '').replace('#', '');
+    if (h && !document.getElementById(h)) {
+      var el = buscarAncla(h);
+      if (el) setTimeout(function () { el.scrollIntoView({ block: 'start' }); }, 50);
+    }
+  }
+
   function bindGlobalInteractions(theme) {
+    bindAnclas();
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
 
