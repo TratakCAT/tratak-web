@@ -436,6 +436,26 @@
       "titulo": "",
       "type": "texto_destacado",
       "id": "manifiesto"
+    },
+    {
+      "items": [
+        {
+          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm1.jpeg",
+          "pie": "Galardón categoría emprendimiento promesa 3er lugar"
+        },
+        {
+          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm.jpeg",
+          "pie": "El Gobernador de Jalisco otorgando el galardón"
+        }
+      ],
+      "texto": "La máxima distinción otorgada por el Gobierno del Estado de Jalisco para reconocer a personas, empresas e instituciones que impulsan la innovación, el empleo y la competitividad.",
+      "color_texto": "oscuro",
+      "eyebrow": "Galardón",
+      "fondo": "color",
+      "color_fondo": "#5e56d7",
+      "titulo": "Premio Emprendimiento Jalisco 2026 - Categoría Promesa",
+      "type": "carrusel",
+      "id": "Carrusel"
     }
   ],
   "contacto": {
