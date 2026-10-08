@@ -383,5 +383,11 @@
 .pilares-acordeon .pilar-mas::before,.pilares-acordeon .pilar-mas::after{ content:''; position:absolute; background:currentColor; left:0; right:0; top:50%; height:2px; margin-top:-1px; transition:transform .2s; }
 .pilares-acordeon .pilar-mas::after{ transform:rotate(90deg); }
 .pilares-acordeon details[open] .pilar-mas::after{ transform:rotate(0deg); }
-.pilares-acordeon .pilar > p{ padding:0 4px 22px 4px; max-width:70ch; font-size:16px; margin:0; }
+
 @media (max-width:640px){ .pilares-acordeon .num{ min-width:0; display:none; } }
+
+.pilares-acordeon .pilar-cuerpo{ padding:0 4px 24px; display:block; }
+.pilares-acordeon .pilar-cuerpo > p{ padding:0; margin:0; max-width:70ch; font-size:16px; white-space:pre-line; }
+.pilares-acordeon .pilar-cuerpo.con-imagen{ display:grid; grid-template-columns:minmax(0,320px) 1fr; gap:24px; align-items:start; }
+.pilares-acordeon .pilar-img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; display:block; }
+@media (max-width:640px){ .pilares-acordeon .pilar-cuerpo.con-imagen{ grid-template-columns:1fr; gap:14px; } }

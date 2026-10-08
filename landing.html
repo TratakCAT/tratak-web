@@ -296,6 +296,12 @@
   .agenda-fila:last-child{ border-bottom:1px solid var(--line); }
   .agenda-hora{ color:var(--moss); font-weight:600; }
   @media (max-width:560px){ .agenda-fila{ grid-template-columns:1fr; gap:2px; } }
+  section.incluye{ padding:44px 0 30px; border-top:1px solid var(--line); }
+  section.incluye h2{ font-family:var(--font-heading); font-weight:400; font-size:26px; margin:0 0 18px; }
+  section.incluye ul{ list-style:none; padding:0; margin:0; }
+  section.incluye li{ padding:11px 0 11px 28px; border-top:1px solid var(--line); position:relative; font-size:15.5px; }
+  section.incluye li:last-child{ border-bottom:1px solid var(--line); }
+  section.incluye li::before{ content:'✓'; position:absolute; left:2px; color:var(--moss); font-weight:700; }
 </style>
 </head>
 <body>
@@ -348,6 +354,11 @@
     <div id="landing-agenda"></div>
   </section>
 
+  <section class="incluye" id="landing-incluye-sec" style="display:none;">
+    <h2>Qué incluye</h2>
+    <ul id="landing-incluye"></ul>
+  </section>
+
   <section class="explora">
     <h2>Qué vas a explorar</h2>
     <div class="topics" id="landing-temas"></div>
@@ -369,7 +380,7 @@
     <span>Dudas — <a href="https://wa.me/523332480698" id="landing-whatsapp-footer">WhatsApp</a></span>
   </footer>
 
-<script src="assets/site.js?v=3"></script>
+<script src="assets/site.js?v=4"></script>
 <script>
   function getParam(name) {
     var params = new URLSearchParams(window.location.search);
@@ -424,6 +435,11 @@
           var cerrada = descEl.classList.toggle('lede-colapsada');
           tg.textContent = cerrada ? 'Ver más' : 'Ver menos';
         };
+      }
+      var inc = (d.incluye || []).map(function (x) { return typeof x === 'string' ? x : (x && (x.item || x.texto)) || ''; }).filter(Boolean);
+      if (inc.length) {
+        document.getElementById('landing-incluye').innerHTML = inc.map(function (t) { return '<li>' + t.replace(/</g, '&lt;') + '</li>'; }).join('');
+        document.getElementById('landing-incluye-sec').style.display = 'block';
       }
       if (d.agenda && d.agenda.length) {
         document.getElementById('landing-agenda').innerHTML = d.agenda.map(function (a) {

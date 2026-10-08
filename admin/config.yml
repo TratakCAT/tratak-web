@@ -106,6 +106,7 @@ collections:
                     fields:
                       - { label: "Número/etiqueta (ej. 01 · contemplación)", name: "num", widget: string }
                       - { label: "Título", name: "title", widget: string }
+                      - { label: "Imagen (opcional, se muestra al desplegar)", name: "imagen", widget: image, required: false }
                       - { label: "Texto", name: "text", widget: text }
 
               - label: "Sección destacada (texto + imagen)"
@@ -373,7 +374,7 @@ collections:
       - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
       - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
       - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
-      - { label: "Descripción corta", name: "descripcion", widget: text }
+      - { label: "Introducción (párrafo breve; la agenda y lo que incluye van en sus campos)", name: "descripcion", widget: text }
       - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
       - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
       - { label: "Horario", name: "horario", widget: string }
@@ -382,6 +383,12 @@ collections:
       - { label: "Texto de aportación", name: "aporte_texto", widget: string }
       - { label: "Link del Google Form", name: "google_form_url", widget: string }
       - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }
+      - { label: "Resumen corto para la tarjeta del home (opcional, 1–2 frases)", name: "resumen", widget: text, required: false }
+      - label: "Qué incluye (una línea por cosa)"
+        name: "incluye"
+        widget: list
+        required: false
+        field: { label: "Incluye", name: "item", widget: string }
       - label: "Agenda del día (opcional, una fila por actividad)"
         name: "agenda"
         widget: list

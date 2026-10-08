@@ -196,7 +196,10 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="pilares-acordeon">' + (s.items || []).map(function (p) {
-        return '<details class="pilar"><summary><span class="num">' + esc(p.num) + '</span><span class="pilar-titulo">' + esc(p.title) + '</span><span class="pilar-mas" aria-hidden="true"></span></summary><p>' + esc(p.text) + '</p></details>';
+        return '<details class="pilar"><summary><span class="num">' + esc(p.num) + '</span><span class="pilar-titulo">' + esc(p.title) + '</span><span class="pilar-mas" aria-hidden="true"></span></summary>' +
+          '<div class="pilar-cuerpo' + (p.imagen ? ' con-imagen' : '') + '">' +
+          (p.imagen ? '<img class="pilar-img" loading="lazy" src="' + esc(p.imagen) + '" alt="' + esc(p.title) + '">' : '') +
+          '<p>' + esc(p.text) + '</p></div></details>';
       }).join('') + '</div></div></section>';
   }
 
@@ -326,6 +329,13 @@
       '<div class="bloque-contenido manifiesto"><p class="eyebrow">' + esc(s.eyebrow) + '</p><p>' + esc(s.texto) + '</p></div></section>';
   }
 
+  function resumenEvento(ev) {
+    if (ev.resumen) return ev.resumen;
+    var t = String(ev.descripcion || '').trim().split(/\n\s*\n|\n/)[0];
+    if (t.length > 220) t = t.slice(0, 217).replace(/\s+\S*$/, '') + '…';
+    return t;
+  }
+
   function renderEventoProximo(s, _contacto, opts) {
     var eventos = (opts && opts.eventosProximos) || [];
     var inner;
@@ -342,7 +352,7 @@
         var contenido =
           '<div class="evento-item-contenido">' +
           '<h2>' + esc(tituloPlano) + '</h2><p>' + esc(fechaLinea) + '</p>' +
-          '<p class="evento-bloque-desc">' + esc(landing.descripcion) + '</p>' +
+          '<p class="evento-bloque-desc">' + esc(resumenEvento(landing)) + '</p>' +
           '<a class="btn primary" href="' + link + '">Ver detalles e inscribirme →</a>' +
           '</div>';
 
