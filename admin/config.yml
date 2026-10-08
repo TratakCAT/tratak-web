@@ -369,6 +369,7 @@ collections:
     fields:
       - { label: "¿Es el próximo evento? (aparece destacado en el home)", name: "es_proximo", widget: boolean, default: false }
       - { label: "Identificador único para el link (sin espacios ni acentos, ej. taller-octubre)", name: "slug", widget: string }
+      - { label: "Etiqueta arriba del título (opcional, ej. Taller demostrativo — cupo abierto)", name: "etiqueta", widget: string, required: false }
       - { label: "Fecha real (para el calendario)", name: "fecha_iso", widget: date, required: false, format: "YYYY-MM-DD" }
       - { label: "Fecha (como se muestra, ej. 10 de septiembre)", name: "fecha", widget: string }
       - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
@@ -377,6 +378,7 @@ collections:
       - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
       - { label: "Horario", name: "horario", widget: string }
       - { label: "Sede / dirección", name: "sede", widget: string }
+      - { label: "Link de Google Maps de la sede (opcional; en Google Maps: Compartir → Copiar vínculo)", name: "mapa_url", widget: string, required: false }
       - { label: "Texto de aportación", name: "aporte_texto", widget: string }
       - { label: "Link del Google Form", name: "google_form_url", widget: string }
       - { label: "WhatsApp (solo números, con código de país)", name: "whatsapp", widget: string }

@@ -1,7 +1,10 @@
 {
   "name": "tratak-web",
+  "main": "worker.js",
   "compatibility_date": "2026-01-01",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "binding": "ASSETS",
+    "run_worker_first": ["/landing", "/landing.html"]
   }
 }
