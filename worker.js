@@ -26,7 +26,8 @@ export default {
       const ev = await r.json();
 
       const titulo = limpio(ev.titulo_evento_html) || 'Evento CAT';
-      const partes = [ev.fecha, ev.sede].filter(Boolean).join(' · ');
+      const sedeTxt = String(ev.sede || '').replace(/https?:\/\/\S+/g, '').replace(/[\s:,\-–—]+$/, '').replace(/^[^A-Za-z0-9\u00C0-\u024F]+/, '').trim();
+      const partes = [ev.fecha, sedeTxt].filter(Boolean).join(' · ');
       let desc = limpio(ev.descripcion);
       if (desc.length > 160) desc = desc.slice(0, 157).trim() + '…';
       desc = [partes, desc].filter(Boolean).join(' — ');

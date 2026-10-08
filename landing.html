@@ -405,11 +405,15 @@
         document.documentElement.style.setProperty('--clay', d.color_acento);
       }
       document.getElementById('landing-titulo').innerHTML = d.titulo_evento_html;
+      var sedeRaw = d.sede || '';
+      var urlM = sedeRaw.match(/https?:\/\/\S+/);
+      var mapaUrl = d.mapa_url || (urlM ? urlM[0] : '');
+      var sedeNombre = sedeRaw.replace(/https?:\/\/\S+/g, '').replace(/[\s:,\-–—]+$/, '').replace(/^[^A-Za-z0-9\u00C0-\u024F]+/, '').trim() || sedeRaw;
       document.title = (d.titulo_evento_html || 'Evento').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() + ' — CAT';
       var kick = document.getElementById('landing-kicker');
       kick.textContent = d.etiqueta || '';
       kick.style.display = d.etiqueta ? '' : 'none';
-      document.getElementById('landing-mark-sede').textContent = (d.sede || '').split(/\s+[-–—]\s+|,/)[0].trim();
+      document.getElementById('landing-mark-sede').textContent = sedeNombre.split(/\s+[-–—]\s+|,/)[0].trim();
       var descEl = document.getElementById('landing-desc');
       descEl.textContent = (d.descripcion || '').trim();
       var tg = document.getElementById('landing-desc-toggle');
@@ -430,15 +434,15 @@
       document.getElementById('landing-fecha').textContent = d.fecha;
       document.getElementById('landing-horario').textContent = d.horario;
       var sedeEl = document.getElementById('landing-sede');
-      if (d.mapa_url) {
+      if (mapaUrl) {
         sedeEl.innerHTML = '<a target="_blank" rel="noopener" style="color:inherit;text-decoration:none;"></a>';
-        sedeEl.firstChild.href = d.mapa_url;
-        sedeEl.firstChild.textContent = d.sede || '';
+        sedeEl.firstChild.href = mapaUrl;
+        sedeEl.firstChild.textContent = sedeNombre;
         var mp = document.getElementById('landing-mapa-link');
-        mp.href = d.mapa_url;
+        mp.href = mapaUrl;
         mp.style.display = '';
       } else {
-        sedeEl.textContent = d.sede;
+        sedeEl.textContent = sedeNombre;
       }
       document.getElementById('landing-form-link').href = d.google_form_url;
       document.getElementById('landing-whatsapp-link').href = 'https://wa.me/' + d.whatsapp;
