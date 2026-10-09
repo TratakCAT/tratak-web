@@ -516,7 +516,7 @@
   ];
   var GK_TEXTOS = {
     lead: 'Shishi guarda entre sus garras el gankyil, la triple espiral que gira sin un centro fijo. Cada espiral es un tópico del plan; juntas forman el recorrido completo.',
-    steam: 'Ciencia, tecnología, ingeniería, arte y matemáticas no se estudian por separado: se entrelazan en tres tópicos que giran juntos. Cultura Biomaterial (verde) trabaja la materia: ciencia, ingeniería y los ciclos de los residuos. Impresión 3D LDM (azul) es la técnica: tecnología, matemáticas y fabricación digital. Diseño en Realidad Virtual (morado) es la percepción: arte, forma y atención. Cada tópico se puede tomar solo; los programas P.E.S. recorren los tres, y la Asesoría Catalizadora es el punto desde el que arranca el giro.',
+    steam: 'Ciencia, tecnología, ingeniería, arte y matemáticas no se estudian por separado: se entrelazan en tres tópicos que giran juntos. Cultura Biomaterial (verde) trabaja la materia: ciencia, ingeniería y los ciclos de los residuos. Impresión 3D LDM (azul) es la técnica: tecnología, matemáticas y fabricación digital. Diseño en Realidad Virtual (morado) es la percepción: arte, forma y atención. Cada tópico se puede tomar solo; los programas P.E.S. recorren los tres.',
     dzogchen: 'El gankyil (tibetano: dga’ ’khyil, «giro del gozo») es una espiral triple que gira sin centro fijo y sin oposición entre sus partes. En la tradición Dzogchen se lee como tres cualidades de una sola base —esencia, naturaleza y energía— y también como base, camino y fruto. Aquí cada espiral es un pilar: Materialidad (cuerpo), Tecnología (palabra, energía) y Contemplación (mente). Ninguno gobierna a los otros: se sostienen girando. Tratak, mirar con atención sostenida, es la práctica que los une.'
   };
   function gkTexto(k) { return (SHISHI_CFG && SHISHI_CFG[k]) || GK_TEXTOS[k]; }
@@ -536,7 +536,6 @@
     return '<svg class="gk-svg-el" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="' + (opts.interactivo ? 'false' : 'true') + '">' +
       '<g transform="translate(100 100)"><g class="gk-rota">' + regiones + '</g>' +
       '<circle r="92.5" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="1.6"/>' +
-      (opts.interactivo ? '<circle class="gk-centro" data-brazo="centro" tabindex="0" role="button" aria-label="Asesoría Catalizadora" r="9" fill="#fff6dc" fill-opacity=".9" stroke="#d9b44a" stroke-width="2.5"/>' : '') +
       '</g></svg>';
   }
 
@@ -544,8 +543,7 @@
     if (s.gankyil === false) return '';
     var leyenda = GK_BRAZOS.map(function (b) {
       return '<li class="gk-item" data-brazo="' + b.id + '" tabindex="0"><i style="background:' + b.color + '"></i><span><strong>' + esc(b.nombre) + '</strong><small>' + esc(b.pilar) + ' · ' + esc(b.desc) + '</small></span></li>';
-    }).join('') +
-      '<li class="gk-item" data-brazo="centro" tabindex="0"><i style="background:#d9b44a"></i><span><strong>Asesoría Catalizadora</strong><small>el punto de partida del giro</small></span></li>';
+    }).join('');
     return '<div class="gk-wrap" data-gk>' +
       '<div class="gk-svg">' + gankyilSVG({ interactivo: true }) + '</div>' +
       '<div class="gk-info"><p class="gk-lead">' + esc(gkTexto('lead')) + '</p>' +
@@ -582,7 +580,6 @@
       it.setAttribute('data-gk-marcado', '1');
       var t = it.textContent, pts = '';
       GK_BRAZOS.forEach(function (b) { if (b.re.test(t)) pts += '<i style="background:' + b.color + '" title="' + esc(b.nombre) + '"></i>'; });
-      if (/asesor/i.test(t)) pts += '<i style="background:#d9b44a" title="Asesoría Catalizadora"></i>';
       if (pts) { var main = it.querySelector('.plan-item-main'); if (main) main.insertAdjacentHTML('afterbegin', '<span class="gk-puntos">' + pts + '</span>'); }
     });
   }
