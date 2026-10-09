@@ -106,8 +106,11 @@
 
   // ---------- menú desplegable (tres rayitas) ----------
   var MENU_CSS =
-    '.menu-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-left:12px;padding:0 11px;background:transparent;border:1px solid var(--line,rgba(0,0,0,.18));border-radius:12px;cursor:pointer;color:inherit}' +
-    '.menu-burger span{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}' +
+    '.menu-burger{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;min-width:44px;height:44px;margin-left:12px;padding:0;background:var(--paper,#e9e2d1);border:1px solid var(--ink,#241f18);border-radius:12px;cursor:pointer;color:var(--ink,#241f18)}' +
+    '.menu-burger svg{display:block;flex:none;width:24px;height:24px;stroke:var(--ink,#241f18)}' +
+    '.menu-logos{display:flex;align-items:center;gap:10px;min-width:0}.menu-logos img{height:28px;width:auto;max-width:42vw}' +
+    '.menu-item .mi-ico{width:22px;height:22px;flex:none;color:var(--clay,#a3552b)}.menu-item .mi-ico svg{width:100%;height:100%;display:block}' +
+    '.menu-buscar-wrap{position:relative}.menu-buscar-wrap .mi-ico{position:absolute;left:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);opacity:.6;pointer-events:none}.menu-buscar-wrap .menu-buscar{padding-left:42px}' +
     'nav .bar{gap:10px}nav .bar ul{margin-left:auto;margin-right:14px}' +
     '.menu-overlay{position:fixed;inset:0;background:rgba(20,17,12,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:200}' +
     '.menu-panel{position:fixed;top:0;right:0;bottom:0;width:min(380px,92vw);background:var(--paper,#e9e2d1);color:var(--ink,#241f18);z-index:201;transform:translateX(105%);transition:transform .28s ease;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.25);border-radius:22px 0 0 22px;font-family:var(--font-body,sans-serif)}' +
@@ -127,22 +130,32 @@
     '.menu-vacio{opacity:.7;padding:8px 14px;font-size:14px}' +
     '.menu-resaltado{animation:menuRes 1.6s ease}@keyframes menuRes{0%,40%{box-shadow:0 0 0 6px color-mix(in srgb,var(--clay,#a3552b) 45%,transparent)}100%{box-shadow:0 0 0 0 transparent}}';
 
-  function renderMenu(homeHref) {
+  function mi(n) { return '<span class="mi-ico">' + iconoSVG(n) + '</span>'; }
+
+  function renderMenu(homeHref, theme) {
     homeHref = homeHref || 'index.html';
+    var logos;
+    if (theme && (theme.logo_tratak || theme.logo_cat)) {
+      logos =
+        (theme.logo_tratak ? '<img src="' + esc(theme.logo_tratak) + '" data-logo-oscuro="' + esc(theme.logo_tratak_oscuro || '') + '" class="logo-tema" alt="TRATAK">' : '') +
+        (theme.logo_cat ? '<img src="' + esc(theme.logo_cat) + '" data-logo-oscuro="' + esc(theme.logo_cat_oscuro || '') + '" class="logo-tema" alt="CAT">' : '');
+    } else {
+      logos = '<strong>tratak·cat</strong>';
+    }
     return (
       '<style id="menu-css">' + MENU_CSS + '</style>' +
       '<div class="menu-overlay" data-menu-cerrar></div>' +
       '<aside class="menu-panel" id="menu-panel" role="dialog" aria-label="Menú del sitio" aria-hidden="true" data-home="' + esc(homeHref) + '">' +
-      '<div class="menu-top"><strong>Menú</strong><button type="button" class="menu-cerrar" data-menu-cerrar aria-label="Cerrar menú">✕</button></div>' +
+      '<div class="menu-top"><a class="menu-logos" href="' + esc(homeHref) + '" aria-label="Inicio" style="text-decoration:none;color:inherit">' + logos + '</a><button type="button" class="menu-cerrar" data-menu-cerrar aria-label="Cerrar menú">✕</button></div>' +
       '<div class="menu-scroll">' +
-      '<input type="search" class="menu-buscar" id="menu-buscar" placeholder="Buscar en el sitio…" aria-label="Buscar en el sitio" autocomplete="off">' +
+      '<div class="menu-buscar-wrap"><span class="mi-ico">' + iconoSVG('lupa') + '</span><input type="search" class="menu-buscar" id="menu-buscar" placeholder="Buscar en el sitio…" aria-label="Buscar en el sitio" autocomplete="off"></div>' +
       '<ul class="menu-lista" id="menu-resultados"></ul>' +
       '<div id="menu-bloque-secciones"><p class="menu-titulo">Secciones</p><ul class="menu-lista" id="menu-secciones"></ul></div>' +
       '<p class="menu-titulo">Ir a</p><ul class="menu-lista">' +
-      '<li><a class="menu-item" href="' + esc(homeHref) + '">🏠 Inicio</a></li>' +
-      '<li><a class="menu-item" href="landing.html">📅 Próximos eventos</a></li>' +
-      '<li><a class="menu-item" id="menu-contacto" href="' + esc(homeHref) + '#contacto">✉️ Contacto</a></li>' +
-      '<li><a class="menu-item" id="menu-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a></li>' +
+      '<li><a class="menu-item" href="' + esc(homeHref) + '">' + mi('casa') + 'Inicio</a></li>' +
+      '<li><a class="menu-item" href="landing.html">' + mi('calendario') + 'Próximos eventos</a></li>' +
+      '<li><a class="menu-item" id="menu-contacto" href="' + esc(homeHref) + '#contacto">' + mi('correo') + 'Contacto</a></li>' +
+      '<li><a class="menu-item" id="menu-wa" href="#" target="_blank" rel="noopener">' + mi('chat') + 'WhatsApp</a></li>' +
       '</ul>' +
       '<p class="menu-titulo">Ajustes</p>' +
       '<div class="menu-ajustes"><span>🌙 Modo noche</span><div class="grupo"><button type="button" class="menu-mini" id="menu-noche" aria-pressed="false">Activar</button></div></div>' +
@@ -154,6 +167,8 @@
 
   function textoPlano(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
 
+  var ICONO_POR_TIPO = { estadisticas: 'estrella', pilares: 'contemplacion', destacado: 'chispa', lista_precios: 'libro', productos: 'ceramica', galeria: 'camara', media: 'vr', blog: 'libro', personajes: 'personas', texto_destacado: 'llama', carrusel: 'camara', evento_proximo: 'calendario', calendario: 'calendario', eventos_pasados: 'reloj' };
+
   function seccionesDeLaPagina() {
     var out = [];
     document.querySelectorAll('section').forEach(function (sec) {
@@ -163,7 +178,8 @@
       var t = textoPlano(h);
       if (!t) return;
       var ico = sec.querySelector('.sec-icono, .h-ico');
-      out.push({ el: sec, titulo: t, ico: ico ? ico.innerHTML : '' });
+      var svg = ico && ico.innerHTML.trim() ? ico.innerHTML : iconoSVG(ICONO_POR_TIPO[sec.getAttribute('data-tipo')] || (sec.id === 'contacto' ? 'correo' : 'chispa'));
+      out.push({ el: sec, titulo: t, ico: svg });
     });
     return out;
   }
@@ -187,7 +203,8 @@
         var li = document.createElement('li');
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'menu-item'; b.setAttribute('data-sec', i);
-        b.textContent = sc.titulo;
+        b.innerHTML = '<span class="mi-ico">' + sc.ico + '</span><span></span>';
+        b.lastChild.textContent = sc.titulo;
         li.appendChild(b); lista.appendChild(li);
       });
       menuAbrir.secs = secs;
@@ -314,8 +331,8 @@
       '<li><a href="landing.html">Eventos</a></li>' +
       '</ul>' +
       '<a class="cta" data-ancla="plan" href="' + homeHref + '#plan">Inscríbete →</a>' +
-      '<button type="button" class="menu-burger" data-menu-abrir aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>' +
-      '</div></nav>' + renderMenu(homeHref)
+      '<button type="button" class="menu-burger" data-menu-abrir aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' +
+      '</div></nav>' + renderMenu(homeHref, theme)
     );
   }
 
@@ -387,7 +404,11 @@
     ceramica: '<path d="M9 3h6M10 3c0 3-4 4-4 9a6 6 0 0 0 12 0c0-5-4-6-4-9"/>',
     calendario: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     reloj: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>'
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+    casa: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',
+    correo: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/>',
+    lupa: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+    chat: '<path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/>'
   };
   function iconoSVG(nombre) {
     var p = ICONOS[nombre];
