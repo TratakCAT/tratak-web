@@ -475,17 +475,20 @@
   }
 
   function renderCarrusel(s) {
-    var items = s.items || [];
-    var slides = items.map(function (it) {
+    var items = (s.items || []).filter(function (it) { return it && it.imagen; });
+    function slideHTML(it, oculto) {
       var cap = it.pie ? '<figcaption>' + esc(it.pie) + '</figcaption>' : '';
-      return '<figure class="carrusel-slide"><img src="' + esc(it.imagen) + '" alt="' + esc(it.pie || '') + '">' + cap + '</figure>';
-    }).join('');
+      return '<figure class="carrusel-slide"' + (oculto ? ' aria-hidden="true"' : '') + '><img loading="lazy" src="' + esc(it.imagen) + '" alt="' + esc(it.pie || '') + '">' + cap + '</figure>';
+    }
+    var slides = items.map(function (it) { return slideHTML(it, false); }).join('');
+    // con 3+ fotos se repite la tira para que el movimiento sea continuo
+    var copia = items.length >= 3 ? items.map(function (it) { return slideHTML(it, true); }).join('') : '';
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       (s.texto ? '<p class="carrusel-texto">' + esc(s.texto) + '</p>' : '') +
-      '<div class="carrusel-wrap">' +
+      '<div class="carrusel-wrap" data-auto="' + (copia ? '1' : '0') + '">' +
       '<button class="carrusel-btn carrusel-prev" onclick="TratakRender.carruselMover(this,-1)" aria-label="Anterior">‹</button>' +
-      '<div class="carrusel-track">' + slides + '</div>' +
+      '<div class="carrusel-track">' + slides + copia + '</div>' +
       '<button class="carrusel-btn carrusel-next" onclick="TratakRender.carruselMover(this,1)" aria-label="Siguiente">›</button>' +
       '</div></div></section>';
   }
@@ -493,7 +496,50 @@
   function carruselMover(btn, dir) {
     var wrap = btn.closest('.carrusel-wrap');
     var track = wrap.querySelector('.carrusel-track');
-    track.scrollBy({ left: track.clientWidth * dir, behavior: 'smooth' });
+    track.scrollBy({ left: Math.max(260, track.clientWidth * 0.6) * dir, behavior: 'smooth' });
+  }
+
+  // Movimiento automático suave; se pausa al tocar/pasar el mouse
+  function initCarruseles() {
+    var reducir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Array.prototype.forEach.call(document.querySelectorAll('.carrusel-wrap[data-auto="1"]'), function (wrap) {
+      if (wrap.getAttribute('data-init')) return;
+      wrap.setAttribute('data-init', '1');
+      if (reducir) return;
+      var track = wrap.querySelector('.carrusel-track');
+      var pos = 0, last = null, pausa = false, reanudar = null, visible = true, VEL = 38; // px por segundo
+
+      function pausar(ms) {
+        pausa = true;
+        clearTimeout(reanudar);
+        if (ms) reanudar = setTimeout(function () { pausa = false; pos = track.scrollLeft; }, ms);
+      }
+      wrap.addEventListener('mouseenter', function () { pausar(0); });
+      wrap.addEventListener('mouseleave', function () { clearTimeout(reanudar); pausa = false; pos = track.scrollLeft; });
+      wrap.addEventListener('touchstart', function () { pausar(0); }, { passive: true });
+      wrap.addEventListener('touchend', function () { pausar(2500); }, { passive: true });
+      wrap.addEventListener('focusin', function () { pausar(0); });
+      wrap.addEventListener('focusout', function () { pausar(1500); });
+      wrap.addEventListener('wheel', function () { pausar(2500); }, { passive: true });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(wrap);
+      }
+
+      function paso(t) {
+        if (last === null) last = t;
+        var dt = Math.min(t - last, 100) / 1000;
+        last = t;
+        if (!pausa && visible && !document.hidden) {
+          var mitad = track.scrollWidth / 2;
+          if (Math.abs(track.scrollLeft - pos) > 3) pos = track.scrollLeft; // el usuario movió
+          pos += VEL * dt;
+          if (mitad > 0 && pos >= mitad) pos -= mitad;
+          track.scrollLeft = pos;
+        }
+        requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    });
   }
 
   var RENDERERS = {
@@ -667,6 +713,7 @@
 
   function bindGlobalInteractions(theme) {
     bindAnclas();
+    initCarruseles();
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
 
@@ -716,6 +763,7 @@
     openLightbox: openLightbox,
     closeLightbox: closeLightbox,
     carruselMover: carruselMover,
+    initCarruseles: initCarruseles,
     bindGlobalInteractions: bindGlobalInteractions
   };
 

@@ -255,14 +255,15 @@
   .carrusel-texto{ max-width:56ch; margin-bottom:20px; }
   .carrusel-wrap{ position:relative; }
   .carrusel-track{
-    display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:16px;
-    scrollbar-width:none; -ms-overflow-style:none;
+    display:flex; align-items:flex-start; overflow-x:auto; gap:18px; padding:4px 0 8px;
+    scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch;
   }
   .carrusel-track::-webkit-scrollbar{ display:none; }
-  .carrusel-slide{ flex:0 0 100%; scroll-snap-align:center; margin:0; }
-  .carrusel-slide img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
-  .carrusel-slide figcaption{ font-size:14px; color:var(--dust); margin-top:10px; }
+  .carrusel-slide{ flex:0 0 auto; margin:0; display:flex; flex-direction:column; }
+  .carrusel-slide img{ height:260px; width:auto; max-width:min(440px, 82vw); object-fit:contain; display:block; border-radius:4px; }
+  .carrusel-slide figcaption{ width:0; min-width:100%; font-size:14px; color:var(--dust); margin-top:10px; }
   .bloque-claro .carrusel-slide figcaption{ color:#cfc6ae; }
+  @media (max-width:640px){ .carrusel-slide img{ height:200px; } }
   .carrusel-btn{
     position:absolute; top:calc(50% - 20px); width:40px; height:40px; border-radius:50%;
     border:none; background:var(--ink); color:var(--paper); font-size:20px; cursor:pointer;
