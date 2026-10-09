@@ -302,12 +302,13 @@
           "imagen": ""
         }
       ],
-      "color_acento": "",
-      "imagen_fondo": "/images/img_1775.heic",
+      "color_acento": "#a8ff7b",
+      "imagen_fondo": "",
       "color_texto": "oscuro",
       "eyebrow": "Formación S.T.E.A.M. · 6 programas",
       "fuente_titulo": "",
       "fondo": "imagen",
+      "color_fondo": "#5e56d7",
       "titulo": "Plan de estudios",
       "type": "lista_precios",
       "id": "plan"
