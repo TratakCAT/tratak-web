@@ -186,7 +186,10 @@
     impresora: '<path d="M5 3h14v4H5zM3 7h18v8H3zM7 15v6h10v-6"/>',
     vr: '<path d="M2 8h20v8h-6l-2-3h-4l-2 3H2z"/>',
     estrella: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
-    ceramica: '<path d="M9 3h6M10 3c0 3-4 4-4 9a6 6 0 0 0 12 0c0-5-4-6-4-9"/>'
+    ceramica: '<path d="M9 3h6M10 3c0 3-4 4-4 9a6 6 0 0 0 12 0c0-5-4-6-4-9"/>',
+    calendario: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    reloj: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>'
   };
   function iconoSVG(nombre) {
     var p = ICONOS[nombre];
@@ -690,7 +693,7 @@
     if (contacto.color_acento) style += '--clay:' + contacto.color_acento + ';';
     return (
       '<section class="wrap" id="contacto" style="' + style + '"><div class="contacto-grid"><div>' +
-      '<p class="eyebrow">Contacto</p><h2>' + esc(contacto.titulo) + '</h2><p>' + esc(contacto.texto) + '</p>' +
+      (ICONOS[contacto.icono] ? '<div class="sec-icono">' + iconoSVG(contacto.icono) + '</div>' : '') + '<p class="eyebrow">Contacto</p><h2>' + esc(contacto.titulo) + '</h2><p>' + esc(contacto.texto) + '</p>' +
       '<div class="info-list">' +
       '<div><div class="k">WhatsApp</div><div class="v"><a href="https://wa.me/' + esc(contacto.whatsapp) + '">' + esc(contacto.whatsapp_display) + '</a></div></div>' +
       '<div><div class="k">Ubicación</div><div class="v">' + esc(contacto.ubicacion) + '</div></div>' +
