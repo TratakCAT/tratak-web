@@ -21,16 +21,16 @@
     "layout": "imagen_lado",
     "fuente_titulo": "",
     "title_em": "viva",
-    "kicker": "Centro de Aprendizaje Tecno-Ontológico",
+    "kicker": "Tratak estudio de Diseño Transpersonal presenta: CAT",
     "cta1_label": "Ver programas →",
     "title_line1": "Contempla y biofabrica",
     "cta3_link": "landing.html",
-    "cta2_label": "Conocer el taller →",
+    "cta2_label": "Conocer el lababoratorio - escuela →",
     "cta2_link": "#taller",
     "cta1_link": "#plan",
     "title_line3": "del cosmos.",
     "cta3_label": "Próximos eventos →",
-    "lede": "...",
+    "lede": "Un espacio para diseñar en contemplación",
     "image": "/images/hero-pieza.jpg",
     "title_pre": "la materia "
   },
@@ -493,12 +493,14 @@
     }
   ],
   "contacto": {
-    "titulo": "¿Listo para ir más allá de la industria con tu proyecto?",
+    "color_acento": "#7dff6c",
     "texto": "Escríbenos para conocer más sobre nuestros programas, agendar una visita al taller o resolver cualquier duda.",
+    "horario": "Lun – Vie, 9:00 – 18:00",
     "whatsapp": "523332480698",
     "whatsapp_display": "+52 333 248 0698",
+    "icono": "check",
+    "titulo": "¿Listo para ir más allá de la industria con tu proyecto?",
     "email": "tratakceramics@gmail.com",
-    "ubicacion": "Guadalajara, Jalisco, México",
-    "horario": "Lun – Vie, 9:00 – 18:00"
+    "ubicacion": "Guadalajara, Jalisco, México"
   }
 }
