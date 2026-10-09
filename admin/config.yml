@@ -32,6 +32,15 @@ collections:
               - { label: "Logo CAT (opcional)", name: "logo_cat", widget: image, required: false }
               - { label: "Logo TRATAK para modo noche (opcional, si tu logo normal es oscuro y se pierde con fondo oscuro)", name: "logo_tratak_oscuro", widget: image, required: false }
               - { label: "Logo CAT para modo noche (opcional)", name: "logo_cat_oscuro", widget: image, required: false }
+              - label: "Tamaño del texto en todo el sitio"
+                name: "tamano_texto"
+                widget: select
+                required: false
+                default: "normal"
+                options:
+                  - { label: "Normal", value: "normal" }
+                  - { label: "Grande", value: "grande" }
+                  - { label: "Muy grande", value: "muy_grande" }
               - label: "Pareja de tipografías (global, por default)"
                 name: "font_pair"
                 widget: select
@@ -78,6 +87,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio (opcional, si no usa el del tema)", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia (opcional, si no usa la del tema)", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - label: "Números"
@@ -97,6 +109,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -120,6 +135,9 @@ collections:
                   - { label: "Video de fondo .mp4 (solo layout 'fondo'; gana sobre la foto)", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "claro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título", name: "titulo", widget: string }
@@ -138,6 +156,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -163,6 +184,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -185,6 +209,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -205,6 +232,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -223,6 +253,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -246,6 +279,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -268,6 +304,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Título de la sección", name: "titulo", widget: string }
@@ -289,6 +328,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Texto", name: "texto", widget: text }
@@ -303,6 +345,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Próximo evento" }
                   - { label: "Nota", name: "_nota", widget: hidden, default: "El título, fecha y descripción se jalan automáticamente de tus eventos marcados como 'próximo' en la colección Eventos — edítalos allá." }
@@ -317,6 +362,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio (color de los días con evento)", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Agenda" }
                   - { label: "Título de la sección", name: "titulo", widget: string, default: "Calendario de eventos" }
@@ -332,6 +380,9 @@ collections:
                   - { label: "Video de fondo .mp4", name: "video_fondo", widget: file, required: false }
                   - { label: "Color de texto", name: "color_texto", widget: select, options: ["oscuro", "claro"], default: "oscuro" }
                   - { label: "Color de acento propio", name: "color_acento", widget: color, required: false }
+                  - { label: "Color del título (opcional)", name: "color_titulo", widget: color, required: false }
+                  - { label: "Color de etiquetas y subtítulos (opcional)", name: "color_etiqueta", widget: color, required: false }
+                  - { label: "Color del texto (opcional)", name: "color_cuerpo", widget: color, required: false }
                   - { label: "Tipografía propia", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string, default: "Ya lo hicimos" }
                   - { label: "Título de la sección", name: "titulo", widget: string, default: "Eventos pasados" }

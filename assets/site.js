@@ -70,8 +70,9 @@
   // Aplica colores/tipografías del tema a un elemento raíz (documentElement normalmente)
   function themeStyleTag(theme) {
     if (!theme) return '';
+    var extra = { grande: '2px', muy_grande: '4px' }[theme.tamano_texto] || '0px';
     var fp = FONT_PAIRS[theme.font_pair] || FONT_PAIRS.fraunces_space;
-    var vars = [];
+    var vars = ['--fs-extra:' + extra];
     if (theme.color_paper) vars.push('--paper:' + theme.color_paper);
     if (theme.color_ink) vars.push('--ink:' + theme.color_ink);
     if (theme.color_clay) vars.push('--clay:' + theme.color_clay);
@@ -89,6 +90,8 @@
     if (theme.color_clay) rootStyle.setProperty('--clay', theme.color_clay);
     if (theme.color_moss) rootStyle.setProperty('--moss', theme.color_moss);
     if (theme.color_dust) rootStyle.setProperty('--dust', theme.color_dust);
+    var extra = { grande: '2px', muy_grande: '4px' }[theme.tamano_texto] || '0px';
+    rootStyle.setProperty('--fs-extra', extra);
     var fp = FONT_PAIRS[theme.font_pair] || FONT_PAIRS.fraunces_space;
     rootStyle.setProperty('--font-heading', fp.heading);
     rootStyle.setProperty('--font-body', fp.body);
@@ -167,6 +170,9 @@
     }
     var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
     var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
+    if (s.color_titulo) { style += '--c-titulo:' + s.color_titulo + ';'; clasePosicion += ' c-titulo'; }
+    if (s.color_etiqueta) { style += '--c-etiqueta:' + s.color_etiqueta + ';'; clasePosicion += ' c-etiqueta'; }
+    if (s.color_cuerpo) { style += '--c-cuerpo:' + s.color_cuerpo + ';'; clasePosicion += ' c-cuerpo'; }
     return '<section class="wrap seccion-bloque ' + claseTexto + ' ' + clasePosicion + '" id="' + esc(s.id) + '" data-tipo="' + esc(s.type) + '" style="' + style + '">';
   }
 
@@ -476,19 +482,16 @@
 
   function renderCarrusel(s) {
     var items = (s.items || []).filter(function (it) { return it && it.imagen; });
-    function slideHTML(it, oculto) {
+    var slides = items.map(function (it) {
       var cap = it.pie ? '<figcaption>' + esc(it.pie) + '</figcaption>' : '';
-      return '<figure class="carrusel-slide"' + (oculto ? ' aria-hidden="true"' : '') + '><img loading="lazy" src="' + esc(it.imagen) + '" alt="' + esc(it.pie || '') + '">' + cap + '</figure>';
-    }
-    var slides = items.map(function (it) { return slideHTML(it, false); }).join('');
-    // con 3+ fotos se repite la tira para que el movimiento sea continuo
-    var copia = items.length >= 3 ? items.map(function (it) { return slideHTML(it, true); }).join('') : '';
+      return '<figure class="carrusel-slide"><img src="' + esc(it.imagen) + '" alt="' + esc(it.pie || '') + '">' + cap + '</figure>';
+    }).join('');
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       (s.texto ? '<p class="carrusel-texto">' + esc(s.texto) + '</p>' : '') +
-      '<div class="carrusel-wrap" data-auto="' + (copia ? '1' : '0') + '">' +
+      '<div class="carrusel-wrap" data-auto="' + (items.length >= 2 ? '1' : '0') + '">' +
       '<button class="carrusel-btn carrusel-prev" onclick="TratakRender.carruselMover(this,-1)" aria-label="Anterior">‹</button>' +
-      '<div class="carrusel-track">' + slides + copia + '</div>' +
+      '<div class="carrusel-track">' + slides + '</div>' +
       '<button class="carrusel-btn carrusel-next" onclick="TratakRender.carruselMover(this,1)" aria-label="Siguiente">›</button>' +
       '</div></div></section>';
   }
@@ -499,7 +502,8 @@
     track.scrollBy({ left: Math.max(260, track.clientWidth * 0.6) * dir, behavior: 'smooth' });
   }
 
-  // Movimiento automático suave; se pausa al tocar/pasar el mouse
+  // Movimiento automático continuo. Con 2 o más fotos repite la tira las veces
+  // necesarias para que nunca se vea un hueco. Se pausa al tocar/pasar el mouse.
   function initCarruseles() {
     var reducir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     Array.prototype.forEach.call(document.querySelectorAll('.carrusel-wrap[data-auto="1"]'), function (wrap) {
@@ -507,7 +511,33 @@
       wrap.setAttribute('data-init', '1');
       if (reducir) return;
       var track = wrap.querySelector('.carrusel-track');
-      var pos = 0, last = null, pausa = false, reanudar = null, visible = true, VEL = 38; // px por segundo
+      var originales = Array.prototype.slice.call(track.children);
+      var copias = 0, L = 0;
+      var pos = 0, last = null, pausa = false, reanudar = null, visible = true, VEL = 38;
+
+      function medir() {
+        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 18;
+        var ult = originales[originales.length - 1];
+        L = ult.offsetLeft + ult.offsetWidth + gap - originales[0].offsetLeft;
+        return L > 40;
+      }
+      function asegurar() {
+        if (!medir()) return;
+        while (copias < 10 && track.scrollWidth < track.clientWidth + L + 4) {
+          originales.forEach(function (f) {
+            var c = f.cloneNode(true);
+            c.setAttribute('aria-hidden', 'true');
+            track.appendChild(c);
+          });
+          copias++;
+          medir();
+        }
+      }
+      asegurar();
+      Array.prototype.forEach.call(track.querySelectorAll('img'), function (im) {
+        if (!im.complete) im.addEventListener('load', asegurar);
+      });
+      window.addEventListener('resize', asegurar);
 
       function pausar(ms) {
         pausa = true;
@@ -529,11 +559,10 @@
         if (last === null) last = t;
         var dt = Math.min(t - last, 100) / 1000;
         last = t;
-        if (!pausa && visible && !document.hidden) {
-          var mitad = track.scrollWidth / 2;
-          if (Math.abs(track.scrollLeft - pos) > 3) pos = track.scrollLeft; // el usuario movió
+        if (!pausa && visible && !document.hidden && L > 40) {
+          if (Math.abs(track.scrollLeft - pos) > 3) pos = track.scrollLeft;
           pos += VEL * dt;
-          if (mitad > 0 && pos >= mitad) pos -= mitad;
+          if (pos >= L) pos -= L;
           track.scrollLeft = pos;
         }
         requestAnimationFrame(paso);

@@ -392,3 +392,39 @@
 .pilares-acordeon .pilar-cuerpo.con-imagen{ display:grid; grid-template-columns:minmax(0,320px) 1fr; gap:24px; align-items:start; }
 .pilares-acordeon .pilar-img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; display:block; }
 @media (max-width:640px){ .pilares-acordeon .pilar-cuerpo.con-imagen{ grid-template-columns:1fr; gap:14px; } }
+
+/* ================= v6: tipografía más grande y colores por tipo de texto ================= */
+:root{ --fs-extra:0px; }
+.eyebrow{ font-size:calc(16px + var(--fs-extra)); }
+section h2, .seccion-bloque h2, .bloque-claro .bloque-contenido h2{
+  font-size:clamp(32px, 4.4vw, calc(48px + var(--fs-extra))); line-height:1.12; max-width:none; margin-bottom:32px; text-wrap:balance;
+}
+.evento-item h2, .evento-item-contenido h2{ font-size:clamp(26px, 3vw, 34px); max-width:none; }
+.hero .kicker{ font-size:calc(16px + var(--fs-extra)); }
+.hero p.lede{ font-size:calc(19px + var(--fs-extra)); }
+nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
+.btn{ font-size:calc(16px + var(--fs-extra)); }
+.pilar p, .blog-card p, .personaje-card p, .evento-pasado-card p, .taller-grid p, .evento-bloque-desc,
+.pilares-acordeon .pilar-cuerpo > p, .carrusel-texto, .bloque-contenido p{ font-size:calc(17px + var(--fs-extra)); line-height:1.6; }
+.pilar h3, .plan-item h3, .blog-card h3, .personaje-card h3, .evento-pasado-card h3, .producto h3{ font-size:calc(19px + var(--fs-extra)); }
+.pilares-acordeon .pilar-titulo{ font-size:calc(20px + var(--fs-extra)); }
+.stat .l, .plan-item .meta, .plan-item .code, .producto .cat, .blog-card-fecha, .personaje-rol, .evento-pasado-fecha,
+.evento-item > p, .evento-item-contenido > p, .media-caption, .galeria-grid figcaption, .carrusel-slide figcaption,
+.info-list .k, .info-list .v, form label, .foot-grid, .foot-bottom, .foot-grid h4, .cal-dia-header, .pilar .num,
+.pilares-acordeon .num{ font-size:calc(16px + var(--fs-extra)); }
+.plan-item .price, .producto .price{ font-size:calc(18px + var(--fs-extra)); }
+@media (max-width:640px){ nav ul{ font-size:15px; } }
+
+/* colores propios por tipo de texto dentro de cada sección */
+.seccion-bloque.c-titulo h2, .seccion-bloque.c-titulo h3, .seccion-bloque.c-titulo .pilar-titulo,
+.seccion-bloque.c-titulo .evento-item h2, .seccion-bloque.c-titulo .evento-item-contenido h2,
+.seccion-bloque.c-titulo .stat .n{ color:var(--c-titulo) !important; }
+.seccion-bloque.c-etiqueta .eyebrow, .seccion-bloque.c-etiqueta .num, .seccion-bloque.c-etiqueta .code,
+.seccion-bloque.c-etiqueta .cat, .seccion-bloque.c-etiqueta .meta, .seccion-bloque.c-etiqueta .stat .l,
+.seccion-bloque.c-etiqueta .blog-card-fecha, .seccion-bloque.c-etiqueta .personaje-rol,
+.seccion-bloque.c-etiqueta .evento-pasado-fecha, .seccion-bloque.c-etiqueta .evento-item > p,
+.seccion-bloque.c-etiqueta .evento-item-contenido > p, .seccion-bloque.c-etiqueta figcaption,
+.seccion-bloque.c-etiqueta .media-caption{ color:var(--c-etiqueta) !important; }
+.seccion-bloque.c-cuerpo p, .seccion-bloque.c-cuerpo li, .seccion-bloque.c-cuerpo .price,
+.seccion-bloque.c-cuerpo .evento-bloque-desc{ color:var(--c-cuerpo) !important; }
+.seccion-bloque.c-cuerpo .eyebrow, .seccion-bloque.c-etiqueta p.eyebrow{ color:var(--c-etiqueta, var(--c-cuerpo)) !important; }
