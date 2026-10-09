@@ -16,12 +16,16 @@
     "color_moss": "#1a0000"
   },
   "hero": {
-    "color_acento": "",
+    "color_acento": "#7de772",
     "estilo": "fondo",
     "layout": "imagen_lado",
+    "orden": [
+      "texto",
+      "kicker"
+    ],
     "fuente_titulo": "",
     "title_em": "viva",
-    "kicker": "Tratak, estudio de Diseño Transpersonal presenta: ",
+    "kicker": "C.A.T. (Centro de Aprendizaje Tecno-Ontológico)",
     "cta1_label": "Ver programas →",
     "title_line1": "Contempla y biofabrica",
     "cta3_link": "landing.html",
@@ -30,7 +34,7 @@
     "cta1_link": "#plan",
     "title_line3": "del cosmos.",
     "cta3_label": "Próximos eventos →",
-    "lede": "C.A.T. (Centro de Aprendizaje Tecno-Ontológico)",
+    "lede": "Tratak, estudio de Diseño Transpersonal presenta: ",
     "image": "/images/hero-pieza.jpg",
     "title_pre": "la materia "
   },
