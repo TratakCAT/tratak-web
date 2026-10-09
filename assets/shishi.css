@@ -86,3 +86,10 @@ body.modo-noche .shishi.dormido .sh-zzz{ animation:shZzz 4.2s ease-in-out infini
 
 @media (max-width:700px){ :root{ --sh-w:118px; } .shishi{ left:-4px; } .shishi.lado-der{ right:78px; } .sh-bubble{ left:40%; max-width:58vw; font-size:14px; } .sh-panel{ bottom:calc(var(--sh-w)*.81 + 6px); } }
 @media (prefers-reduced-motion:reduce){ .sh-box, .sh-cola, .sh-bola, .sh-bola .gk-rota, .sh-nube svg, .sh-avatar svg{ animation:none !important; } .sh-gota{ display:none; } }
+
+/* v18 fondo: luna de papel detrás de Shishi para que su tinta se lea */
+.sh-box::before{ content:""; position:absolute; left:4%; bottom:-6%; width:84%; aspect-ratio:1; border-radius:50%; z-index:-1; pointer-events:none;
+  background:radial-gradient(circle at 50% 50%, rgba(251,246,232,.97) 0, rgba(251,246,232,.95) 58%, rgba(251,246,232,.7) 72%, rgba(251,246,232,0) 100%); }
+.sh-box::after{ content:""; position:absolute; left:8%; bottom:-2%; width:76%; aspect-ratio:1; border-radius:50%; z-index:-1; pointer-events:none; border:2px solid rgba(20,23,26,.22); border-top-color:transparent; transform:rotate(-24deg); }
+body.modo-noche .sh-box::before{ background:radial-gradient(circle, rgba(34,30,58,.92) 0, rgba(34,30,58,.88) 58%, rgba(34,30,58,.6) 72%, rgba(34,30,58,0) 100%); }
+body.modo-noche .sh-box::after{ border-color:rgba(255,240,200,.25); border-top-color:transparent; }
