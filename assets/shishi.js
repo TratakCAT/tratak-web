@@ -269,7 +269,7 @@
     var giro = c.querySelector('.sh-gk-scroll .gk-rota'), nubes = c.querySelectorAll('.sh-nube'), tick = false;
     function act() {
       tick = false; var y = global.scrollY || 0;
-      if (giro) giro.style.transform = 'rotate(' + (-60 + y * 0.22) + 'deg)';
+      if (giro) giro.style.transform = 'rotate(' + (-y * 0.22) + 'deg)';
       nubes.forEach(function (n) { n.style.transform = 'translateY(' + (-y * parseFloat(n.getAttribute('data-f'))).toFixed(1) + 'px)'; });
     }
     global.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(act); } }, { passive: true });

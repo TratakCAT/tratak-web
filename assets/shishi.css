@@ -76,7 +76,7 @@ body.modo-noche .shishi.dormido .sh-zzz{ animation:shZzz 4.2s ease-in-out infini
 
 @keyframes shResp{ 0%,100%{ transform:scale(1,1); } 50%{ transform:scale(1.006,1.014); } }
 @keyframes shCola{ from{ transform:rotate(-2.4deg); } to{ transform:rotate(2.6deg); } }
-@keyframes shSpin{ from{ transform:rotate(-60deg); } to{ transform:rotate(300deg); } }
+@keyframes shSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
 @keyframes shBrillo{ 0%,100%{ filter:drop-shadow(0 0 7px rgba(140,110,230,.5)); } 50%{ filter:drop-shadow(0 0 16px rgba(120,190,255,.85)); } }
 @keyframes shZzz{ 0%{ opacity:0; transform:translate(0,6px); } 30%{ opacity:.9; } 100%{ opacity:0; transform:translate(14px,-22px); } }
 @keyframes shAbre{ from{ opacity:0; transform:scale(.94) translateY(10px); } to{ opacity:1; transform:none; } }
