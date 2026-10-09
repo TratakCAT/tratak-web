@@ -1,0 +1,5 @@
+# Netlify solo sirve el panel /admin (Cloudflare publica el sitio).
+# Construye únicamente cuando cambia algo dentro de admin/; los cambios de contenido
+# que haces desde el panel (content.json, events/, imágenes) ya no gastan créditos.
+[build]
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- admin/"
