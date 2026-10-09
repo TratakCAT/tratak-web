@@ -435,12 +435,40 @@
     return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
   }
 
+  // Variables de color de botón (fondo + texto con contraste automático)
+  function botonVars(o) {
+    var st = '';
+    if (!o || !o.color_boton) { if (o && o.color_boton_texto) st += '--u-btn-fg:' + o.color_boton_texto + ';'; return st; }
+    st += '--u-btn-bg:' + o.color_boton + ';';
+    var fg = o.color_boton_texto;
+    if (!fg) { var L = luminanciaHex(o.color_boton); fg = (L !== null && L < 0.4) ? '#fbf6ee' : '#241f18'; }
+    return st + '--u-btn-fg:' + fg + ';';
+  }
+
+  // Texto del botón principal: siempre contrasta con el color de tinta del tema (día o noche)
+  function sincronizarBoton() {
+    try {
+      var root = document.documentElement;
+      var ink = getComputedStyle(root).getPropertyValue('--ink').trim();
+      var L = luminanciaHex(ink);
+      if (L === null) return;
+      var fg = L < 0.4 ? '#fbf6ee' : '#241f18';
+      if (root.style.getPropertyValue('--btn-fg-t') !== fg) root.style.setProperty('--btn-fg-t', fg);
+    } catch (e) {}
+  }
+  if (typeof document !== 'undefined' && typeof MutationObserver !== 'undefined') {
+    var _ob = new MutationObserver(sincronizarBoton);
+    _ob.observe(document.documentElement, { attributes: true, attributeFilter: ['style', 'class'] });
+    document.addEventListener('DOMContentLoaded', function () { sincronizarBoton(); if (document.body) _ob.observe(document.body, { attributes: true, attributeFilter: ['class'] }); });
+  }
+
   function wrapAbre(s) {
     var style = '';
     var hayMedia = (s.fondo === 'imagen' && s.imagen_fondo) || (s.fondo === 'video' && s.video_fondo);
     var usaColor = !!(s.color_fondo && !hayMedia);
     if (usaColor) style += 'background:' + s.color_fondo + ';';
     if (s.color_acento) style += '--clay:' + s.color_acento + ';';
+    style += botonVars(s);
     if (s.estilo_fuente && FONT_PAIRS[s.estilo_fuente]) {
       var fp2 = FONT_PAIRS[s.estilo_fuente];
       style += '--font-heading:' + fp2.heading + ';--font-body:' + fp2.body + ';';
@@ -747,6 +775,7 @@
         var estiloTarjeta = '';
         var claseTarjeta = 'evento-item';
         if (landing.color_acento) estiloTarjeta += 'background:' + landing.color_acento + ';';
+        estiloTarjeta += botonVars(landing);
         if (landing.foto_hero) claseTarjeta += ' evento-item-con-foto';
 
         var contenido =
@@ -757,7 +786,7 @@
           '</div>';
 
         if (landing.foto_hero) {
-          return '<div class="' + claseTarjeta + '">' +
+          return '<div class="' + claseTarjeta + '" style="' + botonVars(landing) + '">' +
             '<img class="evento-item-media" src="' + esc(landing.foto_hero) + '" alt="">' +
             '<div class="evento-item-overlay"></div>' + contenido + '</div>';
         }
@@ -1031,6 +1060,7 @@
     var style = '';
     if (contacto.color_fondo) style += 'background:' + contacto.color_fondo + ';';
     if (contacto.color_acento) style += '--clay:' + contacto.color_acento + ';';
+    style += botonVars(contacto);
     return (
       '<section class="wrap" id="contacto" style="' + style + '"><div class="contacto-grid"><div>' +
       (ICONOS[contacto.icono] ? '<div class="sec-icono">' + iconoSVG(contacto.icono) + '</div>' : '') + '<p class="eyebrow">Contacto</p><h2>' + esc(contacto.titulo) + '</h2><p>' + esc(contacto.texto) + '</p>' +
@@ -1228,6 +1258,7 @@
     renderEventoDestacado: renderEventoDestacado,
     renderContacto: renderContacto,
     renderMenu: renderMenu,
+    botonVars: botonVars,
     gankyilSVG: gankyilSVG,
     abrirGankyil: abrirGankyil,
     seccionesDeLaPagina: seccionesDeLaPagina,
