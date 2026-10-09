@@ -523,3 +523,12 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .gk-pts i.m{ background:transparent; border:1.5px solid rgba(36,31,24,.5); box-shadow:inset 0 0 0 2px var(--c); }
 .gk-item{ align-items:flex-start; }
 .gk-item > i{ margin-top:4px; }
+
+/* v23 pez elegido: se ilumina (también al tocar en celular) y los otros bajan de intensidad; la lista de programas ya no se atenúa */
+.gk-wrap .gk-brazo{ transition:opacity .25s, filter .25s; }
+.gk-wrap.gk-hay-sel .gk-brazo:not(.gk-sel){ opacity:.38; }
+.gk-wrap .gk-brazo.gk-sel{ filter:drop-shadow(0 0 7px rgba(255,255,255,.95)); }
+.gk-wrap .gk-brazo.gk-sel > path{ stroke:#fff; stroke-width:2.4; stroke-linejoin:round; }
+.plan-item.gk-atenuado{ opacity:1 !important; }
+.plan-item.gk-activo{ transform:none !important; }
+.gk-item.gk-sel{ background:color-mix(in srgb, #fff 18%, transparent); border-color:rgba(255,255,255,.55); }
