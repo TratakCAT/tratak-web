@@ -634,16 +634,9 @@
   function gkResaltar(brazo) {
     var lista = document.querySelectorAll('.plan-item');
     var gk = GK_BRAZOS.filter(function (b) { return b.id === brazo; })[0];
-    lista.forEach(function (it) {
-      var t = it.textContent;
-      var coincide = true;
-      if (brazo) {
-        if (brazo === 'centro') coincide = /asesor/i.test(t);
-        else coincide = gk.re.test(t) || /a elegir/i.test(t);
-      }
-      it.classList.toggle('gk-atenuado', !!brazo && !coincide);
-      it.classList.toggle('gk-activo', !!brazo && coincide);
-    });
+    // ya no se atenúa ni se bloquea la lista de programas: solo se ilumina el pez elegido
+    lista.forEach(function (it) { it.classList.remove('gk-atenuado'); it.classList.remove('gk-activo'); });
+    document.querySelectorAll('.gk-wrap').forEach(function (w) { w.classList.toggle('gk-hay-sel', !!brazo); });
     document.querySelectorAll('.gk-wrap .gk-brazo').forEach(function (g) { g.classList.toggle('gk-sel', !!brazo && g.getAttribute('data-brazo') === brazo); });
     document.querySelectorAll('.gk-wrap .gk-item').forEach(function (g) { g.classList.toggle('gk-sel', !!brazo && g.getAttribute('data-brazo') === brazo); });
   }
@@ -663,8 +656,9 @@
     bindGankyil.hecho = true;
     var fijo = null;
     function sel(el) { var b = el.closest && el.closest('[data-brazo]'); return b ? b.getAttribute('data-brazo') : null; }
-    document.addEventListener('mouseover', function (e) { var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(sel(b)); });
-    document.addEventListener('mouseout', function (e) { var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(null); });
+    var conHover = !window.matchMedia || window.matchMedia('(hover:hover)').matches;
+    document.addEventListener('mouseover', function (e) { if (!conHover) return; var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(sel(b)); });
+    document.addEventListener('mouseout', function (e) { if (!conHover) return; var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(null); });
     document.addEventListener('click', function (e) {
       var t = e.target;
       if (!t.closest) return;
