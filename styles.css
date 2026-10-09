@@ -514,3 +514,12 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .gk-ruta h3{ margin:6px 0 0; font-size:calc(24px + var(--fs-extra)); }
 .gk-ruta p{ margin:0; max-width:52ch; font-size:calc(16px + var(--fs-extra)); opacity:.85; }
 @media (max-width:700px){ .gk-hilos{ display:none; } .gk-ruta{ margin-top:0; } }
+
+/* v22 puntos de clases y mentorías en la leyenda */
+.gk-filas{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.gk-fila b{ display:block; font-size:calc(13.5px + var(--fs-extra)); font-weight:600; margin-bottom:4px; }
+.gk-pts{ display:flex; flex-wrap:wrap; gap:6px; }
+.gk-pts i{ width:14px; height:14px; border-radius:50%; background:var(--c); display:block; box-shadow:0 0 0 1.5px rgba(36,31,24,.35); }
+.gk-pts i.m{ background:transparent; border:1.5px solid rgba(36,31,24,.5); box-shadow:inset 0 0 0 2px var(--c); }
+.gk-item{ align-items:flex-start; }
+.gk-item > i{ margin-top:4px; }
