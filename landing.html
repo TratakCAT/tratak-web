@@ -145,6 +145,15 @@
     transition: transform .15s ease;
   }
   .btn:hover{ transform: translateY(-1px); }
+  /* v18 botones: color propio por sección/evento y contraste siempre legible */
+  .bloque-claro, .evento-item-con-foto, .hero-con-foto, .hero.hero-con-foto{ --btn-bg:#fbf6ee; --btn-fg:#241f18; --gh-fg:#fbf6ee; }
+  .btn.primary, .bloque-claro .bloque-contenido .btn.primary, .evento-item-contenido .btn.primary, .hero.hero-con-foto .btn.primary{
+    background:var(--u-btn-bg,var(--btn-bg,var(--ink,#241f18))) !important; color:var(--u-btn-fg,var(--btn-fg,var(--btn-fg-t,#fbf6ee))) !important;
+    border:1px solid var(--u-btn-bg,var(--btn-bg,var(--ink,#241f18))); }
+  .btn.ghost, .bloque-claro .btn.ghost, .evento-item-contenido .btn.ghost, .hero.hero-con-foto .btn.ghost{
+    color:var(--u-btn-bg,var(--gh-fg,var(--ink,#241f18))) !important; border-color:var(--u-btn-bg,var(--gh-fg,var(--ink,#241f18))) !important; background:transparent; }
+  .btn.primary:hover{ filter:brightness(1.06); }
+  
   .btn.primary{
     background: var(--ink);
     color: var(--paper);
@@ -372,7 +381,7 @@
   .perfil-list span::before{ content:'✦ '; color:var(--clay); }
   section.despues p{ padding:18px 22px; border-radius:20px; background:color-mix(in srgb, var(--moss) 10%, transparent); }
 </style>
-<link rel="stylesheet" href="assets/shishi.css?v=18">
+<link rel="stylesheet" href="assets/shishi.css?v=19">
 </head>
 <body>
 <div id="site-top"></div>
@@ -466,8 +475,8 @@
     <span>Dudas — <a href="https://wa.me/523332480698" id="landing-whatsapp-footer">WhatsApp</a></span>
   </footer>
 
-<script src="assets/site.js?v=18"></script>
-<script src="assets/shishi.js?v=18"></script>
+<script src="assets/site.js?v=19"></script>
+<script src="assets/shishi.js?v=19"></script>
 <script>
   function separarDescripcion(texto) {
     var lineas = (texto || '').replace(/\r/g, '').split('\n');
@@ -489,7 +498,7 @@
   }
   function videoEmbed(url) {
     url = (url || '').trim();
-    var y = url.match(/(?:youtube\.com\/(?:watch\?v=18|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+    var y = url.match(/(?:youtube\.com\/(?:watch\?v=19|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
     if (y) return '<iframe src="https://www.youtube.com/embed/' + y[1] + '" title="Video" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     var v = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (v) return '<iframe src="https://player.vimeo.com/video/' + v[1] + '" title="Video" loading="lazy" allowfullscreen></iframe>';
@@ -530,6 +539,10 @@
       if (!d) {
         document.querySelector('body > .wrap').innerHTML = '<p style="padding:60px 0;">No se encontró este evento. <a href="index.html">Volver al inicio</a></p>';
         return;
+      }
+
+      if (window.TratakRender && TratakRender.botonVars) {
+        TratakRender.botonVars(d).split(';').filter(Boolean).forEach(function (kv) { var i = kv.indexOf(':'); document.documentElement.style.setProperty(kv.slice(0, i), kv.slice(i + 1)); });
       }
 
       if (d.foto_hero) {

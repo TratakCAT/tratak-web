@@ -494,3 +494,12 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 
 .gk-brazo:focus, .gk-centro:focus{ outline:none; }
 .gk-brazo:focus-visible, .gk-centro:focus-visible{ outline:none; filter:drop-shadow(0 0 6px #ffd36b); }
+
+/* v18 botones: color propio por sección/evento y contraste siempre legible */
+.bloque-claro, .evento-item-con-foto, .hero-con-foto, .hero.hero-con-foto{ --btn-bg:#fbf6ee; --btn-fg:#241f18; --gh-fg:#fbf6ee; }
+.btn.primary, .bloque-claro .bloque-contenido .btn.primary, .evento-item-contenido .btn.primary, .hero.hero-con-foto .btn.primary{
+  background:var(--u-btn-bg,var(--btn-bg,var(--ink,#241f18))) !important; color:var(--u-btn-fg,var(--btn-fg,var(--btn-fg-t,#fbf6ee))) !important;
+  border:1px solid var(--u-btn-bg,var(--btn-bg,var(--ink,#241f18))); }
+.btn.ghost, .bloque-claro .btn.ghost, .evento-item-contenido .btn.ghost, .hero.hero-con-foto .btn.ghost{
+  color:var(--u-btn-bg,var(--gh-fg,var(--ink,#241f18))) !important; border-color:var(--u-btn-bg,var(--gh-fg,var(--ink,#241f18))) !important; background:transparent; }
+.btn.primary:hover{ filter:brightness(1.06); }
