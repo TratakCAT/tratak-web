@@ -434,3 +434,13 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .form-estado.ok{color:#2e7d32;font-weight:600}
 .form-estado.error{color:#b3261e}
 .form-contacto button[disabled]{opacity:.6;cursor:wait}
+
+/* v9 íconos, descripciones cortas */
+.sec-icono{ width:56px; height:56px; margin-bottom:14px; color:var(--clay); }
+.sec-icono .ico, .pilar-ico .ico, .plan-ico .ico{ width:100%; height:100%; display:block; }
+.pilar-ico{ width:34px; height:34px; flex:none; color:var(--clay); }
+.plan-ico{ display:inline-block; width:26px; height:26px; margin-right:10px; vertical-align:middle; color:var(--clay); }
+.seccion-bloque.c-etiqueta .sec-icono, .seccion-bloque.c-etiqueta .pilar-ico{ color:var(--c-etiqueta); }
+.evento-pasado-card p.desc-corta{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; flex:none; margin-bottom:6px; }
+.evento-pasado-card p.desc-corta.abierta{ display:block; -webkit-line-clamp:unset; white-space:pre-line; }
+.desc-toggle{ align-self:flex-start; background:none; border:none; padding:0 0 14px; font:inherit; font-size:14px; font-weight:600; color:var(--clay); cursor:pointer; text-decoration:underline; }

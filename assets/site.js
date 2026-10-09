@@ -160,15 +160,66 @@
   }
 
   // ---------- bloques (secciones) ----------
+  var ICONOS = {
+    hoja: '<path d="M5 19c0-9 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19l8-8"/>',
+    semilla: '<path d="M12 21v-9"/><path d="M12 12c-4 0-6-3-6-7 4 0 6 3 6 7z"/><path d="M12 14c3 0 5-2 5-5-3 0-5 2-5 5z"/>',
+    atomo: '<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>',
+    ojo: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    contemplacion: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/>',
+    llama: '<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1.5 1 2 2 3-3z"/>',
+    chispa: '<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+    engranaje: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    cubo: '<path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/>',
+    laboratorio: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/>',
+    libro: '<path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/>',
+    sol: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    luna: '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+    ondas: '<path d="M2 8c3-3 5 3 8 0s5 3 8 0 3 0 4-1"/><path d="M2 16c3-3 5 3 8 0s5 3 8 0 3 0 4-1"/>',
+    corazon: '<path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/>',
+    ubicacion: '<path d="M12 22s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+    camara: '<path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/>',
+    codigo: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+    montana: '<path d="M2 20l7-12 4 7 3-4 6 9z"/>',
+    infinito: '<path d="M12 12c-2-3-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1 6-4s4-4 6-4a4 4 0 0 1 0 8c-2 0-4-1-6-4z"/>',
+    gota: '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>',
+    personas: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 2 5 5"/>',
+    impresora: '<path d="M5 3h14v4H5zM3 7h18v8H3zM7 15v6h10v-6"/>',
+    vr: '<path d="M2 8h20v8h-6l-2-3h-4l-2 3H2z"/>',
+    estrella: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    ceramica: '<path d="M9 3h6M10 3c0 3-4 4-4 9a6 6 0 0 0 12 0c0-5-4-6-4-9"/>'
+  };
+  function iconoSVG(nombre) {
+    var p = ICONOS[nombre];
+    if (!p) return '';
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+  }
+
+  function luminanciaHex(hex) {
+    var m = /^#?([0-9a-f]{6})$/i.exec((hex || '').trim());
+    if (!m) return null;
+    var v = [0, 2, 4].map(function (i) {
+      var c = parseInt(m[1].substr(i, 2), 16) / 255;
+      return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+  }
+
   function wrapAbre(s) {
     var style = '';
-    if (s.fondo === 'color' && s.color_fondo) style += 'background:' + s.color_fondo + ';';
+    var hayMedia = (s.fondo === 'imagen' && s.imagen_fondo) || (s.fondo === 'video' && s.video_fondo);
+    var usaColor = !!(s.color_fondo && !hayMedia);
+    if (usaColor) style += 'background:' + s.color_fondo + ';';
     if (s.color_acento) style += '--clay:' + s.color_acento + ';';
     if (s.estilo_fuente && FONT_PAIRS[s.estilo_fuente]) {
       var fp2 = FONT_PAIRS[s.estilo_fuente];
       style += '--font-heading:' + fp2.heading + ';--font-body:' + fp2.body + ';';
     }
     var claseTexto = s.color_texto === 'claro' ? 'bloque-claro' : 'bloque-oscuro';
+    if (usaColor) {
+      // Contraste automático: si el fondo es oscuro el texto pasa a claro (y viceversa)
+      var L = luminanciaHex(s.color_fondo);
+      if (L !== null) claseTexto = (1.05 / (L + 0.05)) > ((L + 0.05) / 0.06) ? 'bloque-claro' : 'bloque-oscuro';
+    }
     var clasePosicion = (s.fondo === 'imagen' || s.fondo === 'video') ? 'bloque-media-bg' : '';
     if (s.color_titulo) { style += '--c-titulo:' + s.color_titulo + ';'; clasePosicion += ' c-titulo'; }
     if (s.color_etiqueta) { style += '--c-etiqueta:' + s.color_etiqueta + ';'; clasePosicion += ' c-etiqueta'; }
@@ -202,7 +253,7 @@
     return wrapAbre(s) + mediaFondoHTML(s) +
       '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
       '<div class="pilares-acordeon">' + (s.items || []).map(function (p) {
-        return '<details class="pilar"><summary><span class="num">' + esc(p.num) + '</span><span class="pilar-titulo">' + esc(p.title) + '</span><span class="pilar-mas" aria-hidden="true"></span></summary>' +
+        return '<details class="pilar"><summary>' + (ICONOS[p.icono] ? '<span class="pilar-ico">' + iconoSVG(p.icono) + '</span>' : '') + '<span class="num">' + esc(p.num) + '</span><span class="pilar-titulo">' + esc(p.title) + '</span><span class="pilar-mas" aria-hidden="true"></span></summary>' +
           '<div class="pilar-cuerpo' + (p.imagen ? ' con-imagen' : '') + '">' +
           (p.imagen ? '<img class="pilar-img" loading="lazy" src="' + esc(p.imagen) + '" alt="' + esc(p.title) + '">' : '') +
           '<p>' + esc(p.text) + '</p></div></details>';
@@ -243,7 +294,7 @@
         var atributos = esExterno ? ' target="_blank" rel="noopener"' : '';
         var precioHTML = '<a class="price price-link" href="' + esc(link) + '"' + atributos + '>' + esc(it.price) + '</a>';
         return '<div class="plan-item">' + img +
-          '<div class="plan-item-main"><span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
+          '<div class="plan-item-main">' + (ICONOS[it.icono] ? '<span class="plan-ico">' + iconoSVG(it.icono) + '</span>' : '') + '<span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
           precioHTML + '</div>';
       }).join('') + '</div></div></section>';
   }
@@ -376,6 +427,17 @@
       '<div class="bloque-contenido evento-card-bloque"><p class="eyebrow">' + esc(s.eyebrow || 'Próximo evento') + '</p>' + inner + '</div></section>';
   }
 
+  function descripcionCorta(txt) {
+    txt = txt || '';
+    if (txt.length <= 150) return '<p>' + esc(txt) + '</p>';
+    return '<p class="desc-corta">' + esc(txt) + '</p><button type="button" class="desc-toggle" onclick="TratakRender.toggleDesc(this)">Leer más</button>';
+  }
+  function toggleDesc(btn) {
+    var p = btn.previousElementSibling;
+    var abierta = p.classList.toggle('abierta');
+    btn.textContent = abierta ? 'Leer menos' : 'Leer más';
+  }
+
   function eventoPasadoCard(ev, whatsapp) {
     var img = ev.foto ? '<img src="' + esc(ev.foto) + '" alt="' + esc(ev.titulo) + '">' : ('<div class="ph">Foto: ' + esc(ev.titulo) + '</div>');
     var mensaje = ev.mensaje_whatsapp || ('Hola, me interesa que se repita el taller "' + ev.titulo + '"');
@@ -384,7 +446,7 @@
       '<div class="evento-pasado-card">' +
       '<div class="evento-pasado-img">' + img + '</div>' +
       '<div class="evento-pasado-fecha">' + esc(ev.fecha) + '</div>' +
-      '<h3>' + esc(ev.titulo) + '</h3><p>' + esc(ev.descripcion) + '</p>' +
+      '<h3>' + esc(ev.titulo) + '</h3>' + descripcionCorta(ev.descripcion) +
       '<a class="btn ghost evento-pasado-btn" href="' + link + '" target="_blank" rel="noopener">Solicitar que se repita →</a>' +
       '</div>'
     );
@@ -596,7 +658,12 @@
     return (secciones || []).map(function (s) {
       var fn = RENDERERS[s.type];
       if (!fn) return '';
-      return fn(s, contacto, opts);
+      var out = fn(s, contacto, opts);
+      if (s.icono && ICONOS[s.icono]) {
+        var ic = '<div class="sec-icono">' + iconoSVG(s.icono) + '</div>';
+        out = out.indexOf('<p class="eyebrow">') !== -1 ? out.replace('<p class="eyebrow">', ic + '<p class="eyebrow">') : out.replace('<h2', ic + '<h2');
+      }
+      return out;
     }).join('');
   }
 
@@ -814,6 +881,8 @@
     renderSecciones: renderSecciones,
     renderEventoDestacado: renderEventoDestacado,
     renderContacto: renderContacto,
+    toggleDesc: toggleDesc,
+    iconoSVG: iconoSVG,
     enviarContacto: enviarContacto,
     renderFooter: renderFooter,
     renderLightbox: renderLightbox,
