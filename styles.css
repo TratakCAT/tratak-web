@@ -462,7 +462,7 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .gk-svg-el{ width:100%; height:100%; overflow:visible; }
 .gk-rota{ transform-box:fill-box; transform-origin:50% 50%; animation:gkSpin 38s linear infinite; }
 .gk-wrap:hover .gk-rota{ animation-duration:14s; }
-@keyframes gkSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+@keyframes gkSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
 .gk-ros{ transform-box:fill-box; transform-origin:50% 50%; animation:gkSpin 60s linear infinite reverse; }
 .gk-wrap .gk-brazo{ cursor:pointer; transition:filter .2s, opacity .2s; }
 .gk-wrap .gk-brazo:hover, .gk-wrap .gk-brazo.gk-sel{ filter:brightness(1.12) drop-shadow(0 0 6px rgba(255,255,255,.8)); }
