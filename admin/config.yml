@@ -58,6 +58,12 @@ collections:
               - { label: "Layout", name: "estilo", widget: select, options: [{label: "Imagen al lado del texto", value: "lado"}, {label: "Imagen de fondo completo", value: "fondo"}], default: "lado" }
               - { label: "Color de acento propio (opcional, si no usa el del tema)", name: "color_acento", widget: color, required: false }
               - { label: "Tipografía propia (opcional, si no usa la del tema)", name: "estilo_fuente", widget: select, required: false, options: *font_pairs }
+              - label: "Orden de los elementos del encabezado (arrastra para reordenar)"
+                name: "orden"
+                widget: list
+                required: false
+                default: ["kicker", "titulo", "texto", "botones"]
+                field: { label: "Elemento", name: "bloque", widget: select, options: [{label: "Frase pequeña", value: "kicker"}, {label: "Título", value: "titulo"}, {label: "Texto debajo del título", value: "texto"}, {label: "Botones", value: "botones"}] }
               - { label: "Frase pequeña arriba del título", name: "kicker", widget: string }
               - { label: "Título — línea 1", name: "title_line1", widget: string }
               - { label: "Título — antes de la palabra en cursiva", name: "title_pre", widget: string }
@@ -445,6 +451,12 @@ collections:
       - { label: "Título del evento (puede incluir <br> y <em>)", name: "titulo_evento_html", widget: string }
       - { label: "Introducción (párrafo breve; la agenda y lo que incluye van en sus campos)", name: "descripcion", widget: text }
       - { label: "Foto del evento (opcional, aparece como fondo del encabezado)", name: "foto_hero", widget: image, required: false }
+      - label: "Orden de los elementos del encabezado de la página (arrastra para reordenar)"
+        name: "orden_hero"
+        widget: list
+        required: false
+        default: ["kicker", "titulo", "descripcion", "chips", "datos", "botones"]
+        field: { label: "Elemento", name: "bloque", widget: select, options: [{label: "Frase pequeña (etiqueta)", value: "kicker"}, {label: "Título", value: "titulo"}, {label: "Introducción", value: "descripcion"}, {label: "Datos rápidos (óvalos)", value: "chips"}, {label: "Fecha / horario / sede", value: "datos"}, {label: "Botones", value: "botones"}, {label: "Nota de aportación", value: "aporte"}] }
       - { label: "Color de acento propio (opcional, para esta página en particular)", name: "color_acento", widget: color, required: false }
       - { label: "Horario", name: "horario", widget: string }
       - { label: "Sede / dirección", name: "sede", widget: string }

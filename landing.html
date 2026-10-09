@@ -81,7 +81,8 @@
   .hero-media-bg{ position:absolute; inset:0 -24px auto -24px; height:100%; z-index:0; border-radius:4px; overflow:hidden; }
   .hero-media-bg img{ width:100%; height:100%; object-fit:cover; }
   .hero-media-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,31,24,0.55), rgba(36,31,24,0.85)); }
-  .hero-contenido{ position:relative; z-index:1; }
+  .hero-contenido{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:flex-start; }
+  .hero-contenido > .facts{ width:100%; align-self:stretch; }
   .hero.hero-con-foto .kicker{ color:#cfc6ae; }
   .hero.hero-con-foto h1{ color:#fff; }
   .hero.hero-con-foto .lede{ color:#ece6d6; }
@@ -392,11 +393,13 @@
     <div class="hero-contenido">
     <p class="kicker" id="landing-kicker"></p>
     <h1 id="landing-titulo"></h1>
+    <div id="landing-desc-wrap">
     <p class="lede" id="landing-desc"></p>
     <button type="button" class="lede-toggle" id="landing-desc-toggle">Ver más</button>
+    </div>
     <div class="chips" id="landing-chips"></div>
 
-    <div class="facts">
+    <div class="facts" id="landing-datos">
       <div class="fact"><span class="fact-ico" data-ico="calendario"></span><div>
         <div class="k">Fecha</div>
         <div class="v" id="landing-fecha"></div>
@@ -411,7 +414,7 @@
       </div></div>
     </div>
 
-    <div class="cta-row">
+    <div class="cta-row" id="landing-botones">
       <a class="btn primary" id="landing-form-link" href="#">Reservar mi lugar →</a>
       <a class="btn ghost" id="landing-whatsapp-link" href="#">Dudas por WhatsApp</a>
       <a class="btn ghost" id="landing-mapa-link" href="#" target="_blank" rel="noopener" style="display:none;">Cómo llegar →</a>
@@ -462,7 +465,7 @@
     <span>Dudas — <a href="https://wa.me/523332480698" id="landing-whatsapp-footer">WhatsApp</a></span>
   </footer>
 
-<script src="assets/site.js?v=10"></script>
+<script src="assets/site.js?v=12"></script>
 <script>
   function separarDescripcion(texto) {
     var lineas = (texto || '').replace(/\r/g, '').split('\n');
@@ -484,7 +487,7 @@
   }
   function videoEmbed(url) {
     url = (url || '').trim();
-    var y = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+    var y = url.match(/(?:youtube\.com\/(?:watch\?v=12|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
     if (y) return '<iframe src="https://www.youtube.com/embed/' + y[1] + '" title="Video" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     var v = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (v) return '<iframe src="https://player.vimeo.com/video/' + v[1] + '" title="Video" loading="lazy" allowfullscreen></iframe>';
@@ -545,6 +548,10 @@
       kick.style.display = d.etiqueta ? '' : 'none';
       document.getElementById('landing-mark-sede').textContent = sedeNombre.split(/\s+[-–—]\s+|,/)[0].trim();
       var descEl = document.getElementById('landing-desc');
+      var ids = { kicker: 'landing-kicker', titulo: 'landing-titulo', descripcion: 'landing-desc-wrap', chips: 'landing-chips', datos: 'landing-datos', botones: 'landing-botones', aporte: 'landing-aporte' };
+      var ordenH = (d.orden_hero || []).map(function (o) { return typeof o === 'string' ? o : (o && o.bloque) || ''; }).filter(function (k) { return ids[k]; });
+      ['kicker', 'titulo', 'descripcion', 'chips', 'datos', 'botones', 'aporte'].forEach(function (k) { if (ordenH.indexOf(k) === -1) ordenH.push(k); });
+      ordenH.forEach(function (k, i) { var el = document.getElementById(ids[k]); if (el) el.style.order = i; });
       var sep = separarDescripcion(d.descripcion);
       var hayExtraidos = sep.incl.length || sep.agenda.length;
       if (hayExtraidos) {

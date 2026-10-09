@@ -141,10 +141,15 @@
       '<a class="btn ghost" href="' + esc(hero.cta2_link) + '">' + esc(hero.cta2_label) + '</a>' +
       '<a class="btn ghost" href="' + esc(hero.cta3_link) + '">' + esc(hero.cta3_label) + '</a>' +
       '</div>';
-    var textoHTML =
-      '<p class="kicker">' + esc(hero.kicker) + '</p>' +
-      '<h1>' + esc(hero.title_line1) + '<br>' + esc(hero.title_pre) + '<em>' + esc(hero.title_em) + '</em><br>' + esc(hero.title_line3) + '</h1>' +
-      '<p class="lede">' + esc(hero.lede) + '</p>' + ctas;
+    var bloques = {
+      kicker: '<p class="kicker">' + esc(hero.kicker) + '</p>',
+      titulo: '<h1>' + esc(hero.title_line1) + '<br>' + esc(hero.title_pre) + '<em>' + esc(hero.title_em) + '</em><br>' + esc(hero.title_line3) + '</h1>',
+      texto: '<p class="lede">' + esc(hero.lede) + '</p>',
+      botones: ctas
+    };
+    var orden = (hero.orden || []).map(function (o) { return typeof o === 'string' ? o : (o && o.bloque) || ''; }).filter(function (k) { return bloques[k]; });
+    ['kicker', 'titulo', 'texto', 'botones'].forEach(function (k) { if (orden.indexOf(k) === -1) orden.push(k); });
+    var textoHTML = orden.map(function (k) { return bloques[k]; }).join('');
 
     if (hero.estilo === 'fondo') {
       return (
