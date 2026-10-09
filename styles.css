@@ -444,3 +444,14 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .evento-pasado-card p.desc-corta{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; flex:none; margin-bottom:6px; }
 .evento-pasado-card p.desc-corta.abierta{ display:block; -webkit-line-clamp:unset; white-space:pre-line; }
 .desc-toggle{ align-self:flex-start; background:none; border:none; padding:0 0 14px; font:inherit; font-size:14px; font-weight:600; color:var(--clay); cursor:pointer; text-decoration:underline; }
+
+/* v10 esquinas suaves en todas las imágenes */
+:root{ --radio-img:16px; }
+.seccion-bloque img:not(.logo-tema):not(.bloque-media-el), .hero-image, .taller-image, .galeria-grid img,
+.carrusel-slide img, .pilar-img, .plan-item-img img, .evento-pasado-img img, .destacado-lado-img img,
+.blog-card img, .personaje-card img, .evento-item-media, .producto .ph img{ border-radius:var(--radio-img) !important; }
+.ph, .galeria-grid .ph, .producto .ph, .evento-pasado-img .ph, .destacado-lado-img .ph, .media-frame, .hero-image, .taller-image,
+.destacado-lado-img{ border-radius:var(--radio-img); overflow:hidden; }
+.plan-item-img img{ border-radius:12px !important; }
+.evento-item-con-foto{ border-radius:20px; overflow:hidden; }
+.lightbox-inner img{ border-radius:14px; }
