@@ -58,22 +58,26 @@
     {
       "text": "Procesamiento de residuos orgánicos para crear bioplásticos desde cero. Puedes traer tu propio residuo, de preferencia cáscara de plátano y te enseñamos a procesarlo para convertirlo en un objeto de uso cotidiano totalmente compostable.",
       "title": "Biomateriales y bioplásticos ",
-      "tag": "BIOM"
+      "tag": "BIOM",
+      "imagen": "/images/img_1772.jpg"
     },
     {
       "tag": "IMPR 3D",
       "title": "Impresión 3D de cerámica",
-      "text": "Conoce la tecnología de LDM (Modelado por deposición líquida) la cual puede procesar tanto biopastas como cerámicos, adentrate en el mundo de la reología, el barro y la fabricación digital."
+      "text": "Conoce la tecnología de LDM (Modelado por deposición líquida) la cual puede procesar tanto biopastas como cerámicos, adentrate en el mundo de la reología, el barro y la fabricación digital.",
+      "imagen": "/images/2819f362-a5e9-43e7-bf6d-e99a8f6cc225.jpg"
     },
     {
       "tag": "VR ",
       "title": "Modelado 3D y VR ",
-      "text": "Conoce ambas maneras de poder llevar a cabo un diseño para imprimirse, ya sea con un casco de realidad virtual donde las ideas pueden fluir aún mejor o con un software de modelado 3D sencillo para que puedas empezar a volver realidad tus ideas."
+      "text": "Conoce ambas maneras de poder llevar a cabo un diseño para imprimirse, ya sea con un casco de realidad virtual donde las ideas pueden fluir aún mejor o con un software de modelado 3D sencillo para que puedas empezar a volver realidad tus ideas.",
+      "imagen": "/images/6eb880a5-fda0-49de-a9d2-eb17681f23cd.jpg"
     },
     {
       "tag": "COMP",
       "title": "Composta",
-      "text": "Aprende métodos distintos para hacer composta e integrarlo en tus hábitos sin importar el espacio que tengas en casa, veremos como todos los procesos anteriores concluyen en este ciclo de regeneración con la madre tierra."
+      "text": "Aprende métodos distintos para hacer composta e integrarlo en tus hábitos sin importar el espacio que tengas en casa, veremos como todos los procesos anteriores concluyen en este ciclo de regeneración con la madre tierra.",
+      "imagen": "/images/img_0751.jpg"
     }
   ],
   "titulo_evento_html": "Naturaleza, tecnología y contemplación",
@@ -92,5 +96,6 @@
   "mapa_url": "https://maps.app.goo.gl/RtYRznoz84MU9EVy7",
   "foto_hero": "/images/whatsapp-image-2026-09-26-at-10.37.21-am.jpeg",
   "google_form_url": "https://forms.gle/7dGB8cBj9veMa6zd9",
-  "fecha": "8 de Noviembre"
+  "fecha": "8 de Noviembre",
+  "mapa_embed": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.690108113813!2d-103.6166942244495!3d20.722804880851072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842603004620266d%3A0x38d3784922e59306!2sMansi%C3%B3n%20Esquivias!5e0!3m2!1ses-419!2smx!4v1791567893972!5m2!1ses-419!2smx\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>"
 }
