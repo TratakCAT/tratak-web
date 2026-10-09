@@ -604,10 +604,19 @@
       '<h3>' + esc(gkTexto('exposicion_titulo')) + '</h3><p>' + esc(gkTexto('exposicion_texto')) + '</p></div>';
   }
 
+  // 6 clases base (puntos llenos) y 9 mentorías (aros) por tópico
+  function gkPuntosFilas(color) {
+    function fila(n, hueco) { var o = ''; for (var i = 0; i < n; i++) o += '<i' + (hueco ? ' class="m"' : '') + '></i>'; return o; }
+    var nc = parseInt(gkTexto('clases'), 10) || 6, nm = parseInt(gkTexto('mentorias'), 10) || 9;
+    return '<span class="gk-filas" style="--c:' + color + '">' +
+      '<span class="gk-fila"><b>' + nc + ' clases base</b><span class="gk-pts">' + fila(nc, false) + '</span></span>' +
+      '<span class="gk-fila"><b>' + nm + ' mentorías especializadas</b><span class="gk-pts">' + fila(nm, true) + '</span></span></span>';
+  }
+
   function gankyilBloque(s) {
     if (s.gankyil === false) return '';
     var leyenda = GK_BRAZOS.map(function (b) {
-      return '<li class="gk-item" data-brazo="' + b.id + '" tabindex="0"><i style="background:' + b.color + '"></i><span><strong>' + esc(b.nombre) + '</strong><small>' + esc(b.pilar) + ' · ' + esc(b.desc) + ' · ' + esc(gkTexto('clases')) + ' clases · ' + esc(gkTexto('mentorias')) + ' mentorías</small></span></li>';
+      return '<li class="gk-item" data-brazo="' + b.id + '" tabindex="0"><i style="background:' + b.color + '"></i><span><strong>' + esc(b.nombre) + '</strong><small>' + esc(b.pilar) + ' · ' + esc(b.desc) + '</small>' + gkPuntosFilas(b.color) + '</span></li>';
     }).join('');
     return '<div class="gk-wrap" data-gk>' +
       '<div class="gk-svg">' + gankyilSVG({ interactivo: true }) + '</div>' +
