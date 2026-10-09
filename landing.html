@@ -354,6 +354,10 @@
   .tema-ico{ width:34px; height:34px; color:var(--clay); margin-bottom:10px; }
   .topic p{ max-width:none; }
   @media (max-width:640px){ .topics{ grid-template-columns:1fr; } }
+  .tema-media{ margin:-6px -6px 16px; border-radius:16px; overflow:hidden; background:var(--paper-2); }
+  .tema-media img, .tema-media video{ width:100%; display:block; aspect-ratio:16/10; object-fit:cover; }
+  .tema-video{ aspect-ratio:16/9; }
+  .tema-video iframe, .tema-video video{ width:100%; height:100%; border:0; display:block; aspect-ratio:auto; }
   /* fotos y mapa */
   section.fotos, section.mapa{ padding:44px 0 30px; border-top:1px solid var(--line); }
   section.fotos h2, section.mapa h2{ font-family:var(--font-heading); font-weight:400; font-size:26px; margin:0 0 20px; }
@@ -478,6 +482,22 @@
   function pintarIconos() {
     document.querySelectorAll('[data-ico]').forEach(function (el) { el.innerHTML = TratakRender.iconoSVG(el.getAttribute('data-ico')); });
   }
+  function videoEmbed(url) {
+    url = (url || '').trim();
+    var y = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+    if (y) return '<iframe src="https://www.youtube.com/embed/' + y[1] + '" title="Video" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    var v = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (v) return '<iframe src="https://player.vimeo.com/video/' + v[1] + '" title="Video" loading="lazy" allowfullscreen></iframe>';
+    return '';
+  }
+  function temaMedia(t) {
+    var q = function (u) { return String(u).replace(/"/g, '&quot;'); };
+    var html = '';
+    if (t.video_url) html = videoEmbed(t.video_url);
+    if (!html && t.video) html = '<video controls muted playsinline preload="metadata" src="' + q(t.video) + '"' + (t.imagen ? ' poster="' + q(t.imagen) + '"' : '') + '></video>';
+    if (!html && t.imagen) return '<div class="tema-media"><img loading="lazy" alt="' + q(t.title || '') + '" src="' + q(t.imagen) + '"></div>';
+    return html ? '<div class="tema-media tema-video">' + html + '</div>' : '';
+  }
   function getParam(name) {
     var params = new URLSearchParams(window.location.search);
     return params.get(name);
@@ -592,7 +612,7 @@
       document.getElementById('landing-whatsapp-footer').href = 'https://wa.me/' + d.whatsapp;
       document.getElementById('landing-aporte').textContent = d.aporte_texto;
       document.getElementById('landing-temas').innerHTML = (d.temas || []).map(function(t){
-        return '<div class="topic">' + (t.icono ? '<div class="tema-ico">' + TratakRender.iconoSVG(t.icono) + '</div>' : '') + '<div class="tag">' + t.tag + '</div><h3>' + t.title + '</h3><p>' + t.text + '</p></div>';
+        return '<div class="topic">' + temaMedia(t) + (t.icono ? '<div class="tema-ico">' + TratakRender.iconoSVG(t.icono) + '</div>' : '') + '<div class="tag">' + t.tag + '</div><h3>' + t.title + '</h3><p>' + t.text + '</p></div>';
       }).join('');
       document.getElementById('landing-perfil').innerHTML = (d.perfil || []).map(function(p){
         return '<span>' + p + '</span>';
