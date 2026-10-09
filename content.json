@@ -36,14 +36,17 @@
   },
   "secciones": [
     {
-      "id": "proximo-evento",
-      "type": "evento_proximo",
-      "fondo": "imagen",
-      "color_texto": "claro",
-      "eyebrow": "Experiencias",
+      "estilo_fuente": "fraunces_space",
+      "color_acento": "#89ff90",
       "imagen_fondo": "/images/img_20221209_121249.jpg",
-      "color_acento": "#360707",
-      "estilo_fuente": "fraunces_space"
+      "color_texto": "claro",
+      "eyebrow": "Muy pronto",
+      "fondo": "imagen",
+      "color_titulo": "#ffffff",
+      "icono": "montana",
+      "type": "evento_proximo",
+      "color_cuerpo": "#ffffff",
+      "id": "proximo-evento"
     },
     {
       "items": [
@@ -56,23 +59,28 @@
           "pie": "El Gobernador de Jalisco otorgando el galardón"
         }
       ],
+      "color_acento": "#ed8b66",
       "texto": "La máxima distinción otorgada por el Gobierno del Estado de Jalisco para reconocer a personas, empresas e instituciones que impulsan la innovación, el empleo y la competitividad.",
       "color_texto": "oscuro",
       "eyebrow": "Galardón",
       "fondo": "color",
       "color_fondo": "#5e56d7",
+      "color_titulo": "#000000",
+      "icono": "llama",
       "titulo": "Premio Emprendimiento Jalisco 2026 - Categoría Promesa",
       "type": "carrusel",
       "id": "Carrusel"
     },
     {
       "estilo_fuente": null,
-      "color_acento": "",
+      "color_acento": "#5e9dff",
       "color_texto": "oscuro",
       "eyebrow": "Impacto",
       "fuente_titulo": "",
       "fondo": "color",
       "color_fondo": "#d0f6d0",
+      "color_titulo": "#d946da",
+      "icono": "infinito",
       "titulo": "",
       "type": "estadisticas",
       "id": "impacto",
@@ -92,7 +100,7 @@
       ]
     },
     {
-      "color_acento": "",
+      "color_acento": "#ef8d8d",
       "imagen_fondo": "/images/taller-ldm.jpg",
       "estilo": "fondo",
       "color_texto": "claro",
@@ -105,6 +113,8 @@
       "fondo": "imagen",
       "texto2": "Entre tierra y código, entre manos y pantallas, te invitamos a la realización de la experiencia directa.",
       "boton_link": "#contacto",
+      "color_titulo": "#d946da",
+      "icono": "ubicacion",
       "titulo": "C.A.T. Centro de Aprendizaje Tecno-ontológico",
       "type": "destacado",
       "id": "taller"
@@ -114,32 +124,44 @@
         {
           "num": "01 · Materialidad",
           "title": "Mater (madre, la fuente o el origen de donde proviene algo)",
-          "text": "La materia es nuestro punto de partida. Antes de transformarla, aprendemos a observarla: su origen, sus propiedades, sus comportamientos y las relaciones que establece con el entorno. Diseñar es entrar en diálogo con aquello que nos da forma."
+          "text": "La materia es nuestro punto de partida. Antes de transformarla, aprendemos a observarla: su origen, sus propiedades, sus comportamientos y las relaciones que establece con el entorno. Diseñar es entrar en diálogo con aquello que nos da forma.",
+          "imagen": "/images/013862e4ea2b2a2a8e0266252d140c4e.jpg",
+          "icono": "ceramica"
         },
         {
           "num": "02 · Tecnología",
           "title": "Téchnē (τέχνη) (arte u oficio)",
-          "text": "El conocimiento que emerge del hacer: de la mano que prueba, de la herramienta que transforma y del material que responde.  Aprendemos experimentando, construyendo, fallando y volviendo a intentar."
+          "text": "El conocimiento que emerge del hacer: de la mano que prueba, de la herramienta que transforma y del material que responde.  Aprendemos experimentando, construyendo, fallando y volviendo a intentar.",
+          "imagen": "/images/chatgpt-image-30-jun-2026-08_39_13-p.m..png",
+          "icono": "vr"
         },
         {
           "num": "03 · Contemplación (Tratak)",
           "title": "Tratak ( त्राटक ) (mirar, observar o contemplar)",
-          "text": "Contemplar es detenerse para observar con atención. La contemplación no es separarse de la acción, sino hacer consciente nuestra manera de percibir, crear y relacionarnos con la tecnología y la materia. Tratak viene del sánscrito y quiere decir contemplación."
+          "text": "Contemplar es detenerse para observar con atención. La contemplación no es separarse de la acción, sino hacer consciente nuestra manera de percibir, crear y relacionarnos con la tecnología y la materia. Tratak viene del sánscrito y quiere decir contemplación.",
+          "imagen": "/images/chatgpt-image-18-may-2026-10_12_57-p.m..png",
+          "icono": "contemplacion"
         },
         {
           "num": "Diseño Tranpersonal",
           "title": "La liberación del tecno-estrés.",
-          "text": "Material, hacer y con atención forman una práctica: observar lo que existe, intervenir mediante la no-acción y permanecer atentos a lo que emerge. Sin prisas industriales, ofrecer soluciones para el bienestar de todos los seres sintientes."
+          "text": "Material, hacer y con atención forman una práctica: observar lo que existe, intervenir mediante la no-acción y permanecer atentos a lo que emerge. Sin prisas industriales, ofrecer soluciones para el bienestar de todos los seres sintientes.",
+          "imagen": "/images/gemini_generated_image_gu69h7gu69h7gu69.png",
+          "icono": "montana"
         }
       ],
-      "color_acento": "",
+      "color_acento": "#ffffff",
       "color_texto": "oscuro",
       "eyebrow": "Fundamentos",
       "fuente_titulo": "",
       "fondo": "ninguno",
+      "color_etiqueta": "",
       "color_fondo": "#71b7dc",
+      "color_titulo": "#000000",
+      "icono": "atomo",
       "titulo": "Nuestra Filosofía",
       "type": "pilares",
+      "color_cuerpo": "",
       "id": "Nuestra filosofía"
     },
     {
@@ -243,10 +265,12 @@
         }
       ],
       "estilo_fuente": "fraunces_space",
+      "color_acento": "#a6ffaf",
       "color_texto": "oscuro",
       "eyebrow": "¿Quieres volverlo a vivir?",
       "video_fondo": "/images/20180728_114058.jpeg",
       "fondo": "imagen",
+      "icono": "personas",
       "titulo": "Eventos y Conferencias Replicables",
       "type": "eventos_pasados",
       "id": "Replicables"
@@ -304,11 +328,14 @@
       ],
       "color_acento": "#a8ff7b",
       "imagen_fondo": "",
-      "color_texto": "oscuro",
+      "color_texto": "claro",
       "eyebrow": "Formación S.T.E.A.M. · 6 programas",
       "fuente_titulo": "",
       "fondo": "imagen",
+      "color_etiqueta": "#ffedd9",
       "color_fondo": "#5e56d7",
+      "color_titulo": "#ffffff",
+      "icono": "laboratorio",
       "titulo": "Plan de estudios",
       "type": "lista_precios",
       "id": "plan"
@@ -346,6 +373,7 @@
       "fuente_titulo": "",
       "fondo": "color",
       "color_fondo": "#6ebe6e",
+      "icono": "semilla",
       "titulo": "Materializaciones bajo pedido",
       "type": "productos",
       "id": "tienda bajo pedido"
@@ -386,6 +414,7 @@
       "eyebrow": "Proyectos, eventos y momentos",
       "fuente_titulo": "",
       "fondo": "ninguno",
+      "icono": "ojo",
       "titulo": "Memoria Digital",
       "type": "galeria",
       "id": "Memoria Digital"
@@ -401,6 +430,7 @@
       "fuente_titulo": "",
       "fondo": "imagen",
       "p5_url": "https://editor.p5js.org/thadrv/full/s6iVhCf1Z",
+      "icono": "ondas",
       "titulo": "Video y animación en vivo",
       "type": "media",
       "id": "multimedia"
@@ -421,6 +451,7 @@
       "fuente_titulo": "",
       "fondo": "ninguno",
       "color_fondo": "#71b7dc",
+      "icono": "libro",
       "titulo": "Historias, narrativas y sueños",
       "type": "blog",
       "id": "blog"
@@ -440,12 +471,13 @@
       "eyebrow": "Honrando su sabudiría",
       "fuente_titulo": "",
       "fondo": "ninguno",
+      "icono": "corazon",
       "titulo": "Personajes y referentes",
       "type": "personajes",
       "id": "personajes"
     },
     {
-      "color_acento": "#ad2b2b",
+      "color_acento": "#ffe88d",
       "texto": "Vivimos rodeados de tecnología, es momento de también estar presentes en nuestra experiencia.\n\nDesde el diseño transpersonal, tratak.cat explora otras formas de relacionarnos con ella \nal ritmo presente, involucrando ejercicios de respiración, el cultivo de la atención con la fabricación digital y la introspección tecno-ontológica y aprendizaje kinestésico con el contacto biomaterial.\n\nLiberarnos de aquello que nos desconecta de nosotros mismos mientras creamos nuevos sistemas para el beneficio de todos los seres sintientes.\n\nEntre tierra y código, entre manos y pantallas, todos fermentamos la experiencia directa.\n",
       "imagen_fondo": "/images/a50fcefa-ab61-445a-a920-d52c22835b30.png",
       "color_texto": "claro",
@@ -454,6 +486,7 @@
       "fondo": "imagen",
       "imagen": "",
       "color_fondo": "#b71b1b",
+      "icono": "estrella",
       "titulo": "",
       "type": "texto_destacado",
       "id": "manifiesto"
