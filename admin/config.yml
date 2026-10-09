@@ -479,6 +479,10 @@ collections:
               - { label: "Gankyil — texto de introducción en Plan de estudios", name: "lead", widget: text, required: false }
               - { label: "Gankyil — lectura STEAM", name: "steam", widget: text, required: false }
               - { label: "Gankyil — lectura Dzogchen (escríbela con tu propia voz)", name: "dzogchen", widget: text, required: false }
+              - { label: "Plan de estudios — clases base por tópico (número)", name: "clases", widget: string, required: false }
+              - { label: "Plan de estudios — mentorías por tópico (número)", name: "mentorias", widget: string, required: false }
+              - { label: "Exposición — título (debajo de la flor amarilla)", name: "exposicion_titulo", widget: string, required: false }
+              - { label: "Exposición — texto", name: "exposicion_texto", widget: text, required: false }
 
   - name: "eventos"
     label: "Eventos"

@@ -381,7 +381,7 @@
   .perfil-list span::before{ content:'✦ '; color:var(--clay); }
   section.despues p{ padding:18px 22px; border-radius:20px; background:color-mix(in srgb, var(--moss) 10%, transparent); }
 </style>
-<link rel="stylesheet" href="assets/shishi.css?v=19">
+<link rel="stylesheet" href="assets/shishi.css?v=20">
 </head>
 <body>
 <div id="site-top"></div>
@@ -475,8 +475,8 @@
     <span>Dudas — <a href="https://wa.me/523332480698" id="landing-whatsapp-footer">WhatsApp</a></span>
   </footer>
 
-<script src="assets/site.js?v=19"></script>
-<script src="assets/shishi.js?v=19"></script>
+<script src="assets/site.js?v=20"></script>
+<script src="assets/shishi.js?v=20"></script>
 <script>
   function separarDescripcion(texto) {
     var lineas = (texto || '').replace(/\r/g, '').split('\n');
@@ -498,7 +498,7 @@
   }
   function videoEmbed(url) {
     url = (url || '').trim();
-    var y = url.match(/(?:youtube\.com\/(?:watch\?v=19|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+    var y = url.match(/(?:youtube\.com\/(?:watch\?v=20|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
     if (y) return '<iframe src="https://www.youtube.com/embed/' + y[1] + '" title="Video" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     var v = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (v) return '<iframe src="https://player.vimeo.com/video/' + v[1] + '" title="Video" loading="lazy" allowfullscreen></iframe>';
