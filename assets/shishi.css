@@ -1,0 +1,88 @@
+/* Shishi, guardián del CAT: mascota viva, bordes de tinta y gotas de cursor */
+:root{ --sh-w:clamp(132px,calc((100vw - 1080px)/2 - 4px),300px); }
+html.sh-oculto .shishi, html.sh-oculto .sh-bordes, html.sh-oculto .sh-gota, html.sh-oculto .sh-panel{ display:none !important; }
+
+.shishi{ position:fixed; left:6px; bottom:0; width:var(--sh-w); z-index:85; pointer-events:none; user-select:none; -webkit-tap-highlight-color:transparent; }
+.shishi.lado-der{ left:auto; right:96px; }
+.sh-box{ position:relative; display:block; width:100%; aspect-ratio:700/570; transform-origin:50% 100%; animation:shResp 5.2s ease-in-out infinite; }
+.sh-box > *{ position:absolute; }
+.sh-bola{ left:12.32%; top:57.93%; width:25.14%; aspect-ratio:1; z-index:0; filter:drop-shadow(0 0 8px rgba(140,110,230,.55)); animation:shBrillo 4.4s ease-in-out infinite; }
+.sh-bola svg{ width:100%; height:100%; overflow:visible; display:block; }
+.sh-bola .gk-rota{ transform-box:fill-box; transform-origin:50% 50%; animation:shSpin 16s linear infinite; }
+.sh-cuerpo, .sh-cola{ inset:0; width:100%; height:100%; display:block; z-index:1; pointer-events:none; }
+.sh-cola{ z-index:2; transform-origin:71.6% 56.7%; animation:shCola 4.6s ease-in-out infinite alternate; }
+.sh-front{ inset:0; width:100%; height:100%; z-index:3; pointer-events:none; overflow:visible; }
+.sh-pup{ transition:transform .12s ease-out; }
+.sh-pupila{ fill:#14171a; transform-box:fill-box; transform-origin:center; transition:transform .12s; }
+.sh-brillo{ fill:#fff6dc; opacity:.95; }
+.shishi.parpadea .sh-pupila{ transform:scaleY(.08); }
+.sh-hot{ left:20%; top:6%; width:48%; height:88%; pointer-events:auto; cursor:pointer; background:transparent; border:0; padding:0; border-radius:40% 40% 20% 20%; outline:none; }
+.sh-hot:focus-visible{ outline:3px solid #ffd36b; outline-offset:2px; }
+.shishi.contento .sh-cola{ animation-duration:1.9s; }
+.shishi.contento .sh-bola{ filter:drop-shadow(0 0 14px rgba(255,211,107,.9)); }
+.shishi.contento .sh-bola .gk-rota{ animation-duration:5s; }
+.shishi.contento .sh-box{ animation-duration:2.6s; }
+
+/* modo noche: tinta clara, ojos dorados, duerme */
+body.modo-noche .sh-cuerpo, body.modo-noche .sh-cola{ filter:invert(.94) sepia(.18) drop-shadow(0 0 5px rgba(255,240,200,.25)); }
+body.modo-noche .sh-pupila{ fill:#ffd36b; filter:drop-shadow(0 0 5px #ffcf5a); }
+body.modo-noche .sh-brillo{ fill:#fff; }
+body.modo-noche .shishi.dormido .sh-pupila{ transform:scaleY(.1); }
+body.modo-noche .shishi.dormido .sh-box{ animation-duration:8s; }
+body.modo-noche .shishi.dormido .sh-cola{ animation-duration:9s; }
+.sh-zzz{ position:absolute; left:30%; top:-2%; font-family:var(--font-heading,serif); font-style:italic; color:var(--ink); opacity:0; pointer-events:none; font-size:calc(var(--sh-w)*.12); }
+body.modo-noche .shishi.dormido .sh-zzz{ animation:shZzz 4.2s ease-in-out infinite; }
+
+.sh-bubble{ position:absolute; left:34%; bottom:88%; width:max-content; max-width:min(230px,70vw); padding:10px 14px; border-radius:18px 18px 18px 4px; background:var(--paper,#e9e2d1); color:var(--ink,#241f18); border:1px solid var(--line,rgba(0,0,0,.25)); box-shadow:0 8px 22px rgba(0,0,0,.2); font:15px/1.35 var(--font-body,sans-serif); opacity:0; transform:translateY(8px) scale(.96); transition:opacity .3s, transform .3s; pointer-events:none; z-index:5; }
+.sh-bubble.on{ opacity:1; transform:none; }
+.shishi.lado-der .sh-bubble{ left:auto; right:34%; border-radius:18px 18px 4px 18px; }
+
+/* panel de guía */
+.sh-panel{ position:fixed; left:14px; bottom:calc(var(--sh-w)*.81 + 6px); width:min(360px,calc(100vw - 28px)); max-height:min(70vh,520px); display:flex; flex-direction:column; background:var(--paper,#e9e2d1); color:var(--ink,#241f18); border:1px solid var(--line,rgba(0,0,0,.25)); border-radius:22px; box-shadow:0 20px 50px rgba(0,0,0,.3); z-index:86; overflow:hidden; font-family:var(--font-body,sans-serif); transform-origin:left bottom; animation:shAbre .22s ease; }
+.sh-panel[hidden]{ display:none; }
+.sh-panel header{ display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid var(--line,rgba(0,0,0,.2)); }
+.sh-panel header small{ display:block; opacity:.7; font-size:12.5px; }
+.sh-avatar{ width:34px; height:34px; flex:none; }
+.sh-avatar svg{ width:100%; height:100%; display:block; animation:shSpin 10s linear infinite; }
+.sh-cerrar{ margin-left:auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--line,rgba(0,0,0,.3)); background:transparent; color:inherit; cursor:pointer; }
+.sh-msgs{ flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; min-height:90px; }
+.sh-m{ max-width:88%; padding:9px 13px; border-radius:16px; font-size:15px; line-height:1.45; }
+.sh-m.sh{ background:color-mix(in srgb, var(--clay,#a3552b) 13%, transparent); border-bottom-left-radius:4px; align-self:flex-start; }
+.sh-m.yo{ background:var(--ink,#241f18); color:var(--paper,#e9e2d1); border-bottom-right-radius:4px; align-self:flex-end; }
+.sh-chips{ display:flex; flex-wrap:wrap; gap:7px; padding:0 14px 10px; }
+.sh-chip{ border:1px solid var(--ink,#241f18); background:transparent; color:inherit; font:inherit; font-size:14px; padding:7px 13px; border-radius:999px; cursor:pointer; text-decoration:none; }
+.sh-chip:hover{ background:var(--ink,#241f18); color:var(--paper,#e9e2d1); }
+.sh-form{ display:flex; gap:8px; padding:10px 14px 14px; border-top:1px solid var(--line,rgba(0,0,0,.2)); }
+.sh-form input{ flex:1; min-width:0; padding:11px 15px; border-radius:999px; border:1px solid var(--line,rgba(0,0,0,.3)); background:transparent; color:inherit; font:inherit; font-size:16px; }
+.sh-form button{ width:44px; height:44px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:50%; border:0; background:var(--ink,#241f18); color:var(--paper,#e9e2d1); cursor:pointer; font-size:16px; }
+
+/* bordes de tinta (solo pantallas anchas) */
+.sh-bordes{ display:none; position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.sh-nube{ position:absolute; width:clamp(90px,calc((100vw - 1180px)/2 + 40px),230px); color:var(--ink,#241f18); opacity:.2; will-change:transform; }
+.sh-nube svg{ width:100%; height:auto; display:block; overflow:visible; animation:shDeriva 18s ease-in-out infinite alternate; }
+.sh-nube.d2 svg{ animation-duration:24s; animation-delay:-6s; }
+.sh-nube.d3 svg{ animation-duration:30s; animation-delay:-12s; }
+.sh-nube.izq{ left:-20px; } .sh-nube.der{ right:-20px; }
+.sh-nube.der svg{ transform:scaleX(-1); animation-name:shDerivaDer; }
+.sh-gk-scroll{ position:absolute; top:46%; width:clamp(44px,calc((100vw - 1180px)/2 - 30px),72px); aspect-ratio:1; pointer-events:auto; cursor:pointer; opacity:.9; filter:drop-shadow(0 4px 10px rgba(80,60,160,.35)); background:none; border:0; padding:0; }
+.sh-gk-scroll.der{ right:calc((100vw - 1180px)/4 - 22px); }
+.sh-gk-scroll.der{ right:max(8px, calc((100vw - 1180px)/4 - 24px)); }
+.sh-gk-scroll svg{ width:100%; height:100%; display:block; overflow:visible; }
+.sh-gk-scroll .gk-rota{ animation:none; transform:none; }
+@media (min-width:1380px){ .sh-bordes{ display:block; } }
+
+/* gotas de tinta del cursor */
+.sh-gota{ position:fixed; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; background:radial-gradient(circle, var(--ink,#241f18) 0, transparent 70%); opacity:.26; pointer-events:none; z-index:84; animation:shGota 1.3s ease-out forwards; }
+
+@keyframes shResp{ 0%,100%{ transform:scale(1,1); } 50%{ transform:scale(1.006,1.014); } }
+@keyframes shCola{ from{ transform:rotate(-2.4deg); } to{ transform:rotate(2.6deg); } }
+@keyframes shSpin{ from{ transform:rotate(-60deg); } to{ transform:rotate(300deg); } }
+@keyframes shBrillo{ 0%,100%{ filter:drop-shadow(0 0 7px rgba(140,110,230,.5)); } 50%{ filter:drop-shadow(0 0 16px rgba(120,190,255,.85)); } }
+@keyframes shZzz{ 0%{ opacity:0; transform:translate(0,6px); } 30%{ opacity:.9; } 100%{ opacity:0; transform:translate(14px,-22px); } }
+@keyframes shAbre{ from{ opacity:0; transform:scale(.94) translateY(10px); } to{ opacity:1; transform:none; } }
+@keyframes shDeriva{ from{ transform:translateX(-10px); } to{ transform:translateX(18px); } }
+@keyframes shDerivaDer{ from{ transform:scaleX(-1) translateX(-10px); } to{ transform:scaleX(-1) translateX(18px); } }
+@keyframes shGota{ 0%{ transform:scale(.4); opacity:.32; } 100%{ transform:scale(2.6); opacity:0; } }
+
+@media (max-width:700px){ :root{ --sh-w:118px; } .shishi{ left:-4px; } .shishi.lado-der{ right:78px; } .sh-bubble{ left:40%; max-width:58vw; font-size:14px; } .sh-panel{ bottom:calc(var(--sh-w)*.81 + 6px); } }
+@media (prefers-reduced-motion:reduce){ .sh-box, .sh-cola, .sh-bola, .sh-bola .gk-rota, .sh-nube svg, .sh-avatar svg{ animation:none !important; } .sh-gota{ display:none; } }

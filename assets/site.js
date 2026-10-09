@@ -108,6 +108,7 @@
   var MENU_CSS =
     '.menu-burger{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;min-width:44px;height:44px;margin-left:12px;padding:0;background:var(--paper,#e9e2d1);border:1px solid var(--ink,#241f18);border-radius:12px;cursor:pointer;color:var(--ink,#241f18)}' +
     '.menu-burger svg{display:block;flex:none;width:24px;height:24px;stroke:var(--ink,#241f18)}' +
+    '.nav-gk{display:inline-block;width:15px;height:15px;margin-right:6px;vertical-align:-2px;color:var(--clay,#a3552b)}.nav-gk svg{width:100%;height:100%;display:block}a:hover .nav-gk svg,.menu-item:hover .nav-gk svg{animation:gkGiro 2s linear infinite}@keyframes gkGiro{to{transform:rotate(360deg)}}' +
     '.menu-logos{display:flex;align-items:center;gap:10px;min-width:0}.menu-logos img{height:28px;width:auto;max-width:42vw}' +
     '.menu-item .mi-ico{width:22px;height:22px;flex:none;color:var(--clay,#a3552b)}.menu-item .mi-ico svg{width:100%;height:100%;display:block}' +
     '.menu-buscar-wrap{position:relative}.menu-buscar-wrap .mi-ico{position:absolute;left:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);opacity:.6;pointer-events:none}.menu-buscar-wrap .menu-buscar{padding-left:42px}' +
@@ -160,6 +161,7 @@
       '<p class="menu-titulo">Ajustes</p>' +
       '<div class="menu-ajustes"><span>🌙 Modo noche</span><div class="grupo"><button type="button" class="menu-mini" id="menu-noche" aria-pressed="false">Activar</button></div></div>' +
       '<div class="menu-ajustes"><span>Tamaño del texto</span><div class="grupo"><button type="button" class="menu-mini" data-fs="-2" aria-label="Texto más pequeño">A−</button><button type="button" class="menu-mini" data-fs="0" aria-label="Texto normal">A</button><button type="button" class="menu-mini" data-fs="2" aria-label="Texto más grande">A+</button></div></div>' +
+      '<div class="menu-ajustes" id="menu-fila-shishi" style="display:none"><span>🐾 Shishi (mascota)</span><div class="grupo"><button type="button" class="menu-mini" id="menu-shishi" aria-pressed="true">Visible</button></div></div>' +
       '<div class="menu-ajustes"><span>Compartir esta página</span><div class="grupo"><button type="button" class="menu-mini" id="menu-compartir">Compartir</button></div></div>' +
       '</div></aside>'
     );
@@ -167,7 +169,7 @@
 
   function textoPlano(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
 
-  var ICONO_POR_TIPO = { estadisticas: 'estrella', pilares: 'contemplacion', destacado: 'chispa', lista_precios: 'libro', productos: 'ceramica', galeria: 'camara', media: 'vr', blog: 'libro', personajes: 'personas', texto_destacado: 'llama', carrusel: 'camara', evento_proximo: 'calendario', calendario: 'calendario', eventos_pasados: 'reloj' };
+  var ICONO_POR_TIPO = { estadisticas: 'estrella', pilares: 'contemplacion', destacado: 'chispa', lista_precios: 'gankyil', productos: 'ceramica', galeria: 'camara', media: 'vr', blog: 'libro', personajes: 'personas', texto_destacado: 'llama', carrusel: 'camara', evento_proximo: 'calendario', calendario: 'calendario', eventos_pasados: 'reloj' };
 
   function seccionesDeLaPagina() {
     var out = [];
@@ -218,6 +220,8 @@
       var noche = document.body.classList.contains('modo-noche');
       var bn = document.getElementById('menu-noche');
       if (bn) { bn.setAttribute('aria-pressed', noche ? 'true' : 'false'); bn.textContent = noche ? 'Activado' : 'Activar'; }
+      var fs2 = document.getElementById('menu-fila-shishi');
+      if (fs2 && window.Shishi) { fs2.style.display = ''; var vv = window.Shishi.visible(); var b3 = document.getElementById('menu-shishi'); b3.textContent = vv ? 'Visible' : 'Oculto'; b3.setAttribute('aria-pressed', vv ? 'true' : 'false'); }
       var d = deltaTexto();
       panel.querySelectorAll('[data-fs]').forEach(function (b) { b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-fs'), 10) === d)); });
     }
@@ -295,6 +299,10 @@
         bn.setAttribute('aria-pressed', on ? 'true' : 'false'); bn.textContent = on ? 'Activado' : 'Activar';
         return;
       }
+      if (t.closest('#menu-shishi')) {
+        if (window.Shishi) { var vis = window.Shishi.toggle(); var bs = document.getElementById('menu-shishi'); bs.textContent = vis ? 'Visible' : 'Oculto'; bs.setAttribute('aria-pressed', vis ? 'true' : 'false'); }
+        return;
+      }
       if (t.closest('#menu-compartir')) {
         var url = location.href.split('#')[0];
         if (navigator.share) { navigator.share({ title: document.title, url: url }).catch(function () {}); }
@@ -324,7 +332,7 @@
       '<ul>' +
       '<li><a data-ancla="pilares" href="' + homeHref + '#pilares">Pilares</a></li>' +
       '<li><a data-ancla="taller" href="' + homeHref + '#taller">Taller</a></li>' +
-      '<li><a data-ancla="plan" href="' + homeHref + '#plan">Plan</a></li>' +
+      '<li><a data-ancla="plan" href="' + homeHref + '#plan"><span class="nav-gk">' + iconoSVG('gankyil') + '</span>Plan</a></li>' +
       '<li><a data-ancla="tienda" href="' + homeHref + '#tienda">Tienda</a></li>' +
       '<li><a data-ancla="galeria" href="' + homeHref + '#galeria">Galería</a></li>' +
       '<li><a data-ancla="multimedia" href="' + homeHref + '#multimedia">Video</a></li>' +
@@ -408,7 +416,8 @@
     casa: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',
     correo: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/>',
     lupa: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
-    chat: '<path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/>'
+    chat: '<path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/>',
+    gankyil: '<circle cx="12" cy="12" r="9"/><path d="M12 12A9 9 0 0 1 12 3M12 12A9 9 0 0 1 19.8 16.5M12 12A9 9 0 0 1 4.2 16.5"/>'
   };
   function iconoSVG(nombre) {
     var p = ICONOS[nombre];
@@ -497,9 +506,132 @@
     return wrapAbre(s) + mediaFondoHTML(s) + '<div class="bloque-contenido">' + textoHTML + '</div></section>';
   }
 
+
+  // ---------- gankyil (la espiral triple de Shishi) ----------
+  var SHISHI_CFG = {};
+  var GK_BRAZOS = [
+    { id: 'contemplacion', color: '#8e5bd0', claro: '#c3a2f5', nombre: 'Diseño en Realidad Virtual', pilar: 'Contemplación', desc: 'percepción · mente', re: /\bVR\b|realidad virtual/i },
+    { id: 'tecnologia', color: '#2f86dc', claro: '#86c4ff', nombre: 'Impresión 3D LDM', pilar: 'Tecnología', desc: 'técnica · palabra', re: /\bLDM\b|impresi[oó]n 3d/i },
+    { id: 'materialidad', color: '#2fa56f', claro: '#8ee3b2', nombre: 'Cultura Biomaterial', pilar: 'Materialidad', desc: 'materia · cuerpo', re: /biomaterial/i }
+  ];
+  var GK_TEXTOS = {
+    lead: 'Shishi guarda entre sus garras el gankyil, la triple espiral que gira sin un centro fijo. Cada espiral es un tópico del plan; juntas forman el recorrido completo.',
+    steam: 'Ciencia, tecnología, ingeniería, arte y matemáticas no se estudian por separado: se entrelazan en tres tópicos que giran juntos. Cultura Biomaterial (verde) trabaja la materia: ciencia, ingeniería y los ciclos de los residuos. Impresión 3D LDM (azul) es la técnica: tecnología, matemáticas y fabricación digital. Diseño en Realidad Virtual (morado) es la percepción: arte, forma y atención. Cada tópico se puede tomar solo; los programas P.E.S. recorren los tres, y la Asesoría Catalizadora es el punto desde el que arranca el giro.',
+    dzogchen: 'El gankyil (tibetano: dga’ ’khyil, «giro del gozo») es una espiral triple que gira sin centro fijo y sin oposición entre sus partes. En la tradición Dzogchen se lee como tres cualidades de una sola base —esencia, naturaleza y energía— y también como base, camino y fruto. Aquí cada espiral es un pilar: Materialidad (cuerpo), Tecnología (palabra, energía) y Contemplación (mente). Ninguno gobierna a los otros: se sostienen girando. Tratak, mirar con atención sostenida, es la práctica que los une.'
+  };
+  function gkTexto(k) { return (SHISHI_CFG && SHISHI_CFG[k]) || GK_TEXTOS[k]; }
+
+  function gankyilSVG(opts) {
+    opts = opts || {};
+    var R = 90, id = opts.id || 'gk' + Math.floor(Math.random() * 1e6);
+    var A = [[0, -R], [0.866 * R, 0.5 * R], [-0.866 * R, 0.5 * R]];
+    var ord = [0, 1, 2];
+    var defs = '', regiones = '';
+    ord.forEach(function (i) {
+      var b = GK_BRAZOS[i], a = A[i], c = A[(i + 1) % 3];
+      defs += '<radialGradient id="' + id + 'g' + i + '" cx="35%" cy="30%" r="85%"><stop offset="0" stop-color="' + b.claro + '"/><stop offset="1" stop-color="' + b.color + '"/></radialGradient>';
+      var d = 'M0 0A' + R + ' ' + R + ' 0 0 1 ' + a[0].toFixed(2) + ' ' + a[1].toFixed(2) +
+        'A' + R + ' ' + R + ' 0 0 1 ' + c[0].toFixed(2) + ' ' + c[1].toFixed(2) +
+        'A' + R + ' ' + R + ' 0 0 0 0 0Z';
+      // espiral pequeña dentro de cada región (cabeza del giro)
+      var ang = (i * 120 + 60) * Math.PI / 180;
+      var hx = Math.sin(ang) * R * 0.52, hy = -Math.cos(ang) * R * 0.52;
+      regiones += '<g class="gk-brazo" data-brazo="' + b.id + '"' + (opts.interactivo ? ' tabindex="0" role="button" aria-label="' + esc(b.nombre) + '"' : '') + '>' +
+        '<path d="' + d + '" fill="url(#' + id + 'g' + i + ')" stroke="rgba(255,255,255,.85)" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M' + (hx - 12).toFixed(1) + ' ' + hy.toFixed(1) + 'a12 12 0 1 1 12 12a7 7 0 1 1-7-7a3 3 0 1 1 3 3" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-linecap="round"/>' +
+        '</g>';
+    });
+    return '<svg class="gk-svg-el" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="' + (opts.interactivo ? 'false' : 'true') + '"><defs>' + defs + '</defs>' +
+      '<g transform="translate(100 100)"><g class="gk-rota" transform="rotate(-60)">' + regiones + '</g>' +
+      '<circle r="94" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>' +
+      (opts.interactivo ? '<circle class="gk-centro" data-brazo="centro" tabindex="0" role="button" aria-label="Asesoría Catalizadora" r="11" fill="#fff6dc" stroke="#d9b44a" stroke-width="3"/>' : '<circle r="7" fill="#fff6dc" stroke="#d9b44a" stroke-width="2"/>') +
+      '</g></svg>';
+  }
+
+  function gankyilBloque(s) {
+    if (s.gankyil === false) return '';
+    var leyenda = GK_BRAZOS.map(function (b) {
+      return '<li class="gk-item" data-brazo="' + b.id + '" tabindex="0"><i style="background:' + b.color + '"></i><span><strong>' + esc(b.nombre) + '</strong><small>' + esc(b.pilar) + ' · ' + esc(b.desc) + '</small></span></li>';
+    }).join('') +
+      '<li class="gk-item" data-brazo="centro" tabindex="0"><i style="background:#d9b44a"></i><span><strong>Asesoría Catalizadora</strong><small>el punto de partida del giro</small></span></li>';
+    return '<div class="gk-wrap" data-gk>' +
+      '<div class="gk-svg">' + gankyilSVG({ interactivo: true }) + '</div>' +
+      '<div class="gk-info"><p class="gk-lead">' + esc(gkTexto('lead')) + '</p>' +
+      '<ul class="gk-leyenda">' + leyenda + '</ul>' +
+      '<button type="button" class="gk-saber" data-gk-abrir>☸ ¿Qué es el gankyil?</button></div>' +
+      '</div>' +
+      '<div class="gk-tarjeta" hidden role="dialog" aria-label="El gankyil">' +
+      '<div class="gk-tabs"><button type="button" class="gk-tab on" data-tab="steam">Lectura STEAM</button><button type="button" class="gk-tab" data-tab="dzogchen">Lectura Dzogchen</button><button type="button" class="gk-x" data-gk-cerrar aria-label="Cerrar">✕</button></div>' +
+      '<p class="gk-txt" data-txt="steam">' + esc(gkTexto('steam')) + '</p>' +
+      '<p class="gk-txt" data-txt="dzogchen" hidden>' + esc(gkTexto('dzogchen')) + '</p>' +
+      '</div>';
+  }
+
+  function gkResaltar(brazo) {
+    var lista = document.querySelectorAll('.plan-item');
+    var gk = GK_BRAZOS.filter(function (b) { return b.id === brazo; })[0];
+    lista.forEach(function (it) {
+      var t = it.textContent;
+      var coincide = true;
+      if (brazo) {
+        if (brazo === 'centro') coincide = /asesor/i.test(t);
+        else coincide = gk.re.test(t) || /a elegir/i.test(t);
+      }
+      it.classList.toggle('gk-atenuado', !!brazo && !coincide);
+      it.classList.toggle('gk-activo', !!brazo && coincide);
+    });
+    document.querySelectorAll('.gk-wrap .gk-brazo').forEach(function (g) { g.classList.toggle('gk-sel', !!brazo && g.getAttribute('data-brazo') === brazo); });
+    document.querySelectorAll('.gk-wrap .gk-item').forEach(function (g) { g.classList.toggle('gk-sel', !!brazo && g.getAttribute('data-brazo') === brazo); });
+  }
+
+  function marcarProgramas() {
+    document.querySelectorAll('.plan-item').forEach(function (it) {
+      if (it.getAttribute('data-gk-marcado')) return;
+      it.setAttribute('data-gk-marcado', '1');
+      var t = it.textContent, pts = '';
+      GK_BRAZOS.forEach(function (b) { if (b.re.test(t)) pts += '<i style="background:' + b.color + '" title="' + esc(b.nombre) + '"></i>'; });
+      if (/asesor/i.test(t)) pts += '<i style="background:#d9b44a" title="Asesoría Catalizadora"></i>';
+      if (pts) { var main = it.querySelector('.plan-item-main'); if (main) main.insertAdjacentHTML('afterbegin', '<span class="gk-puntos">' + pts + '</span>'); }
+    });
+  }
+
+  function bindGankyil() {
+    if (bindGankyil.hecho) return;
+    bindGankyil.hecho = true;
+    var fijo = null;
+    function sel(el) { var b = el.closest && el.closest('[data-brazo]'); return b ? b.getAttribute('data-brazo') : null; }
+    document.addEventListener('mouseover', function (e) { var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(sel(b)); });
+    document.addEventListener('mouseout', function (e) { var b = e.target.closest && e.target.closest('.gk-wrap [data-brazo]'); if (b && !fijo) gkResaltar(null); });
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t.closest) return;
+      var b = t.closest('.gk-wrap [data-brazo]');
+      if (b) { var v = sel(b); fijo = (fijo === v) ? null : v; gkResaltar(fijo); return; }
+      if (t.closest('[data-gk-abrir]')) { var c = document.querySelector('.gk-tarjeta'); if (c) { c.hidden = !c.hidden; if (!c.hidden) c.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } return; }
+      if (t.closest('[data-gk-cerrar]')) { var c2 = document.querySelector('.gk-tarjeta'); if (c2) c2.hidden = true; return; }
+      var tab = t.closest('.gk-tab');
+      if (tab) {
+        var k = tab.getAttribute('data-tab');
+        document.querySelectorAll('.gk-tab').forEach(function (x) { x.classList.toggle('on', x === tab); });
+        document.querySelectorAll('.gk-txt').forEach(function (x) { x.hidden = x.getAttribute('data-txt') !== k; });
+      }
+    });
+    document.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.gk-wrap [data-brazo]')) { e.preventDefault(); e.target.click(); } });
+    marcarProgramas();
+  }
+
+  function abrirGankyil() {
+    var wrap = document.querySelector('.gk-wrap');
+    if (!wrap) return false;
+    var c = document.querySelector('.gk-tarjeta');
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (c) c.hidden = false;
+    return true;
+  }
+
   function renderListaPrecios(s, contacto) {
     return wrapAbre(s) + mediaFondoHTML(s) +
-      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' +
+      '<div class="bloque-contenido"><p class="eyebrow">' + esc(s.eyebrow) + '</p><h2>' + esc(s.titulo) + '</h2>' + gankyilBloque(s) +
       '<div class="plan-list">' + (s.items || []).map(function (it) {
         var img = it.imagen ? '<div class="plan-item-img"><img src="' + esc(it.imagen) + '" alt=""></div>' : '';
         var link, esExterno;
@@ -994,6 +1126,7 @@
 
   // ---------- página completa del sitio ----------
   function renderFullPage(content, eventosProximos, todosLosEventos) {
+    SHISHI_CFG = (content && content.shishi) || {};
     var html = '';
     html += themeStyleTag(content.theme);
     html += renderNav(content.theme);
@@ -1064,6 +1197,7 @@
   function bindGlobalInteractions(theme) {
     bindAnclas();
     bindMenu();
+    bindGankyil();
     initCarruseles();
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
@@ -1105,6 +1239,14 @@
     renderEventoDestacado: renderEventoDestacado,
     renderContacto: renderContacto,
     renderMenu: renderMenu,
+    gankyilSVG: gankyilSVG,
+    abrirGankyil: abrirGankyil,
+    seccionesDeLaPagina: seccionesDeLaPagina,
+    irA: irA,
+    buscarAncla: buscarAncla,
+    GK_BRAZOS: GK_BRAZOS,
+    gkTexto: gkTexto,
+    setShishiCfg: function (c) { SHISHI_CFG = c || {}; },
     bindMenu: bindMenu,
     toggleDesc: toggleDesc,
     iconoSVG: iconoSVG,
