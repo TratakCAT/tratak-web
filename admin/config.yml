@@ -409,6 +409,7 @@ collections:
               - { label: "Correo", name: "email", widget: string }
               - { label: "Ubicación", name: "ubicacion", widget: string }
               - { label: "Horario", name: "horario", widget: string }
+              - { label: "Destino del formulario (opcional; déjalo vacío para enviar al Correo de arriba)", name: "formulario_url", widget: string, required: false }
 
   - name: "eventos"
     label: "Eventos"

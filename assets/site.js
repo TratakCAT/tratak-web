@@ -630,14 +630,46 @@
       '<div><div class="k">Correo</div><div class="v"><a href="mailto:' + esc(contacto.email) + '">' + esc(contacto.email) + '</a></div></div>' +
       '<div><div class="k">Horario</div><div class="v">' + esc(contacto.horario) + '</div></div>' +
       '</div></div>' +
-      '<form action="https://formspree.io/f/TU-ID" method="POST">' +
+      '<form class="form-contacto" data-destino="' + esc(contacto.formulario_url || ('https://formsubmit.co/ajax/' + (contacto.email || ''))) + '" data-email="' + esc(contacto.email) + '" onsubmit="return TratakRender.enviarContacto(event)">' +
+      '<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">' +
       '<div><label>Nombre *</label><input type="text" name="nombre" required></div>' +
       '<div><label>Correo electrónico *</label><input type="email" name="correo" required></div>' +
       '<div><label>Teléfono</label><input type="tel" name="telefono"></div>' +
       '<div><label>Comentario</label><textarea name="comentario"></textarea></div>' +
       '<button class="btn primary" type="submit">Enviar</button>' +
+      '<p class="form-estado" role="status" aria-live="polite"></p>' +
       '</form></div></section>'
     );
+  }
+
+  function enviarContacto(ev) {
+    ev.preventDefault();
+    var f = ev.target;
+    var estado = f.querySelector('.form-estado');
+    var btn = f.querySelector('button[type=submit]');
+    var d = new FormData(f);
+    d.append('_subject', 'Nuevo mensaje desde tratakcat.com');
+    d.append('_template', 'table');
+    d.append('_captcha', 'false');
+    var correo = d.get('correo');
+    if (correo) d.append('_replyto', correo);
+    estado.className = 'form-estado';
+    estado.textContent = 'Enviando…';
+    btn.disabled = true;
+    fetch(f.getAttribute('data-destino'), { method: 'POST', body: d, headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'error'); }); })
+      .then(function () {
+        f.reset();
+        estado.className = 'form-estado ok';
+        estado.textContent = '¡Gracias! Recibimos tu mensaje y te responderemos pronto.';
+      })
+      .catch(function () {
+        var mail = f.getAttribute('data-email');
+        estado.className = 'form-estado error';
+        estado.innerHTML = 'No pudimos enviarlo. Escríbenos directo a <a href="mailto:' + mail + '">' + mail + '</a> o por WhatsApp.';
+      })
+      .then(function () { btn.disabled = false; });
+    return false;
   }
 
   function renderFooter() {
@@ -782,6 +814,7 @@
     renderSecciones: renderSecciones,
     renderEventoDestacado: renderEventoDestacado,
     renderContacto: renderContacto,
+    enviarContacto: enviarContacto,
     renderFooter: renderFooter,
     renderLightbox: renderLightbox,
     renderFloatingButtons: renderFloatingButtons,
