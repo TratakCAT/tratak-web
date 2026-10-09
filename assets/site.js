@@ -83,6 +83,10 @@
     return '<style>:root{' + vars.join(';') + '}</style>';
   }
 
+  function deltaTexto() {
+    try { return parseInt(localStorage.getItem('tratak-fs-delta') || '0', 10) || 0; } catch (e) { return 0; }
+  }
+
   function applyTheme(theme, rootStyle) {
     if (!theme || !rootStyle) return;
     if (theme.color_paper) rootStyle.setProperty('--paper', theme.color_paper);
@@ -90,14 +94,202 @@
     if (theme.color_clay) rootStyle.setProperty('--clay', theme.color_clay);
     if (theme.color_moss) rootStyle.setProperty('--moss', theme.color_moss);
     if (theme.color_dust) rootStyle.setProperty('--dust', theme.color_dust);
-    var extra = { grande: '2px', muy_grande: '4px' }[theme.tamano_texto] || '0px';
-    rootStyle.setProperty('--fs-extra', extra);
+    var base = { grande: 2, muy_grande: 4 }[theme.tamano_texto] || 0;
+    applyTheme.base = base;
+    rootStyle.setProperty('--fs-extra', (base + deltaTexto()) + 'px');
     var fp = FONT_PAIRS[theme.font_pair] || FONT_PAIRS.fraunces_space;
     rootStyle.setProperty('--font-heading', fp.heading);
     rootStyle.setProperty('--font-body', fp.body);
   }
 
   // ---------- nav ----------
+
+  // ---------- menú desplegable (tres rayitas) ----------
+  var MENU_CSS =
+    '.menu-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-left:12px;padding:0 11px;background:transparent;border:1px solid var(--line,rgba(0,0,0,.18));border-radius:12px;cursor:pointer;color:inherit}' +
+    '.menu-burger span{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}' +
+    'nav .bar{gap:10px}nav .bar ul{margin-left:auto;margin-right:14px}' +
+    '.menu-overlay{position:fixed;inset:0;background:rgba(20,17,12,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:200}' +
+    '.menu-panel{position:fixed;top:0;right:0;bottom:0;width:min(380px,92vw);background:var(--paper,#e9e2d1);color:var(--ink,#241f18);z-index:201;transform:translateX(105%);transition:transform .28s ease;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.25);border-radius:22px 0 0 22px;font-family:var(--font-body,sans-serif)}' +
+    'body.menu-abierto .menu-overlay{opacity:1;pointer-events:auto}body.menu-abierto .menu-panel{transform:none}body.menu-abierto{overflow:hidden}' +
+    '.menu-top{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px}.menu-top strong{font-size:18px}' +
+    '.menu-cerrar{width:40px;height:40px;border-radius:50%;border:1px solid var(--line,rgba(0,0,0,.18));background:transparent;color:inherit;font-size:18px;cursor:pointer}' +
+    '.menu-scroll{flex:1;overflow-y:auto;padding:0 20px 24px}' +
+    '.menu-buscar{width:100%;padding:13px 16px;border-radius:999px;border:1px solid var(--line,rgba(0,0,0,.25));background:color-mix(in srgb,var(--paper-2,#ddd4bd) 60%,transparent);color:inherit;font:inherit;font-size:16px;margin:6px 0 4px}' +
+    '.menu-titulo{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:20px 0 8px}' +
+    '.menu-lista{list-style:none;margin:0;padding:0}.menu-lista li{margin:0}' +
+    '.menu-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border:0;background:transparent;color:inherit;font:inherit;font-size:16px;border-radius:14px;cursor:pointer;text-decoration:none}' +
+    '.menu-item:hover,.menu-item:focus-visible{background:color-mix(in srgb,var(--clay,#a3552b) 14%,transparent);outline:none}' +
+    '.menu-item small{display:block;opacity:.65;font-size:13px;line-height:1.35;margin-top:2px}' +
+    '.menu-ajustes{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:14px;border:1px solid var(--line,rgba(0,0,0,.18));margin-bottom:8px}' +
+    '.menu-ajustes .grupo{display:flex;gap:6px}.menu-mini{min-width:42px;height:38px;border-radius:999px;border:1px solid var(--line,rgba(0,0,0,.3));background:transparent;color:inherit;font:inherit;cursor:pointer;padding:0 12px}' +
+    '.menu-mini[aria-pressed=true]{background:var(--ink,#241f18);color:var(--paper,#e9e2d1)}' +
+    '.menu-vacio{opacity:.7;padding:8px 14px;font-size:14px}' +
+    '.menu-resaltado{animation:menuRes 1.6s ease}@keyframes menuRes{0%,40%{box-shadow:0 0 0 6px color-mix(in srgb,var(--clay,#a3552b) 45%,transparent)}100%{box-shadow:0 0 0 0 transparent}}';
+
+  function renderMenu(homeHref) {
+    homeHref = homeHref || 'index.html';
+    return (
+      '<style id="menu-css">' + MENU_CSS + '</style>' +
+      '<div class="menu-overlay" data-menu-cerrar></div>' +
+      '<aside class="menu-panel" id="menu-panel" role="dialog" aria-label="Menú del sitio" aria-hidden="true" data-home="' + esc(homeHref) + '">' +
+      '<div class="menu-top"><strong>Menú</strong><button type="button" class="menu-cerrar" data-menu-cerrar aria-label="Cerrar menú">✕</button></div>' +
+      '<div class="menu-scroll">' +
+      '<input type="search" class="menu-buscar" id="menu-buscar" placeholder="Buscar en el sitio…" aria-label="Buscar en el sitio" autocomplete="off">' +
+      '<ul class="menu-lista" id="menu-resultados"></ul>' +
+      '<div id="menu-bloque-secciones"><p class="menu-titulo">Secciones</p><ul class="menu-lista" id="menu-secciones"></ul></div>' +
+      '<p class="menu-titulo">Ir a</p><ul class="menu-lista">' +
+      '<li><a class="menu-item" href="' + esc(homeHref) + '">🏠 Inicio</a></li>' +
+      '<li><a class="menu-item" href="landing.html">📅 Próximos eventos</a></li>' +
+      '<li><a class="menu-item" id="menu-contacto" href="' + esc(homeHref) + '#contacto">✉️ Contacto</a></li>' +
+      '<li><a class="menu-item" id="menu-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a></li>' +
+      '</ul>' +
+      '<p class="menu-titulo">Ajustes</p>' +
+      '<div class="menu-ajustes"><span>🌙 Modo noche</span><div class="grupo"><button type="button" class="menu-mini" id="menu-noche" aria-pressed="false">Activar</button></div></div>' +
+      '<div class="menu-ajustes"><span>Tamaño del texto</span><div class="grupo"><button type="button" class="menu-mini" data-fs="-2" aria-label="Texto más pequeño">A−</button><button type="button" class="menu-mini" data-fs="0" aria-label="Texto normal">A</button><button type="button" class="menu-mini" data-fs="2" aria-label="Texto más grande">A+</button></div></div>' +
+      '<div class="menu-ajustes"><span>Compartir esta página</span><div class="grupo"><button type="button" class="menu-mini" id="menu-compartir">Compartir</button></div></div>' +
+      '</div></aside>'
+    );
+  }
+
+  function textoPlano(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+  function seccionesDeLaPagina() {
+    var out = [];
+    document.querySelectorAll('section').forEach(function (sec) {
+      if (sec.closest('nav') || sec.closest('.menu-panel') || sec.style.display === 'none') return;
+      var h = sec.querySelector('h2');
+      if (!h) return;
+      var t = textoPlano(h);
+      if (!t) return;
+      var ico = sec.querySelector('.sec-icono, .h-ico');
+      out.push({ el: sec, titulo: t, ico: ico ? ico.innerHTML : '' });
+    });
+    return out;
+  }
+
+  function irA(el) {
+    var det = el.closest ? el.closest('details') : null;
+    if (det) det.open = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.classList.add('menu-resaltado');
+    setTimeout(function () { el.classList.remove('menu-resaltado'); }, 1700);
+  }
+
+  function menuAbrir(abrir) {
+    var panel = document.getElementById('menu-panel');
+    if (!panel) return;
+    if (abrir) {
+      var lista = document.getElementById('menu-secciones');
+      var secs = seccionesDeLaPagina();
+      lista.innerHTML = '';
+      secs.forEach(function (sc, i) {
+        var li = document.createElement('li');
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'menu-item'; b.setAttribute('data-sec', i);
+        b.textContent = sc.titulo;
+        li.appendChild(b); lista.appendChild(li);
+      });
+      menuAbrir.secs = secs;
+      document.getElementById('menu-bloque-secciones').style.display = secs.length ? '' : 'none';
+      var wa = document.getElementById('whatsapp-flotante');
+      var mw = document.getElementById('menu-wa');
+      if (mw) { if (wa) mw.href = wa.href; else mw.style.display = 'none'; }
+      var contacto = document.getElementById('contacto');
+      var mc = document.getElementById('menu-contacto');
+      if (mc && contacto) { mc.setAttribute('href', '#contacto'); mc.setAttribute('data-ancla', 'contacto'); }
+      var noche = document.body.classList.contains('modo-noche');
+      var bn = document.getElementById('menu-noche');
+      if (bn) { bn.setAttribute('aria-pressed', noche ? 'true' : 'false'); bn.textContent = noche ? 'Activado' : 'Activar'; }
+      var d = deltaTexto();
+      panel.querySelectorAll('[data-fs]').forEach(function (b) { b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-fs'), 10) === d)); });
+    }
+    document.body.classList.toggle('menu-abierto', !!abrir);
+    panel.setAttribute('aria-hidden', abrir ? 'false' : 'true');
+    document.querySelectorAll('[data-menu-abrir]').forEach(function (b) { b.setAttribute('aria-expanded', abrir ? 'true' : 'false'); });
+    if (abrir) setTimeout(function () { var i = document.getElementById('menu-buscar'); if (i && window.innerWidth > 780) i.focus(); }, 300);
+  }
+
+  function menuBuscar(q) {
+    var res = document.getElementById('menu-resultados');
+    var bloque = document.getElementById('menu-bloque-secciones');
+    q = (q || '').trim().toLowerCase();
+    if (q.length < 2) { res.innerHTML = ''; bloque.style.display = (menuAbrir.secs || []).length ? '' : 'none'; return; }
+    bloque.style.display = 'none';
+    var hallazgos = [];
+    (menuAbrir.secs || seccionesDeLaPagina()).forEach(function (sc) {
+      // busca por tarjeta/elemento dentro de la sección y también en el título
+      var candidatos = sc.el.querySelectorAll('details.pilar, .plan-item, .producto, .evento-pasado-card, .blog-card, .personaje-card, .topic, .agenda-fila, li, .stat');
+      var vistos = 0;
+      candidatos.forEach(function (c) {
+        if (vistos >= 3) return;
+        var t = textoPlano(c);
+        var idx = t.toLowerCase().indexOf(q);
+        if (idx === -1) return;
+        vistos++;
+        var ini = Math.max(0, idx - 30);
+        hallazgos.push({ el: c, titulo: sc.titulo, snip: (ini > 0 ? '…' : '') + t.slice(ini, ini + 90) + '…' });
+      });
+      if (!vistos) {
+        var t2 = textoPlano(sc.el), i2 = t2.toLowerCase().indexOf(q);
+        if (i2 !== -1 || sc.titulo.toLowerCase().indexOf(q) !== -1) {
+          var ini2 = Math.max(0, i2 - 30);
+          hallazgos.push({ el: sc.el, titulo: sc.titulo, snip: i2 === -1 ? '' : (ini2 > 0 ? '…' : '') + t2.slice(ini2, ini2 + 90) + '…' });
+        }
+      }
+    });
+    menuBuscar.hallazgos = hallazgos.slice(0, 12);
+    res.innerHTML = '';
+    if (!hallazgos.length) { res.innerHTML = '<li class="menu-vacio">Sin resultados para “' + esc(q) + '”.</li>'; return; }
+    menuBuscar.hallazgos.forEach(function (h, i) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'menu-item'; b.setAttribute('data-res', i);
+      b.innerHTML = '<span><strong>' + esc(h.titulo) + '</strong><small>' + esc(h.snip) + '</small></span>';
+      li.appendChild(b); res.appendChild(li);
+    });
+  }
+
+  function bindMenu() {
+    if (bindMenu.hecho) return;
+    bindMenu.hecho = true;
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t.closest) return;
+      if (t.closest('[data-menu-abrir]')) { menuAbrir(true); return; }
+      if (t.closest('[data-menu-cerrar]')) { menuAbrir(false); return; }
+      var sec = t.closest('[data-sec]');
+      if (sec) { var s = menuAbrir.secs[parseInt(sec.getAttribute('data-sec'), 10)]; menuAbrir(false); if (s) setTimeout(function () { irA(s.el); }, 120); return; }
+      var rs = t.closest('[data-res]');
+      if (rs) { var h = menuBuscar.hallazgos[parseInt(rs.getAttribute('data-res'), 10)]; menuAbrir(false); if (h) setTimeout(function () { irA(h.el); }, 120); return; }
+      var fs = t.closest('[data-fs]');
+      if (fs) {
+        var v = parseInt(fs.getAttribute('data-fs'), 10);
+        try { localStorage.setItem('tratak-fs-delta', String(v)); } catch (er) {}
+        document.documentElement.style.setProperty('--fs-extra', ((applyTheme.base || 0) + v) + 'px');
+        document.querySelectorAll('#menu-panel [data-fs]').forEach(function (b) { b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-fs'), 10) === v)); });
+        return;
+      }
+      if (t.closest('#menu-noche')) {
+        var tg = document.getElementById('modo-noche-toggle');
+        if (tg) tg.click();
+        var on = document.body.classList.contains('modo-noche');
+        var bn = document.getElementById('menu-noche');
+        bn.setAttribute('aria-pressed', on ? 'true' : 'false'); bn.textContent = on ? 'Activado' : 'Activar';
+        return;
+      }
+      if (t.closest('#menu-compartir')) {
+        var url = location.href.split('#')[0];
+        if (navigator.share) { navigator.share({ title: document.title, url: url }).catch(function () {}); }
+        else if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function () { var b = document.getElementById('menu-compartir'); b.textContent = '¡Copiado!'; setTimeout(function () { b.textContent = 'Compartir'; }, 1800); }); }
+        return;
+      }
+      if (t.closest('#menu-panel a.menu-item')) { menuAbrir(false); }
+    });
+    document.addEventListener('input', function (e) { if (e.target && e.target.id === 'menu-buscar') menuBuscar(e.target.value); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menuAbrir(false); });
+  }
+
   function renderNav(theme, opts) {
     opts = opts || {};
     var brandInner;
@@ -122,7 +314,8 @@
       '<li><a href="landing.html">Eventos</a></li>' +
       '</ul>' +
       '<a class="cta" data-ancla="plan" href="' + homeHref + '#plan">Inscríbete →</a>' +
-      '</div></nav>'
+      '<button type="button" class="menu-burger" data-menu-abrir aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>' +
+      '</div></nav>' + renderMenu(homeHref)
     );
   }
 
@@ -849,6 +1042,7 @@
 
   function bindGlobalInteractions(theme) {
     bindAnclas();
+    bindMenu();
     initCarruseles();
     var toggle = document.getElementById('modo-noche-toggle');
     if (!toggle) return;
@@ -889,6 +1083,8 @@
     renderSecciones: renderSecciones,
     renderEventoDestacado: renderEventoDestacado,
     renderContacto: renderContacto,
+    renderMenu: renderMenu,
+    bindMenu: bindMenu,
     toggleDesc: toggleDesc,
     iconoSVG: iconoSVG,
     enviarContacto: enviarContacto,
