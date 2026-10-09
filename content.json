@@ -332,6 +332,7 @@
       ],
       "color_acento": "#a8ff7b",
       "imagen_fondo": "",
+      "gankyil": true,
       "color_texto": "claro",
       "eyebrow": "Formación S.T.E.A.M. · 6 programas",
       "fuente_titulo": "",
@@ -506,5 +507,12 @@
     "titulo": "¿Listo para ir más allá de la industria con tu proyecto?",
     "email": "tratakceramics@gmail.com",
     "ubicacion": "Guadalajara, Jalisco, México"
+  },
+  "shishi": {
+    "activo": true,
+    "bordes": true,
+    "gotas": true,
+    "lead": "Shishi guarda entre sus garras una rueda de la alegría o gankyil (དགའ་འཁྱིལ།), la triple espiral que gira sin un centro fijo. Cada espiral es un tópico del plan; juntas forman el recorrido completo.",
+    "lado": "izquierda"
   }
 }
