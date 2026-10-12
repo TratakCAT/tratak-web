@@ -12,24 +12,121 @@
 <meta name="theme-color" content="#e9e2d1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=30">
-<link rel="stylesheet" href="assets/shishi.css?v=30">
+<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="assets/shishi.css?v=31">
+<style id="precarga-css">
+#precarga{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;font-family:Georgia,"Times New Roman",serif;transition:opacity .8s ease,transform .8s ease,visibility .8s}
+#precarga.fuera{opacity:0;visibility:hidden;transform:scale(1.04)}
+#precarga .pc-txt{font-size:14px;letter-spacing:.3em;text-transform:uppercase;text-align:center;padding:0 24px;min-height:1.5em}
+#precarga .pc-stage{position:relative;width:200px;height:230px;display:flex;align-items:center;justify-content:center}
+/* A · el punto de Tratak que florece en gankyil */
+#precarga.pc-a{background:radial-gradient(circle at 50% 45%,#2a1f47 0,#0e0b18 72%);color:#efe8f8}
+.pc-a .pc-punto{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 18px 6px rgba(255,255,255,.55),0 0 60px 18px rgba(192,162,236,.45);animation:pcPunto 2.6s ease-in-out infinite,pcPuntoFuera .5s ease .85s forwards}
+.pc-a .pc-gk{position:absolute;width:190px;height:190px;opacity:0;transform:scale(.15);animation:pcFlor 1.5s cubic-bezier(.2,.8,.2,1) .7s forwards}
+.pc-a .pc-gk .gk-svg,.pc-a .pc-gk .gk-svg-el{width:100%;height:100%;max-width:none}
+.pc-a .pc-gk .gk-rota{animation-duration:14s}
+.pc-a .pc-txt{opacity:0;animation:pcTxt 1s ease 1.5s forwards}
+@keyframes pcPunto{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+@keyframes pcPuntoFuera{to{opacity:0;transform:scale(.3)}}
+@keyframes pcFlor{to{opacity:1;transform:scale(1)}}
+@keyframes pcTxt{to{opacity:.85}}
+/* B · una pieza que se imprime por capas */
+#precarga.pc-b{background:#efe8d8;color:#2a2140}
+.pc-b svg{width:150px;height:auto;overflow:visible}
+.pc-b .pc-capa{opacity:0;animation:pcCapa 3s ease-in-out infinite}
+.pc-b .pc-boq{animation:pcBoq 3s ease-in-out infinite}
+.pc-b .pc-base{opacity:.5}
+@keyframes pcCapa{0%{opacity:0}3%{opacity:1}78%{opacity:1}95%,100%{opacity:0}}
+@keyframes pcBoq{0%{transform:translateY(0);opacity:1}55%{transform:translateY(-196px);opacity:1}62%,100%{transform:translateY(-196px);opacity:0}}
+/* C · respiración */
+#precarga.pc-c{background:linear-gradient(160deg,#c9a6ee,#a9d2f0 55%,#c3f0b9);color:#2a2140}
+.pc-c .pc-stage{width:220px;height:220px}
+.pc-c .pc-aro{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);background:rgba(255,255,255,.22);animation:pcResp 5s ease-in-out infinite}
+.pc-c .pc-aro:nth-child(1){width:70px;height:70px;background:rgba(255,255,255,.55)}
+.pc-c .pc-aro:nth-child(2){width:120px;height:120px;animation-delay:.25s}
+.pc-c .pc-aro:nth-child(3){width:170px;height:170px;animation-delay:.5s}
+.pc-c .pc-aro:nth-child(4){width:220px;height:220px;animation-delay:.75s;opacity:.7}
+.pc-c .pc-txt{position:relative;height:1.5em;width:200px}
+.pc-c .pc-txt span{position:absolute;left:0;right:0;opacity:0;animation:pcInh 5s ease-in-out infinite}
+.pc-c .pc-txt span+span{animation-name:pcExh}
+@keyframes pcResp{0%,100%{transform:scale(.55)}50%{transform:scale(1)}}
+@keyframes pcInh{0%{opacity:0}12%,40%{opacity:.95}55%,100%{opacity:0}}
+@keyframes pcExh{0%,50%{opacity:0}62%,92%{opacity:.95}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  #precarga *{animation:none!important}
+  .pc-a .pc-punto{display:none}.pc-a .pc-gk{opacity:1;transform:none}.pc-a .pc-txt{opacity:.85}
+  .pc-b .pc-capa{opacity:1}.pc-b .pc-boq{display:none}
+  .pc-c .pc-aro{transform:scale(.8)}.pc-c .pc-txt span+span{display:none}.pc-c .pc-txt span{opacity:.95}
+}
+</style>
 </head>
 <body>
+
+<div id="precarga" aria-hidden="true"></div>
+<script>
+// Pantalla de carga: una de tres experiencias al azar (el punto de Tratak, la pieza que se imprime, la respiración).
+// Solo se ve al entrar por primera vez en la sesión. Para probar: ?precarga=a, ?precarga=b, ?precarga=c o ?precarga=1 (al azar).
+(function () {
+  var el = document.getElementById('precarga');
+  var q = (location.search.match(/[?&]precarga=([abc1])/) || [])[1];
+  var visto = false;
+  try { visto = sessionStorage.getItem('tk-precarga') === '1'; } catch (e) {}
+  window.__precargaFuera = function () {};
+  if (!el || (visto && !q)) { if (el && el.parentNode) el.parentNode.removeChild(el); return; }
+  var tipos = ['a', 'b', 'c'], tipo = q && q !== '1' ? q : null;
+  if (!tipo) {
+    var ultimo = null; try { ultimo = localStorage.getItem('tk-precarga-ultimo'); } catch (e) {}
+    var otros = tipos.filter(function (t) { return t !== ultimo; });
+    tipo = otros[Math.floor(Math.random() * otros.length)];
+  }
+  try { localStorage.setItem('tk-precarga-ultimo', tipo); } catch (e) {}
+  var html = '';
+  if (tipo === 'a') {
+    html = '<div class="pc-stage"><i class="pc-punto"></i><div class="pc-gk" id="pc-gk"></div></div><div class="pc-txt">Contempla y biofabrica</div>';
+  } else if (tipo === 'b') {
+    var N = 30, capas = '', i, y, t, r, g, b;
+    for (i = 0; i < N; i++) {
+      y = 196 - i * (186 / (N - 1)); t = i / (N - 1);
+      r = Math.round(192 + (185 - 192) * t); g = Math.round(162 + (237 - 162) * t); b = Math.round(236 + (178 - 236) * t);
+      capas += '<line class="pc-capa" x1="20" x2="140" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="rgb(' + r + ',' + g + ',' + b + ')" stroke-width="5.4" style="animation-delay:' + (i * 0.052).toFixed(3) + 's"/>';
+    }
+    html = '<div class="pc-stage"><svg viewBox="0 0 160 230" aria-hidden="true"><defs><clipPath id="pcv"><path d="M62 10C62 30 40 40 34 72C26 112 38 170 52 198L108 198C122 170 134 112 126 72C120 40 98 30 98 10Z"/></clipPath></defs>' +
+      '<rect class="pc-base" x="14" y="200" width="132" height="5" rx="2.5" fill="#2a2140"/><g clip-path="url(#pcv)">' + capas + '</g>' +
+      '<g class="pc-boq"><circle cx="80" cy="202" r="4.5" fill="#2a2140"/><path d="M76 195l4 -9l4 9z" fill="#2a2140"/></g></svg></div><div class="pc-txt">Biofabricando la materia</div>';
+  } else {
+    html = '<div class="pc-stage"><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i></div><div class="pc-txt"><span>Inhala</span><span>Exhala</span></div>';
+  }
+  el.className = 'pc-' + tipo; el.innerHTML = html;
+  var inicio = Date.now(), MIN = 2400, quitado = false;
+  window.__precargaFuera = function () {
+    if (quitado) return; quitado = true;
+    setTimeout(function () {
+      el.classList.add('fuera');
+      try { sessionStorage.setItem('tk-precarga', '1'); } catch (e) {}
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
+    }, Math.max(0, MIN - (Date.now() - inicio)));
+  };
+  window.__precargaTipo = tipo;
+})();
+</script>
 
 <div id="app">
   <!-- Este contenido se reemplaza al cargar; sirve como respaldo si JS falla -->
   <p style="padding:40px;font-family:sans-serif;">Cargando TRATAK · CAT…</p>
 </div>
 
-<script src="assets/site.js?v=30"></script>
-<script src="assets/shishi.js?v=30"></script>
+<script src="assets/site.js?v=31"></script>
+<script src="assets/shishi.js?v=31"></script>
+<script>
+  (function () { var h = document.getElementById("pc-gk"); if (h && window.TratakRender && TratakRender.gankyilSVG) h.innerHTML = TratakRender.gankyilSVG({ id: "pre" }); })();
+</script>
 <script>
   // Red de seguridad: si después de 12s sigue "Cargando...", muestra un aviso (nunca se queda colgado)
   var candadoDeCarga = setTimeout(function () {
     var app = document.getElementById('app');
     if (app && app.textContent.indexOf('Cargando') !== -1) {
       app.innerHTML = '<p style="padding:40px;font-family:sans-serif;">Esto está tardando más de lo normal. <a href="javascript:location.reload()">Reintentar</a></p>';
+      window.__precargaFuera();
     }
   }, 12000);
 
@@ -45,10 +142,12 @@
     TratakRender.applyTheme(content.theme, document.documentElement.style);
     TratakRender.bindGlobalInteractions(content.theme);
     if (window.Shishi) Shishi.montar(content);
+    window.__precargaFuera();
   }).catch(function (err) {
     clearTimeout(candadoDeCarga);
     console.error('No se pudo cargar el contenido del sitio', err);
     document.getElementById('app').innerHTML = '<p style="padding:40px;font-family:sans-serif;">Hubo un problema cargando el contenido. Intenta recargar la página.</p>';
+    window.__precargaFuera();
   });
 </script>
 
