@@ -64,19 +64,19 @@ collections:
                 required: false
                 default: ["kicker", "titulo", "texto", "botones"]
                 field: { label: "Elemento", name: "bloque", widget: select, options: [{label: "Frase pequeña", value: "kicker"}, {label: "Título", value: "titulo"}, {label: "Texto debajo del título", value: "texto"}, {label: "Botones", value: "botones"}] }
-              - { label: "Frase pequeña arriba del título", name: "kicker", widget: string }
+              - { label: "Frase pequeña arriba del título", name: "kicker", widget: string, required: false }
               - { label: "Título — línea 1", name: "title_line1", widget: string }
-              - { label: "Título — antes de la palabra en cursiva", name: "title_pre", widget: string }
-              - { label: "Título — palabra en cursiva", name: "title_em", widget: string }
-              - { label: "Título — línea final", name: "title_line3", widget: string }
-              - { label: "Texto debajo del título", name: "lede", widget: text }
+              - { label: "Título — antes de la palabra en cursiva", name: "title_pre", widget: string, required: false }
+              - { label: "Título — palabra en cursiva", name: "title_em", widget: string, required: false }
+              - { label: "Título — línea final", name: "title_line3", widget: string, required: false }
+              - { label: "Texto debajo del título", name: "lede", widget: text, required: false }
               - { label: "Foto (al lado o de fondo, según el layout elegido)", name: "image", widget: image }
               - { label: "Botón 1 — texto", name: "cta1_label", widget: string }
               - { label: "Botón 1 — link", name: "cta1_link", widget: string }
-              - { label: "Botón 2 — texto", name: "cta2_label", widget: string }
-              - { label: "Botón 2 — link", name: "cta2_link", widget: string }
-              - { label: "Botón 3 — texto", name: "cta3_label", widget: string }
-              - { label: "Botón 3 — link", name: "cta3_link", widget: string }
+              - { label: "Botón 2 — texto", name: "cta2_label", widget: string, required: false }
+              - { label: "Botón 2 — link", name: "cta2_link", widget: string, required: false }
+              - { label: "Botón 3 — texto", name: "cta3_label", widget: string, required: false }
+              - { label: "Botón 3 — link", name: "cta3_link", widget: string, required: false }
 
           - label: "Secciones de la página (arrastra para reordenar, agrega o quita las que quieras)"
             name: "secciones"
