@@ -58,12 +58,11 @@ body.modo-noche .shishi.dormido .sh-zzz{ animation:shZzz 4.2s ease-in-out infini
 
 /* bordes de tinta (solo pantallas anchas) */
 .sh-bordes{ display:none; position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-.sh-nube{ position:absolute; width:clamp(90px,calc((100vw - 1180px)/2 + 40px),230px); color:var(--ink,#241f18); opacity:.2; will-change:transform; }
-.sh-nube svg{ width:100%; height:auto; display:block; overflow:visible; animation:shDeriva 18s ease-in-out infinite alternate; }
-.sh-nube.d2 svg{ animation-duration:24s; animation-delay:-6s; }
-.sh-nube.d3 svg{ animation-duration:30s; animation-delay:-12s; }
-.sh-nube.izq{ left:-20px; } .sh-nube.der{ right:-20px; }
-.sh-nube.der svg{ transform:scaleX(-1); animation-name:shDerivaDer; }
+.sh-humo{ position:absolute; bottom:0; height:100%; width:clamp(90px,calc((100vw - 1180px)/2 + 40px),230px); will-change:transform; }
+.sh-humo svg{ position:absolute; bottom:0; left:0; width:100%; height:100%; overflow:visible; }
+.sh-humo.izq{ left:0; } .sh-humo.der{ right:0; transform-origin:center; } .sh-humo.der svg{ transform:scaleX(-1); }
+.sh-hebra{ transform-box:fill-box; transform-origin:50% 100%; animation:shHumo 14s ease-in-out infinite alternate; }
+.sh-hebra.h2{ animation-duration:19s; animation-delay:-5s; } .sh-hebra.h3{ animation-duration:24s; animation-delay:-11s; }
 .sh-gk-scroll{ position:absolute; top:46%; width:clamp(44px,calc((100vw - 1180px)/2 - 30px),72px); aspect-ratio:1; pointer-events:auto; cursor:pointer; opacity:.9; filter:drop-shadow(0 4px 10px rgba(80,60,160,.35)); background:none; border:0; padding:0; }
 .sh-gk-scroll.der{ right:calc((100vw - 1180px)/4 - 22px); }
 .sh-gk-scroll.der{ right:max(8px, calc((100vw - 1180px)/4 - 24px)); }
@@ -80,12 +79,11 @@ body.modo-noche .shishi.dormido .sh-zzz{ animation:shZzz 4.2s ease-in-out infini
 @keyframes shBrillo{ 0%,100%{ filter:drop-shadow(0 0 7px rgba(140,110,230,.5)); } 50%{ filter:drop-shadow(0 0 16px rgba(120,190,255,.85)); } }
 @keyframes shZzz{ 0%{ opacity:0; transform:translate(0,6px); } 30%{ opacity:.9; } 100%{ opacity:0; transform:translate(14px,-22px); } }
 @keyframes shAbre{ from{ opacity:0; transform:scale(.94) translateY(10px); } to{ opacity:1; transform:none; } }
-@keyframes shDeriva{ from{ transform:translateX(-10px); } to{ transform:translateX(18px); } }
-@keyframes shDerivaDer{ from{ transform:scaleX(-1) translateX(-10px); } to{ transform:scaleX(-1) translateX(18px); } }
+@keyframes shHumo{ 0%{ transform:translateX(-7px) scaleX(.94) skewX(-2deg); opacity:.75; } 100%{ transform:translateX(9px) scaleX(1.1) skewX(2.5deg); opacity:1; } }
 @keyframes shGota{ 0%{ transform:scale(.4); opacity:.32; } 100%{ transform:scale(2.6); opacity:0; } }
 
 @media (max-width:700px){ :root{ --sh-w:118px; } .shishi{ left:-4px; } .shishi.lado-der{ right:78px; } .sh-bubble{ left:40%; max-width:58vw; font-size:14px; } .sh-panel{ bottom:calc(var(--sh-w)*.81 + 6px); } }
-@media (prefers-reduced-motion:reduce){ .sh-box, .sh-cola, .sh-bola, .sh-bola .gk-rota, .sh-nube svg, .sh-avatar svg{ animation:none !important; } .sh-gota{ display:none; } }
+@media (prefers-reduced-motion:reduce){ .sh-box, .sh-cola, .sh-bola, .sh-bola .gk-rota, .sh-hebra, .sh-avatar svg{ animation:none !important; } .sh-gota{ display:none; } }
 
 /* v18 fondo: luna de papel detrás de Shishi para que su tinta se lea */
 .sh-box::before{ content:""; position:absolute; left:4%; bottom:-6%; width:84%; aspect-ratio:1; border-radius:50%; z-index:-1; pointer-events:none;

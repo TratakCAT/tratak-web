@@ -256,17 +256,30 @@
   function construirBordes() {
     if (cfg.bordes === false) return;
     var c = document.createElement('div'); c.className = 'sh-bordes'; c.setAttribute('aria-hidden', 'true');
-    var defs = [
-      ['izq', 'd1', '8%', 0], ['izq', 'd2', '40%', 1], ['izq', 'd3', '72%', 0],
-      ['der', 'd2', '16%', 1], ['der', 'd1', '52%', 0], ['der', 'd3', '84%', 1]
+    var COL = ['#f3eaff', '#d3ebff', '#dcffd6'];
+    var HEB = [
+      'M100 900 C 40 800, 170 700, 100 600 S 40 420, 110 320 S 160 150, 90 0',
+      'M60 900 C 130 820, 20 720, 80 620 S 160 480, 90 380 S 30 220, 100 100 S 120 20, 110 0',
+      'M140 900 C 90 840, 190 760, 130 660 S 70 540, 130 440 S 170 300, 120 200 S 70 90, 120 0'
     ];
-    c.innerHTML = defs.map(function (d, i) {
-      return '<div class="sh-nube ' + d[0] + ' ' + d[1] + '" data-f="' + (0.04 + (i % 3) * 0.035).toFixed(3) + '" style="top:' + d[2] + '"><svg viewBox="0 0 160 100"><path d="' + NUBES[d[3]] + '" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
-    }).join('') +
+    function humo(lado, k) {
+      var g = 'shh' + lado + k;
+      var hebras = HEB.map(function (d, i) {
+        return '<g class="sh-hebra h' + (i + 1) + '"><path d="' + d + '" fill="none" stroke="url(#' + g + ')" stroke-width="13" stroke-linecap="round" filter="url(#' + g + 'b)" opacity=".5" style="stroke:url(#' + g + i + ')"/>' +
+          '<path d="' + d + '" fill="none" stroke-width="2.2" stroke-linecap="round" filter="url(#' + g + 's)" style="stroke:url(#' + g + i + ')"/></g>';
+      }).join('');
+      var grads = COL.map(function (cl, i) {
+        return '<linearGradient id="' + g + i + '" gradientUnits="userSpaceOnUse" x1="0" y1="900" x2="0" y2="0"><stop offset="0" stop-color="' + cl + '" stop-opacity="0"/><stop offset=".22" stop-color="' + cl + '" stop-opacity=".8"/><stop offset=".78" stop-color="' + cl + '" stop-opacity=".8"/><stop offset="1" stop-color="' + cl + '" stop-opacity="0"/></linearGradient>';
+      }).join('');
+      return '<div class="sh-humo ' + lado + '" data-f="' + (0.03 + k * 0.03).toFixed(3) + '"><svg viewBox="0 0 200 900" preserveAspectRatio="xMidYMax meet"><defs>' + grads +
+        '<filter id="' + g + 'b" x="-50%" y="-5%" width="200%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>' +
+        '<filter id="' + g + 's" x="-50%" y="-5%" width="200%" height="110%"><feGaussianBlur stdDeviation=".7"/></filter></defs>' + hebras + '</svg></div>';
+    }
+    c.innerHTML = humo('izq', 0) + humo('der', 1) +
       '<button type="button" class="sh-gk-scroll der" aria-label="Ver el gankyil del plan de estudios" title="El gankyil · ver el plan de estudios">' + (R() ? R().gankyilSVG({ id: 'shsc' }) : '') + '</button>';
     document.body.appendChild(c);
     bordes = c;
-    var giro = c.querySelector('.sh-gk-scroll .gk-rota'), nubes = c.querySelectorAll('.sh-nube'), tick = false;
+    var giro = c.querySelector('.sh-gk-scroll .gk-rota'), nubes = c.querySelectorAll('.sh-humo'), tick = false;
     function act() {
       tick = false; var y = global.scrollY || 0;
       if (giro) giro.style.transform = 'rotate(' + (-y * 0.22) + 'deg)';
