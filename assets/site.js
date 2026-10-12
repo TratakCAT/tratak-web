@@ -360,7 +360,7 @@
       '<div class="cta-row">' +
       '<a class="btn primary" href="' + esc(hero.cta1_link) + '">' + esc(hero.cta1_label) + '</a>' +
       '<a class="btn ghost" href="' + esc(hero.cta2_link) + '">' + esc(hero.cta2_label) + '</a>' +
-      '<a class="btn ghost" href="' + esc(hero.cta3_link) + '">' + esc(hero.cta3_label) + '</a>' +
+      (hero.cta3_label ? '<a class="btn ghost" href="' + esc(hero.cta3_link) + '">' + esc(hero.cta3_label) + '</a>' : '') +
       '</div>';
     var bloques = {
       kicker: '<p class="kicker">' + esc(hero.kicker) + '</p>',

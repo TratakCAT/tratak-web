@@ -20,23 +20,25 @@
     "estilo": "fondo",
     "layout": "imagen_lado",
     "orden": [
+      "kicker",
+      "titulo",
       "texto",
-      "kicker"
+      "botones"
     ],
     "fuente_titulo": "",
-    "title_em": "viva",
-    "kicker": "C.A.T. (Centro de Aprendizaje Tecno-Ontológico)",
-    "cta1_label": "Ver programas →",
-    "title_line1": "Contempla y biofabrica",
-    "cta3_link": "landing.html",
-    "cta2_label": "Conocer el lababoratorio - escuela →",
-    "cta2_link": "#taller",
-    "cta1_link": "#plan",
-    "title_line3": "del cosmos.",
-    "cta3_label": "Próximos eventos →",
-    "lede": "Tratak, estudio de Diseño Transpersonal presenta: ",
+    "title_em": "sustentable",
+    "kicker": "Escuela-laboratorio · Guadalajara",
+    "cta1_label": "Reserva tu lugar en el próximo taller →",
+    "title_line1": "Aprende impresión\u00a03D",
+    "cta3_link": "",
+    "cta2_label": "Ver programas →",
+    "cta2_link": "#plan",
+    "cta1_link": "landing.html",
+    "title_line3": "y biomateriales",
+    "cta3_label": "",
+    "lede": "Talleres, cursos y piezas bajo pedido. Contempla y biofabrica la materia viva del cosmos.",
     "image": "/images/hero-pieza.jpg",
-    "title_pre": "la materia "
+    "title_pre": ""
   },
   "secciones": [
     {
@@ -51,6 +53,92 @@
       "type": "evento_proximo",
       "color_cuerpo": "#ffffff",
       "id": "proximo-evento"
+    },
+    {
+      "color_acento": "#ef8d8d",
+      "imagen_fondo": "/images/taller-ldm.jpg",
+      "estilo": "fondo",
+      "color_texto": "claro",
+      "boton_texto": "Agendar visita →",
+      "eyebrow": "El taller",
+      "layout": "fondo_completo",
+      "video_fondo": "",
+      "fuente_titulo": "",
+      "texto1": "Laboratorio escuela donde se exploran nuevas relaciones entre biomateriales, técnicas de vanguardia y ancestrales así como el entrenamiento de la atención. Un espacio para aprender haciendo, experimentar y crear a través de cursos, talleres y proyectos que integra biofabricación, cerámica, impresión 3D, micelio, realidad virtual y fabricación digital.",
+      "fondo": "imagen",
+      "texto2": "Entre tierra y código, entre manos y pantallas, te invitamos a la realización de la experiencia directa.",
+      "boton_link": "#contacto",
+      "color_titulo": "#d946da",
+      "icono": "ubicacion",
+      "titulo": "C.A.T. Centro de Aprendizaje Tecno-ontológico",
+      "type": "destacado",
+      "id": "taller"
+    },
+    {
+      "items": [
+        {
+          "title": "Asesoría Catalizadora de Creatividad",
+          "code": "ASESORÍA: 00",
+          "meta": "Una hora de acompañamiento especializado para tu proyecto",
+          "price": "Consultar precio"
+        },
+        {
+          "code": "TÓPICO: DIS_VR // 00",
+          "title": "Diseño en Realidad Virtual",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        },
+        {
+          "code": "TÓPICO: CUL_BIO // 00",
+          "title": "Cultura Biomaterial",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        },
+        {
+          "code": "P.E.S. · Individual",
+          "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
+          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        },
+        {
+          "code": "P.E.S.2 · Grupal (2–4 personas)",
+          "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
+          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        },
+        {
+          "code": "P.E.S.3 · Grupal (2–4 personas)",
+          "title": "1 Tópico a elegir",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        },
+        {
+          "code": "TÓPICO: IMP_3D_LDM // 00",
+          "title": "Impresión 3D LDM",
+          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
+          "price": "Consultar precio",
+          "imagen": ""
+        }
+      ],
+      "color_acento": "#a8ff7b",
+      "imagen_fondo": "",
+      "gankyil": true,
+      "color_texto": "claro",
+      "eyebrow": "Formación S.T.E.A.M. · 6 programas",
+      "fuente_titulo": "",
+      "fondo": "imagen",
+      "color_etiqueta": "#ffedd9",
+      "color_fondo": "#5e56d7",
+      "color_titulo": "#ffffff",
+      "icono": "laboratorio",
+      "titulo": "Plan de estudios",
+      "type": "lista_precios",
+      "id": "plan"
     },
     {
       "items": [
@@ -102,71 +190,6 @@
           "label": "Conferencias y talleres impartidos"
         }
       ]
-    },
-    {
-      "color_acento": "#ef8d8d",
-      "imagen_fondo": "/images/taller-ldm.jpg",
-      "estilo": "fondo",
-      "color_texto": "claro",
-      "boton_texto": "Agendar visita →",
-      "eyebrow": "El taller",
-      "layout": "fondo_completo",
-      "video_fondo": "",
-      "fuente_titulo": "",
-      "texto1": "Laboratorio escuela donde se exploran nuevas relaciones entre biomateriales, técnicas de vanguardia y ancestrales así como el entrenamiento de la atención. Un espacio para aprender haciendo, experimentar y crear a través de cursos, talleres y proyectos que integra biofabricación, cerámica, impresión 3D, micelio, realidad virtual y fabricación digital.",
-      "fondo": "imagen",
-      "texto2": "Entre tierra y código, entre manos y pantallas, te invitamos a la realización de la experiencia directa.",
-      "boton_link": "#contacto",
-      "color_titulo": "#d946da",
-      "icono": "ubicacion",
-      "titulo": "C.A.T. Centro de Aprendizaje Tecno-ontológico",
-      "type": "destacado",
-      "id": "taller"
-    },
-    {
-      "items": [
-        {
-          "num": "01 · Materialidad",
-          "title": "Mater (madre, la fuente o el origen de donde proviene algo)",
-          "text": "La materia es nuestro punto de partida. Antes de transformarla, aprendemos a observarla: su origen, sus propiedades, sus comportamientos y las relaciones que establece con el entorno. Diseñar es entrar en diálogo con aquello que nos da forma.",
-          "imagen": "/images/013862e4ea2b2a2a8e0266252d140c4e.jpg",
-          "icono": "ceramica"
-        },
-        {
-          "num": "02 · Tecnología",
-          "title": "Téchnē (τέχνη) (arte u oficio)",
-          "text": "El conocimiento que emerge del hacer: de la mano que prueba, de la herramienta que transforma y del material que responde.  Aprendemos experimentando, construyendo, fallando y volviendo a intentar.",
-          "imagen": "/images/img_2291.jpg",
-          "icono": "vr"
-        },
-        {
-          "num": "03 · Contemplación (Tratak)",
-          "title": "Tratak ( त्राटक ) (mirar, observar o contemplar)",
-          "text": "Contemplar es detenerse para observar con atención. La contemplación no es separarse de la acción, sino hacer consciente nuestra manera de percibir, crear y relacionarnos con la tecnología y la materia. Tratak viene del sánscrito y quiere decir contemplación.",
-          "imagen": "/images/chatgpt-image-18-may-2026-10_12_57-p.m..png",
-          "icono": "contemplacion"
-        },
-        {
-          "num": "Diseño Tranpersonal",
-          "title": "La liberación del tecno-estrés.",
-          "text": "Materialidad y acción en contemplación forman una práctica: observar lo que existe, intervenir mediante la no-acción y permanecer atentos a lo que emerge. Sin prisas industriales, ofrecer soluciones para el bienestar de todos los seres sintientes.",
-          "imagen": "/images/gemini_generated_image_gu69h7gu69h7gu69.png",
-          "icono": "montana"
-        }
-      ],
-      "color_acento": "#ffffff",
-      "color_texto": "oscuro",
-      "eyebrow": "Fundamentos",
-      "fuente_titulo": "",
-      "fondo": "ninguno",
-      "color_etiqueta": "",
-      "color_fondo": "#71b7dc",
-      "color_titulo": "#000000",
-      "icono": "atomo",
-      "titulo": "Nuestra Filosofía",
-      "type": "pilares",
-      "color_cuerpo": "",
-      "id": "Nuestra filosofía"
     },
     {
       "items": [
@@ -282,72 +305,6 @@
     {
       "items": [
         {
-          "title": "Asesoría Catalizadora de Creatividad",
-          "code": "ASESORÍA: 00",
-          "meta": "Una hora de acompañamiento especializado para tu proyecto",
-          "price": "Consultar precio"
-        },
-        {
-          "code": "TÓPICO: DIS_VR // 00",
-          "title": "Diseño en Realidad Virtual",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        },
-        {
-          "code": "TÓPICO: CUL_BIO // 00",
-          "title": "Cultura Biomaterial",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        },
-        {
-          "code": "P.E.S. · Individual",
-          "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
-          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        },
-        {
-          "code": "P.E.S.2 · Grupal (2–4 personas)",
-          "title": "3 Tópicos: Cultura Biomaterial, Impresión 3D LDM y Diseño VR",
-          "meta": "Intensivo · Presencial / En línea / Híbrido · 27 sesiones + exposición final (40.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        },
-        {
-          "code": "P.E.S.3 · Grupal (2–4 personas)",
-          "title": "1 Tópico a elegir",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        },
-        {
-          "code": "TÓPICO: IMP_3D_LDM // 00",
-          "title": "Impresión 3D LDM",
-          "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
-          "price": "Consultar precio",
-          "imagen": ""
-        }
-      ],
-      "color_acento": "#a8ff7b",
-      "imagen_fondo": "",
-      "gankyil": true,
-      "color_texto": "claro",
-      "eyebrow": "Formación S.T.E.A.M. · 6 programas",
-      "fuente_titulo": "",
-      "fondo": "imagen",
-      "color_etiqueta": "#ffedd9",
-      "color_fondo": "#5e56d7",
-      "color_titulo": "#ffffff",
-      "icono": "laboratorio",
-      "titulo": "Plan de estudios",
-      "type": "lista_precios",
-      "id": "plan"
-    },
-    {
-      "items": [
-        {
           "name": "Hábitat de insectos",
           "cat": "Cerámica",
           "price": "$600 MXN",
@@ -382,6 +339,66 @@
       "titulo": "Materializaciones bajo pedido",
       "type": "productos",
       "id": "tienda bajo pedido"
+    },
+    {
+      "items": [
+        {
+          "num": "01 · Materialidad",
+          "title": "Mater (madre, la fuente o el origen de donde proviene algo)",
+          "text": "La materia es nuestro punto de partida. Antes de transformarla, aprendemos a observarla: su origen, sus propiedades, sus comportamientos y las relaciones que establece con el entorno. Diseñar es entrar en diálogo con aquello que nos da forma.",
+          "imagen": "/images/013862e4ea2b2a2a8e0266252d140c4e.jpg",
+          "icono": "ceramica"
+        },
+        {
+          "num": "02 · Tecnología",
+          "title": "Téchnē (τέχνη) (arte u oficio)",
+          "text": "El conocimiento que emerge del hacer: de la mano que prueba, de la herramienta que transforma y del material que responde.  Aprendemos experimentando, construyendo, fallando y volviendo a intentar.",
+          "imagen": "/images/img_2291.jpg",
+          "icono": "vr"
+        },
+        {
+          "num": "03 · Contemplación (Tratak)",
+          "title": "Tratak ( त्राटक ) (mirar, observar o contemplar)",
+          "text": "Contemplar es detenerse para observar con atención. La contemplación no es separarse de la acción, sino hacer consciente nuestra manera de percibir, crear y relacionarnos con la tecnología y la materia. Tratak viene del sánscrito y quiere decir contemplación.",
+          "imagen": "/images/chatgpt-image-18-may-2026-10_12_57-p.m..png",
+          "icono": "contemplacion"
+        },
+        {
+          "num": "Diseño Tranpersonal",
+          "title": "La liberación del tecno-estrés.",
+          "text": "Materialidad y acción en contemplación forman una práctica: observar lo que existe, intervenir mediante la no-acción y permanecer atentos a lo que emerge. Sin prisas industriales, ofrecer soluciones para el bienestar de todos los seres sintientes.",
+          "imagen": "/images/gemini_generated_image_gu69h7gu69h7gu69.png",
+          "icono": "montana"
+        }
+      ],
+      "color_acento": "#ffffff",
+      "color_texto": "oscuro",
+      "eyebrow": "Fundamentos",
+      "fuente_titulo": "",
+      "fondo": "ninguno",
+      "color_etiqueta": "",
+      "color_fondo": "#71b7dc",
+      "color_titulo": "#000000",
+      "icono": "atomo",
+      "titulo": "Nuestra Filosofía",
+      "type": "pilares",
+      "color_cuerpo": "",
+      "id": "Nuestra filosofía"
+    },
+    {
+      "color_acento": "#ffe88d",
+      "texto": "Vivimos rodeados de tecnología, es momento de también estar presentes en nuestra experiencia.\n\nDesde el diseño transpersonal, tratak.cat explora otras formas de relacionarnos con ella \nal ritmo presente, involucrando ejercicios de respiración, el cultivo de la atención con la fabricación digital y la introspección tecno-ontológica y aprendizaje kinestésico con el contacto biomaterial.\n\nLiberarnos de aquello que nos desconecta de nosotros mismos mientras creamos nuevos sistemas para el beneficio de todos los seres sintientes.\n\nEntre tierra y código, entre manos y pantallas, todos fermentamos la experiencia directa.\n",
+      "imagen_fondo": "/images/a50fcefa-ab61-445a-a920-d52c22835b30.png",
+      "color_texto": "claro",
+      "eyebrow": "La Práctica",
+      "fuente_titulo": "",
+      "fondo": "imagen",
+      "imagen": "",
+      "color_fondo": "#b71b1b",
+      "icono": "estrella",
+      "titulo": "",
+      "type": "texto_destacado",
+      "id": "manifiesto"
     },
     {
       "items": [
@@ -480,21 +497,6 @@
       "titulo": "Personajes y referentes",
       "type": "personajes",
       "id": "personajes"
-    },
-    {
-      "color_acento": "#ffe88d",
-      "texto": "Vivimos rodeados de tecnología, es momento de también estar presentes en nuestra experiencia.\n\nDesde el diseño transpersonal, tratak.cat explora otras formas de relacionarnos con ella \nal ritmo presente, involucrando ejercicios de respiración, el cultivo de la atención con la fabricación digital y la introspección tecno-ontológica y aprendizaje kinestésico con el contacto biomaterial.\n\nLiberarnos de aquello que nos desconecta de nosotros mismos mientras creamos nuevos sistemas para el beneficio de todos los seres sintientes.\n\nEntre tierra y código, entre manos y pantallas, todos fermentamos la experiencia directa.\n",
-      "imagen_fondo": "/images/a50fcefa-ab61-445a-a920-d52c22835b30.png",
-      "color_texto": "claro",
-      "eyebrow": "La Práctica",
-      "fuente_titulo": "",
-      "fondo": "imagen",
-      "imagen": "",
-      "color_fondo": "#b71b1b",
-      "icono": "estrella",
-      "titulo": "",
-      "type": "texto_destacado",
-      "id": "manifiesto"
     }
   ],
   "contacto": {
