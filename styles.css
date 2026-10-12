@@ -532,3 +532,6 @@ nav ul, nav .cta, nav .brand{ font-size:calc(15px + var(--fs-extra)); }
 .plan-item.gk-atenuado{ opacity:1 !important; }
 .plan-item.gk-activo{ transform:none !important; }
 .gk-item.gk-sel{ background:color-mix(in srgb, #fff 18%, transparent); border-color:rgba(255,255,255,.55); }
+
+/* v27 hero: la línea clara bajo el título se lee como segundo titular */
+.hero p.lede{ font-size:calc(21px + var(--fs-extra)); font-weight:500; line-height:1.35; max-width:30em; }
