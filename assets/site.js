@@ -356,11 +356,16 @@
       var fph = FONT_PAIRS[hero.estilo_fuente];
       estiloInline += '--font-heading:' + fph.heading + ';--font-body:' + fph.body + ';';
     }
+    var lista = Array.isArray(hero.botones) ? hero.botones : [
+      { texto: hero.cta1_label, link: hero.cta1_link },
+      { texto: hero.cta2_label, link: hero.cta2_link },
+      { texto: hero.cta3_label, link: hero.cta3_link }
+    ];
     var ctas =
       '<div class="cta-row">' +
-      '<a class="btn primary" href="' + esc(hero.cta1_link) + '">' + esc(hero.cta1_label) + '</a>' +
-      (hero.cta2_label ? '<a class="btn ghost" href="' + esc(hero.cta2_link) + '">' + esc(hero.cta2_label) + '</a>' : '') +
-      (hero.cta3_label ? '<a class="btn ghost" href="' + esc(hero.cta3_link) + '">' + esc(hero.cta3_label) + '</a>' : '') +
+      lista.filter(function (b) { return b && b.texto; }).map(function (b, i) {
+        return '<a class="btn ' + (i === 0 ? 'primary' : 'ghost') + '" href="' + esc(b.link || '#') + '">' + esc(b.texto) + '</a>';
+      }).join('') +
       '</div>';
     var bloques = {
       kicker: '<p class="kicker">' + esc(hero.kicker) + '</p>',
