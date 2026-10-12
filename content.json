@@ -28,11 +28,6 @@
     "fuente_titulo": "",
     "title_em": "viva",
     "kicker": "Escuela-laboratorio · Guadalajara",
-    "title_line1": "Contempla y biofabrica",
-    "title_line3": "del cosmos.",
-    "lede": "Aprende impresión 3D sustentable y biomateriales en talleres, cursos y piezas bajo pedido.",
-    "image": "/images/hero-pieza.jpg",
-    "title_pre": "la materia ",
     "botones": [
       {
         "texto": "Reserva tu lugar en el próximo taller →",
@@ -42,7 +37,12 @@
         "texto": "Ver programas →",
         "link": "#plan"
       }
-    ]
+    ],
+    "title_line1": "Contempla y biofabrica",
+    "title_line3": "del cosmos.",
+    "lede": "Aprende impresión 3D sustentable y biomateriales diseñados en realidad virtual, Vayamos juntos a la experiencia directa.",
+    "image": "/images/hero-pieza.jpg",
+    "title_pre": "la materia "
   },
   "secciones": [
     {
