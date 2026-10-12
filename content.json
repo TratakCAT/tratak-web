@@ -59,6 +59,29 @@
       "id": "proximo-evento"
     },
     {
+      "items": [
+        {
+          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm1.jpeg",
+          "pie": "Galardón categoría emprendimiento promesa 3er lugar"
+        },
+        {
+          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm.jpeg",
+          "pie": "El Gobernador de Jalisco otorgando el galardón"
+        }
+      ],
+      "color_acento": "#ed8b66",
+      "texto": "La máxima distinción otorgada por el Gobierno del Estado de Jalisco para reconocer a personas, empresas e instituciones que impulsan la innovación, el empleo y la competitividad.",
+      "color_texto": "oscuro",
+      "eyebrow": "Galardón",
+      "fondo": "color",
+      "color_fondo": "#5e56d7",
+      "color_titulo": "#000000",
+      "icono": "llama",
+      "titulo": "Premio Emprendimiento Jalisco 2026 - Categoría Promesa, 3.er lugar",
+      "type": "carrusel",
+      "id": "Carrusel"
+    },
+    {
       "color_acento": "#ef8d8d",
       "imagen_fondo": "/images/taller-ldm.jpg",
       "estilo": "fondo",
@@ -143,29 +166,6 @@
       "titulo": "Plan de estudios",
       "type": "lista_precios",
       "id": "plan"
-    },
-    {
-      "items": [
-        {
-          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm1.jpeg",
-          "pie": "Galardón categoría emprendimiento promesa 3er lugar"
-        },
-        {
-          "imagen": "/images/whatsapp-image-2026-10-08-at-1.05.03-pm.jpeg",
-          "pie": "El Gobernador de Jalisco otorgando el galardón"
-        }
-      ],
-      "color_acento": "#ed8b66",
-      "texto": "La máxima distinción otorgada por el Gobierno del Estado de Jalisco para reconocer a personas, empresas e instituciones que impulsan la innovación, el empleo y la competitividad.",
-      "color_texto": "oscuro",
-      "eyebrow": "Galardón",
-      "fondo": "color",
-      "color_fondo": "#5e56d7",
-      "color_titulo": "#000000",
-      "icono": "llama",
-      "titulo": "Premio Emprendimiento Jalisco 2026 - Categoría Promesa, 3.er lugar",
-      "type": "carrusel",
-      "id": "Carrusel"
     },
     {
       "estilo_fuente": null,
