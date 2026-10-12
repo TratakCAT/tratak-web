@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#e9e2d1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=32">
-<link rel="stylesheet" href="assets/shishi.css?v=32">
+<link rel="stylesheet" href="styles.css?v=33">
+<link rel="stylesheet" href="assets/shishi.css?v=33">
 <style id="precarga-css">
 #precarga{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-family:Georgia,"Times New Roman",serif;transition:opacity .8s ease,transform .8s ease,visibility .8s}
 #precarga.fuera{opacity:0;visibility:hidden;transform:scale(1.04)}
@@ -32,7 +32,7 @@
 @keyframes pcTxt{to{opacity:.92}}
 /* B · un casco de VR proyecta en holograma una pieza que se imprime por capas y de la que brotan hongos */
 #precarga.pc-b{background:radial-gradient(circle at 50% 55%,#13213a 0,#070b14 75%);color:#cfe4f6}
-.pc-b .pc-stage{width:220px;height:300px}
+.pc-b .pc-stage{width:220px;height:304px}
 .pc-b svg{width:220px;height:auto;overflow:visible}
 .pc-b .pc-holo{animation:pcFlick 3.1s steps(1) infinite}
 .pc-b .pc-scan{animation:pcScan 1.2s linear infinite}
@@ -53,7 +53,8 @@
 #precarga.pc-c{background:linear-gradient(160deg,#c9a6ee,#a9d2f0 55%,#c3f0b9);color:#2a2140}
 .pc-c .pc-stage{width:220px;height:220px}
 .pc-c .pc-aro{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);background:rgba(255,255,255,.22);animation:pcResp 8s ease-in-out infinite}
-.pc-c .pc-aro:nth-child(1){width:70px;height:70px;background:rgba(255,255,255,.55)}
+.pc-c .pc-aro:nth-child(1){width:70px;height:70px;background:rgba(255,255,255,.92)}
+.pc-c .pc-bindu{position:absolute;width:12px;height:12px;border-radius:50%;background:#08080c}
 .pc-c .pc-aro:nth-child(2){width:120px;height:120px;animation-delay:.25s}
 .pc-c .pc-aro:nth-child(3){width:170px;height:170px;animation-delay:.5s}
 .pc-c .pc-aro:nth-child(4){width:220px;height:220px;animation-delay:.75s;opacity:.7}
@@ -102,31 +103,38 @@
       r = Math.round(192 + (185 - 192) * t); g = Math.round(162 + (237 - 162) * t); b = Math.round(236 + (178 - 236) * t);
       capas += '<line class="pc-capa" x1="50" x2="170" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="rgb(' + r + ',' + g + ',' + b + ')" stroke-width="5.4" style="--d:' + (i * 0.052).toFixed(3) + 's"/>';
     }
-    var hongos = [[100, 41, 1, '#c0a2ec', -4, 1.9], [119, 40, .78, '#f0a6c8', 8, 2.05], [66, 104, 1.05, '#9fcbec', -14, 2.2], [155, 104, .9, '#b9edb2', 12, 2.35], [64, 176, .72, '#f0a6c8', -12, 2.5], [157, 172, .85, '#c0a2ec', 10, 2.65]];
+    // hongos blancos y minimalistas: x, y, escala, inclinación, retraso
+    var hongos = [[100, 41, 1, -4, 1.9], [119, 40, .72, 8, 2.05], [66, 104, 1, -14, 2.2], [155, 104, .85, 12, 2.35], [64, 176, .7, -12, 2.5], [157, 172, .8, 10, 2.65]];
     var mh = hongos.map(function (h) {
-      return '<g transform="translate(' + h[0] + ' ' + h[1] + ') rotate(' + h[4] + ') scale(' + h[2] + ')"><g class="pc-hongo" style="--d:' + h[5] + 's">' +
-        '<rect x="-3.2" y="-12" width="6.4" height="12.5" rx="3" fill="#f4ecd8"/>' +
-        '<path d="M-13 -10Q0 -31 13 -10Q0 -5.5 -13 -10Z" fill="' + h[3] + '" stroke="#0b1020" stroke-width=".6"/>' +
-        '<circle cx="-4.5" cy="-16" r="1.9" fill="#fff" opacity=".9"/><circle cx="3.5" cy="-19" r="1.5" fill="#fff" opacity=".9"/><circle cx="6.5" cy="-13.5" r="1.1" fill="#fff" opacity=".9"/></g></g>';
+      return '<g transform="translate(' + h[0] + ' ' + h[1] + ') rotate(' + h[3] + ') scale(' + h[2] + ')"><g class="pc-hongo" style="--d:' + h[4] + 's">' +
+        '<rect x="-2" y="-11" width="4" height="11.5" rx="2" fill="#fff"/><path d="M-10 -10A10 9 0 0 1 10 -10Z" fill="#fff"/></g></g>';
     }).join('');
-    html = '<div class="pc-stage"><svg viewBox="0 0 220 300" aria-hidden="true"><defs>' +
-      '<linearGradient id="pch" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#9fcbec" stop-opacity=".55"/><stop offset="1" stop-color="#9fcbec" stop-opacity=".05"/></linearGradient>' +
+    // casco de VR en perspectiva (tres cuartos, visto desde arriba), apoyado con los lentes hacia arriba
+    var top = 'M70 244H150Q166 244 166 258Q166 272 152 276Q138 278 130 272Q110 262 90 272Q82 278 68 276Q54 272 54 258Q54 244 70 244Z', grosor = '';
+    [18, 15, 12, 9, 6, 3].forEach(function (d, k) {
+      grosor += '<path transform="translate(0 ' + d + ')" d="' + top + '" fill="' + ['#0a1122', '#0d1529', '#111a31', '#15203a', '#19264a', '#1c2b52'][k] + '"/>';
+    });
+    html = '<div class="pc-stage"><svg viewBox="0 0 220 304" aria-hidden="true"><defs>' +
+      '<linearGradient id="pch" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#9fcbec" stop-opacity=".6"/><stop offset="1" stop-color="#9fcbec" stop-opacity=".05"/></linearGradient>' +
       '<pattern id="pcs" width="220" height="6" patternUnits="userSpaceOnUse"><rect width="220" height="1.2" fill="#cfe9ff" opacity=".22"/></pattern>' +
-      '<clipPath id="pcc"><path d="M76 242L144 242L200 22L20 22Z"/></clipPath>' +
+      '<clipPath id="pcc"><path d="M72 256L148 256L204 22L16 22Z"/></clipPath>' +
       '<clipPath id="pcv"><path transform="translate(30 30)" d="M62 10C62 30 40 40 34 72C26 112 38 170 52 198L108 198C122 170 134 112 126 72C120 40 98 30 98 10Z"/></clipPath></defs>' +
-      '<g class="pc-holo"><path d="M76 242L144 242L200 22L20 22Z" fill="url(#pch)"/><g clip-path="url(#pcc)"><rect class="pc-scan" x="0" y="16" width="220" height="252" fill="url(#pcs)"/></g>' +
-      '<path d="M76 242L20 22M144 242L200 22" stroke="#9fcbec" stroke-opacity=".5" stroke-width="1" fill="none"/>' +
-      '<ellipse cx="110" cy="236" rx="54" ry="6" fill="#9fcbec" opacity=".4"/>' +
+      '<g class="pc-holo"><path d="M72 256L148 256L204 22L16 22Z" fill="url(#pch)"/><g clip-path="url(#pcc)"><rect class="pc-scan" x="0" y="16" width="220" height="252" fill="url(#pcs)"/></g>' +
+      '<path d="M72 256L16 22M148 256L204 22" stroke="#9fcbec" stroke-opacity=".5" stroke-width="1" fill="none"/>' +
+      '<ellipse cx="110" cy="240" rx="54" ry="6" fill="#9fcbec" opacity=".4"/>' +
       '<g class="pc-escena"><g clip-path="url(#pcv)">' + capas + '</g>' + mh +
       '<g class="pc-boq"><circle cx="110" cy="232" r="4" fill="#fff"/><path d="M106 226l4 -8l4 8z" fill="#fff"/></g></g></g>' +
-      '<rect x="40" y="263" width="140" height="10" rx="5" fill="#1f2a44"/>' +
-      '<rect x="60" y="244" width="100" height="46" rx="16" fill="#18223c" stroke="#7fa6d9" stroke-width="1.4"/>' +
-      '<rect x="67" y="251" width="86" height="32" rx="12" fill="#070b14" stroke="#9fcbec" stroke-width="1"/>' +
-      '<circle cx="90" cy="267" r="8.5" fill="#9fcbec" opacity=".55"/><circle cx="130" cy="267" r="8.5" fill="#9fcbec" opacity=".55"/><circle cx="90" cy="267" r="3" fill="#fff" opacity=".8"/><circle cx="130" cy="267" r="3" fill="#fff" opacity=".8"/>' +
-      '<ellipse cx="110" cy="244" rx="36" ry="4.5" fill="#cfe9ff" opacity=".8"/></svg></div><div class="pc-txt">Biofabricando la materia</div>';
+      '<rect x="34" y="262" width="30" height="14" rx="7" fill="#0d1529"/><rect x="156" y="262" width="30" height="14" rx="7" fill="#0d1529"/>' +
+      grosor +
+      '<path d="' + top + '" fill="#1d2d52" stroke="#7fa6d9" stroke-width="1.3"/>' +
+      '<path transform="translate(110 260) scale(.88 .72) translate(-110 -260)" d="' + top + '" fill="none" stroke="#9fcbec" stroke-opacity=".35"/>' +
+      '<ellipse cx="88" cy="259" rx="16" ry="8.5" fill="#0a1122" stroke="#9fcbec" stroke-width="1"/><ellipse cx="132" cy="259" rx="16" ry="8.5" fill="#0a1122" stroke="#9fcbec" stroke-width="1"/>' +
+      '<ellipse cx="88" cy="259" rx="10" ry="5" fill="#9fcbec" opacity=".75"/><ellipse cx="132" cy="259" rx="10" ry="5" fill="#9fcbec" opacity=".75"/>' +
+      '<ellipse cx="88" cy="258" rx="4" ry="2" fill="#fff"/><ellipse cx="132" cy="258" rx="4" ry="2" fill="#fff"/>' +
+      '</svg></div><div class="pc-txt">Biofabricando la materia</div>';
     ciclo = 5200;
   } else {
-    html = '<div class="pc-stage"><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i></div><div class="pc-txt"><span>Inhala por la nariz</span><span>Exhala por la nariz</span></div>';
+    html = '<div class="pc-stage"><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-aro"></i><i class="pc-bindu"></i></div><div class="pc-txt"><span>Inhala por la nariz</span><span>Exhala por la nariz</span></div>';
   }
   el.className = 'pc-' + tipo; el.innerHTML = html;
   var timer = null;
@@ -152,8 +160,8 @@
   <p style="padding:40px;font-family:sans-serif;">Cargando TRATAK · CAT…</p>
 </div>
 
-<script src="assets/site.js?v=32"></script>
-<script src="assets/shishi.js?v=32"></script>
+<script src="assets/site.js?v=33"></script>
+<script src="assets/shishi.js?v=33"></script>
 <script>
   (function () { var h = document.getElementById("pc-gk"); if (h && window.TratakRender && TratakRender.gankyilSVG) h.innerHTML = TratakRender.gankyilSVG({ id: "pre" }); })();
 </script>
