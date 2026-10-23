@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#c9a6ee">
+<title>Gira y gana · TRATAK CAT</title>
+<meta name="description" content="Gira la ruleta de TRATAK CAT y gana una clase o un precio especial para nuestro evento en la Mansión Esquivias.">
+<link rel="icon" href="icon_32.png">
+<style>
+  :root{
+    --ink:#241f18; --lila:#c0a2ec; --azul:#9fcbec; --verde:#b9edb2; --amarillo:#f2c94c; --paper:#fbf7ee;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; }
+  body{
+    min-height:100vh; min-height:100dvh; color:var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed;
+    padding: max(18px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .marca{ display:flex; align-items:center; gap:10px; font-family:Georgia,"Times New Roman",serif; font-size:15px; letter-spacing:.14em; text-transform:uppercase; margin:4px 0 14px; }
+  .marca b{ font-weight:700; }
+  .card{ width:100%; max-width:440px; background:rgba(255,255,255,.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:26px; padding:22px 20px 24px; box-shadow:0 12px 40px rgba(60,40,110,.18); }
+  h1{ font-family:Georgia,"Times New Roman",serif; font-weight:400; font-size:clamp(28px,8vw,36px); line-height:1.1; margin:0 0 8px; text-align:center; }
+  h1 em{ font-style:italic; color:#7a56c4; }
+  .sub{ text-align:center; margin:0 0 18px; font-size:15.5px; line-height:1.4; opacity:.85; }
+  .premios{ list-style:none; padding:0; margin:0 0 20px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .premios li{ display:flex; align-items:center; gap:8px; font-size:13.5px; line-height:1.25; background:rgba(255,255,255,.7); border-radius:14px; padding:9px 11px; }
+  .premios i{ flex:none; width:14px; height:14px; border-radius:50%; }
+  label{ display:block; font-size:13.5px; font-weight:600; margin:0 0 5px; }
+  input[type=text],input[type=tel],input[type=email]{
+    width:100%; font:inherit; font-size:16px; padding:13px 14px; border-radius:14px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--ink); margin-bottom:13px;
+  }
+  input:focus{ outline:3px solid rgba(122,86,196,.35); border-color:#7a56c4; }
+  .chk{ display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.35; margin:2px 0 10px; font-weight:400; }
+  .chk input{ margin-top:2px; width:18px; height:18px; flex:none; accent-color:#7a56c4; }
+  .btn{ display:block; width:100%; border:0; border-radius:999px; padding:16px 20px; font:inherit; font-size:17px; font-weight:700; letter-spacing:.02em; cursor:pointer; text-align:center; text-decoration:none; background:var(--ink); color:#fff; }
+  .btn:active{ transform:scale(.98); }
+  .btn.sec{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); margin-top:10px; font-weight:600; font-size:15.5px; }
+  .btn.wa{ background:#1fa855; }
+  .btn[disabled]{ opacity:.55; cursor:default; }
+  .err{ color:#a3262a; font-size:13.5px; min-height:1.2em; margin:0 0 8px; }
+  .letra{ font-size:12px; line-height:1.4; opacity:.72; margin:16px 0 0; }
+  .letra summary{ cursor:pointer; font-weight:600; }
+  [hidden]{ display:none!important; }
+
+  /* ruleta */
+  .rueda-wrap{ position:relative; width:min(82vw,330px); aspect-ratio:1; margin:6px auto 20px; }
+  .rueda{ width:100%; height:100%; border-radius:50%; transition:transform 5.2s cubic-bezier(.1,.72,.08,1); filter:drop-shadow(0 10px 24px rgba(60,40,110,.35)); }
+  .rueda text{ font-family:Georgia,"Times New Roman",serif; font-weight:700; fill:#241f18; }
+  .puntero{ position:absolute; left:50%; top:-12px; transform:translateX(-50%); width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-top:30px solid var(--ink); filter:drop-shadow(0 3px 3px rgba(0,0,0,.3)); z-index:2; }
+  .centro{ position:absolute; inset:50% auto auto 50%; width:62px; height:62px; transform:translate(-50%,-50%); border-radius:50%; background:#fff; border:4px solid var(--ink); display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:11px; letter-spacing:.12em; font-weight:700; z-index:2; }
+
+  /* resultado */
+  .resultado{ text-align:center; }
+  .resultado .tag{ display:inline-block; font-size:12px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; background:var(--ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
+  .resultado h2{ font-family:Georgia,serif; font-weight:400; font-size:clamp(26px,7.4vw,32px); line-height:1.15; margin:0 0 10px; }
+  .resultado p{ margin:0 0 12px; font-size:15.5px; line-height:1.4; }
+  .codigo{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:28px; letter-spacing:.12em; font-weight:700; background:#fff; border:2px dashed var(--ink); border-radius:16px; padding:14px 10px; margin:6px 0 16px; user-select:all; }
+  .aviso{ font-size:13px!important; opacity:.8; }
+  .tachon{ text-decoration:line-through; opacity:.6; }
+  .conf{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:50; }
+  .conf i{ position:absolute; top:-12px; width:9px; height:14px; border-radius:2px; animation:cae 2.6s ease-in forwards; }
+  @keyframes cae{ to{ transform:translateY(105vh) rotate(720deg); opacity:.9; } }
+  @media (prefers-reduced-motion:reduce){ .rueda{ transition-duration:.01s; } .conf{ display:none; } }
+</style>
+</head>
+<body>
+
+<div class="marca"><b>TRATAK</b> · CAT</div>
+
+<main class="card" id="app">
+
+  <!-- 1 · registro -->
+  <section id="paso-registro">
+    <h1>Escanea, <em>gira</em> y gana</h1>
+    <p class="sub">Todos los giros premian. Déjanos tus datos, gira la ruleta y llévate tu premio en nuestro stand.</p>
+    <ul class="premios" id="lista-premios"></ul>
+    <form id="form" novalidate>
+      <label for="nombre">Tu nombre</label>
+      <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+      <label for="tel">Tu WhatsApp</label>
+      <input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="33 1234 5678" required>
+      <label for="mail">Correo <span style="font-weight:400;opacity:.7">(opcional)</span></label>
+      <input id="mail" name="mail" type="email" autocomplete="email">
+      <label class="chk"><input id="empresa" type="checkbox"> Vengo en representación de una empresa o institución (quiero info para mi equipo)</label>
+      <label class="chk"><input id="acepto" type="checkbox" required> Acepto que TRATAK CAT use mis datos para entregarme mi premio y enviarme información. Puedo pedir que los borren cuando quiera.</label>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit">Ir a la ruleta</button>
+    </form>
+  </section>
+
+  <!-- 2 · ruleta -->
+  <section id="paso-ruleta" hidden>
+    <h1>¡Gira, <em id="quien"></em>!</h1>
+    <p class="sub">Toca el botón y espera a que se detenga.</p>
+    <div class="rueda-wrap">
+      <div class="puntero"></div>
+      <svg id="rueda" class="rueda" viewBox="-100 -100 200 200" aria-label="Ruleta de premios"></svg>
+      <div class="centro">TRATAK</div>
+    </div>
+    <button class="btn" id="girar" type="button">GIRAR</button>
+  </section>
+
+  <!-- 3 · resultado -->
+  <section id="paso-resultado" class="resultado" hidden>
+    <span class="tag">¡Ganaste!</span>
+    <h2 id="r-titulo"></h2>
+    <p id="r-detalle"></p>
+    <div class="codigo" id="r-codigo"></div>
+    <a class="btn wa" id="r-wa" href="#" target="_blank" rel="noopener">Guardar mi premio en WhatsApp</a>
+    <a class="btn sec" id="r-evento" href="landing.html?evento=retiro-8-noviembre">Conocer el evento en la Mansión Esquivias</a>
+    <p class="aviso" id="r-nota"></p>
+  </section>
+
+  <details class="letra">
+    <summary>Condiciones</summary>
+    <p>Promoción sin compra. Un giro por persona. Todos los giros reciben un premio. Las clases pregrabadas se entregan por WhatsApp con una liga privada. El precio preferencial del evento tiene cupo limitado a los primeros canjes y vigencia hasta el <span id="c-vigencia"></span>; se confirma con tu código en el stand de TRATAK CAT o por WhatsApp. Premios no canjeables por dinero. Tus datos se usan solo para esta promoción y para compartirte información de TRATAK CAT; para borrarlos escribe a <span id="c-mail"></span>.</p>
+  </details>
+</main>
+
+<script>
+(function () {
+  // ===== CONFIGURACIÓN (edita aquí) =====
+  var CFG = {
+    whatsapp: '523332480698',
+    correo: 'tratakceramics@gmail.com',
+    origen: 'innovafest-2026',
+    precioNormal: 1350,
+    precioEspecial: 1200,        // precio preferencial para quien gane el premio del evento
+    cupoEspecial: 10,            // solo informativo en las condiciones
+    vigencia: '31 de octubre',
+    evento: 'Naturaleza, Biofabricación y Contemplación · 8 de noviembre · Mansión Esquivias'
+  };
+  // 4 casillas del mismo tamaño y misma probabilidad (25 % cada una). Todas premian.
+  var PREMIOS = [
+    { id: 'V', color: '#9fcbec', corto: ['Clase de', 'Realidad Virtual'], titulo: 'Una clase pregrabada de Realidad Virtual', detalle: 'Aprende a diseñar en VR. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'B', color: '#b9edb2', corto: ['Clase de', 'Biomateriales'], titulo: 'Una clase pregrabada de Biomateriales', detalle: 'Cómo transformar residuos en materia imprimible. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'C', color: '#c0a2ec', corto: ['Clase de', 'Impresión 3D'], titulo: 'Una clase pregrabada de Impresión 3D en cerámica', detalle: 'Del modelo digital a la pieza de barro. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'E', color: '#f2c94c', corto: ['Precio especial', 'para el evento'], titulo: 'Precio preferencial para el evento en la Mansión Esquivias', detalle: '', nota: '' }
+  ];
+  var LLAVE = 'tk-ruleta-' + CFG.origen;
+  var $ = function (id) { return document.getElementById(id); };
+  var pesos = function (n) { return '$' + n.toLocaleString('es-MX'); };
+  function guardado() { try { return JSON.parse(localStorage.getItem(LLAVE) || 'null'); } catch (e) { return null; } }
+  function guardar(o) { try { localStorage.setItem(LLAVE, JSON.stringify(o)); } catch (e) {} }
+  if (/[?&]reset=1/.test(location.search)) { try { localStorage.removeItem(LLAVE); } catch (e) {} }
+
+  $('c-vigencia').textContent = CFG.vigencia;
+  $('c-mail').textContent = CFG.correo;
+  $('lista-premios').innerHTML = PREMIOS.map(function (p) {
+    var t = p.id === 'E' ? 'Precio especial para el evento' : p.corto.join(' ');
+    return '<li><i style="background:' + p.color + '"></i><span>' + t + '</span></li>';
+  }).join('');
+
+  // dibuja la ruleta (4 gajos de 90°, el 1.º centrado a 45°, puntero arriba)
+  function dibujar() {
+    var svg = '', n = PREMIOS.length, ang = 360 / n, R = 96;
+    PREMIOS.forEach(function (p, i) {
+      var a0 = (i * ang - 90) * Math.PI / 180, a1 = ((i + 1) * ang - 90) * Math.PI / 180;
+      var x0 = R * Math.cos(a0), y0 = R * Math.sin(a0), x1 = R * Math.cos(a1), y1 = R * Math.sin(a1);
+      svg += '<path d="M0 0L' + x0.toFixed(2) + ' ' + y0.toFixed(2) + 'A' + R + ' ' + R + ' 0 0 1 ' + x1.toFixed(2) + ' ' + y1.toFixed(2) + 'Z" fill="' + p.color + '" stroke="#fff" stroke-width="2"/>';
+      var m = ((i + .5) * ang) % 360;   // ángulo medio (0° = arriba)
+      svg += '<g transform="rotate(' + m + ')"><text text-anchor="middle" font-size="9.4"><tspan x="0" y="-62">' + p.corto[0] + '</tspan><tspan x="0" y="-51">' + p.corto[1] + '</tspan></text></g>';
+    });
+    svg += '<circle r="97.5" fill="none" stroke="#241f18" stroke-width="3"/>';
+    $('rueda').innerHTML = svg;
+  }
+  dibujar();
+
+  function codigo(id) {
+    var abc = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789', s = '';
+    for (var i = 0; i < 4; i++) s += abc.charAt(Math.floor(Math.random() * abc.length));
+    return 'TK-' + id + '-' + s;
+  }
+  function mostrar(paso) {
+    ['registro', 'ruleta', 'resultado'].forEach(function (k) { $('paso-' + k).hidden = k !== paso; });
+    window.scrollTo(0, 0);
+  }
+
+  function confeti() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var c = document.createElement('div'); c.className = 'conf';
+    var col = ['#c0a2ec', '#9fcbec', '#b9edb2', '#f2c94c', '#fff'];
+    for (var i = 0; i < 60; i++) {
+      var e = document.createElement('i');
+      e.style.left = Math.random() * 100 + '%'; e.style.background = col[i % col.length];
+      e.style.animationDelay = (Math.random() * .8) + 's'; e.style.animationDuration = (1.9 + Math.random() * 1.6) + 's';
+      c.appendChild(e);
+    }
+    document.body.appendChild(c); setTimeout(function () { c.remove(); }, 4200);
+  }
+
+  function resultado(d) {
+    var p = PREMIOS.filter(function (x) { return x.id === d.premioId; })[0];
+    var titulo = p.titulo, detalle = p.detalle, nota = p.nota;
+    if (p.id === 'E') {
+      detalle = 'Tu lugar en «' + CFG.evento + '» a ' + pesos(CFG.precioEspecial) + ' en lugar de ' + pesos(CFG.precioNormal) + '.';
+      nota = 'Cupo limitado y vigente hasta el ' + CFG.vigencia + '. Para apartar tu lugar, manda tu código por WhatsApp o pásalo a canjear en el stand.';
+    }
+    $('r-titulo').textContent = titulo;
+    $('r-detalle').textContent = detalle;
+    $('r-codigo').textContent = d.codigo;
+    $('r-nota').textContent = nota;
+    var msg = 'Hola, soy ' + d.nombre + '. Giré la ruleta de TRATAK CAT en Innova Fest y gané: ' + titulo + '. Mi código es ' + d.codigo + '.';
+    $('r-wa').href = 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(msg);
+    $('r-evento').hidden = p.id !== 'E';
+    mostrar('resultado');
+  }
+
+  function enviar(d) {
+    var datos = {
+      _subject: 'Ruleta Innova Fest · ' + d.premioTitulo + ' · ' + d.nombre,
+      _template: 'table', _captcha: 'false',
+      nombre: d.nombre, whatsapp: d.tel, correo: d.mail || '(no dio)', empresa_o_institucion: d.empresa ? 'SÍ' : 'no',
+      premio: d.premioTitulo, codigo: d.codigo, origen: CFG.origen, fecha: new Date().toLocaleString('es-MX')
+    };
+    try {
+      fetch('https://formsubmit.co/ajax/' + CFG.correo, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(datos) }).catch(function () {});
+    } catch (e) {}
+  }
+
+  // ===== flujo =====
+  var previo = guardado();
+  if (previo && previo.codigo) { resultado(previo); }
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nombre = $('nombre').value.trim(), tel = $('tel').value.replace(/[^\d+]/g, ''), mail = $('mail').value.trim();
+    var err = '';
+    if (nombre.length < 2) err = 'Escribe tu nombre.';
+    else if (tel.replace(/\D/g, '').length < 10) err = 'Escribe tu WhatsApp a 10 dígitos.';
+    else if (mail && !/^\S+@\S+\.\S+$/.test(mail)) err = 'Revisa tu correo.';
+    else if (!$('acepto').checked) err = 'Para continuar acepta el uso de tus datos.';
+    $('err').textContent = err;
+    if (err) return;
+    window.__lead = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked };
+    $('quien').textContent = nombre.split(/\s+/)[0];
+    mostrar('ruleta');
+  });
+
+  var girando = false;
+  $('girar').addEventListener('click', function () {
+    if (girando || !window.__lead) return;
+    girando = true; $('girar').disabled = true; $('girar').textContent = 'Girando…';
+    var i = Math.floor(Math.random() * PREMIOS.length), ang = 360 / PREMIOS.length;
+    var dentro = (Math.random() - .5) * (ang * .6);          // no cae justo en la línea
+    var final = 360 * 6 + (360 - ((i + .5) * ang + dentro));
+    $('rueda').style.transform = 'rotate(' + final + 'deg)';
+    var espera = (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) ? 300 : 5400;
+    setTimeout(function () {
+      var p = PREMIOS[i], L = window.__lead;
+      var d = { nombre: L.nombre, tel: L.tel, mail: L.mail, empresa: L.empresa, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
+      guardar(d); enviar(d);
+      if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+      confeti(); resultado(d);
+    }, espera);
+  });
+})();
+</script>
+</body>
+</html>
