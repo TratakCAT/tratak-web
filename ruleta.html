@@ -108,8 +108,10 @@
       <input id="mail" name="mail" type="email" autocomplete="email">
       <label for="perfil">¿A qué te dedicas?</label>
       <select id="perfil" required><option value="">Elige una opción</option><option>Estudiante</option><option>Diseño / arquitectura</option><option>Arte / artesanía / cerámica</option><option>Docente o investigador/a</option><option>Emprendimiento o empresa</option><option>Tecnología / ingeniería</option><option>Otro</option></select>
+      <input id="perfil-otro" type="text" placeholder="Cuéntanos a qué te dedicas" maxlength="80" hidden>
       <label for="interes">¿Qué te interesa más aprender?</label>
-      <select id="interes" required><option value="">Elige una opción</option><option>Realidad virtual</option><option>Impresión 3D (cerámica / arcilla)</option><option>Biomateriales y residuos</option><option>Contemplación y atención</option><option>Todo un poco</option></select>
+      <select id="interes" required><option value="">Elige una opción</option><option>Realidad virtual</option><option>Impresión 3D (cerámica / arcilla)</option><option>Biomateriales y residuos</option><option>Contemplación y atención</option><option>Todo un poco</option><option>Otro</option></select>
+      <input id="interes-otro" type="text" placeholder="¿Qué te gustaría aprender?" maxlength="80" hidden>
       <label for="uso">¿Para qué lo usarías? <span style="font-weight:400;opacity:.7">(opcional)</span></label>
       <select id="uso"><option value="">Elige una opción</option><option>Curiosidad / hobby</option><option>Mi trabajo o negocio</option><option>Mis estudios</option><option>Dar clases</option><option>Un proyecto específico</option></select>
       <label class="chk"><input id="empresa" type="checkbox"> Vengo en representación de una empresa o institución (quiero info para mi equipo)</label>
@@ -242,6 +244,12 @@
     $('d-titulo').textContent = premioPorId(premioId).titulo;
     mostrar('datos');
   }
+  ['perfil', 'interes'].forEach(function (k) {
+    $(k).addEventListener('change', function () {
+      var o = $(k + '-otro'), si = $(k).value === 'Otro';
+      o.hidden = !si; if (si) o.focus(); else o.value = '';
+    });
+  });
   var previo = guardado();
   if (previo && previo.codigo) resultado(previo);
   else if (previo && previo.premioId) pedirDatos(previo.premioId);
@@ -270,12 +278,13 @@
     if (nombre.length < 2) err = 'Escribe tu nombre.';
     else if (tel.replace(/\D/g, '').length < 10) err = 'Escribe tu WhatsApp a 10 dígitos.';
     else if (!$('perfil').value || !$('interes').value) err = 'Elige a qué te dedicas y qué te interesa.';
+    else if (($('perfil').value === 'Otro' && !$('perfil-otro').value.trim()) || ($('interes').value === 'Otro' && !$('interes-otro').value.trim())) err = 'Escribe tu respuesta en «Otro».';
     else if (mail && !/^\S+@\S+\.\S+$/.test(mail)) err = 'Revisa tu correo.';
     else if (!$('acepto').checked) err = 'Para continuar acepta el uso de tus datos.';
     $('err').textContent = err;
     if (err) return;
     var p = premioPorId(st.premioId);
-    var d = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked, perfil: $('perfil').value, interes: $('interes').value, uso: $('uso').value, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
+    var d = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked, perfil: $('perfil').value === 'Otro' ? 'Otro: ' + $('perfil-otro').value.trim() : $('perfil').value, interes: $('interes').value === 'Otro' ? 'Otro: ' + $('interes-otro').value.trim() : $('interes').value, uso: $('uso').value, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
     guardar(d); enviar(d); resultado(d);
   });
 })();
