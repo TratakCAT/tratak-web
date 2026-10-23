@@ -21,7 +21,8 @@
     padding: max(18px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
     display:flex; flex-direction:column; align-items:center;
   }
-  .marca{ display:flex; align-items:center; gap:10px; font-family:Georgia,"Times New Roman",serif; font-size:15px; letter-spacing:.14em; text-transform:uppercase; margin:4px 0 14px; }
+  .marca{ display:flex; align-items:center; gap:12px; margin:4px 0 14px; }
+  .marca img{ width:auto; display:block; }
   .marca b{ font-weight:700; }
   .card{ width:100%; max-width:440px; background:rgba(255,255,255,.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:26px; padding:22px 20px 24px; box-shadow:0 12px 40px rgba(60,40,110,.18); }
   h1{ font-family:Georgia,"Times New Roman",serif; font-weight:400; font-size:clamp(28px,8vw,36px); line-height:1.1; margin:0 0 8px; text-align:center; }
@@ -70,16 +71,28 @@
 </head>
 <body>
 
-<div class="marca"><b>TRATAK</b> · CAT</div>
+<div class="marca"><img src="images/logo-tratak.png" alt="TRATAK" height="34"><img src="images/logo-cat.png" alt="CAT" height="26"></div>
 
 <main class="card" id="app">
 
-  <!-- 1 · registro -->
-  <section id="paso-registro">
+  <!-- 1 · ruleta (primero) -->
+  <section id="paso-ruleta">
     <h1>Escanea, <em>gira</em> y gana</h1>
-    <p class="sub">Todos los giros premian. Déjanos tus datos, gira la ruleta y llévate tu premio en nuestro stand.</p>
-    <ul class="premios" id="lista-premios"></ul>
-    <form id="form" novalidate>
+    <p class="sub">Todos los giros premian. Toca el botón y descubre tu premio.</p>
+    <div class="rueda-wrap">
+      <div class="puntero"></div>
+      <svg id="rueda" class="rueda" viewBox="-100 -100 200 200" aria-label="Ruleta de premios"></svg>
+      <div class="centro">TRATAK</div>
+    </div>
+    <button class="btn" id="girar" type="button">GIRAR</button>
+  </section>
+
+  <!-- 2 · datos para generar el código (al final) -->
+  <section id="paso-datos" class="resultado" hidden>
+    <span class="tag">¡Ganaste!</span>
+    <h2 id="d-titulo"></h2>
+    <p>Déjanos tus datos y generamos tu código de canje.</p>
+    <form id="form" novalidate style="text-align:left">
       <label for="nombre">Tu nombre</label>
       <input id="nombre" name="nombre" type="text" autocomplete="name" required>
       <label for="tel">Tu WhatsApp</label>
@@ -89,20 +102,8 @@
       <label class="chk"><input id="empresa" type="checkbox"> Vengo en representación de una empresa o institución (quiero info para mi equipo)</label>
       <label class="chk"><input id="acepto" type="checkbox" required> Acepto que TRATAK CAT use mis datos para entregarme mi premio y enviarme información. Puedo pedir que los borren cuando quiera.</label>
       <p class="err" id="err" role="alert"></p>
-      <button class="btn" type="submit">Ir a la ruleta</button>
+      <button class="btn" type="submit">Generar mi código</button>
     </form>
-  </section>
-
-  <!-- 2 · ruleta -->
-  <section id="paso-ruleta" hidden>
-    <h1>¡Gira, <em id="quien"></em>!</h1>
-    <p class="sub">Toca el botón y espera a que se detenga.</p>
-    <div class="rueda-wrap">
-      <div class="puntero"></div>
-      <svg id="rueda" class="rueda" viewBox="-100 -100 200 200" aria-label="Ruleta de premios"></svg>
-      <div class="centro">TRATAK</div>
-    </div>
-    <button class="btn" id="girar" type="button">GIRAR</button>
   </section>
 
   <!-- 3 · resultado -->
@@ -151,10 +152,6 @@
 
   $('c-vigencia').textContent = CFG.vigencia;
   $('c-mail').textContent = CFG.correo;
-  $('lista-premios').innerHTML = PREMIOS.map(function (p) {
-    var t = p.id === 'E' ? 'Precio especial para el evento' : p.corto.join(' ');
-    return '<li><i style="background:' + p.color + '"></i><span>' + t + '</span></li>';
-  }).join('');
 
   // dibuja la ruleta (4 gajos de 90°, el 1.º centrado a 45°, puntero arriba)
   function dibujar() {
@@ -177,7 +174,7 @@
     return 'TK-' + id + '-' + s;
   }
   function mostrar(paso) {
-    ['registro', 'ruleta', 'resultado'].forEach(function (k) { $('paso-' + k).hidden = k !== paso; });
+    ['ruleta', 'datos', 'resultado'].forEach(function (k) { $('paso-' + k).hidden = k !== paso; });
     window.scrollTo(0, 0);
   }
 
@@ -223,12 +220,35 @@
     } catch (e) {}
   }
 
-  // ===== flujo =====
+  // ===== flujo: 1) girar  2) datos  3) código =====
+  function premioPorId(id) { return PREMIOS.filter(function (x) { return x.id === id; })[0]; }
+  function pedirDatos(premioId) {
+    $('d-titulo').textContent = premioPorId(premioId).titulo;
+    mostrar('datos');
+  }
   var previo = guardado();
-  if (previo && previo.codigo) { resultado(previo); }
+  if (previo && previo.codigo) resultado(previo);
+  else if (previo && previo.premioId) pedirDatos(previo.premioId);
+
+  var girando = false;
+  $('girar').addEventListener('click', function () {
+    if (girando) return;
+    girando = true; $('girar').disabled = true; $('girar').textContent = 'Girando…';
+    var i = Math.floor(Math.random() * PREMIOS.length), ang = 360 / PREMIOS.length;
+    var dentro = (Math.random() - .5) * (ang * .6);          // no cae justo en la línea
+    var final = 360 * 6 + (360 - ((i + .5) * ang + dentro));
+    $('rueda').style.transform = 'rotate(' + final + 'deg)';
+    var espera = (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) ? 300 : 5400;
+    setTimeout(function () {
+      guardar({ premioId: PREMIOS[i].id });
+      if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+      confeti(); pedirDatos(PREMIOS[i].id);
+    }, espera);
+  });
 
   $('form').addEventListener('submit', function (e) {
     e.preventDefault();
+    var st = guardado(); if (!st || !st.premioId) return;
     var nombre = $('nombre').value.trim(), tel = $('tel').value.replace(/[^\d+]/g, ''), mail = $('mail').value.trim();
     var err = '';
     if (nombre.length < 2) err = 'Escribe tu nombre.';
@@ -237,27 +257,9 @@
     else if (!$('acepto').checked) err = 'Para continuar acepta el uso de tus datos.';
     $('err').textContent = err;
     if (err) return;
-    window.__lead = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked };
-    $('quien').textContent = nombre.split(/\s+/)[0];
-    mostrar('ruleta');
-  });
-
-  var girando = false;
-  $('girar').addEventListener('click', function () {
-    if (girando || !window.__lead) return;
-    girando = true; $('girar').disabled = true; $('girar').textContent = 'Girando…';
-    var i = Math.floor(Math.random() * PREMIOS.length), ang = 360 / PREMIOS.length;
-    var dentro = (Math.random() - .5) * (ang * .6);          // no cae justo en la línea
-    var final = 360 * 6 + (360 - ((i + .5) * ang + dentro));
-    $('rueda').style.transform = 'rotate(' + final + 'deg)';
-    var espera = (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) ? 300 : 5400;
-    setTimeout(function () {
-      var p = PREMIOS[i], L = window.__lead;
-      var d = { nombre: L.nombre, tel: L.tel, mail: L.mail, empresa: L.empresa, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
-      guardar(d); enviar(d);
-      if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
-      confeti(); resultado(d);
-    }, espera);
+    var p = premioPorId(st.premioId);
+    var d = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
+    guardar(d); enviar(d); resultado(d);
   });
 })();
 </script>
