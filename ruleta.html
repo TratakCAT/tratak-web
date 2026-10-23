@@ -8,19 +8,23 @@
 <title>Gira y gana · TRATAK CAT</title>
 <meta name="description" content="Gira la ruleta de TRATAK CAT y gana una clase o un precio especial para nuestro evento en la Mansión Esquivias.">
 <link rel="icon" href="icon_32.png">
+<link rel="stylesheet" href="styles.css?v=34">
+<link rel="stylesheet" href="assets/shishi.css?v=34">
 <style>
-  :root{
+  .pagina{
     --ink:#241f18; --lila:#c0a2ec; --azul:#9fcbec; --verde:#b9edb2; --amarillo:#f2c94c; --paper:#fbf7ee;
   }
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html,body{ margin:0; }
   body{
-    min-height:100vh; min-height:100dvh; color:var(--ink);
+    min-height:100vh; min-height:100dvh; color:#241f18;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed;
-    padding: max(18px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
-    display:flex; flex-direction:column; align-items:center;
+    background: linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed !important;
   }
+  .pagina{ color:var(--ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; padding:18px 16px max(28px, env(safe-area-inset-bottom)); display:flex; flex-direction:column; align-items:center; }
+  .card section{ border:0 !important; padding:0 !important; margin:0 !important; }
+  .pagina{ padding-bottom:150px !important; }
+  body.con-nav .marca{ display:none; }
   .marca{ display:flex; align-items:center; gap:12px; margin:4px 0 14px; }
   .marca img{ width:auto; display:block; }
   .marca b{ font-weight:700; }
@@ -70,6 +74,9 @@
 </style>
 </head>
 <body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
+<div class="pagina">
 
 <div class="marca"><img src="images/logo-tratak.png" alt="TRATAK" height="34"><img src="images/logo-cat.png" alt="CAT" height="26"></div>
 
@@ -122,6 +129,7 @@
     <p>Promoción sin compra. Un giro por persona. Todos los giros reciben un premio. Las clases pregrabadas se entregan por WhatsApp con una liga privada. El precio preferencial del evento tiene cupo limitado a los primeros canjes y vigencia hasta el <span id="c-vigencia"></span>; se confirma con tu código en el stand de TRATAK CAT o por WhatsApp. Premios no canjeables por dinero. Tus datos se usan solo para esta promoción y para compartirte información de TRATAK CAT; para borrarlos escribe a <span id="c-mail"></span>.</p>
   </details>
 </main>
+</div>
 
 <script>
 (function () {
@@ -138,9 +146,9 @@
   };
   // 4 casillas del mismo tamaño y misma probabilidad (25 % cada una). Todas premian.
   var PREMIOS = [
-    { id: 'V', color: '#9fcbec', corto: ['Clase de', 'Realidad Virtual'], titulo: 'Una clase pregrabada de Realidad Virtual', detalle: 'Aprende a diseñar en VR. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
-    { id: 'B', color: '#b9edb2', corto: ['Clase de', 'Biomateriales'], titulo: 'Una clase pregrabada de Biomateriales', detalle: 'Cómo transformar residuos en materia imprimible. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
-    { id: 'C', color: '#c0a2ec', corto: ['Clase de', 'Impresión 3D'], titulo: 'Una clase pregrabada de Impresión 3D en cerámica', detalle: 'Del modelo digital a la pieza de barro. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'V', color: '#9fcbec', corto: ['Clase pregrabada', 'Realidad Virtual'], titulo: 'Una clase pregrabada de Realidad Virtual', detalle: 'Aprende a diseñar en VR. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'B', color: '#b9edb2', corto: ['Clase pregrabada', 'Biomateriales'], titulo: 'Una clase pregrabada de Biomateriales', detalle: 'Cómo transformar residuos en materia imprimible. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
+    { id: 'C', color: '#c0a2ec', corto: ['Clase pregrabada', 'Impresión 3D'], titulo: 'Una clase pregrabada de Impresión 3D en cerámica', detalle: 'Del modelo digital a la pieza de barro. Te mandamos la liga privada por WhatsApp.', nota: 'Para recibirla, manda tu código por WhatsApp o pásalo a recoger en el stand.' },
     { id: 'E', color: '#f2c94c', corto: ['Precio especial', 'para el evento'], titulo: 'Precio preferencial para el evento en la Mansión Esquivias', detalle: '', nota: '' }
   ];
   var LLAVE = 'tk-ruleta-' + CFG.origen;
@@ -204,7 +212,7 @@
     $('r-nota').textContent = nota;
     var msg = 'Hola, soy ' + d.nombre + '. Giré la ruleta de TRATAK CAT en Innova Fest y gané: ' + titulo + '. Mi código es ' + d.codigo + '.';
     $('r-wa').href = 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(msg);
-    $('r-evento').hidden = p.id !== 'E';
+    $('r-evento').hidden = false;
     mostrar('resultado');
   }
 
@@ -262,6 +270,19 @@
     guardar(d); enviar(d); resultado(d);
   });
 })();
+</script>
+<script src="assets/site.js?v=34"></script>
+<script src="assets/shishi.js?v=34"></script>
+<script>
+  fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
+    var R = window.TratakRender;
+    R.applyTheme(content.theme, document.documentElement.style);
+    document.getElementById('site-top').innerHTML = R.renderNav(content.theme);
+    document.getElementById('site-floating').innerHTML = R.renderFloatingButtons(content.contacto);
+    document.body.classList.add('con-nav');
+    R.bindGlobalInteractions(content.theme);
+    if (window.Shishi) Shishi.montar(content);
+  }).catch(function () {});
 </script>
 </body>
 </html>
