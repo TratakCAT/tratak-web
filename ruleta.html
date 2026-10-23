@@ -36,7 +36,7 @@
   .premios li{ display:flex; align-items:center; gap:8px; font-size:13.5px; line-height:1.25; background:rgba(255,255,255,.7); border-radius:14px; padding:9px 11px; }
   .premios i{ flex:none; width:14px; height:14px; border-radius:50%; }
   label{ display:block; font-size:13.5px; font-weight:600; margin:0 0 5px; }
-  input[type=text],input[type=tel],input[type=email]{
+  select, input[type=text],input[type=tel],input[type=email]{
     width:100%; font:inherit; font-size:16px; padding:13px 14px; border-radius:14px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--ink); margin-bottom:13px;
   }
   input:focus{ outline:3px solid rgba(122,86,196,.35); border-color:#7a56c4; }
@@ -106,6 +106,14 @@
       <input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="33 1234 5678" required>
       <label for="mail">Correo <span style="font-weight:400;opacity:.7">(opcional)</span></label>
       <input id="mail" name="mail" type="email" autocomplete="email">
+      <label for="perfil">¿A qué te dedicas?</label>
+      <select id="perfil" required><option value="">Elige una opción</option><option>Estudiante</option><option>Diseño / arquitectura</option><option>Arte / artesanía / cerámica</option><option>Docente o investigador/a</option><option>Emprendimiento o empresa</option><option>Tecnología / ingeniería</option><option>Otro</option></select>
+      <input id="perfil-otro" type="text" placeholder="Cuéntanos a qué te dedicas" maxlength="80" hidden>
+      <label for="interes">¿Qué te interesa más aprender?</label>
+      <select id="interes" required><option value="">Elige una opción</option><option>Realidad virtual</option><option>Impresión 3D (cerámica / arcilla)</option><option>Biomateriales y residuos</option><option>Contemplación y atención</option><option>Todo un poco</option><option>Otro</option></select>
+      <input id="interes-otro" type="text" placeholder="¿Qué te gustaría aprender?" maxlength="80" hidden>
+      <label for="uso">¿Para qué lo usarías? <span style="font-weight:400;opacity:.7">(opcional)</span></label>
+      <select id="uso"><option value="">Elige una opción</option><option>Curiosidad / hobby</option><option>Mi trabajo o negocio</option><option>Mis estudios</option><option>Dar clases</option><option>Un proyecto específico</option></select>
       <label class="chk"><input id="empresa" type="checkbox"> Vengo en representación de una empresa o institución (quiero info para mi equipo)</label>
       <label class="chk"><input id="acepto" type="checkbox" required> Acepto que TRATAK CAT use mis datos para entregarme mi premio y enviarme información. Puedo pedir que los borren cuando quiera.</label>
       <p class="err" id="err" role="alert"></p>
@@ -138,6 +146,7 @@
     whatsapp: '523332480698',
     correo: 'tratakceramics@gmail.com',
     origen: 'innovafest-2026',
+    hoja: 'https://script.google.com/macros/s/AKfycbwk-wEt0fGvI-TKrI7TuFI9hu0Fn4JXj5VdPFmQSEzokUg5YzmdriWLyzdgATAcUzidRg/exec', // URL de Google Apps Script (hoja de cálculo); vacío = solo correo
     precioNormal: 1350,
     precioEspecial: 1200,        // precio preferencial para quien gane el premio del evento
     cupoEspecial: 10,            // solo informativo en las condiciones
@@ -220,9 +229,10 @@
     var datos = {
       _subject: 'Ruleta Innova Fest · ' + d.premioTitulo + ' · ' + d.nombre,
       _template: 'table', _captcha: 'false',
-      nombre: d.nombre, whatsapp: d.tel, correo: d.mail || '(no dio)', empresa_o_institucion: d.empresa ? 'SÍ' : 'no',
+      nombre: d.nombre, whatsapp: d.tel, correo: d.mail || '(no dio)', empresa_o_institucion: d.empresa ? 'SÍ' : 'no', perfil: d.perfil, interes: d.interes, uso: d.uso || '(no dijo)',
       premio: d.premioTitulo, codigo: d.codigo, origen: CFG.origen, fecha: new Date().toLocaleString('es-MX')
     };
+    if (CFG.hoja) { try { fetch(CFG.hoja, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(datos) }).catch(function () {}); } catch (e) {} }
     try {
       fetch('https://formsubmit.co/ajax/' + CFG.correo, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(datos) }).catch(function () {});
     } catch (e) {}
@@ -234,6 +244,12 @@
     $('d-titulo').textContent = premioPorId(premioId).titulo;
     mostrar('datos');
   }
+  ['perfil', 'interes'].forEach(function (k) {
+    $(k).addEventListener('change', function () {
+      var o = $(k + '-otro'), si = $(k).value === 'Otro';
+      o.hidden = !si; if (si) o.focus(); else o.value = '';
+    });
+  });
   var previo = guardado();
   if (previo && previo.codigo) resultado(previo);
   else if (previo && previo.premioId) pedirDatos(previo.premioId);
@@ -261,12 +277,14 @@
     var err = '';
     if (nombre.length < 2) err = 'Escribe tu nombre.';
     else if (tel.replace(/\D/g, '').length < 10) err = 'Escribe tu WhatsApp a 10 dígitos.';
+    else if (!$('perfil').value || !$('interes').value) err = 'Elige a qué te dedicas y qué te interesa.';
+    else if (($('perfil').value === 'Otro' && !$('perfil-otro').value.trim()) || ($('interes').value === 'Otro' && !$('interes-otro').value.trim())) err = 'Escribe tu respuesta en «Otro».';
     else if (mail && !/^\S+@\S+\.\S+$/.test(mail)) err = 'Revisa tu correo.';
     else if (!$('acepto').checked) err = 'Para continuar acepta el uso de tus datos.';
     $('err').textContent = err;
     if (err) return;
     var p = premioPorId(st.premioId);
-    var d = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
+    var d = { nombre: nombre, tel: tel, mail: mail, empresa: $('empresa').checked, perfil: $('perfil').value === 'Otro' ? 'Otro: ' + $('perfil-otro').value.trim() : $('perfil').value, interes: $('interes').value === 'Otro' ? 'Otro: ' + $('interes-otro').value.trim() : $('interes').value, uso: $('uso').value, premioId: p.id, premioTitulo: p.titulo, codigo: codigo(p.id) };
     guardar(d); enviar(d); resultado(d);
   });
 })();
