@@ -30,7 +30,7 @@ body{margin:0}
   --accent-soft:#f1e3cf;
   --rain:#cfe0e6; --dry:#ece3cf; --fire:#f0d2c2;
   --done:#4e7d5b; --active:#a8641c; --next:#6b7f95; --wait:#a14b3c;
-  --c0:#7d8a80; --c1:#8a5a3b; --c2:#a8641c; --c3:#7b6a2f; --c4:#4e7d5b; --c5:#2f6f6a; --c6:#7a4f6d; --c7:#5c7a2c; --c8:#94562f; --c9:#3f5f8a; --cx:#6a6f68;
+  --c0:#7d8a80; --c1:#8a5a3b; --c2:#a8641c; --c3:#7b6a2f; --c4:#4e7d5b; --c5:#2f6f6a; --c6:#7a4f6d; --c7:#5c7a2c; --c8:#94562f; --c9:#3f5f8a; --cx:#6a6f68; --ca:#b08a12; --cb:#3d7d3f; --cc:#8c6a4a; --cd:#2e7a8f; --ce:#9a4f3f; --cf:#5f6b2a;
   --display:"Archivo",system-ui,sans-serif;
   --body:"Literata",Georgia,serif;
 }
@@ -38,13 +38,13 @@ body{margin:0}
   --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;
   --rain:#1f3238;--dry:#2f2a1e;--fire:#3b2520;
   --done:#7fb38c;--active:#e0a35a;--next:#9fb2c8;--wait:#e08a78;
-  --c0:#9aa69d;--c1:#c58c66;--c2:#e0a35a;--c3:#c4b06a;--c4:#7fb38c;--c5:#6fb7ae;--c6:#c08ab0;--c7:#9cc066;--c8:#d18d63;--c9:#86a7d6;--cx:#a3a89f;
+  --c0:#9aa69d;--c1:#c58c66;--c2:#e0a35a;--c3:#c4b06a;--c4:#7fb38c;--c5:#6fb7ae;--c6:#c08ab0;--c7:#9cc066;--c8:#d18d63;--c9:#86a7d6;--cx:#a3a89f;--ca:#e2be4f;--cb:#86c48a;--cc:#c9a27e;--cd:#74bfd2;--ce:#d98b78;--cf:#b4c26a;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;
   --rain:#1f3238;--dry:#2f2a1e;--fire:#3b2520;
   --done:#7fb38c;--active:#e0a35a;--next:#9fb2c8;--wait:#e08a78;
-  --c0:#9aa69d;--c1:#c58c66;--c2:#e0a35a;--c3:#c4b06a;--c4:#7fb38c;--c5:#6fb7ae;--c6:#c08ab0;--c7:#9cc066;--c8:#d18d63;--c9:#86a7d6;--cx:#a3a89f;
+  --c0:#9aa69d;--c1:#c58c66;--c2:#e0a35a;--c3:#c4b06a;--c4:#7fb38c;--c5:#6fb7ae;--c6:#c08ab0;--c7:#9cc066;--c8:#d18d63;--c9:#86a7d6;--cx:#a3a89f;--ca:#e2be4f;--cb:#86c48a;--cc:#c9a27e;--cd:#74bfd2;--ce:#d98b78;--cf:#b4c26a;
   color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
@@ -168,6 +168,7 @@ a{color:var(--accent)}
 .log{max-height:420px;overflow:auto}
 .fnota{font-style:italic;color:var(--muted);margin-top:2px}
 .legend .pill{font-style:normal}
+.yatag{color:var(--done);font-weight:700}
 input[type=file]{font:14px var(--body);color:var(--ink)}
 </style>
 </head>
@@ -224,6 +225,7 @@ input[type=file]{font:14px var(--body);color:var(--ink)}
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-end">
         <h2>Diagrama de Gantt</h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="toggle" id="yaToggle" aria-pressed="false">Se puede hacer ya</button>
           <button class="toggle" id="critToggle" aria-pressed="false">Solo ruta crítica</button>
           <button class="toggle solid" id="addBtn" aria-expanded="false">+ Agregar tarea</button>
         </div>
@@ -240,6 +242,7 @@ input[type=file]{font:14px var(--body);color:var(--ink)}
           <label>Responsable<input id="f-resp" maxlength="80" placeholder="Ej. Mamá"></label>
           <label class="wide">Nota<textarea id="f-nota" rows="2" maxlength="1500"></textarea></label>
           <label class="check"><input type="checkbox" id="f-crit"> Ruta crítica</label>
+          <label class="check"><input type="checkbox" id="f-ya"> Se puede hacer ya (no depende de lo legal)</label>
         </div>
         <p class="ferr" id="f-err" aria-live="polite"></p>
         <div style="display:flex;gap:8px"><button type="submit" class="toggle solid" id="f-save">Guardar tarea</button><button type="button" class="toggle" id="f-cancel">Cancelar</button></div>
@@ -252,6 +255,7 @@ input[type=file]{font:14px var(--body);color:var(--ink)}
         <span><i class="pill wait">depende de terceros</i></span>
         <span><i class="sw" style="background:var(--c4);box-shadow:0 0 0 2px var(--accent)"></i>ruta crítica</span>
         <span><i class="sw" style="background:var(--c4);transform:rotate(45deg);width:10px;height:10px"></i>hito</span>
+        <span class="yatag">● ya = se puede hacer sin esperar lo legal</span>
         <span>▸ continúa como práctica permanente</span>
       </div>
       <div class="gantt" id="gantt"><div class="ginner" id="ginner"></div></div>
@@ -384,7 +388,7 @@ const fmt=s=>{const t=new Date(d(s));return t.getUTCDate()+" "+MS[t.getUTCMonth(
 const fmtTs=s=>{try{return new Date(s).toLocaleString("es-MX",{day:"numeric",month:"short",year:"2-digit",hour:"2-digit",minute:"2-digit"})}catch(e){return s}};
 
 let token=null,me="",PLAN=null,FIRMAS=[],LOG=[];
-let active=null,critOnly=false,openId=null,editId=null,START=0,END=1,busy=false;
+let active=null,critOnly=false,yaOnly=false,openId=null,editId=null,START=0,END=1,busy=false;
 try{token=localStorage.getItem("bosque_token");me=localStorage.getItem("bosque_nombre")||""}catch(e){}
 
 async function api(path,opts){
@@ -455,6 +459,7 @@ function buildFilters(){
   PLAN.phases.forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent=p.n;fp.appendChild(o)});
 }
 $("critToggle").onclick=()=>{critOnly=!critOnly;$("critToggle").setAttribute("aria-pressed",critOnly);render()};
+$("yaToggle").onclick=()=>{yaOnly=!yaOnly;$("yaToggle").setAttribute("aria-pressed",yaOnly);render()};
 
 function stats(){
   const T=PLAN.tasks,tot=T.length,done=T.filter(t=>t.s==="done").length,crit=T.filter(t=>t.crit&&t.s!=="done").length;
@@ -483,7 +488,7 @@ function render(){
   h+=`<div class="grow season"><div class="lab"><span class="eyebrow">Temporadas</span></div><div class="track">${gridLines(false)}${bands}${TODAY>=START&&TODAY<END?`<div class="today" style="left:${pct(TODAY)}%"><span>hoy</span></div>`:""}</div></div>`;
   PLAN.phases.forEach((p,pi)=>{
     if(!active.has(p.id))return;
-    const rows=PLAN.tasks.filter(t=>t.p===p.id&&(!critOnly||t.crit)).sort((x,y)=>d(x.a)-d(y.a));
+    const rows=PLAN.tasks.filter(t=>t.p===p.id&&(!critOnly||t.crit)&&(!yaOnly||t.ya)).sort((x,y)=>d(x.a)-d(y.a));
     if(!rows.length)return;
     h+=`<div class="grow phase-head"><div class="lab"><span class="num">${p.id==="PX"?"∞":pi}</span><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(${p.c})"></span>${esc(p.n)}</div><div class="track">${gridLines()}</div></div>`;
     rows.forEach(t=>{
@@ -494,7 +499,7 @@ function render(){
         bar=`<div class="bar ${t.s} ${t.crit?"critb":""} ${t.on?"ongoing":""}" style="left:${L}%;width:${W}%;background:${col};color:${col}"></div><div class="blabel" style="${right?`right:calc(${100-L}% + 8px)`:`left:calc(${L+W}% + ${t.on?14:8}px)`}">${fmt(t.a)} → ${fmt(t.b)}</div>`;
       }
       h+=`<div class="grow row ${openId===t.id?"open":""}" tabindex="0" role="button" aria-expanded="${openId===t.id}" data-id="${esc(t.id)}">
-        <div class="lab"><span class="tname">${t.s==="done"?"✓ ":""}${esc(t.n)}</span><span class="tmeta"><span class="pill ${t.s}">${SL[t.s]}</span>${t.crit?'<span class="crit">◆ crítica</span>':""}<span>${esc(t.o||"")}</span></span></div>
+        <div class="lab"><span class="tname">${t.s==="done"?"✓ ":""}${esc(t.n)}</span><span class="tmeta"><span class="pill ${t.s}">${SL[t.s]}</span>${t.crit?'<span class="crit">◆ crítica</span>':""}${t.ya?'<span class="yatag">● ya</span>':""}<span>${esc(t.o||"")}</span></span></div>
         <div class="track">${gridLines()}${bar}</div></div>`;
       if(openId===t.id)h+=detail(t,p);
     });
@@ -513,6 +518,7 @@ function detail(t,p){
   </div><dl class="side"><div><dt>Fechas</dt><dd>${when}</dd></div><div><dt>Responsable</dt><dd>${esc(t.o||"—")}</dd></div>
     <div><dt>Estado</dt><dd><div class="sbtns" role="group" aria-label="Cambiar estado">${Object.keys(SL).map(k=>`<button class="sbtn ${k}" data-set="${k}" aria-pressed="${t.s===k}">${SL[k]}</button>`).join("")}</div></dd></div>
     ${t.crit?'<div><dt>Ruta crítica</dt><dd class="crit">Si se atrasa, se atrasa el proyecto</dd></div>':""}
+    ${t.ya?'<div><dt>Arranque</dt><dd class="yatag">Se puede hacer ya, sin esperar lo legal</dd></div>':""}
     <div style="display:flex;gap:14px;flex-wrap:wrap"><button class="linkbtn" data-act="edit">Editar tarea</button><button class="linkbtn" data-act="del">Eliminar</button>
     <span class="confirm" hidden>¿Seguro? <button class="linkbtn danger" data-act="del2">Sí, eliminar</button> <button class="linkbtn" data-act="del0">No</button></span></div>
   </dl></div>`;
@@ -545,7 +551,7 @@ function openForm(t){
   $("formTitle").textContent=t?"Editar tarea":"Nueva tarea";$("f-save").textContent=t?"Guardar cambios":"Guardar tarea";$("f-err").textContent="";
   $("f-nom").value=t?t.n:"";$("f-fase").value=t?t.p:(PLAN.phases[0]||{}).id;$("f-est").value=t?t.s:"next";
   $("f-ini").value=t?t.a:new Date(TODAY).toISOString().slice(0,10);$("f-fin").value=t&&t.b&&!t.ms?t.b:"";
-  $("f-resp").value=t?(t.o||""):"";$("f-nota").value=t?(t.d||""):"";$("f-crit").checked=!!(t&&t.crit);
+  $("f-resp").value=t?(t.o||""):"";$("f-nota").value=t?(t.d||""):"";$("f-crit").checked=!!(t&&t.crit);$("f-ya").checked=t?!!t.ya:true;
   form.scrollIntoView({block:"nearest",behavior:"smooth"});$("f-nom").focus({preventScroll:true});
 }
 function closeForm(){form.hidden=true;editId=null;$("addBtn").setAttribute("aria-expanded","false")}
@@ -556,7 +562,7 @@ form.addEventListener("submit",async e=>{
   const v=id=>$(id).value.trim(),a=v("f-ini"),b=v("f-fin"),n=v("f-nom");
   if(!n||!a){$("f-err").textContent="Escribe un nombre y una fecha de inicio.";return}
   if(b&&d(b)<d(a)){$("f-err").textContent="La fecha de fin no puede ser antes del inicio.";return}
-  const t={n,p:v("f-fase"),s:v("f-est"),a,b:b&&b!==a?b:"",o:v("f-resp"),d:v("f-nota"),crit:$("f-crit").checked?1:0};
+  const t={n,p:v("f-fase"),s:v("f-est"),a,b:b&&b!==a?b:"",o:v("f-resp"),d:v("f-nota"),crit:$("f-crit").checked?1:0,ya:$("f-ya").checked?1:0};
   if(!t.b)t.ms=1;
   const isEdit=!!editId,id=editId;
   closeForm();
