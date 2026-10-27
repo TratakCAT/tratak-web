@@ -168,6 +168,9 @@ a{color:var(--accent)}
 .log{max-height:420px;overflow:auto}
 .fnota{font-style:italic;color:var(--muted);margin-top:2px}
 .legend .pill{font-style:normal}
+.emo{font-style:normal;margin-right:6px;font-size:1.1em;line-height:1}
+.emo.big{font-size:1.35em}
+.tname .emo{display:inline-block;width:1.4em;text-align:center;margin-right:4px}
 .yatag{color:var(--done);font-weight:700}
 input[type=file]{font:14px var(--body);color:var(--ink)}
 </style>
@@ -236,6 +239,7 @@ input[type=file]{font:14px var(--body);color:var(--ink)}
         <h3 id="formTitle">Nueva tarea</h3>
         <div class="fgrid">
           <label class="wide">Tarea<input id="f-nom" maxlength="160" placeholder="Ej. Comprar papel Whatman y nitrato de plata"></label>
+          <label>Emoji <span class="hint">(opcional)</span><input id="f-emo" maxlength="16" placeholder="🌱"></label>
           <label>Fase<select id="f-fase"></select></label>
           <label>Estado<select id="f-est"><option value="next">siguiente</option><option value="active">en curso</option><option value="wait">depende de terceros</option><option value="done">hecho</option></select></label>
           <label>Inicio<input type="date" id="f-ini" min="2026-01-01" max="2030-12-31"></label>
@@ -452,7 +456,7 @@ function buildFilters(){
   const f=$("filters");f.innerHTML="";
   PLAN.phases.forEach(p=>{
     const b=document.createElement("button");b.className="chip";b.id="fl-"+p.id;b.setAttribute("aria-pressed","true");
-    b.innerHTML=`<span class="dot" style="background:var(${p.c})"></span>${esc(p.n)}`;
+    b.innerHTML=`<span class="dot" style="background:var(${p.c})"></span>${p.e?`<span class="emo">${esc(p.e)}</span>`:""}${esc(p.n)}`;
     b.onclick=()=>{active.has(p.id)?active.delete(p.id):active.add(p.id);b.setAttribute("aria-pressed",active.has(p.id));render()};
     f.appendChild(b);
   });
@@ -491,7 +495,7 @@ function render(){
     if(!active.has(p.id))return;
     const rows=PLAN.tasks.filter(t=>t.p===p.id&&(!critOnly||t.crit)&&(!yaOnly||t.ya)).sort((x,y)=>d(x.a)-d(y.a));
     if(!rows.length)return;
-    h+=`<div class="grow phase-head"><div class="lab"><span class="num">${p.id==="PX"?"∞":pi}</span><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(${p.c})"></span>${esc(p.n)}</div><div class="track">${gridLines()}</div></div>`;
+    h+=`<div class="grow phase-head"><div class="lab"><span class="num">${p.id==="PX"?"∞":pi}</span><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(${p.c})"></span>${p.e?`<span class="emo big">${esc(p.e)}</span>`:""}${esc(p.n)}</div><div class="track">${gridLines()}</div></div>`;
     rows.forEach(t=>{
       const col=`var(${p.c})`;let bar;
       if(t.ms||!t.b){bar=`<div class="ms" style="left:${pct(d(t.a))}%;background:${col};${t.crit?"box-shadow:0 0 0 2px var(--accent)":""}"></div><div class="blabel" style="left:calc(${pct(d(t.a))}% + 14px)">${fmt(t.a)}</div>`}
@@ -500,7 +504,7 @@ function render(){
         bar=`<div class="bar ${t.s} ${t.crit?"critb":""} ${t.on?"ongoing":""}" style="left:${L}%;width:${W}%;background:${col};color:${col}"></div><div class="blabel" style="${right?`right:calc(${100-L}% + 8px)`:`left:calc(${L+W}% + ${t.on?14:8}px)`}">${fmt(t.a)} → ${fmt(t.b)}</div>`;
       }
       h+=`<div class="grow row ${openId===t.id?"open":""}" tabindex="0" role="button" aria-expanded="${openId===t.id}" data-id="${esc(t.id)}">
-        <div class="lab"><span class="tname">${t.s==="done"?"✓ ":""}${esc(t.n)}</span><span class="tmeta"><span class="pill ${t.s}">${SL[t.s]}</span>${t.crit?'<span class="crit">◆ crítica</span>':""}${t.ya?'<span class="yatag">● ya</span>':""}<span>${esc(t.o||"")}</span></span></div>
+        <div class="lab"><span class="tname">${t.e?`<span class="emo">${esc(t.e)}</span>`:""}${t.s==="done"?"✓ ":""}${esc(t.n)}</span><span class="tmeta"><span class="pill ${t.s}">${SL[t.s]}</span>${t.crit?'<span class="crit">◆ crítica</span>':""}${t.ya?'<span class="yatag">● ya</span>':""}<span>${esc(t.o||"")}</span></span></div>
         <div class="track">${gridLines()}${bar}</div></div>`;
       if(openId===t.id)h+=detail(t,p);
     });
@@ -512,7 +516,7 @@ function detail(t,p){
   const when=(t.ms||!t.b)?fmt(t.a):`${fmt(t.a)} → ${fmt(t.b)}${t.on?" (continúa)":""}`;
   return `<div class="detail" id="det"><div style="display:flex;flex-direction:column;gap:10px;min-width:0">
     <p class="eyebrow" style="color:var(${p.c})">${esc(p.n)}</p>
-    <h3 style="font-size:19px">${esc(t.n)}</h3>
+    <h3 style="font-size:19px">${t.e?`<span class="emo big">${esc(t.e)}</span>`:""}${esc(t.n)}</h3>
     ${t.d?`<p>${esc(t.d)}</p>`:""}
     ${t.t&&t.t.length?`<ul>${t.t.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
     ${t.w?`<p class="why">Por qué importa: ${esc(t.w)}</p>`:""}
@@ -550,7 +554,7 @@ const form=$("taskForm");
 function openForm(t){
   editId=t?t.id:null;form.hidden=false;$("addBtn").setAttribute("aria-expanded","true");
   $("formTitle").textContent=t?"Editar tarea":"Nueva tarea";$("f-save").textContent=t?"Guardar cambios":"Guardar tarea";$("f-err").textContent="";
-  $("f-nom").value=t?t.n:"";$("f-fase").value=t?t.p:(PLAN.phases[0]||{}).id;$("f-est").value=t?t.s:"next";
+  $("f-nom").value=t?t.n:"";$("f-emo").value=t?(t.e||""):"";$("f-fase").value=t?t.p:(PLAN.phases[0]||{}).id;$("f-est").value=t?t.s:"next";
   $("f-ini").value=t?t.a:new Date(TODAY).toISOString().slice(0,10);$("f-fin").value=t&&t.b&&!t.ms?t.b:"";
   $("f-resp").value=t?(t.o||""):"";$("f-nota").value=t?(t.d||""):"";$("f-crit").checked=!!(t&&t.crit);$("f-ya").checked=t?!!t.ya:true;
   form.scrollIntoView({block:"nearest",behavior:"smooth"});$("f-nom").focus({preventScroll:true});
@@ -563,7 +567,7 @@ form.addEventListener("submit",async e=>{
   const v=id=>$(id).value.trim(),a=v("f-ini"),b=v("f-fin"),n=v("f-nom");
   if(!n||!a){$("f-err").textContent="Escribe un nombre y una fecha de inicio.";return}
   if(b&&d(b)<d(a)){$("f-err").textContent="La fecha de fin no puede ser antes del inicio.";return}
-  const t={n,p:v("f-fase"),s:v("f-est"),a,b:b&&b!==a?b:"",o:v("f-resp"),d:v("f-nota"),crit:$("f-crit").checked?1:0,ya:$("f-ya").checked?1:0};
+  const t={n,p:v("f-fase"),s:v("f-est"),a,b:b&&b!==a?b:"",o:v("f-resp"),d:v("f-nota"),crit:$("f-crit").checked?1:0,ya:$("f-ya").checked?1:0,e:v("f-emo")};
   if(!t.b)t.ms=1;
   const isEdit=!!editId,id=editId;
   closeForm();
