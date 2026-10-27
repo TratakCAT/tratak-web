@@ -10,8 +10,12 @@ function limpio(html) {
   return String(html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+import { BosquePlan, handleBosque } from './bosque-api.js';
+export { BosquePlan };
+
 export default {
   async fetch(request, env) {
+    if (new URL(request.url).pathname.startsWith('/api/bosque/')) return handleBosque(request, env);
     const res = await env.ASSETS.fetch(request);
     try {
       const ct = res.headers.get('content-type') || '';
