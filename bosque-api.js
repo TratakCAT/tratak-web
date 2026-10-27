@@ -71,7 +71,7 @@ function cleanTask(t, phases) {
 }
 function cleanPhases(ph) {
   if (!Array.isArray(ph) || !ph.length) throw new Error('El archivo no trae fases');
-  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9a-fx]$/.test(p.c) ? p.c : '--cx' }));
+  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9a-gx]$/.test(p.c) ? p.c : '--cx' }));
 }
 const FIELD_LABEL = { n: 'nombre', p: 'fase', a: 'inicio', b: 'fin', s: 'estado', o: 'responsable', d: 'nota', crit: 'ruta crítica', ya: 'se puede hacer ya' };
 
