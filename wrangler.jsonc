@@ -5,6 +5,11 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
-    "run_worker_first": ["/landing", "/landing.html"]
-  }
+    "run_worker_first": ["/landing", "/landing.html", "/api/*"]
+  },
+  // Plan Maestro TRATAK Bosque: los datos viven aquí, no en el repo.
+  "durable_objects": {
+    "bindings": [{ "name": "BOSQUE", "class_name": "BosquePlan" }]
+  },
+  "migrations": [{ "tag": "bosque-v1", "new_sqlite_classes": ["BosquePlan"] }]
 }
