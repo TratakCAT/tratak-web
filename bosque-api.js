@@ -64,15 +64,16 @@ function cleanTask(t, phases) {
   out.d = str(t.d, 1500);
   if (t.crit) out.crit = 1;
   if (t.on) out.on = 1;
+  if (t.ya) out.ya = 1;
   if (Array.isArray(t.t)) out.t = t.t.slice(0, 20).map((x) => str(x, 600)).filter(Boolean);
   if (t.w) out.w = str(t.w, 600);
   return out;
 }
 function cleanPhases(ph) {
   if (!Array.isArray(ph) || !ph.length) throw new Error('El archivo no trae fases');
-  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9x]$/.test(p.c) ? p.c : '--cx' }));
+  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9a-fx]$/.test(p.c) ? p.c : '--cx' }));
 }
-const FIELD_LABEL = { n: 'nombre', p: 'fase', a: 'inicio', b: 'fin', s: 'estado', o: 'responsable', d: 'nota', crit: 'ruta crítica' };
+const FIELD_LABEL = { n: 'nombre', p: 'fase', a: 'inicio', b: 'fin', s: 'estado', o: 'responsable', d: 'nota', crit: 'ruta crítica', ya: 'se puede hacer ya' };
 
 export class BosquePlan {
   constructor(state, env) {
@@ -160,12 +161,20 @@ export class BosquePlan {
         if (body.cambios && 'b' in body.cambios && !body.cambios.b) { delete merged.b; merged.ms = 1; }
         if (body.cambios && body.cambios.b) delete merged.ms;
         if (body.cambios && 'crit' in body.cambios && !body.cambios.crit) delete merged.crit;
+        if (body.cambios && 'ya' in body.cambios && !body.cambios.ya) delete merged.ya;
         const next = cleanTask(merged, plan.phases);
         const changed = Object.keys(FIELD_LABEL).filter((k) => String(prev[k] || '') !== String(next[k] || ''));
         if (!changed.length) return { ok: true, ...(await this.snapshot()) };
         plan.tasks[i] = next;
         if (changed.length === 1 && changed[0] === 's') push('Marcó «' + next.n + '» como ' + ({ done: 'hecho', active: 'en curso', next: 'siguiente', wait: 'depende de terceros' })[next.s]);
         else push('Editó «' + next.n + '»: ' + changed.map((k) => FIELD_LABEL[k]).join(', '));
+      } else if (body.op === 'fases') {
+        const nuevas = cleanPhases(body.fases).filter((f) => f.id && f.n && !plan.phases.some((p) => p.id === f.id));
+        if (!nuevas.length) return { ok: true, ...(await this.snapshot()) };
+        if (plan.phases.length + nuevas.length > 20) throw new Error('Demasiadas fases.');
+        const ix = plan.phases.findIndex((p) => p.id === 'PX');
+        if (ix >= 0) plan.phases.splice(ix, 0, ...nuevas); else plan.phases.push(...nuevas);
+        push('Agregó ' + (nuevas.length === 1 ? 'la fase «' + nuevas[0].n + '»' : nuevas.length + ' fases: ' + nuevas.map((f) => f.n).join(', ')));
       } else if (body.op === 'eliminar') {
         const i = plan.tasks.findIndex((t) => t.id === body.id);
         if (i < 0) return { ok: true, ...(await this.snapshot()) };
@@ -193,7 +202,7 @@ export class BosquePlan {
 
 function pick(c) {
   const out = {};
-  for (const k of ['n', 'p', 'a', 'b', 's', 'o', 'd', 'crit']) if (k in c) out[k] = c[k];
+  for (const k of ['n', 'p', 'a', 'b', 's', 'o', 'd', 'crit', 'ya']) if (k in c) out[k] = c[k];
   return out;
 }
 
