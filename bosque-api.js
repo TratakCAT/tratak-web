@@ -65,15 +65,17 @@ function cleanTask(t, phases) {
   if (t.crit) out.crit = 1;
   if (t.on) out.on = 1;
   if (t.ya) out.ya = 1;
+  const emo = str(t.e, 16);
+  if (emo) out.e = emo;
   if (Array.isArray(t.t)) out.t = t.t.slice(0, 20).map((x) => str(x, 600)).filter(Boolean);
   if (t.w) out.w = str(t.w, 600);
   return out;
 }
 function cleanPhases(ph) {
   if (!Array.isArray(ph) || !ph.length) throw new Error('El archivo no trae fases');
-  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9a-gx]$/.test(p.c) ? p.c : '--cx' }));
+  return ph.slice(0, 20).map((p) => ({ id: str(p.id, 10).replace(/[^A-Za-z0-9]/g, ''), n: str(p.n, 60), c: /^--c[0-9a-gx]$/.test(p.c) ? p.c : '--cx', ...(p.e ? { e: str(p.e, 16) } : {}) }));
 }
-const FIELD_LABEL = { n: 'nombre', p: 'fase', a: 'inicio', b: 'fin', s: 'estado', o: 'responsable', d: 'nota', crit: 'ruta crítica', ya: 'se puede hacer ya' };
+const FIELD_LABEL = { n: 'nombre', p: 'fase', a: 'inicio', b: 'fin', s: 'estado', o: 'responsable', d: 'nota', crit: 'ruta crítica', ya: 'se puede hacer ya', e: 'emoji' };
 
 export class BosquePlan {
   constructor(state, env) {
@@ -168,6 +170,12 @@ export class BosquePlan {
         plan.tasks[i] = next;
         if (changed.length === 1 && changed[0] === 's') push('Marcó «' + next.n + '» como ' + ({ done: 'hecho', active: 'en curso', next: 'siguiente', wait: 'depende de terceros' })[next.s]);
         else push('Editó «' + next.n + '»: ' + changed.map((k) => FIELD_LABEL[k]).join(', '));
+      } else if (body.op === 'iconos') {
+        let n = 0;
+        const tm = body.tareas || {}, fm = body.fases || {};
+        for (const t of plan.tasks) if (typeof tm[t.id] === 'string') { const e = str(tm[t.id], 16); if (e) { t.e = e; n++; } else delete t.e; }
+        for (const f of plan.phases) if (typeof fm[f.id] === 'string') { const e = str(fm[f.id], 16); if (e) f.e = e; else delete f.e; }
+        push('Puso emojis a ' + n + ' tareas');
       } else if (body.op === 'fases') {
         const nuevas = cleanPhases(body.fases).filter((f) => f.id && f.n && !plan.phases.some((p) => p.id === f.id));
         if (!nuevas.length) return { ok: true, ...(await this.snapshot()) };
@@ -202,7 +210,7 @@ export class BosquePlan {
 
 function pick(c) {
   const out = {};
-  for (const k of ['n', 'p', 'a', 'b', 's', 'o', 'd', 'crit', 'ya']) if (k in c) out[k] = c[k];
+  for (const k of ['n', 'p', 'a', 'b', 's', 'o', 'd', 'crit', 'ya', 'e']) if (k in c) out[k] = c[k];
   return out;
 }
 
