@@ -1,0 +1,10 @@
+# Archivos que NO se publican como parte del sitio
+.git
+.github
+node_modules
+.wrangler
+worker.js
+bosque-api.js
+wrangler.jsonc
+netlify.toml
+tratak-web.zip
