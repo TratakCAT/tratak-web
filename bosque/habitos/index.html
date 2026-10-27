@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Hábitos de la Casa Viva</title>
+<meta name="description" content="Guía familiar de TRATAK Bosque para separar residuos útiles en casa y llevarlos de regreso a la tierra o al taller.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<meta name="apple-mobile-web-app-title" content="Hábitos">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%}
+h3{font-size:17px;font-weight:700;font-stretch:88%}
+p{margin:0;max-width:68ch}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px;margin-top:12px}
+header{display:flex;flex-direction:column;gap:6px}
+section{display:flex;flex-direction:column;gap:16px}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.q{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:4px}
+.q b{font-family:var(--display);font-size:20px;font-stretch:80%}
+.stations{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.st{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.st h3{display:flex;align-items:center;gap:8px}
+.st h3 .bin{width:14px;height:14px;border-radius:3px;background:var(--c);flex:none}
+.st dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.st dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.st dd{margin:0}
+.dest{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--display);font-size:11.5px;font-weight:700;border:1px solid var(--c);color:var(--c);border-radius:999px;padding:1px 9px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-family:var(--display);font-weight:700;font-stretch:90%;white-space:nowrap}
+.care{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.box.warn{border-left:4px solid var(--warn)}
+.box .no{color:var(--warn);font-weight:600}
+.meter{display:flex;flex-direction:column;gap:10px}
+.week{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;font-family:var(--display);font-size:13px;text-align:center}
+.week div{border:1px dashed var(--line);padding:16px 4px;color:var(--muted)}
+.note{font-size:13.5px;color:var(--muted)}
+.back{font-family:var(--display);font-size:13px;font-weight:600}
+@media (max-width:420px){.st dl{grid-template-columns:1fr}.st dt{padding-top:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/bosque/">← Plan Maestro TRATAK Bosque</a>
+    <p class="eyebrow">TRATAK Bosque · guía familiar</p>
+    <h1>Hábitos de la Casa Viva</h1>
+    <p class="lede">Empezamos en casa, en la ciudad, antes de llegar al bosque. Cada residuo útil se separa limpio y seco, y se va a una de tres partes: a la tierra (composta), al taller (biomateriales y metal) o a quien lo recicla de verdad. Lo que no sirve para nada lo dejamos de comprar.</p>
+  </header>
+
+  <section>
+    <h2>Antes de tirar algo, tres preguntas</h2>
+    <div class="three">
+      <div class="q"><b>¿Lo puedo rechazar?</b><p>La mejor basura es la que no entra a la casa: bolsa de tela, termo, tóper, compras a granel. Nada de unicel ni espumas.</p></div>
+      <div class="q"><b>¿Lo puedo volver a usar?</b><p>Frascos para semillas y fermentos, cartón para acolchar, latas para fundir, retazos para trapos.</p></div>
+      <div class="q"><b>¿Regresa a la tierra o al taller?</b><p>Orgánicos a composta; cáscaras, huesos y semillas al banco de biomateriales de TRATAK.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Las estaciones de la casa</h2>
+    <p class="note">Un recipiente o caja por estación, rotulada. Todo va <b>limpio y seco</b>: así no huele, no atrae plagas y sí se puede usar.</p>
+    <div class="stations">
+      <article class="st" style="--c:var(--s-org)">
+        <h3><span class="bin"></span>Orgánicos para composta</h3>
+        <dl>
+          <dt>Sí</dt><dd>Restos de fruta y verdura, café y té, cascarón, hojas, flores, servilleta de papel sin químicos.</dd>
+          <dt>No</dt><dd>Carne, lácteos, aceite y huesos en la composta de casa (atraen plagas). Excremento de mascotas.</dd>
+          <dt>Cómo</dt><dd>Cubeta con tapa. En departamento funciona el bokashi (fermentado en cubeta cerrada) o una lombricomposta pequeña.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">composta en casa</span><span class="tag">composta del terreno</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-bio)">
+        <h3><span class="bin"></span>Banco de biomateriales TRATAK</h3>
+        <dl>
+          <dt>Sí</dt><dd>Cascarón de huevo, borra de café, cáscara de cítricos, hueso de aguacate, cáscara de cacahuate y nuez, semillas grandes, bagazo y fibras.</dd>
+          <dt>Cómo</dt><dd>Enjuagar si hace falta y <b>secar por completo</b> al sol o en el horno apagado y tibio. Frasco o bolsa de papel rotulada con qué es y la fecha.</dd>
+          <dt>Ojo</dt><dd>Si sale moho, va a la composta, no al taller.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">taller TRATAK</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-met)">
+        <h3><span class="bin"></span>Metales</h3>
+        <dl>
+          <dt>Sí</dt><dd>Latas de aluminio (refresco, cerveza), papel aluminio limpio, tapas, clavos y tornillos sueltos.</dd>
+          <dt>Cómo</dt><dd>Enjuagar, secar y aplastar. Aluminio aparte del fierro: un imán te dice cuál es cuál (al aluminio no se pega).</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">fundición en el taller</span><span class="tag">venta a chatarrería</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-vid)">
+        <h3><span class="bin"></span>Vidrio útil</h3>
+        <dl>
+          <dt>Sí</dt><dd>Frascos con tapa, botellas.</dd>
+          <dt>Cómo</dt><dd>Lavar, quitar etiqueta, guardar con su tapa. Sirven para semillas, fermentos, miel y muestras de suelo.</dd>
+          <dt>No</dt><dd>Vidrio roto, focos, espejos: envueltos en papel y aparte.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">reuso en casa</span><span class="tag">terreno</span><span class="tag">reciclaje</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-pap)">
+        <h3><span class="bin"></span>Papel y cartón</h3>
+        <dl>
+          <dt>Sí</dt><dd>Cajas, cartón corrugado, hueveras, periódico, papel de oficina.</dd>
+          <dt>Cómo</dt><dd>Quitar cinta y grapas, doblar plano. El cartón café sin brillo es oro para acolchar el huerto; las hueveras sirven para germinar.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">acolchado del terreno</span><span class="tag">reciclaje</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-tex)">
+        <h3><span class="bin"></span>Textiles</h3>
+        <dl>
+          <dt>Sí</dt><dd>Ropa y retazos de algodón, lana, lino o seda.</dd>
+          <dt>Cómo</dt><dd>Primero reparar o regalar. Lo natural y muy gastado se corta en trapos o va a la composta en tiras. Lo sintético aparte.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">trapos</span><span class="tag">composta (solo fibra natural)</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-pla)">
+        <h3><span class="bin"></span>Plásticos inevitables</h3>
+        <dl>
+          <dt>Meta</dt><dd>Que esta caja sea la más chica de la casa.</dd>
+          <dt>Cómo</dt><dd>Solo limpios y secos: PET, tapas, envases rígidos. Llévalos a un centro de acopio que sí recicle. Unicel, espumas y bolsas metalizadas: no comprarlos.</dd>
+          <dt>Reuso</dt><dd>Botellas como regadera o riego por goteo; cubetas y garrafones para agua y composta.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">centro de acopio</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-pel)">
+        <h3><span class="bin"></span>Peligrosos</h3>
+        <dl>
+          <dt>Sí</dt><dd>Pilas, focos, medicinas caducas, aceite de motor, pinturas, aparatos electrónicos.</dd>
+          <dt>Cómo</dt><dd>Caja cerrada, lejos de niños. Nunca a la composta, al drenaje ni al terreno.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">acopio especial</span></dd>
+        </dl>
+      </article>
+      <article class="st" style="--c:var(--s-agu)">
+        <h3><span class="bin"></span>Aceite de cocina y agua</h3>
+        <dl>
+          <dt>Aceite</dt><dd>Colado y en botella cerrada; nunca al fregadero. Sirve para hacer jabón (ver abajo).</dd>
+          <dt>Agua</dt><dd>Cubeta en la regadera mientras sale caliente; el agua de lavar verduras va a las plantas.</dd>
+          <dt>Destino</dt><dd class="dest"><span class="tag">jabón</span><span class="tag">riego</span></dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Qué hace TRATAK con cada residuo</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Residuo</th><th>Para qué sirve</th><th>Cómo guardarlo</th></tr></thead>
+        <tbody>
+          <tr><td>Cascarón de huevo</td><td>Carbonato de calcio: carga mineral para biomateriales, enmienda de suelo, alimento para aves.</td><td>Enjuagado, seco, molido o entero.</td></tr>
+          <tr><td>Borra de café</td><td>Carga y textura en mezclas; sustrato para hongos.</td><td>Extendida y bien seca; si se apelmaza húmeda, se enmohece.</td></tr>
+          <tr><td>Cáscara de cítricos</td><td>Pectina y aceites; mezclas y aromas.</td><td>En tiras, seca hasta que truene.</td></tr>
+          <tr><td>Hueso de aguacate</td><td>Tinte natural (tonos rosados) y polvo para mezclas.</td><td>Limpio y seco; se puede rallar.</td></tr>
+          <tr><td>Cáscaras de nuez y cacahuate</td><td>Polvos y cargas con textura.</td><td>Secas, en frasco.</td></tr>
+          <tr><td>Latas de aluminio</td><td>Fundición de piezas, herrajes y moldes.</td><td>Enjuagadas, secas y aplastadas.</td></tr>
+          <tr><td>Cartón y papel</td><td>Pulpa para piezas y empaques, acolchado.</td><td>Plano y seco.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Proyectos con cuidado</h2>
+    <div class="care">
+      <div class="box warn">
+        <h3>Fundir aluminio</h3>
+        <p>Se puede, pero es trabajo de taller con adultos y equipo. El metal fundido está a más de 660 °C.</p>
+        <ul>
+          <li class="no">Una sola gota de agua dentro del crisol o del molde puede hacer que el metal salga disparado. Todo seco y precalentado.</li>
+          <li>Las latas traen pintura y una capa plástica por dentro que se quema y da humo tóxico: al aire libre y con respirador.</li>
+          <li>Careta, guantes de cuero, zapatos cerrados y ropa de algodón (lo sintético se derrite sobre la piel).</li>
+          <li>De las latas sale poco metal y con mucha escoria; rinde más el aluminio grueso (perfiles, piezas fundidas).</li>
+          <li class="no">En el terreno, nunca en temporada de estiaje ni cerca de pasto seco. La primera prueba, en el taller de la ciudad.</li>
+        </ul>
+      </div>
+      <div class="box warn">
+        <h3>Jabón con aceite usado</h3>
+        <p>El aceite de cocina se convierte en jabón para trastes, ropa y herramientas.</p>
+        <ul>
+          <li>Necesita sosa cáustica: lentes, guantes y manga larga; niños y animales lejos.</li>
+          <li class="no">La sosa se agrega al agua, nunca el agua a la sosa.</li>
+          <li>Usa una calculadora de jabón para la cantidad exacta de sosa según el aceite.</li>
+          <li>El jabón se deja curar varias semanas antes de usarlo.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Hábitos de resiliencia</h2>
+    <div class="three">
+      <div class="q"><b>Agua guardada</b><p>Garrafones rotados y una cubeta de agua gris para el baño. En el terreno, captación de lluvia.</p></div>
+      <div class="q"><b>Semillas y conservas</b><p>Guardar semillas de lo que comemos, fermentar (chucrut, vinagre de frutas, tepache) y deshidratar en temporada.</p></div>
+      <div class="q"><b>Reparar primero</b><p>Kit de costura y de herramienta en cada casa. Antes de comprar, preguntar en el grupo si alguien lo tiene o lo arregla.</p></div>
+    </div>
+  </section>
+
+  <section class="meter">
+    <h2>Medir la bolsa de la semana</h2>
+    <p>Cada domingo, pesa la bolsa de lo que de verdad se fue a la basura (con una báscula de equipaje o de baño). Anótalo en el grupo de la familia. La meta es que baje mes con mes.</p>
+    <div class="week" aria-hidden="true"><div>Sem 1<br>__ kg</div><div>Sem 2<br>__ kg</div><div>Sem 3<br>__ kg</div><div>Sem 4<br>__ kg</div></div>
+  </section>
+
+  <section>
+    <h2>Lo que verán quienes nos visiten</h2>
+    <p>Las mismas estaciones estarán en el campamento del terreno, con letreros. Cada visitante separa lo suyo, se lleva de regreso lo que no tiene destino en el bosque y puede tomar un taller corto de "residuo a material" con lo que se juntó.</p>
+  </section>
+
+  <p class="note">TRATAK Bosque · guía viva: si algo no funciona en tu casa, dilo en el grupo y la ajustamos.</p>
+</div>
+</body>
+</html>
