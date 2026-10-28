@@ -1,4 +1,4 @@
-/* Heyocat · sonido: efectos y música generativa (todo sintetizado con WebAudio, sin archivos) */
+/* Heyokat · sonido: efectos y música generativa (todo sintetizado con WebAudio, sin archivos) */
 (function () {
   'use strict';
   var KEY = 'heyocat-sonido';
@@ -11,7 +11,8 @@
     if (ctx) return true;
     var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
     ctx = new AC();
-    master = ctx.createGain(); master.gain.value = activo ? 0.9 : 0; master.connect(ctx.destination);
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; comp.connect(ctx.destination);
+    master = ctx.createGain(); master.gain.value = activo ? 3 : 0; master.connect(comp);
     // “reverb” sencilla: dos delays con retroalimentación y filtro
     wet = ctx.createGain(); wet.gain.value = 0.55;
     var d1 = ctx.createDelay(1.5), d2 = ctx.createDelay(1.5), fb = ctx.createGain(), lp = ctx.createBiquadFilter();
@@ -56,9 +57,9 @@
   function arrancarMusica() {
     if (musica || !ctx) return;
     musica = ctx.createGain(); musica.gain.value = 0.0001; musica.connect(master); musica.connect(wet);
-    musica.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 3);
+    musica.gain.exponentialRampToValueAtTime(1.6, ctx.currentTime + 3);
     // bordón: re + la + re (octava), con respiración lenta
-    [[73.42, 'sine', 0.10], [110.0, 'sine', 0.06], [146.83, 'triangle', 0.035]].forEach(function (p, i) {
+    [[73.42, 'sine', 0.16], [110.0, 'sine', 0.10], [146.83, 'triangle', 0.06]].forEach(function (p, i) {
       var o = ctx.createOscillator(), g = ctx.createGain(), l = ctx.createOscillator(), lg = ctx.createGain(), f = ctx.createBiquadFilter();
       o.type = p[1]; o.frequency.value = p[0]; f.type = 'lowpass'; f.frequency.value = 700;
       g.gain.value = p[2]; l.frequency.value = 0.07 + i * 0.03; lg.gain.value = p[2] * 0.6; l.connect(lg); lg.connect(g.gain);
@@ -71,7 +72,7 @@
       if (activo && !document.hidden) {
         var n = ctx.createGain(); n.gain.value = 1; n.connect(musica);
         var o = ctx.createOscillator(), g = ctx.createGain();
-        o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.045, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.2);
+        o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.09, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.2);
         o.connect(g); g.connect(musica); o.start(t); o.stop(t + 3.3);
         var o2 = ctx.createOscillator(), g2 = ctx.createGain();
         o2.type = 'sine'; o2.frequency.value = f * 2.01; g2.gain.setValueAtTime(0.0001, t); g2.gain.exponentialRampToValueAtTime(0.012, t + 0.02); g2.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
@@ -117,7 +118,7 @@
     alternar: function () {
       activo = !activo;
       try { localStorage.setItem(KEY, activo ? 'on' : 'off'); } catch (e) {}
-      if (activo) { if (!init()) return activo; ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0.9, ctx.currentTime, 0.3); if (!arrancado) { arrancado = true; arrancarMusica(); } }
+      if (activo) { if (!init()) return activo; ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(3, ctx.currentTime, 0.3); if (!arrancado) { arrancado = true; arrancarMusica(); } }
       else if (ctx) { master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0, ctx.currentTime, 0.15); }
       return activo;
     }

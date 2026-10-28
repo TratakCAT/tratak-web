@@ -1,4 +1,4 @@
-/* Heyocat · lógica de la tirada, la lectura y los enlaces de compra */
+/* Heyokat · lógica de la tirada, la lectura y los enlaces de compra */
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
@@ -38,12 +38,12 @@
         '<div class="chips">' + (x.palabras || []).map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' +
         '<p class="msj">“' + esc(x.mensaje) + '”</p>' +
         '<details><summary>Leer la interpretación</summary><p>' + esc(x.interpretacion) + '</p>' + (x.contrario ? '<p class="con">Al revés (heyoka): ' + esc(x.contrario) + '</p>' : '') + '</details>' +
-        '<a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyocat y quiero una print de la carta «' + x.nombre + '». ¿Cómo la consigo?') + '">Quiero una print de esta carta</a></article>';
+        '<a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyokat y quiero una print de la carta «' + x.nombre + '». ¿Cómo la consigo?') + '">Quiero una print de esta carta</a></article>';
     }).join('');
     $('sintesis').innerHTML = sintesis(ids);
     var nombres = ids.map(function (id) { return '«' + MAPA[id].nombre + '»'; });
     $('llevar').innerHTML = '<h3>Llévate tu tirada</h3><p>Si te gustaron tus cartas, pídelas como print. También puedes compartir tu lectura.</p>' +
-      '<div class="acciones"><a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyocat y quiero las tres prints: ' + nombres.join(', ') + '. ¿Cómo las consigo?') + '">Quiero las tres</a>' +
+      '<div class="acciones"><a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyokat y quiero las tres prints: ' + nombres.join(', ') + '. ¿Cómo las consigo?') + '">Quiero las tres</a>' +
       '<button class="btn sec" id="b-compartir" type="button">Compartir mi lectura</button></div>' +
       '<p style="margin-top:18px">Cuéntanos qué te salió: síguenos o etiquétanos en Instagram.</p>' +
       '<div class="acciones"><a class="btn ig" target="_blank" rel="noopener" href="https://www.instagram.com/heyokat/">Seguir @heyokat</a>' +
@@ -58,14 +58,14 @@
   }
 
   function compartir() {
-    var url = location.href, txt = 'Mi lectura en Heyocat';
-    if (navigator.share) { navigator.share({ title: 'Heyocat', text: txt, url: url }).catch(function () {}); return; }
+    var url = location.href, txt = 'Mi lectura en Heyokat';
+    if (navigator.share) { navigator.share({ title: 'Heyokat', text: txt, url: url }).catch(function () {}); return; }
     if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { $('b-compartir').textContent = '¡Enlace copiado!'; });
     else prompt('Copia tu enlace:', url);
   }
 
   function mencionar() {
-    var txt = 'Mi lectura en @heyokat ✦ ' + location.href + ' #Heyocat', b = $('b-mencion');
+    var txt = 'Mi lectura en @heyokat ✦ ' + location.href + ' #Heyokat', b = $('b-mencion');
     function ok() { b.textContent = '¡Texto copiado! Pégalo en tu historia y etiqueta @heyokat'; }
     if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, function () { prompt('Copia este texto:', txt); });
     else prompt('Copia este texto:', txt);
@@ -93,7 +93,7 @@
     data.cartas = (data.cartas || []).filter(function (c) { return c && c.imagen; });
     data.cartas.forEach(function (c, i) { c.id = c.id || slug(c.nombre) || ('carta-' + (i + 1)); c.palabras = c.palabras || []; MAPA[c.id] = c; });
     data.posiciones = data.posiciones && data.posiciones.length >= 3 ? data.posiciones : ['Lo que traes', 'Lo que te mueve', 'El camino que se abre'];
-    $('b-vivo').href = wa('Hola, vi Heyocat y quiero una lectura de oráculo en vivo.');
+    $('b-vivo').href = wa('Hola, vi Heyokat y quiero una lectura de oráculo en vivo.');
     var porUrl = (new URLSearchParams(location.search).get('c') || '').split(',').filter(function (id) { return MAPA[id]; });
 
     escena = window.Heyocat3D && Heyocat3D.create($('escena'), {
@@ -134,8 +134,8 @@
     function pinta() { var on = HeyoAudio.activo(); b.textContent = on ? '🔊' : '🔇'; b.classList.toggle('off', !on); b.setAttribute('aria-pressed', on); }
     pinta();
     b.addEventListener('click', function () { HeyoAudio.arrancar(); HeyoAudio.alternar(); pinta(); });
-    var una = function () { HeyoAudio.arrancar(); document.removeEventListener('pointerdown', una); };
-    document.addEventListener('pointerdown', una);
+    var una = function () { HeyoAudio.arrancar(); ['pointerdown','touchend','click','keydown'].forEach(function (e) { document.removeEventListener(e, una, true); }); };
+    ['pointerdown','touchend','click','keydown'].forEach(function (e) { document.addEventListener(e, una, true); });
   })();
 
   fetch('heyocat/cartas.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(iniciar);

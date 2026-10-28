@@ -1,4 +1,4 @@
-/* Heyocat · escena 3D de las cartas (WebGL puro, sin librerías)
+/* Heyokat · escena 3D de las cartas (WebGL puro, sin librerías)
    Usa la geometría del borde del modelo Heyokard_1_3D.obj (heyocat/carta-borde.json)
    y dos caras con textura (frente y reverso). */
 (function () {
