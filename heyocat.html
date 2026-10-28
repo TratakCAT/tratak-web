@@ -12,7 +12,7 @@
 <link rel="icon" href="icon_32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=37">
+<link rel="stylesheet" href="styles.css?v=38">
 <style>
   .hy{ --oro:#e8c76a; --oro2:#b8923a; --tinta:#0d0a14; --luz:#f3ecdc; --lila:#c0a2ec; --rosa:#f08bd1;
     color:var(--luz); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
@@ -23,6 +23,7 @@
       radial-gradient(900px 600px at 10% 70%, rgba(232,199,106,.10), transparent 60%),
       #0d0a14 !important; color:#f3ecdc; }
   .hy section{ border:0 !important; padding:0 !important; margin:0 auto !important; }
+  .hy section.envolt{ padding-left:16px !important; padding-right:16px !important; }
   .hy .envolt{ width:100%; max-width:1100px; margin:0 auto; padding:0 16px; }
   .hy h1,.hy h2,.hy h3{ font-family:'Fraunces',Georgia,serif; font-weight:400; margin:0; color:var(--luz); max-width:none; }
   .hy p{ margin:0; }
@@ -94,6 +95,24 @@
   .b-sonido{ position:fixed; left:18px; bottom:20px; z-index:90; width:48px; height:48px; border-radius:50%; border:1.5px solid rgba(232,199,106,.5); background:rgba(13,10,20,.85); color:#f3ecdc; font-size:20px; cursor:pointer; backdrop-filter:blur(6px); }
   .b-sonido.off{ opacity:.6; }
   .hy .btn.ig{ background:linear-gradient(45deg,#f9a03a,#e1306c 55%,#833ab4); color:#fff; box-shadow:0 8px 26px rgba(225,48,108,.3); }
+  .logo-hy{ display:block; margin:0 auto 6px; width:64px; height:auto; filter:drop-shadow(0 0 14px rgba(192,162,236,.55)); }
+  .mascota{ display:flex; align-items:center; gap:14px; max-width:640px; margin:18px auto 0 !important; padding:0 4px; }
+  .m-av{ flex:none; width:84px; height:84px; padding:0; border-radius:50%; border:2px solid var(--oro); overflow:hidden; background:#1a1330; cursor:pointer; box-shadow:0 0 22px rgba(192,162,236,.45); animation:flota 5s ease-in-out infinite; }
+  .m-av img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .m-av.mueve{ animation:escurre .7s ease; }
+  @keyframes flota{ 0%,100%{ transform:translateY(0) rotate(-3deg); } 50%{ transform:translateY(-6px) rotate(3deg); } }
+  @keyframes escurre{ 0%{ transform:translateX(0) rotate(0); } 20%{ transform:translateX(-14px) rotate(-12deg) scale(.92); } 45%{ transform:translateX(16px) rotate(10deg) scale(1.08); } 70%{ transform:translateX(-6px) rotate(-4deg); } 100%{ transform:none; } }
+  .m-burbuja{ position:relative; flex:1; background:rgba(255,255,255,.08); border:1px solid rgba(232,199,106,.4); border-radius:20px; padding:12px 16px; font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(15px,3.8vw,17.5px); line-height:1.4; min-height:3.6em; }
+  .m-burbuja::before{ content:''; position:absolute; left:-9px; top:30px; width:16px; height:16px; background:#1b1527; border-left:1px solid rgba(232,199,106,.4); border-bottom:1px solid rgba(232,199,106,.4); transform:rotate(45deg); }
+  .m-burbuja b{ display:block; font-family:system-ui,sans-serif; font-style:normal; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--oro); margin-bottom:2px; }
+  .m-burbuja span{ transition:opacity .3s; display:block; }
+  .m-burbuja span.cae{ opacity:0; }
+  .galeria{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; align-items:start; margin:6px 0 10px; }
+  .galeria img{ width:100%; aspect-ratio:1/1.9; object-fit:cover; object-position:top; border-radius:16px; border:1px solid rgba(232,199,106,.3); display:block; }
+  .mantra{ display:grid; gap:10px; }
+  .mantra p{ font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(17px,4.2vw,20px); line-height:1.5; }
+  .mantra p b{ font-size:1.9em; font-style:normal; font-weight:600; line-height:.8; margin-right:2px; background:linear-gradient(120deg,#f8e7a8,#c0a2ec); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  @media (prefers-reduced-motion:reduce){ .m-av{ animation:none; } }
   .sin3d{ display:none; }
   .sin3d.on{ display:block; }
   @media (prefers-reduced-motion:reduce){ .cl{ animation:none; opacity:1; transform:none; } }
@@ -105,6 +124,7 @@
 <button id="b-sonido" class="b-sonido" type="button" aria-label="Sonido y música" title="Sonido y música">🔊</button>
 <div class="hy">
   <header class="cab envolt">
+    <img class="logo-hy" src="heyocat/mascota/logo.webp" alt="" width="64" height="74">
     <div class="eyebrow">Oráculo de arquetipos cósmicos</div>
     <h1><b>Heyo</b>kat</h1>
     <p>Dibujado a mano a lo largo de los años. Baraja, elige tres cartas y mira qué te quiere decir el contrario.</p>
@@ -116,6 +136,10 @@
     <div class="acciones">
       <button class="btn" id="b-barajar" type="button">✦ Barajar</button>
       <button class="btn sec" id="b-reiniciar" type="button" hidden>Empezar de nuevo</button>
+    </div>
+    <div class="mascota" id="mascota">
+      <button class="m-av" id="m-av" type="button" aria-label="Heyokat, toca para que te diga algo"><img src="heyocat/mascota/avatar.webp" alt="Heyokat" width="96" height="96"></button>
+      <div class="m-burbuja"><b>Heyokat</b><span id="m-dice"></span></div>
     </div>
     <div class="sin3d" id="sin3d"><div class="acciones"><button class="btn" id="b-directo" type="button">✦ Sacar mis tres cartas</button></div></div>
   </section>
@@ -133,14 +157,17 @@
       <h2>¿Qué es Heyokat?</h2>
       <p>Son cartas que Gibrán dibuja desde hace años con realidad virtual, medios digitales, lápiz, color y acrílico. Cada una es un arquetipo cósmico: una figura que te devuelve una pregunta en lugar de una respuesta.</p>
       <p>Aquí puedes hacer una lectura rápida de tres cartas. Si alguna te habla fuerte, puedes llevártela como print, o reservar una lectura en vivo.</p>
+      <div class="galeria" id="galeria"><img src="heyocat/mascota/ilustracion-3.webp" alt="Heyokat en el cosmos" loading="lazy"><img src="heyocat/mascota/ilustracion-2.webp" alt="Heyokat" loading="lazy"><img src="heyocat/mascota/ilustracion-1.webp" alt="Heyokat, boceto" loading="lazy"></div>
+      <h2>Su mantra</h2>
+      <div class="mantra" id="mantra"></div>
       <a class="btn sec" id="b-vivo" href="#" target="_blank" rel="noopener" style="justify-self:start">Quiero una lectura en vivo</a>
     </div>
   </section>
 </div>
 
-<script src="assets/site.js?v=37"></script>
+<script src="assets/site.js?v=38"></script>
 <script src="assets/heyocat3d.js?v=1"></script>
-<script src="assets/heyocat-audio.js?v=2"></script>
-<script src="assets/heyocat.js?v=3"></script>
+<script src="assets/heyocat-audio.js?v=3"></script>
+<script src="assets/heyocat.js?v=4"></script>
 </body>
 </html>
