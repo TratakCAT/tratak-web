@@ -1,0 +1,936 @@
+{
+ "inicio": "2026-10-26",
+ "semanas": [
+  {
+   "n": 1,
+   "e": "🌲",
+   "titulo": "Conoce tu bosque",
+   "intro": "Lo básico del lugar donde está Oasis Consciente: qué es La Primavera, qué la sostiene y qué la amenaza.",
+   "preguntas": [
+    {
+     "p": "¿Desde qué año el Bosque La Primavera está protegido por decreto federal?",
+     "op": [
+      "1995",
+      "2005",
+      "1980",
+      "1960"
+     ],
+     "ok": 2,
+     "exp": "Fue decretado el 6 de marzo de 1980 como zona de protección forestal y refugio de fauna; hoy es Área de Protección de Flora y Fauna.",
+     "ref": [
+      {
+       "t": "ITESO (2020). Evaluación rápida de efectos acumulativos al APFF La Primavera",
+       "u": "https://rei.iteso.mx/bitstreams/b6a066b2-2281-4777-add5-01ca57213404/download"
+      },
+      {
+       "t": "SEMARNAT. Resumen del Programa de Manejo del APFF La Primavera (DOF)",
+       "u": "https://vlex.com.mx/vid/concluido-flora-fauna-tala-tlajomulco-27957031"
+      }
+     ]
+    },
+    {
+     "p": "¿Cuál es la superficie del área protegida?",
+     "op": [
+      "3,050 ha",
+      "305,000 ha",
+      "30,500 ha",
+      "13,000 ha"
+     ],
+     "ok": 2,
+     "exp": "El polígono decretado mide 30,500 hectáreas en Zapopan, Tala y Tlajomulco.",
+     "ref": [
+      {
+       "t": "Gobierno de Jalisco, OPD Bosque La Primavera. Informes trimestrales (superficie de 30,500 ha)",
+       "u": "https://transparencia.info.jalisco.gob.mx/sites/default/files/PRIMER%20INFORME-2018.pdf"
+      },
+      {
+       "t": "ITESO (2020). Evaluación rápida de efectos acumulativos al APFF La Primavera",
+       "u": "https://rei.iteso.mx/bitstreams/b6a066b2-2281-4777-add5-01ca57213404/download"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué pino domina en La Primavera y se ha usado para reconstruir 160 años de lluvias con sus anillos?",
+     "op": [
+      "Pinus hartwegii",
+      "Pinus oocarpa (ocote)",
+      "Pinus cembroides (piñonero)",
+      "Abies religiosa (oyamel)"
+     ],
+     "ok": 1,
+     "exp": "Villanueva-Díaz y colegas fecharon anillos de Pinus oocarpa de 1850 a 2014 y encontraron sequías fuertes como la de 1909–1925.",
+     "ref": [
+      {
+       "t": "Villanueva-Díaz, J. et al. (2018). Respuesta climática de Pinus oocarpa en el Bosque La Primavera. Madera y Bosques 24(1)",
+       "u": "https://publicaciones.inecol.mx/Record/oai:oai.myb.ojs.inecol.mx:article-1464/Details?lng=en"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué tipo de suelo cubre la mayor parte del bosque?",
+     "op": [
+      "Andosol de ceniza fina",
+      "Gleysol inundado",
+      "Vertisol arcilloso",
+      "Regosol, sobre jal y pómez"
+     ],
+     "ok": 3,
+     "exp": "Alrededor del 92 % son regosoles (y el resto litosoles): suelos jóvenes que drenan rápido y retienen poco.",
+     "ref": [
+      {
+       "t": "Castro Tamayo, J. M. (2005). Potencial de fijación de carbono en el ANP Bosque La Primavera. CUCBA, UdeG",
+       "u": "https://cucba.udg.mx/sites/default/files/publicaciones1/avances/avances_2005/Agronomia/CastroTamayoJuanManuel/CastroTamayoJuanManuel.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿En qué meses es más alto el riesgo de incendio en Jalisco?",
+     "op": [
+      "Octubre a diciembre",
+      "Igual todo el año",
+      "Febrero a junio",
+      "Junio a septiembre"
+     ],
+     "ok": 2,
+     "exp": "El estiaje va de febrero a junio; La Primavera es de las zonas con más incendios del estado.",
+     "ref": [
+      {
+       "t": "Publimetro Jalisco (11 mar 2026). Bosques de Jalisco sufren por incendios cada estiaje",
+       "u": "https://www.publimetro.com.mx/jalisco/2026/03/11/bosques-de-jalisco-sufren-por-incendios-cada-estiaje-la-primavera-encabeza-reportes/"
+      }
+     ]
+    },
+    {
+     "p": "¿Cuántas especies de mamíferos se reportan en el bosque?",
+     "op": [
+      "Unas 250",
+      "Más de 59",
+      "Unas 10",
+      "Más de 1,000"
+     ],
+     "ok": 1,
+     "exp": "Se reportan más de 59 mamíferos (puma, venado cola blanca, coyote, coatí, pecarí…), unas 200 aves, 49 reptiles y 20 anfibios.",
+     "ref": [
+      {
+       "t": "N+ Jalisco. ¿Qué animales habitan en el Bosque La Primavera? (59 mamíferos, ~200 aves, 49 reptiles, 20 anfibios)",
+       "u": "https://www.nmas.com.mx/jalisco/sociedad/que-animales-habitan-en-el-bosque-la-primavera-estos-son-algunos-captados-en-camara/"
+      }
+     ]
+    },
+    {
+     "p": "¿Por qué se usan herbáceas de la familia de las fabáceas (leguminosas) para restaurar suelos degradados de La Primavera?",
+     "op": [
+      "Acidifican el suelo",
+      "Fijan nitrógeno con bacterias en sus raíces",
+      "Repelen el fuego",
+      "Producen resina que pega el suelo"
+     ],
+     "ok": 1,
+     "exp": "Las fabáceas forman nódulos con bacterias fijadoras de nitrógeno; en suelos pobres arrancan la sucesión vegetal.",
+     "ref": [
+      {
+       "t": "Mayo-Mendoza, M. y Romo-Campos, R. (2018). Herbáceas con potencial de restauración en suelos degradados de La Primavera. Acta Universitaria 28(2)",
+       "u": "https://www.redalyc.org/journal/416/41655593007/41655593007.pdf"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "Foto cero del terreno",
+    "pasos": [
+     "Elige 3 puntos fijos en el terreno y márcalos con una piedra o estaca.",
+     "Toma una foto desde cada punto, siempre en la misma dirección.",
+     "Fotografía 5 plantas o árboles distintos y súbelos a NaturaLista para conocer su nombre.",
+     "Escribe aquí qué encontraste."
+    ],
+    "ref": [
+     {
+      "t": "CONABIO. NaturaLista (iNaturalist México)",
+      "u": "https://www.naturalista.mx/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 2,
+   "e": "🔥",
+   "titulo": "Fuego, seguridad y supervivencia",
+   "intro": "Prevenir es la mejor supervivencia. Fuego, orientación, señales y nudos básicos.",
+   "preguntas": [
+    {
+     "p": "¿Cuáles son los tres lados del triángulo del fuego?",
+     "op": [
+      "Combustible, oxígeno y calor",
+      "Humo, calor y luz",
+      "Agua, aire y tierra",
+      "Leña, cerillo y viento"
+     ],
+     "ok": 0,
+     "exp": "Si quitas uno de los tres, el fuego se apaga; las brechas cortafuego quitan el combustible.",
+     "ref": [
+      {
+       "t": "CONAFOR. Tríptico de prevención de incendios forestales",
+       "u": "https://www.gob.mx/cms/uploads/attachment/file/560141/Triptico_Incendio_Final__1_.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué norma regula el uso del fuego en terrenos forestales y agropecuarios en México?",
+     "op": [
+      "NOM-015 (uso del fuego)",
+      "NOM-059-SEMARNAT",
+      "NOM-001-SEMARNAT",
+      "NOM-152-SEMARNAT"
+     ],
+     "ok": 0,
+     "exp": "La NOM-015 (versión 2007, actualizada en 2023) establece cómo y cuándo se puede usar fuego: avisos, brechas, horarios. La 059 es la de especies en riesgo.",
+     "ref": [
+      {
+       "t": "NOM-015-SEMARNAT/SAGARPA-2007 (uso del fuego), actualizada como NOM-015-SEMARNAT-AGRICULTURA-2023",
+       "u": "https://www.gob.mx/cms/uploads/attachment/file/710191/NOM-015_SEMARNATSAGARPA-2007.pdf"
+      }
+     ]
+    },
+    {
+     "p": "Te pierdes al anochecer y empieza a hacer frío. Según la «regla de los tres», ¿qué atiendes primero?",
+     "op": [
+      "Caminar de noche para salir",
+      "Buscar agua",
+      "Buscar comida",
+      "Refugio y abrigo"
+     ],
+     "ok": 3,
+     "exp": "Regla práctica de supervivencia: unas 3 horas en frío extremo sin refugio, 3 días sin agua, 3 semanas sin comida. Primero el abrigo.",
+     "ref": [
+      {
+       "t": "Wiseman, J. (2009). SAS Survival Handbook, 3.ª ed. Collins (prioridades de supervivencia)",
+       "u": "https://www.worldcat.org/search?q=Wiseman+SAS+Survival+Handbook"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué significa STOP si te pierdes?",
+     "op": [
+      "Siéntate, Toma agua, Ora, Pide",
+      "Sal, Trota, Ocúltate, Pide",
+      "Detente, Piensa, Observa, Planea",
+      "Silba, Tira, Observa, Pide"
+     ],
+     "ok": 2,
+     "exp": "STOP (Stop, Think, Observe, Plan): quedarte quieto evita que te alejes más y facilita que te encuentren.",
+     "ref": [
+      {
+       "t": "San Diego Mountain Rescue Team. Lost? Now what (STOP: Stop, Think, Observe, Plan)",
+       "u": "https://www.sdmrt.org/safety/lost-now-what"
+      }
+     ]
+    },
+    {
+     "p": "¿Cuál es la señal internacional de auxilio con silbato, luz o fogatas?",
+     "op": [
+      "Una señal larga",
+      "Tres señales seguidas",
+      "Dos señales",
+      "Cinco señales"
+     ],
+     "ok": 1,
+     "exp": "Tres de cualquier cosa (silbatazos, destellos, fogatas en triángulo) significa auxilio.",
+     "ref": [
+      {
+       "t": "U.S. Army. FM 21-76 Survival (edición 1957 digitalizada): señales y prioridades",
+       "u": "https://archive.org/download/FM21-76Survival1957/FM21-76Survival1957.pdf"
+      },
+      {
+       "t": "Baden-Powell, R. (1908). Escultismo para muchachos (Scouting for Boys). Project Gutenberg",
+       "u": "https://www.gutenberg.org/ebooks/65993"
+      }
+     ]
+    },
+    {
+     "p": "¿Cuántos principios tiene «No dejes rastro» (Leave No Trace)?",
+     "op": [
+      "3",
+      "10",
+      "5",
+      "7"
+     ],
+     "ok": 3,
+     "exp": "Planear, caminar y acampar en superficies durables, desechar bien, dejar lo que encuentras, minimizar fogatas, respetar la fauna y a otros visitantes.",
+     "ref": [
+      {
+       "t": "Leave No Trace Center for Outdoor Ethics. Los 7 principios",
+       "u": "https://lnt.org/why/7-principles/"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué nudo forma un lazo que no se cierra y se usa en rescates alrededor de la cintura?",
+     "op": [
+      "Nudo de ocho",
+      "As de guía",
+      "Nudo plano",
+      "Ballestrinque"
+     ],
+     "ok": 1,
+     "exp": "El as de guía (bowline) no se corre ni aprieta; Baden-Powell lo enseñaba como nudo de salvamento.",
+     "ref": [
+      {
+       "t": "Baden-Powell, R. (1908). Escultismo para muchachos (Scouting for Boys). Project Gutenberg",
+       "u": "https://www.gutenberg.org/ebooks/65993"
+      },
+      {
+       "t": "Ashley, C. W. (1944). The Ashley Book of Knots. Doubleday",
+       "u": "https://www.worldcat.org/search?q=Ashley+Book+of+Knots"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "Bolsa de emergencia y as de guía",
+    "pasos": [
+     "Arma una bolsa con silbato, lámpara, 1 L de agua, navaja, botiquín, manta térmica y cerillos en bolsa sellada.",
+     "Practica el as de guía 3 veces con los ojos cerrados.",
+     "Cuéntanos qué te faltó en la bolsa."
+    ],
+    "ref": [
+     {
+      "t": "U.S. Army. FM 21-76 Survival (edición 1957 digitalizada): señales y prioridades",
+      "u": "https://archive.org/download/FM21-76Survival1957/FM21-76Survival1957.pdf"
+     },
+     {
+      "t": "Baden-Powell, R. (1908). Escultismo para muchachos (Scouting for Boys). Project Gutenberg",
+      "u": "https://www.gutenberg.org/ebooks/65993"
+     }
+    ]
+   }
+  },
+  {
+   "n": 3,
+   "e": "💧",
+   "titulo": "Agua viva",
+   "intro": "Leer el agua del terreno, cosecharla y hacerla segura para beber.",
+   "preguntas": [
+    {
+     "p": "¿Qué se traza con un aparato A?",
+     "op": [
+      "La pendiente máxima",
+      "La profundidad del suelo",
+      "Líneas a nivel (curvas de nivel)",
+      "El norte magnético"
+     ],
+     "ok": 2,
+     "exp": "El aparato A marca puntos a la misma altura; uniéndolos trazas zanjas y bordos que frenan e infiltran el agua.",
+     "ref": [
+      {
+       "t": "Mollison, B. (1988). Permaculture: A Designers' Manual. Tagari",
+       "u": "https://www.worldcat.org/search?q=Mollison+Permaculture+A+Designers+Manual"
+      }
+     ]
+    },
+    {
+     "p": "¿Quién creó el diseño keyline, que organiza el agua a partir de los «puntos clave» de los valles?",
+     "op": [
+      "Bill Mollison",
+      "Masanobu Fukuoka",
+      "P. A. Yeomans",
+      "Sepp Holzer"
+     ],
+     "ok": 2,
+     "exp": "El australiano P. A. Yeomans lo publicó en los años cincuenta (The Keyline Plan, 1954).",
+     "ref": [
+      {
+       "t": "Yeomans, P. A. (1954). The Keyline Plan. Sydney",
+       "u": "https://www.worldcat.org/search?q=Yeomans+The+Keyline+Plan"
+      }
+     ]
+    },
+    {
+     "p": "Un techo de 30 m² recibe 900 mm de lluvia al año y aprovecha el 80 %. ¿Cuánta agua capta?",
+     "op": [
+      "2,160 litros",
+      "21,600 litros",
+      "216,000 litros",
+      "27,000 litros"
+     ],
+     "ok": 1,
+     "exp": "Área × lluvia × coeficiente: 30 m² × 0.9 m × 0.8 = 21.6 m³ = 21,600 litros.",
+     "ref": [
+      {
+       "t": "FAO (2013). Captación y almacenamiento de agua de lluvia. Opciones técnicas para la agricultura familiar",
+       "u": "https://fao.org/4/i3247s/i3247s.pdf"
+      }
+     ]
+    },
+    {
+     "p": "Para que el agua sea segura, ¿cuánto tiempo debe hervir a la altura de Guadalajara?",
+     "op": [
+      "Al menos 1 minuto en ebullición fuerte",
+      "15 minutos",
+      "10 segundos",
+      "Basta con que salgan burbujas"
+     ],
+     "ok": 0,
+     "exp": "Un minuto de hervor fuerte; arriba de unos 2,000 m se recomiendan 3 minutos.",
+     "ref": [
+      {
+       "t": "CDC. Make water safe during an emergency (hervir 1 min; 3 min arriba de unos 2,000 m)",
+       "u": "https://www.cdc.gov/healthywater/emergency/pdf/make-water-safe-during-emergency-p.pdf"
+      }
+     ]
+    },
+    {
+     "p": "En el método SODIS (desinfección solar), ¿qué se necesita?",
+     "op": [
+      "Garrafón de color, 3 horas",
+      "Botella de PVC de 5 L, 2 horas",
+      "Botella de vidrio de ventana, 1 hora",
+      "Botella PET transparente de hasta 2 L, unas 6 horas de sol"
+     ],
+     "ok": 3,
+     "exp": "PET transparente de hasta 2 L, acostada, unas 6 horas con sol o 2 días si está nublado; el agua debe estar clara.",
+     "ref": [
+      {
+       "t": "SSWM / Eawag. Desinfección solar (método SODIS)",
+       "u": "https://sswm.info/es/gass-perspective-es/tecnologias-de/tecnologias-de-abastecimiento-de-agua/manejo-seguro-en-el-hogar/desinfecci%C3%B3n-solar-%28m%C3%A9todo-sodis%29"
+      }
+     ]
+    },
+    {
+     "p": "¿Por qué no se debe construir junto al arroyo sin permiso?",
+     "op": [
+      "Porque el agua de arroyo es privada",
+      "Porque las orillas de los cauces son zona federal",
+      "Porque ahí no hay sombra",
+      "No hay ningún problema"
+     ],
+     "ok": 1,
+     "exp": "La Ley de Aguas Nacionales fija una franja de zona federal (10 m, o 5 m en cauces angostos) a cada lado del cauce.",
+     "ref": [
+      {
+       "t": "Ley de Aguas Nacionales, art. 3 fracc. XLVII (zona federal de cauces)",
+       "u": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LAN.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿Para qué sirve una presa de piedra acomodada en una cárcava?",
+     "op": [
+      "Para frenar el agua y atrapar sedimento",
+      "Para desviar el agua al vecino",
+      "Para guardar agua potable",
+      "Para generar energía"
+     ],
+     "ok": 0,
+     "exp": "Reduce la velocidad del escurrimiento, retiene suelo y permite que la cárcava se vuelva a cubrir de plantas.",
+     "ref": [
+      {
+       "t": "Gobierno de México. Manual de restauración forestal (obras de conservación de suelo)",
+       "u": "https://www.gob.mx/cms/uploads/attachment/file/851270/Manual_de_restauraci_n_forestal_version_digital_compressed.pdf"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "Construye un aparato A",
+    "pasos": [
+     "Une tres palos en forma de A (dos de 2 m y uno de 1 m) y cuelga una plomada del vértice.",
+     "Calíbralo: marca dónde cae la plomada, gíralo 180° y marca otra vez; el punto medio es el nivel.",
+     "Traza una curva a nivel de 10 m con estacas en el terreno.",
+     "Manda foto al grupo y escribe aquí qué aprendiste."
+    ],
+    "ref": [
+     {
+      "t": "Mollison, B. (1988). Permaculture: A Designers' Manual. Tagari",
+      "u": "https://www.worldcat.org/search?q=Mollison+Permaculture+A+Designers+Manual"
+     },
+     {
+      "t": "Gobierno de México. Manual de restauración forestal (obras de conservación de suelo)",
+      "u": "https://www.gob.mx/cms/uploads/attachment/file/851270/Manual_de_restauraci_n_forestal_version_digital_compressed.pdf"
+     }
+    ]
+   }
+  },
+  {
+   "n": 4,
+   "e": "🪱",
+   "titulo": "Suelo vivo",
+   "intro": "Cómo se lee, se alimenta y se mide la vida del suelo.",
+   "preguntas": [
+    {
+     "p": "¿Qué reactivos usa la cromatografía circular de Pfeiffer?",
+     "op": [
+      "Vinagre y bicarbonato",
+      "Hidróxido de sodio al 1 % y nitrato de plata al 0.5 %",
+      "Cloro y alcohol",
+      "Agua oxigenada y sal"
+     ],
+     "ok": 1,
+     "exp": "El suelo se extrae con NaOH al 1 % y corre sobre papel filtro impregnado con nitrato de plata al 0.5 %.",
+     "ref": [
+      {
+       "t": "Rev. Mex. Cienc. Agríc. 9(3) (2018). Cromatografía de Pfeiffer para analizar suelos de sistemas productivos",
+       "u": "https://www.redalyc.org/journal/2631/263158442014/263158442014.pdf"
+      },
+      {
+       "t": "Restrepo, J. y Pinheiro, S. (2011). Cromatografía: imágenes de vida y destrucción del suelo. COAS",
+       "u": "https://www.worldcat.org/search?q=Cromatograf%C3%ADa+im%C3%A1genes+de+vida+y+destrucci%C3%B3n+del+suelo"
+      }
+     ]
+    },
+    {
+     "p": "¿Quién desarrolló la cromatografía circular para leer suelos?",
+     "op": [
+      "Justus von Liebig",
+      "Ehrenfried Pfeiffer",
+      "Albert Howard",
+      "Charles Darwin"
+     ],
+     "ok": 1,
+     "exp": "Ehrenfried Pfeiffer, agrónomo de la escuela biodinámica, la diseñó para ver la vitalidad del suelo.",
+     "ref": [
+      {
+       "t": "SPAUACH Academia Vitalis. Papel de la cromatografía circular de Pfeiffer en el análisis de suelos y abonos",
+       "u": "https://spauach.uach.mx/uploads/magazine_article/article_file/59/Revista_SPAUACH_Academia_Vitalis_10-54-65.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué relación carbono:nitrógeno se busca al armar una composta?",
+     "op": [
+      "Alrededor de 1:1",
+      "Alrededor de 5:1",
+      "Alrededor de 100:1",
+      "Alrededor de 25–30:1"
+     ],
+     "ok": 3,
+     "exp": "Entre 25 y 30 partes de carbono (cafés) por una de nitrógeno (verdes) para que caliente sin oler.",
+     "ref": [
+      {
+       "t": "Rynk, R. (ed.) (1992). On-Farm Composting Handbook. NRAES-54, Cornell",
+       "u": "https://www.worldcat.org/search?q=On-Farm+Composting+Handbook+Rynk"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué temperatura debe alcanzar una composta caliente para eliminar patógenos y semillas?",
+     "op": [
+      "55 °C o más por varios días",
+      "25 °C",
+      "37 °C",
+      "90 °C"
+     ],
+     "ok": 0,
+     "exp": "Mantener 55 °C o más por varios días es el criterio de reducción de patógenos más usado.",
+     "ref": [
+      {
+       "t": "U.S. EPA. 40 CFR Part 503: procesos para reducir patógenos (≥55 °C)",
+       "u": "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-O/part-503"
+      },
+      {
+       "t": "Rynk, R. (ed.) (1992). On-Farm Composting Handbook. NRAES-54, Cornell",
+       "u": "https://www.worldcat.org/search?q=On-Farm+Composting+Handbook+Rynk"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué lombriz se usa en lombricomposta (la «roja californiana»)?",
+     "op": [
+      "Cualquier lombriz sirve igual",
+      "Lumbricus terrestris",
+      "Eisenia fetida",
+      "Lombriz de tierra común de jardín"
+     ],
+     "ok": 2,
+     "exp": "Eisenia fetida vive en la capa superficial de materia orgánica; las lombrices de suelo profundo no prosperan en camas.",
+     "ref": [
+      {
+       "t": "Edwards, C. A., Arancon, N. Q. y Sherman, R. (2011). Vermiculture Technology. CRC Press",
+       "u": "https://www.worldcat.org/search?q=Vermiculture+Technology+Edwards+Arancon+Sherman"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué distingue al biorreactor Johnson-Su?",
+     "op": [
+      "Usa solo estiércol fresco",
+      "Es estático, sin voltear, de 9 a 12 meses, y rico en hongos",
+      "Se hace dentro de agua",
+      "Se voltea cada día"
+     ],
+     "ok": 1,
+     "exp": "Al no voltearse, las redes de hongos crecen; el resultado es un inóculo biológico muy diverso.",
+     "ref": [
+      {
+       "t": "ECHO Community. Biorreactor Johnson-Su (D. Johnson y H.-C. Su, New Mexico State University)",
+       "u": "https://www.echocommunity.org/resources/2cbf1778-c678-4f08-ae14-b0e3bd861d19"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué te dice la prueba del frasco?",
+     "op": [
+      "El nitrógeno total",
+      "El pH exacto",
+      "La textura: cuánta arena, limo y arcilla",
+      "La edad del suelo"
+     ],
+     "ok": 2,
+     "exp": "Al decantar, la arena cae primero, luego el limo y al final la arcilla; con las capas estimas la textura.",
+     "ref": [
+      {
+       "t": "FAO (2009). Guía para la descripción de suelos, 4.ª ed. (copia del Museo de Suelos, UNAM)",
+       "u": "https://museosuelos.ciga.unam.mx/Para_leer/FAO_Gu%C3%ADa_%20suelos.pdf"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "Prueba del frasco",
+    "pasos": [
+     "Llena 1/3 de un frasco con tierra del terreno sin piedras, completa con agua y una pizca de sal.",
+     "Agita 2 minutos y deja reposar 24 horas sin moverlo.",
+     "Mide el grosor de cada capa (arena abajo, limo en medio, arcilla arriba).",
+     "Escribe los centímetros de cada capa; nos dice si sirve para barro y adobe."
+    ],
+    "ref": [
+     {
+      "t": "FAO (2009). Guía para la descripción de suelos, 4.ª ed. (copia del Museo de Suelos, UNAM)",
+      "u": "https://museosuelos.ciga.unam.mx/Para_leer/FAO_Gu%C3%ADa_%20suelos.pdf"
+     }
+    ]
+   }
+  },
+  {
+   "n": 5,
+   "e": "🍄",
+   "titulo": "Hongos, fibras y plantas útiles",
+   "intro": "Lo que el bosque ofrece para tejer y comer, y cómo no equivocarse.",
+   "preguntas": [
+    {
+     "p": "¿Cuál es la única regla segura para comer hongos silvestres?",
+     "op": [
+      "Si un animal lo come, es comestible",
+      "Si la plata no se ennegrece al cocerlo",
+      "Si huele bien",
+      "Que lo identifique una persona experta con el ejemplar completo"
+     ],
+     "ok": 3,
+     "exp": "Todas las «pruebas caseras» son mitos. Solo la identificación experta del ejemplar completo es segura.",
+     "ref": [
+      {
+       "t": "Guzmán, G. (1977). Identificación de los hongos comestibles, venenosos, alucinantes y destructores de la madera. Limusa",
+       "u": "https://www.worldcat.org/search?q=Guzm%C3%A1n+Identificaci%C3%B3n+de+los+hongos+comestibles+venenosos"
+      },
+      {
+       "t": "Gaceta UdeG. Laboratorio de Micología del CUCBA (Dra. Laura Guzmán-Dávalos): ~1,000 especies en Jalisco",
+       "u": "https://www.comsoc.udg.mx/print/49726"
+      }
+     ]
+    },
+    {
+     "p": "¿Por qué las intoxicaciones por Amanitas mortales son tan peligrosas?",
+     "op": [
+      "Dan síntomas inmediatos y leves",
+      "Los síntomas tardan de 6 a 24 horas y luego hay una falsa mejoría",
+      "Solo causan alergia",
+      "No existen en México"
+     ],
+     "ok": 1,
+     "exp": "Las amatoxinas dañan el hígado; cuando aparecen los síntomas el daño ya avanzó. Es una emergencia médica.",
+     "ref": [
+      {
+       "t": "Diaz, J. H. (2005). Syndromic diagnosis and management of confirmed mushroom poisonings. Critical Care Medicine 33(2)",
+       "u": "https://pubmed.ncbi.nlm.nih.gov/?term=Diaz+syndromic+diagnosis+management+confirmed+mushroom+poisonings"
+      }
+     ]
+    },
+    {
+     "p": "¿Cuántas especies de hongos se han inventariado aproximadamente en Jalisco?",
+     "op": [
+      "Unas 1,000",
+      "Unas 50",
+      "Unas 10,000",
+      "Unas 100,000"
+     ],
+     "ok": 0,
+     "exp": "El Laboratorio de Micología de la UdeG calcula unas mil, quizá un 30 % de las que existen.",
+     "ref": [
+      {
+       "t": "Gaceta UdeG. Laboratorio de Micología del CUCBA (Dra. Laura Guzmán-Dávalos): ~1,000 especies en Jalisco",
+       "u": "https://www.comsoc.udg.mx/print/49726"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué relación tienen muchos hongos del bosque con pinos y encinos?",
+     "op": [
+      "Son parásitos que los matan",
+      "Compiten por la luz",
+      "Forman micorrizas: dan agua y nutrientes a cambio de azúcares",
+      "Ninguna"
+     ],
+     "ok": 2,
+     "exp": "Las micorrizas conectan raíces y suelo; por eso no se debe sacar planta del bosque sin su tierra.",
+     "ref": [
+      {
+       "t": "Smith, S. E. y Read, D. J. (2008). Mycorrhizal Symbiosis, 3.ª ed. Academic Press",
+       "u": "https://www.worldcat.org/search?q=Smith+Read+Mycorrhizal+Symbiosis"
+      }
+     ]
+    },
+    {
+     "p": "¿Cómo se llama la fibra de hojas (acículas) de pino usada en cestería artesanal en Jalisco y el Estado de México?",
+     "op": [
+      "Popotillo",
+      "Tule",
+      "Ocochal u ocoxal",
+      "Ixtle"
+     ],
+     "ok": 2,
+     "exp": "El catálogo artesanal de Jalisco la reconoce como fibra; se teje en espiral, cosida con hilo.",
+     "ref": [
+      {
+       "t": "Gobierno de Jalisco (2025). Catálogo de ramas y técnicas artesanales: fibras duras (ocochal, otate, carrizo, tule, palma, agave)",
+       "u": "https://artesanias.jalisco.gob.mx/wp-content/uploads/2025/09/Catalogo-ramas-y-tecnicas.pdf"
+      },
+      {
+       "t": "Vázquez-García, L. M. y Munguía-Lino, G. (2015). Fibras vegetales y las artesanías en el Estado de México. UAEM",
+       "u": "https://core.ac.uk/download/55524222.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿Cómo se propaga el sauce, usado para canastas grandes?",
+     "op": [
+      "Por injerto",
+      "Por estacas: una vara enterrada echa raíces",
+      "Solo por semilla",
+      "No se puede propagar"
+     ],
+     "ok": 1,
+     "exp": "Las varas de sauce enraízan con facilidad; así se hacen cercas vivas y «mimbreras» propias para tejer.",
+     "ref": [
+      {
+       "t": "Saldívar-Iglesias, P. et al. (2006). Plantas silvestres con uso artesanal en el centro de México. Mesoamericana 10(4)",
+       "u": "https://core.ac.uk/download/55532331.pdf"
+      }
+     ]
+    },
+    {
+     "p": "El carrizo (Arundo donax), ¿es nativo de México?",
+     "op": [
+      "Es un bambú nativo",
+      "No, es una especie exótica invasora",
+      "Sí, es nativo",
+      "Es un pasto nativo de La Primavera"
+     ],
+     "ok": 1,
+     "exp": "Es invasora: se aprovecha el que ya existe, pero no se planta. Para eso está el otate, bambú nativo de México.",
+     "ref": [
+      {
+       "t": "UICN, Global Invasive Species Database. 100 de las peores especies invasoras (incluye Arundo donax)",
+       "u": "http://www.iucngisd.org/gisd/100_worst.php"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "Esporada de un hongo",
+    "pasos": [
+     "Corta el sombrero de un hongo (no lo pruebes) y ponlo sobre papel mitad blanco y mitad negro.",
+     "Tápalo con un vaso por 12 horas y lávate las manos.",
+     "Fotografía el dibujo de esporas y el hongo completo; súbelos a NaturaLista.",
+     "Escribe de qué color salieron las esporas."
+    ],
+    "ref": [
+     {
+      "t": "Guzmán, G. (1977). Identificación de los hongos comestibles, venenosos, alucinantes y destructores de la madera. Limusa",
+      "u": "https://www.worldcat.org/search?q=Guzm%C3%A1n+Identificaci%C3%B3n+de+los+hongos+comestibles+venenosos"
+     },
+     {
+      "t": "CONABIO. NaturaLista (iNaturalist México)",
+      "u": "https://www.naturalista.mx/"
+     }
+    ]
+   }
+  },
+  {
+   "n": 6,
+   "e": "🐝",
+   "titulo": "Abejas, seda y aves",
+   "intro": "Los animales que llegan primero al Oasis: cómo cuidarlos y qué nos dan.",
+   "preguntas": [
+    {
+     "p": "¿Qué abeja con aguijón predomina hoy en Jalisco?",
+     "op": [
+      "Apis mellifera africanizada",
+      "Melipona",
+      "Abeja europea pura",
+      "Abejorro"
+     ],
+     "ok": 0,
+     "exp": "La abeja africanizada es más defensiva; por eso el apiario va lejos de senderos y con equipo de protección.",
+     "ref": [
+      {
+       "t": "UNAM, FMVZ. Manual de prácticas de medicina y zootecnia apícola I",
+       "u": "https://fmvz.unam.mx/fmvz/licenciatura/coepa/archivos/manuales_2013/Manual_Practicas_Medicina_Zootecnia_Apicola_I.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué abeja nativa sin aguijón vive en el occidente de México?",
+     "op": [
+      "Apis cerana",
+      "Melipona beecheii",
+      "Bombus terrestris",
+      "Scaptotrigona hellwegeri (abeja bermeja)"
+     ],
+     "ok": 3,
+     "exp": "La abeja bermeja anida en huecos de árboles y se cría en meliponicultura por su miel y cera. Melipona beecheii es de la península de Yucatán.",
+     "ref": [
+      {
+       "t": "Scaptotrigona hellwegeri: abeja bermeja sin aguijón del occidente de México (Wikipedia, con fuentes)",
+       "u": "https://en.wikipedia.org/wiki/Scaptotrigona_hellwegeri"
+      }
+     ]
+    },
+    {
+     "p": "Si mueves una colmena, ¿qué regla evita que se pierdan las pecoreadoras?",
+     "op": [
+      "Moverla 500 m al mediodía",
+      "Moverla de noche a cualquier distancia",
+      "No importa la distancia",
+      "Menos de 1 metro por día o más de 3 km de una vez"
+     ],
+     "ok": 3,
+     "exp": "Las abejas memorizan la ubicación; a distancias intermedias regresan al lugar viejo y se pierden.",
+     "ref": [
+      {
+       "t": "Evans, D. The Apiarist: mover colmenas a distancias intermedias (regla de 3 pies o 3 millas)",
+       "u": "https://theapiarist.org/moving-hives-intermediate-distances/"
+      }
+     ]
+    },
+    {
+     "p": "¿Qué come el gusano de seda (Bombyx mori)?",
+     "op": [
+      "Cualquier hoja verde",
+      "Solo hojas de morera",
+      "Pasto",
+      "Hojas de encino"
+     ],
+     "ok": 1,
+     "exp": "Se alimenta casi solo de hojas de morera; por eso primero se planta la morera.",
+     "ref": [
+      {
+       "t": "FAO (1987). Manuals on Sericulture, Agricultural Services Bulletin 73",
+       "u": "https://www.worldcat.org/search?q=FAO+Manuals+on+Sericulture"
+      }
+     ]
+    },
+    {
+     "p": "¿En qué condiciones se incuban los huevos de gusano de seda?",
+     "op": [
+      "24 a 26 °C, 80 a 85 % de humedad, unos 10 a 15 días",
+      "En el congelador",
+      "35 °C con sol directo",
+      "15 °C y ambiente seco"
+     ],
+     "ok": 0,
+     "exp": "Y deben nacer cuando ya haya hoja tierna de morera.",
+     "ref": [
+      {
+       "t": "INTI Argentina. Protocolo optimizado de incubación de huevos de gusano de seda",
+       "u": "https://seda.inti.gob.ar/pluginfile.php/305/mod_resource/content/0/protocolo-incubacion-optimizado.pdf"
+      }
+     ]
+    },
+    {
+     "p": "¿De dónde sale el huevo verde (olive egger)?",
+     "op": [
+      "De gallinas viejas",
+      "De alimentar con alfalfa",
+      "De gallinas holandesas puras",
+      "De cruzar una raza de huevo café oscuro (Welsumer, Marans, Barnevelder) con una de huevo azul (Araucana, Ameraucana)"
+     ],
+     "ok": 3,
+     "exp": "El pigmento café cubre la cáscara azul y el resultado es verde oliva.",
+     "ref": [
+      {
+       "t": "Grit. Araucana, Ameraucana, Easter Egger, Olive Egger: diferencias",
+       "u": "https://www.grit.com/animals/poultry/chickens/araucana-ameraucana-or-easter-egger-olive-egger-rainbow-layer-whats-the-difference/"
+      }
+     ]
+    },
+    {
+     "p": "¿Quién popularizó el cultivo de arroz con patos (método aigamo)?",
+     "op": [
+      "Masanobu Fukuoka",
+      "Takao Furuno",
+      "Bill Mollison",
+      "P. A. Yeomans"
+     ],
+     "ok": 1,
+     "exp": "El agricultor japonés Takao Furuno lo documentó en The Power of Duck: los patos deshierban, abonan y controlan plagas.",
+     "ref": [
+      {
+       "t": "Furuno, T. (2001). The Power of Duck: Integrated Rice and Duck Farming. Tagari",
+       "u": "https://www.worldcat.org/search?q=Furuno+The+Power+of+Duck"
+      }
+     ]
+    }
+   ],
+   "actividad": {
+    "titulo": "10 minutos con los polinizadores",
+    "pasos": [
+     "Siéntate 10 minutos frente a una planta en flor.",
+     "Cuenta cuántas visitas recibe y de qué tipo (abeja, mosca, mariposa, colibrí, escarabajo).",
+     "Fotografía al menos un visitante y súbelo a NaturaLista.",
+     "Escribe tu conteo aquí."
+    ],
+    "ref": [
+     {
+      "t": "CONABIO. NaturaLista (iNaturalist México)",
+      "u": "https://www.naturalista.mx/"
+     },
+     {
+      "t": "Scaptotrigona hellwegeri: abeja bermeja sin aguijón del occidente de México (Wikipedia, con fuentes)",
+      "u": "https://en.wikipedia.org/wiki/Scaptotrigona_hellwegeri"
+     }
+    ]
+   }
+  }
+ ],
+ "proximas": [
+  {
+   "n": 7,
+   "e": "🧱",
+   "titulo": "Barro y bioconstrucción"
+  },
+  {
+   "n": 8,
+   "e": "🌽",
+   "titulo": "Semillas, milpa y calendario"
+  },
+  {
+   "n": 9,
+   "e": "🩹",
+   "titulo": "Primeros auxilios en campo"
+  },
+  {
+   "n": 10,
+   "e": "🧭",
+   "titulo": "Orientación: brújula, estrellas y mapas"
+  },
+  {
+   "n": 11,
+   "e": "🫙",
+   "titulo": "Fermentos y conservas"
+  },
+  {
+   "n": 12,
+   "e": "🐾",
+   "titulo": "Huellas y rastros de fauna"
+  }
+ ]
+}
