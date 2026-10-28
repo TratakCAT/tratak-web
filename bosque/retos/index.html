@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Retos del Oasis</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<meta name="apple-mobile-web-app-title" content="Retos del Oasis">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: cuaderno de retos — cabecera, reto de la semana como tarjeta principal, marcador, actividad, archivo plegable y próximos bloqueados */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --ok:#3f7a4f; --ok-soft:#dcebdc; --bad:#a14b3c; --bad-soft:#f3dcd6;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--ok:#7fb38c;--ok-soft:#1f3326;--bad:#e08a78;--bad-soft:#3b2520;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--ok:#7fb38c;--ok-soft:#1f3326;--bad:#e08a78;--bad-soft:#3b2520;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 72px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:34px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,54px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:23px;font-weight:700;font-stretch:80%}
+h3{font-size:17px;font-weight:700;font-stretch:88%}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.note{font-size:13.5px;color:var(--muted)}
+.back{font-family:var(--display);font-size:13px;font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);padding:20px 22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.btn{font-family:var(--display);font-size:14px;font-weight:700;border:1px solid var(--accent);border-radius:6px;padding:9px 16px;cursor:pointer;background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=text],input[type=password],textarea{font:15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;width:100%}
+label.f{display:flex;flex-direction:column;gap:4px;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.err{color:var(--bad);font-size:14px}
+.hero{display:flex;flex-direction:column;gap:8px}
+.week{display:flex;gap:16px;align-items:flex-start}
+.week .big{font-size:54px;line-height:1}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--display);font-size:12.5px;font-weight:600}
+.pill{border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
+.pill.on{border-color:var(--accent);color:var(--accent)}
+.q{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.q .num{font-family:var(--display);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em}
+.q .txt{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:9px 12px;cursor:pointer;background:var(--bg)}
+.opt input{margin-top:4px}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.static{cursor:default}
+.exp{font-size:14.5px;border-left:3px solid var(--accent);padding-left:10px}
+.refs{font-size:13px;color:var(--muted);margin:0;padding-left:18px}
+.refs li{margin-top:2px}
+.score{font-family:var(--display);font-size:28px;font-weight:800;font-stretch:80%}
+.board{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.board li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:6px 0;font-family:var(--display);font-size:14.5px}
+.board .who{font-weight:700}
+.act ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.check{display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:600}
+details{background:var(--surface);border:1px solid var(--line)}
+summary{cursor:pointer;padding:14px 18px;font-family:var(--display);font-weight:700;font-size:16px;display:flex;gap:10px;align-items:center}
+details .in{padding:0 18px 18px;display:flex;flex-direction:column;gap:14px}
+.mini{font-size:13.5px;color:var(--muted)}
+.locked{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.lock{border:1px dashed var(--line);padding:12px 14px;display:flex;gap:10px;align-items:center;font-family:var(--display);font-size:14px;color:var(--muted)}
+.lock .e{font-size:24px;filter:grayscale(.6)}
+.answers{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--display)}
+.answers th,.answers td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:center}
+.answers td:first-child,.answers th:first-child{text-align:left}
+.tw{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <a class="back" href="/bosque/">← Oasis Consciente</a>
+    <p class="eyebrow">Oasis Consciente · retos semanales</p>
+    <h1>Retos del Oasis</h1>
+    <p class="note">Cada lunes se abre un reto nuevo: siete preguntas de opción múltiple y una mini actividad para hacer en el terreno o en casa. Tienes hasta el domingo para jugarlo. Los retos pasados quedan abajo, con respuestas y referencias, para seguir investigando.</p>
+    <p><a class="back" href="/bosque/guia/">Guía de campo de La Primavera →</a></p>
+  </header>
+
+  <form class="card" id="login" hidden>
+    <h2>Entrar</h2>
+    <p class="note">Tu nombre (el mismo de siempre) y la contraseña del Oasis.</p>
+    <label class="f">Tu nombre<input type="text" id="l-nom" maxlength="40" autocomplete="name"></label>
+    <label class="f">Contraseña<input type="password" id="l-clave" autocomplete="current-password"></label>
+    <p class="err" id="l-err" aria-live="polite"></p>
+    <div><button class="btn" type="submit">Entrar</button></div>
+  </form>
+
+  <p class="note" id="status" aria-live="polite"></p>
+
+  <div id="app" hidden>
+    <section class="card" id="current"></section>
+    <section class="card act" id="actividad"></section>
+    <section class="card" id="marcador"></section>
+    <section id="archivo"></section>
+    <section id="proximos"></section>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+const API="/api/bosque/", $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MS=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const L="ABCD";
+let token=null,me="",BANCO=null,SEM=0,RETOS={},busy=false;
+try{token=localStorage.getItem("bosque_token");me=localStorage.getItem("bosque_nombre")||""}catch(e){}
+const say=m=>{$("status").textContent=m||""};
+
+async function api(path,opts){
+  const o=Object.assign({headers:{}},opts||{});o.headers["content-type"]="application/json";
+  if(token)o.headers.authorization="Bearer "+token;
+  let r;try{r=await fetch(API+path,o)}catch(e){throw new Error("Sin conexión. Revisa tu internet.")}
+  let j={};try{j=await r.json()}catch(e){}
+  if(r.status===401&&path!=="login"){token=null;try{localStorage.removeItem("bosque_token")}catch(e){};showLogin();throw new Error(j.error||"Vuelve a entrar.")}
+  if(!r.ok)throw new Error(j.error||("Error "+r.status));return j;
+}
+function showLogin(){$("app").hidden=true;$("login").hidden=false;$("l-nom").value=me}
+$("login").addEventListener("submit",async e=>{
+  e.preventDefault();$("l-err").textContent="";
+  try{const j=await api("login",{method:"POST",body:JSON.stringify({nombre:$("l-nom").value.trim(),clave:$("l-clave").value})});
+    token=j.token;me=j.nombre;try{localStorage.setItem("bosque_token",token);localStorage.setItem("bosque_nombre",me)}catch(e){}
+    $("l-clave").value="";$("login").hidden=true;load()}catch(err){$("l-err").textContent=err.message}
+});
+
+const inicio=()=>{const[y,m,d]=BANCO.inicio.split("-").map(Number);return Date.UTC(y,m-1,d)};
+const fechaSem=(n,off)=>{const t=new Date(inicio()+((n-1)*7+off)*864e5);return t.getUTCDate()+" "+MS[t.getUTCMonth()]};
+const mine=n=>((RETOS[String(n)]||{})[me.toLowerCase()])||null;
+
+async function load(){
+  say("Cargando…");
+  try{
+    if(!BANCO){const r=await fetch("banco.json",{cache:"no-store"});BANCO=await r.json()}
+    const j=await api("retos");SEM=j.semana;RETOS=j.retos||{};say("");render();
+  }catch(err){say(err.message)}
+}
+
+function refsHtml(ref){return ref&&ref.length?`<ol class="refs">${ref.map(r=>`<li>${r.u?`<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>`:esc(r.t)}</li>`).join("")}</ol>`:""}
+function review(s,answers){
+  return s.preguntas.map((q,i)=>{const a=answers?answers[i]:-1;
+    return `<div class="q"><span class="num">PREGUNTA ${i+1}</span><p class="txt">${esc(q.p)}</p><div class="opts">${q.op.map((o,k)=>`<div class="opt static ${k===q.ok?"right":(k===a?"wrong":"")}"><b>${L[k]}</b><span>${esc(o)}${k===q.ok?" ✓":(k===a?" ✗":"")}</span></div>`).join("")}</div><p class="exp">${esc(q.exp)}</p>${refsHtml(q.ref)}</div>`}).join("");
+}
+
+function render(){
+  $("app").hidden=false;
+  const s=BANCO.semanas.find(x=>x.n===SEM);
+  const cur=$("current");
+  if(SEM<1){cur.innerHTML=`<h2>Los retos empiezan el ${fechaSem(1,0)}</h2>`}
+  else if(!s){cur.innerHTML=`<div class="week"><span class="big">🌱</span><div><p class="eyebrow">Semana ${SEM}</p><h2>El reto de esta semana todavía no está escrito</h2><p class="note">Pídele a Gibrán que lo cargue. Mientras, puedes repasar los retos pasados abajo.</p></div></div>`}
+  else{
+    const m=mine(SEM);
+    let h=`<div class="week"><span class="big" aria-hidden="true">${s.e}</span><div style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">Semana ${s.n} · del ${fechaSem(s.n,0)} al ${fechaSem(s.n,6)}</p><h2>${esc(s.titulo)}</h2><p>${esc(s.intro)}</p></div></div>`;
+    if(m&&m.respuestas){
+      h+=`<div><p class="score">${m.puntaje} de ${m.total}</p><p class="note">Ya contestaste este reto. Aquí están las respuestas y de dónde salen.</p></div>`+review(s,m.respuestas);
+    }else{
+      h+=`<form id="quiz" style="display:flex;flex-direction:column;gap:14px">`+s.preguntas.map((q,i)=>`<fieldset class="q" style="border:0;margin:0;padding:14px 0 0;border-top:1px solid var(--line)"><legend class="num" style="padding:0">PREGUNTA ${i+1}</legend><p class="txt">${esc(q.p)}</p><div class="opts">${q.op.map((o,k)=>`<label class="opt"><input type="radio" name="q${i}" value="${k}"><span><b>${L[k]}</b> ${esc(o)}</span></label>`).join("")}</div></fieldset>`).join("")+
+        `<p class="err" id="q-err" aria-live="polite"></p><div><button class="btn" type="submit">Enviar respuestas</button></div><p class="note">Solo se puede contestar una vez. Después verás las respuestas, explicaciones y referencias.</p></form>`;
+    }
+    cur.innerHTML=h;
+    const f=$("quiz");
+    if(f)f.addEventListener("submit",async e=>{
+      e.preventDefault();if(busy)return;
+      const resp=s.preguntas.map((q,i)=>{const c=f.querySelector(`input[name=q${i}]:checked`);return c?+c.value:-1});
+      const falt=resp.filter(x=>x<0).length;
+      if(falt){$("q-err").textContent=`Te falta${falt>1?"n":""} ${falt} pregunta${falt>1?"s":""}.`;return}
+      const puntaje=resp.filter((a,i)=>a===s.preguntas[i].ok).length;
+      busy=true;f.querySelector("button").disabled=true;
+      try{const j=await api("op",{method:"POST",body:JSON.stringify({op:"reto",semana:s.n,respuestas:resp,puntaje,total:s.preguntas.length})});RETOS=j.retos;render();window.scrollTo({top:$("current").offsetTop-10,behavior:"smooth"})}
+      catch(err){$("q-err").textContent=err.message;f.querySelector("button").disabled=false}finally{busy=false}
+    });
+  }
+  // actividad
+  const act=$("actividad");
+  if(s&&s.actividad){const m=mine(SEM)||{};
+    act.hidden=false;
+    act.innerHTML=`<p class="eyebrow">Mini actividad</p><h3>${esc(s.actividad.titulo)}</h3><ol>${s.actividad.pasos.map(p=>`<li>${esc(p)}</li>`).join("")}</ol>${refsHtml(s.actividad.ref)}
+      <label class="f">Lo que hiciste o encontraste<textarea id="a-txt" rows="3" maxlength="1200">${esc(m.actividad||"")}</textarea></label>
+      <label class="check"><input type="checkbox" id="a-ok" ${m.hecha?"checked":""}> Ya la hice</label>
+      <div style="display:flex;gap:10px;align-items:center"><button class="btn ghost" id="a-save" type="button">Guardar actividad</button><span class="note" id="a-st" aria-live="polite"></span></div>`;
+    $("a-save").onclick=async()=>{if(busy)return;busy=true;$("a-st").textContent="Guardando…";
+      try{const j=await api("op",{method:"POST",body:JSON.stringify({op:"reto",semana:s.n,actividad:$("a-txt").value,hecha:$("a-ok").checked})});RETOS=j.retos;$("a-st").textContent="Guardado.";renderBoard(s)}
+      catch(err){$("a-st").textContent=err.message}finally{busy=false}};
+  }else act.hidden=true;
+  renderBoard(s);renderArchive();renderNext();
+}
+function people(n){return Object.values(RETOS[String(n)]||{}).sort((a,b)=>(b.puntaje||0)-(a.puntaje||0)||a.nombre.localeCompare(b.nombre))}
+function renderBoard(s){
+  const b=$("marcador");if(!s){b.hidden=true;return}b.hidden=false;
+  const ps=people(s.n);
+  b.innerHTML=`<p class="eyebrow">Marcador de la semana</p>${ps.length?`<ul class="board">${ps.map(p=>`<li><span class="who">${esc(p.nombre)}</span><span>${p.respuestas?`${p.puntaje}/${p.total}`:"sin contestar"} ${p.hecha?"· actividad ✓":""}</span></li>`).join("")}</ul>`:'<p class="note">Nadie ha jugado todavía. ¡Sé la primera persona!</p>'}
+  ${totals()}`;
+}
+function totals(){
+  const t={};Object.values(RETOS).forEach(w=>Object.values(w).forEach(p=>{const k=p.nombre;t[k]=t[k]||{n:k,pts:0,act:0};t[k].pts+=p.puntaje||0;t[k].act+=p.hecha?1:0}));
+  const arr=Object.values(t).sort((a,b)=>b.pts-a.pts||b.act-a.act);
+  return arr.length?`<p class="eyebrow" style="margin-top:8px">Tabla general</p><ul class="board">${arr.map(p=>`<li><span class="who">${esc(p.n)}</span><span>${p.pts} aciertos · ${p.act} actividades</span></li>`).join("")}</ul>`:"";
+}
+function renderArchive(){
+  const past=BANCO.semanas.filter(x=>x.n<SEM).sort((a,b)=>b.n-a.n);
+  $("archivo").innerHTML=past.length?`<h2 style="margin-bottom:12px">Retos anteriores</h2><div style="display:flex;flex-direction:column;gap:10px">${past.map(s=>{const ps=people(s.n);const m=mine(s.n);
+    return `<details><summary><span aria-hidden="true">${s.e}</span>Semana ${s.n} · ${esc(s.titulo)} <span class="mini">(${fechaSem(s.n,0)}–${fechaSem(s.n,6)})${m&&m.respuestas?` · tú: ${m.puntaje}/${m.total}`:""}</span></summary><div class="in">
+      ${ps.length?`<div class="tw"><table class="answers"><thead><tr><th>Persona</th>${s.preguntas.map((q,i)=>`<th>${i+1}</th>`).join("")}<th>Total</th></tr></thead><tbody>${ps.map(p=>`<tr><td>${esc(p.nombre)}</td>${s.preguntas.map((q,i)=>{const a=p.respuestas?p.respuestas[i]:-1;return `<td title="${a>=0?L[a]:"—"}">${a<0?"—":(a===q.ok?"✓":"✗")}</td>`}).join("")}<td><b>${p.respuestas?p.puntaje:"—"}</b></td></tr>`).join("")}</tbody></table></div>`:'<p class="note">Nadie jugó este reto.</p>'}
+      ${review(s,m&&m.respuestas)}
+      <div class="q"><span class="num">MINI ACTIVIDAD</span><p class="txt">${esc(s.actividad.titulo)}</p>${ps.filter(p=>p.actividad).map(p=>`<p class="mini"><b>${esc(p.nombre)}${p.hecha?" ✓":""}:</b> ${esc(p.actividad)}</p>`).join("")||'<p class="note">Sin notas de actividad.</p>'}</div>
+    </div></details>`}).join("")}</div>`:"";
+}
+function renderNext(){
+  const fut=BANCO.semanas.filter(x=>x.n>SEM).map(s=>({n:s.n,e:s.e,titulo:s.titulo})).concat((BANCO.proximas||[]).filter(x=>x.n>SEM&&!BANCO.semanas.some(s=>s.n===x.n)));
+  $("proximos").innerHTML=fut.length?`<h2 style="margin-bottom:12px">Próximos retos</h2><div class="locked">${fut.map(s=>`<div class="lock"><span class="e" aria-hidden="true">${s.e}</span><span><b>Semana ${s.n}</b> · abre el ${fechaSem(s.n,0)}<br>${esc(s.titulo)}</span></div>`).join("")}</div>`:"";
+}
+if(token)load();else showLogin();
+})();
+</script>
+</body>
+</html>

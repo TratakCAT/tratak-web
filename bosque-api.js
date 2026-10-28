@@ -7,6 +7,9 @@ const MAX_TASKS = 400;
 const MAX_LOG = 300;
 const TOKEN_DAYS = 90;
 const ESTADOS = ['done', 'active', 'next', 'wait'];
+// Retos semanales: la semana 1 abre el lunes 26 oct 2026 a las 00:00 de Guadalajara (UTC-6).
+const RETOS_INICIO = Date.UTC(2026, 9, 26, 6, 0, 0);
+const semanaActual = () => Math.floor((Date.now() - RETOS_INICIO) / (7 * 864e5)) + 1;
 
 const enc = new TextEncoder();
 const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -96,6 +99,7 @@ export class BosquePlan {
     if (!who) return json({ error: 'Tu sesión expiró. Vuelve a entrar.' }, 401);
 
     if (path === 'estado' && request.method === 'GET') return json(await this.snapshot());
+    if (path === 'retos' && request.method === 'GET') return json({ semana: semanaActual(), retos: (await this.state.storage.get('retos')) || {} });
     if (path === 'op' && request.method === 'POST') {
       let body;
       try { body = await request.json(); } catch (e) { return json({ error: 'Solicitud inválida.' }, 400); }
@@ -139,6 +143,28 @@ export class BosquePlan {
     const stamp = new Date().toISOString();
     const push = (txt) => { log.push({ quien: nombre, fecha: stamp, txt: str(txt, 300) }); };
 
+    if (body.op === 'reto') {
+      const sem = parseInt(body.semana, 10);
+      if (sem !== semanaActual()) { const e = new Error('Este reto ya está cerrado o todavía no abre.'); e.status = 409; throw e; }
+      const retos = (await st.get('retos')) || {};
+      const key = String(sem), who = nombre.toLowerCase();
+      retos[key] = retos[key] || {};
+      const prev = retos[key][who] || {};
+      const rec = { ...prev, nombre, fecha: stamp };
+      if (Array.isArray(body.respuestas)) {
+        if (prev.respuestas) { const e = new Error('Ya contestaste este reto; tus respuestas quedaron guardadas.'); e.status = 409; throw e; }
+        rec.respuestas = body.respuestas.slice(0, 30).map((n) => (Number.isInteger(n) ? n : -1));
+        rec.puntaje = Math.max(0, Math.min(30, parseInt(body.puntaje, 10) || 0));
+        rec.total = Math.max(0, Math.min(30, parseInt(body.total, 10) || 0));
+        push('Contestó el reto de la semana ' + sem + ' (' + rec.puntaje + '/' + rec.total + ')');
+      }
+      if ('actividad' in body) rec.actividad = str(body.actividad, 1200);
+      if ('hecha' in body) { rec.hecha = !!body.hecha; if (rec.hecha && !prev.hecha) push('Completó la actividad de la semana ' + sem); }
+      retos[key][who] = rec;
+      await st.put('retos', retos);
+      await st.put('log', log.slice(-MAX_LOG));
+      return { ok: true, semana: semanaActual(), retos };
+    }
     if (body.op === 'importar') {
       if (plan && plan.tasks && plan.tasks.length && !body.reemplazar) {
         const e = new Error('Ya hay un plan cargado.'); e.status = 409; throw e;

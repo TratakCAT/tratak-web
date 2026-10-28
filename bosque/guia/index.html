@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Guía de campo del Oasis</title>
+<meta name="description" content="Plantas para tejer, árboles, hongos y fauna del Bosque La Primavera, con usos, cuidados y referencias.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: guía de campo — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="back" href="/bosque/">← Oasis Consciente</a>
+  <p class="eyebrow">Oasis Consciente · Bosque La Primavera</p>
+  <h1>Guía de campo del Oasis</h1>
+  <p class="lede">Qué plantas sirven para tejer, qué árboles, hongos y animales viven alrededor, qué nos dan y cómo convivir con ellos sin dañar el bosque. Para practicar, cada semana hay un reto nuevo.</p>
+  <nav class="nav"><a href="#tejer">🧺 Tejer</a><a href="#arboles">🌳 Árboles</a><a href="#hongos">🍄 Hongos</a><a href="#fauna">🦌 Fauna</a><a href="/bosque/retos/">🏆 Retos semanales</a></nav>
+</header>
+<section class="rules">
+  <h2>⚖️ Antes de cortar o recolectar</h2>
+  <ul>
+    <li>El bosque es Área Natural Protegida: sacar plantas, tierra, leña o animales del área necesita autorización.</li>
+    <li>Dentro de tu terreno: usa material caído, de poda o de plantas que tú sembraste. Nunca cortes un árbol vivo.</li>
+    <li>La mejor fuente de fibra es la propia: planta una mimbrera de sauce, un otatal y nopal con maguey en los bordes.</li>
+    <li>Registra lo que encuentres en NaturaLista: sirve a la ciencia y te ayuda a identificar.</li>
+  </ul>
+</section>
+<section id="tejer">
+  <h2>🧺 Plantas para tejer</h2>
+  <div class="tech">
+    <div><h3>Zarzo o muralla tejida</h3><p>Estacas clavadas cada 30 a 50 cm y varas flexibles entretejidas por delante y por detrás. Es la base del bajareque: después se rellena con barro.</p></div>
+    <div><h3>Muralla viva de sauce</h3><p>En invierno se entierran varas de sauce en cruz; con las lluvias enraízan y la muralla crece sola. Se poda cada año y lo podado se usa para canastas.</p></div>
+    <div><h3>Cestería en espiral</h3><p>Manojos de ocochal o zacate se enrollan en espiral y se cosen con hilo o ixtle. Es la técnica de los tortilleros de hoja de pino.</p></div>
+  </div>
+  <div class="grid"><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌿</span><div><h3>Sauce</h3><p class="sci"><i>Salix</i> spp. (p. ej. <i>S. bonplandiana</i>, ahuejote)</p></div></div>
+<dl><dt>Dónde</dt><dd>Orillas de arroyos y zonas húmedas. Revisa si crece en tu arroyo.</dd><dt>Qué nos da</dt><dd>Varas largas y flexibles para canastas grandes y muros tejidos. Una vara enterrada en lluvias echa raíz: con ellas se hace una «muralla viva».</dd><dt>Cuidado</dt><dd>Corta solo varas de sauces que tú plantes o de poda; planta una «mimbrera» propia con estacas en invierno.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🎋</span><div><h3>Otate</h3><p class="sci"><i>Otatea</i> spp., bambú nativo de México</p></div></div>
+<dl><dt>Dónde</dt><dd>Cañadas y laderas de bosque tropical seco y pino-encino del occidente.</dd><dt>Qué nos da</dt><dd>Cañas para estructuras, cercas, quincha y cestería gruesa. El catálogo artesanal de Jalisco lo reconoce como fibra.</dd><dt>Cuidado</dt><dd>Planta tu propio otatal; el silvestre está en área protegida.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌲</span><div><h3>Ocochal (hojas de pino)</h3><p class="sci">Acículas de <i>Pinus oocarpa</i>, el pino ocote</p></div></div>
+<dl><dt>Dónde</dt><dd>Bajo los pinos, todo el año, sobre todo al final del estiaje.</dd><dt>Qué nos da</dt><dd>Cestería en espiral cosida: canastas, tortilleros, figuras. También acolchado y relleno de enjarres.</dd><dt>Cuidado</dt><dd>Junta solo hojas caídas; además reduces combustible para incendios.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🍂</span><div><h3>Rebrotes de encino</h3><p class="sci"><i>Quercus</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Encinos podados o que rebrotan tras fuego echan varas rectas desde el tocón.</dd><dt>Qué nos da</dt><dd>Varas para zarzo (estacas con varas entretejidas): cercas, paneles de bajareque, camas elevadas.</dd><dt>Cuidado</dt><dd>Solo en tu predio y sin cortar árboles vivos; los encinos son el corazón del bosque.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🪵</span><div><h3>Carrizo</h3><p class="sci"><i>Arundo donax</i> (exótica invasora)</p></div></div>
+<dl><dt>Dónde</dt><dd>Orillas de agua y terrenos perturbados.</dd><dt>Qué nos da</dt><dd>Cañas para quincha, techos ligeros, sombras y cestería.</dd><dt>Cuidado</dt><dd>Aprovecha el que ya existe; nunca lo plantes, es de las peores invasoras del mundo.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌵</span><div><h3>Ixtle de agave</h3><p class="sci"><i>Agave</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Agaves del terreno y de la región tequilera; bagazo de tus proyectos.</dd><dt>Qué nos da</dt><dd>Fibra para cuerda, amarres de komai y bajareque, y bagazo para mezclas de barro.</dd><dt>Cuidado</dt><dd>Usa pencas de poda u hojas viejas, no mates la planta.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌾</span><div><h3>Zazal o tatalencho</h3><p class="sci"><i>Gymnosperma glutinosum</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Arbusto común de terrenos abiertos en el centro de México; búscalo en el pastizal.</dd><dt>Qué nos da</dt><dd>Tallos para las cruces de la base y los costados de canastas grandes.</dd><dt>Cuidado</dt><dd>Corta solo algunos tallos por planta para que rebrote.</dd></dl></article></div>
+</section>
+<section id="arboles"><h2>🌳 Árboles y plantas útiles</h2><div class="grid"><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌲</span><div><h3>Pino ocote</h3><p class="sci"><i>Pinus oocarpa</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Domina el bosque; sus anillos guardan 160 años de lluvias.</dd><dt>Qué nos da</dt><dd>Ocote (madera resinosa) para encender, hojas para cestería y acolchado, piñas, sombra.</dd><dt>Cuidado</dt><dd>Su resina arde fácil: lejos de fogatas en estiaje.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌳</span><div><h3>Encinos</h3><p class="sci"><i>Quercus</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Mezclados con el pino en todo el bosque.</dd><dt>Qué nos da</dt><dd>Bellotas (comestibles tras quitarles los taninos remojándolas), hojarasca para composta, sombra, hongos asociados.</dd><dt>Cuidado</dt><dd>Nunca cortar vivos; junta solo ramas caídas.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🍈</span><div><h3>Guayabo</h3><p class="sci"><i>Psidium guajava</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Huertos y orillas de arroyos de la región.</dd><dt>Qué nos da</dt><dd>Fruta, hojas para té, madera dura para mangos de herramienta.</dd><dt>Cuidado</dt><dd>Buen árbol para el bosque comestible del Oasis.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌳</span><div><h3>Morera</h3><p class="sci"><i>Morus</i> spp. (plantada)</p></div></div>
+<dl><dt>Dónde</dt><dd>Se planta por estaca en invierno.</dd><dt>Qué nos da</dt><dd>Alimento de gusanos de seda, forraje para aves, moras.</dd><dt>Cuidado</dt><dd>Es introducida; mantenla en la zona de huerto.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🌵</span><div><h3>Nopal y maguey</h3><p class="sci"><i>Opuntia</i> spp. y <i>Agave</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Bordes y laderas secas.</dd><dt>Qué nos da</dt><dd>Comida, mucílago para enjarres, fibra, cercos vivos y soporte de cochinilla.</dd><dt>Cuidado</dt><dd>Ideales para metepantles en ladera.</dd></dl></article></div></section>
+<section id="hongos"><h2>🍄 Hongos</h2>
+  <p>En Jalisco hay alrededor de mil especies de hongos registradas. <b>Regla de oro: ningún hongo silvestre se come sin la identificación de una persona experta.</b></p>
+  <div class="grid"><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🍄</span><div><h3>Comestibles de bosques de pino-encino</h3><p class="sci">p. ej. <i>Amanita basii</i>, <i>Cantharellus</i>, <i>Lactarius indigo</i>, <i>Boletus edulis</i>, <i>Laccaria</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Registrados en bosques de pino-encino de México; en La Primavera hay que confirmarlos.</dd><dt>Qué nos da</dt><dd>Comida de temporada de lluvias y conocimiento tradicional.</dd><dt>Cuidado</dt><dd>Solo con identificación experta del ejemplar completo. El Laboratorio de Micología de la UdeG es la referencia regional.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">☠️</span><div><h3>Amanitas blancas mortales</h3><p class="sci"><i>Amanita</i> sección <i>Phalloideae</i> (con anillo y bolsa en la base)</p></div></div>
+<dl><dt>Dónde</dt><dd>Bosques de pino-encino en lluvias.</dd><dt>Qué nos da</dt><dd>Nada: son de las más tóxicas del mundo.</dd><dt>Cuidado</dt><dd>Síntomas tardíos (6 a 24 h) y falsa mejoría: ante cualquier duda, urgencias.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🧫</span><div><h3>Setas cultivadas</h3><p class="sci"><i>Pleurotus</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Módulo a la sombra con paja o rastrojo.</dd><dt>Qué nos da</dt><dd>Comida segura y sustrato agotado para composta.</dd><dt>Cuidado</dt><dd>Usa solo semilla (inóculo) de proveedor confiable.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🕸️</span><div><h3>Micorrizas</h3><p class="sci">Hongos asociados a raíces de pinos y encinos</p></div></div>
+<dl><dt>Dónde</dt><dd>Bajo tierra, en todo el bosque.</dd><dt>Qué nos da</dt><dd>Llevan agua y nutrientes a los árboles; por eso el mantillo del bosque inocula el vivero.</dd><dt>Cuidado</dt><dd>No saques plantas sin su tierra ni rasques el mantillo de grandes áreas.</dd></dl></article></div></section>
+<section id="fauna"><h2>🦌 Fauna de La Primavera</h2>
+  <p>Más de 59 especies de mamíferos, unas 200 de aves, 49 de reptiles y 20 de anfibios. Lo que nos dan es sobre todo trabajo invisible: control de plagas, polinización y semillas. En el área protegida no se caza.</p>
+  <div class="grid"><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🦌</span><div><h3>Venado cola blanca</h3><p class="sci"><i>Odocoileus virginianus</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Todo el bosque; huellas en forma de corazón.</dd><dt>Qué nos da</dt><dd>Dispersa semillas y ramonea; indicador de un bosque sano.</dd><dt>Cuidado</dt><dd>Protege el vivero y los frutales jóvenes con malla.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🐆</span><div><h3>Puma</h3><p class="sci"><i>Puma concolor</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Depredador tope; registrado con cámaras trampa.</dd><dt>Qué nos da</dt><dd>Controla poblaciones de herbívoros.</dd><dt>Cuidado</dt><dd>Gallinero cerrado de noche; no dejes comida afuera.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🐺</span><div><h3>Coyote y zorra gris</h3><p class="sci"><i>Canis latrans</i> y <i>Urocyon cinereoargenteus</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Pastizal y bordes del bosque.</dd><dt>Qué nos da</dt><dd>Comen roedores e insectos.</dd><dt>Cuidado</dt><dd>Son el principal riesgo para aves: malla electrosoldada y faldón enterrado.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🦝</span><div><h3>Coatí, mapache y tlacuache</h3><p class="sci"><i>Nasua narica</i>, <i>Procyon lotor</i>, <i>Didelphis virginiana</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Cerca del agua y de la basura.</dd><dt>Qué nos da</dt><dd>El tlacuache come garrapatas, caracoles y carroña.</dd><dt>Cuidado</dt><dd>Basura y composta tapadas.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🐗</span><div><h3>Pecarí de collar</h3><p class="sci"><i>Dicotyles tajacu</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Matorrales y cañadas.</dd><dt>Qué nos da</dt><dd>Remueve suelo y dispersa semillas.</dd><dt>Cuidado</dt><dd>Evita acorralarlo; se defiende en grupo.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🦃</span><div><h3>Guajolote silvestre</h3><p class="sci"><i>Meleagris gallopavo</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Claros del bosque.</dd><dt>Qué nos da</dt><dd>Come insectos y semillas; pariente silvestre del guajolote doméstico.</dd><dt>Cuidado</dt><dd>No mezclar con aves domésticas (enfermedades).</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🦅</span><div><h3>Águila real y aguilillas</h3><p class="sci"><i>Aquila chrysaetos</i></p></div></div>
+<dl><dt>Dónde</dt><dd>Cielos abiertos; el águila real se registró en 2014.</dd><dt>Qué nos da</dt><dd>Controlan roedores y conejos.</dd><dt>Cuidado</dt><dd>Aves de corral bajo techo de malla.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🦇</span><div><h3>Murciélagos</h3><p class="sci">Varias especies</p></div></div>
+<dl><dt>Dónde</dt><dd>Cuevas, árboles huecos, techos.</dd><dt>Qué nos da</dt><dd>Comen miles de insectos por noche y polinizan agaves.</dd><dt>Cuidado</dt><dd>Instala refugios para murciélagos; nunca los molestes.</dd></dl></article><article class="sp "><div class="head"><span class="emo" aria-hidden="true">🐍</span><div><h3>Víboras de cascabel</h3><p class="sci"><i>Crotalus</i> spp.</p></div></div>
+<dl><dt>Dónde</dt><dd>Pastizal, piedras y leña apilada.</dd><dt>Qué nos da</dt><dd>Controlan roedores.</dd><dt>Cuidado</dt><dd>Botas, mira dónde pones las manos y no las mates; ante una mordida, a urgencias sin torniquete.</dd></dl></article></div></section>
+<section><h2>📚 Referencias</h2><ol class="refs"><li><a href="https://publicaciones.inecol.mx/Record/oai:oai.myb.ojs.inecol.mx:article-1464/Details?lng=en" target="_blank" rel="noopener">Villanueva-Díaz, J. et al. (2018). Respuesta climática de Pinus oocarpa en el Bosque La Primavera. Madera y Bosques 24(1)</a></li><li><a href="https://artesanias.jalisco.gob.mx/wp-content/uploads/2025/09/Catalogo-ramas-y-tecnicas.pdf" target="_blank" rel="noopener">Gobierno de Jalisco (2025). Catálogo de ramas y técnicas artesanales</a></li><li><a href="https://core.ac.uk/download/55532331.pdf" target="_blank" rel="noopener">Saldívar-Iglesias, P. et al. (2006). Plantas silvestres con uso artesanal en el centro de México. Mesoamericana 10(4)</a></li><li><a href="https://core.ac.uk/download/55524222.pdf" target="_blank" rel="noopener">Vázquez-García, L. M. y Munguía-Lino, G. (2015). Fibras vegetales y las artesanías en el Estado de México. UAEM</a></li><li><a href="http://www.iucngisd.org/gisd/100_worst.php" target="_blank" rel="noopener">UICN. 100 de las peores especies invasoras (Arundo donax)</a></li><li><a href="https://www.comsoc.udg.mx/print/49726" target="_blank" rel="noopener">Gaceta UdeG. Laboratorio de Micología del CUCBA (Dra. Laura Guzmán-Dávalos)</a></li><li><a href="https://www.redalyc.org/pdf/425/42513224022.pdf" target="_blank" rel="noopener">Garibay-Orijel, R. et al. (2009). Hongos comestibles en bosques de pino-encino de Ixtlán de Juárez, Oaxaca. Rev. Mex. Biodiv. 80(2)</a></li><li><a href="https://www.nmas.com.mx/jalisco/sociedad/que-animales-habitan-en-el-bosque-la-primavera-estos-son-algunos-captados-en-camara/" target="_blank" rel="noopener">N+ Jalisco. Animales del Bosque La Primavera captados en cámara (59 mamíferos, ~200 aves)</a></li><li><a href="https://rei.iteso.mx/bitstream/11117/4953/2/Reporte%20PAP%20Metodologia%20de%20Fototrampeo%20BLP%20Canales_Salazar.pdf" target="_blank" rel="noopener">ITESO. Reporte PAP de fototrampeo en el Bosque La Primavera (puma, águila real, venado)</a></li><li><a href="https://www.redalyc.org/journal/416/41655593007/41655593007.pdf" target="_blank" rel="noopener">Mayo-Mendoza, M. y Romo-Campos, R. (2018). Herbáceas para restaurar suelos degradados de La Primavera. Acta Universitaria 28(2)</a></li><li><a href="https://vlex.com.mx/vid/concluido-flora-fauna-tala-tlajomulco-27957031" target="_blank" rel="noopener">SEMARNAT. Resumen del Programa de Manejo del APFF La Primavera</a></li><li><a href="https://www.naturalista.mx/" target="_blank" rel="noopener">CONABIO. NaturaLista: identifica y registra lo que encuentres</a></li></ol>
+<p class="eyebrow" style="margin-top:6px">Guía viva: si ves algo que no está aquí, súbelo a NaturaLista y lo agregamos.</p></section>
+</div>
+</body>
+</html>
