@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0a14">
+<title>Heyocat · Oráculo de arquetipos cósmicos</title>
+<meta name="description" content="Baraja, elige tres cartas y recibe tu lectura en Heyocat, el oráculo de arquetipos cósmicos dibujado a mano por Gibrán · TRATAK CAT.">
+<meta property="og:title" content="Heyocat · Oráculo de arquetipos cósmicos">
+<meta property="og:description" content="Baraja, elige tres cartas y recibe tu lectura.">
+<meta property="og:image" content="https://tratakcat.com/heyocat/reverso.webp">
+<link rel="icon" href="icon_32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=36">
+<style>
+  .hy{ --oro:#e8c76a; --oro2:#b8923a; --tinta:#0d0a14; --luz:#f3ecdc; --lila:#c0a2ec; --rosa:#f08bd1;
+    color:var(--luz); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  html,body{ margin:0; }
+  body{ min-height:100vh; background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(192,162,236,.22), transparent 60%),
+      radial-gradient(900px 600px at 85% 40%, rgba(240,139,209,.12), transparent 60%),
+      radial-gradient(900px 600px at 10% 70%, rgba(232,199,106,.10), transparent 60%),
+      #0d0a14 !important; color:#f3ecdc; }
+  .hy section{ border:0 !important; padding:0 !important; margin:0 auto !important; }
+  .hy .envolt{ width:100%; max-width:1100px; margin:0 auto; padding:0 16px; }
+  .hy h1,.hy h2,.hy h3{ font-family:'Fraunces',Georgia,serif; font-weight:400; margin:0; color:var(--luz); max-width:none; }
+  .hy p{ margin:0; }
+  .cab{ text-align:center; padding:26px 0 8px; }
+  .cab .eyebrow{ font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--oro); font-weight:600; }
+  .cab h1{ font-size:clamp(44px,11vw,92px); line-height:1; letter-spacing:.01em; margin:8px 0 6px; font-style:italic; }
+  .cab h1 b{ font-weight:600; font-style:normal; background:linear-gradient(120deg,#f8e7a8,#e8c76a 45%,#c0a2ec 90%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .cab p{ font-size:clamp(15px,3.6vw,19px); opacity:.85; max-width:34em; margin:0 auto; line-height:1.45; }
+  .escena-wrap{ position:relative; margin:6px auto 0; }
+  #escena{ display:block; width:100%; height:min(72vh,560px); min-height:420px; touch-action:manipulation; outline:none; }
+  @media (max-width:640px){ #escena{ height:min(66vh,520px); } }
+  #escena.compacta{ height:min(44vh,380px); min-height:260px; transition:height .5s; }
+  .guia{ text-align:center; min-height:3.2em; padding:0 8px; font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(18px,4.4vw,24px); line-height:1.3; color:var(--luz); }
+  .guia small{ display:block; font-family:system-ui,sans-serif; font-style:normal; font-size:13.5px; opacity:.7; margin-top:4px; letter-spacing:.04em; }
+  .acciones{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0 0; }
+  .hy .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; padding:15px 28px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; text-decoration:none; color:#241f18; background:linear-gradient(120deg,#f8e7a8,#e8c76a); box-shadow:0 8px 30px rgba(232,199,106,.25); transition:transform .15s; }
+  .hy .btn:hover{ transform:translateY(-1px); }
+  .hy .btn.sec{ background:transparent; color:var(--luz); border:1.5px solid rgba(243,236,220,.45); box-shadow:none; font-weight:600; }
+  .hy .btn.wa{ background:#1fa855; color:#fff; box-shadow:0 8px 26px rgba(31,168,85,.3); }
+  .hy .btn[hidden]{ display:none; }
+  .contador{ display:inline-flex; gap:6px; margin-left:4px; }
+  .contador i{ width:9px; height:9px; border-radius:50%; border:1.5px solid var(--oro); display:inline-block; }
+  .contador i.on{ background:var(--oro); }
+
+  /* lectura */
+  #lectura{ padding:46px 0 24px; }
+  #lectura[hidden]{ display:none; }
+  .lect-t{ text-align:center; margin-bottom:26px; }
+  .lect-t .eyebrow{ font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--oro); font-weight:600; }
+  .lect-t h2{ font-size:clamp(30px,7vw,46px); font-style:italic; margin-top:6px; }
+  .tres{ display:grid; gap:18px; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; }
+  @media (max-width:860px){ .tres{ grid-template-columns:1fr; } }
+  .cl{ background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)); border:1px solid rgba(232,199,106,.28); border-radius:24px; padding:16px 16px 18px; display:flex; flex-direction:column; gap:10px; opacity:0; transform:translateY(14px); animation:aparece .7s ease forwards; }
+  .cl:nth-child(2){ animation-delay:.15s; } .cl:nth-child(3){ animation-delay:.3s; }
+  @keyframes aparece{ to{ opacity:1; transform:none; } }
+  .cl .pos{ font-size:11.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--oro); font-weight:700; }
+  .cl img{ width:100%; height:auto; display:block; filter:drop-shadow(0 10px 22px rgba(0,0,0,.55)); }
+  .cl h3{ font-size:clamp(22px,5vw,26px); font-style:italic; line-height:1.15; }
+  .cl .arq{ font-size:14px; opacity:.75; margin-top:-4px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chips span{ font-size:12.5px; padding:4px 10px; border-radius:999px; background:rgba(192,162,236,.16); border:1px solid rgba(192,162,236,.35); }
+  .cl .msj{ font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:17px; line-height:1.35; color:#f8e7a8; }
+  .cl details{ border-top:1px solid rgba(243,236,220,.15); padding-top:8px; }
+  .cl summary{ cursor:pointer; font-weight:600; font-size:14.5px; color:var(--lila); list-style:none; }
+  .cl summary::-webkit-details-marker{ display:none; }
+  .cl summary::after{ content:' ▾'; }
+  .cl details[open] summary::after{ content:' ▴'; }
+  .cl details p{ margin-top:8px; font-size:15px; line-height:1.55; opacity:.92; }
+  .cl details p.con{ font-style:italic; color:#f8e7a8; opacity:1; }
+  .cl .btn{ font-size:14.5px; padding:12px 16px; margin-top:auto; }
+
+  .sintesis{ margin:26px 0 0; padding:26px 24px; border-radius:26px; background:radial-gradient(700px 300px at 50% 0%,rgba(232,199,106,.14),transparent 70%),rgba(255,255,255,.05); border:1px solid rgba(232,199,106,.4); }
+  .sintesis h3{ font-size:clamp(24px,5.4vw,32px); font-style:italic; margin-bottom:12px; text-align:center; }
+  .sintesis p{ font-size:clamp(16px,3.8vw,18px); line-height:1.6; max-width:46em; margin:0 auto 12px; opacity:.95; }
+  .sintesis p b{ color:#f8e7a8; font-weight:600; }
+  .sintesis p.fin{ font-family:'Fraunces',Georgia,serif; font-style:italic; text-align:center; color:#f8e7a8; margin-top:16px; }
+  .llevar{ margin-top:22px; text-align:center; }
+  .llevar h3{ font-size:clamp(22px,5vw,28px); font-style:italic; }
+  .llevar p{ opacity:.8; margin:6px auto 14px; max-width:34em; }
+  .hy .nota{ font-size:12.5px; opacity:.6; line-height:1.5; max-width:52em; margin:30px auto 0; text-align:center; }
+
+  /* sobre heyocat */
+  #que{ padding:30px 0 150px; }
+  .hy #lectura{ padding-bottom:10px; }
+  .que{ border-top:1px solid rgba(243,236,220,.14) !important; padding-top:26px !important; display:grid; gap:12px; max-width:46em; margin:0 auto !important; }
+  .que h2{ font-size:clamp(24px,5.4vw,32px); font-style:italic; }
+  .que p{ line-height:1.6; opacity:.88; font-size:16px; }
+  body.con-nav .hy .cab{ padding-top:22px; }
+  .sin3d{ display:none; }
+  .sin3d.on{ display:block; }
+  @media (prefers-reduced-motion:reduce){ .cl{ animation:none; opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
+<div class="hy">
+  <header class="cab envolt">
+    <div class="eyebrow">Oráculo de arquetipos cósmicos</div>
+    <h1><b>Heyo</b>cat</h1>
+    <p>Dibujado a mano a lo largo de los años. Baraja, elige tres cartas y mira qué te quiere decir el contrario.</p>
+  </header>
+
+  <section class="envolt escena-wrap">
+    <canvas id="escena" aria-label="Mazo de cartas del oráculo Heyocat"></canvas>
+    <div class="guia" id="guia" aria-live="polite">Respira hondo. Piensa en lo que quieres ver con más claridad…<small>Toca el mazo para barajar</small></div>
+    <div class="acciones">
+      <button class="btn" id="b-barajar" type="button">✦ Barajar</button>
+      <button class="btn sec" id="b-reiniciar" type="button" hidden>Empezar de nuevo</button>
+    </div>
+    <div class="sin3d" id="sin3d"><div class="acciones"><button class="btn" id="b-directo" type="button">✦ Sacar mis tres cartas</button></div></div>
+  </section>
+
+  <section id="lectura" class="envolt" hidden>
+    <div class="lect-t"><div class="eyebrow">Tu tirada</div><h2>Esto es lo que salió</h2></div>
+    <div class="tres" id="tres"></div>
+    <div class="sintesis" id="sintesis"></div>
+    <div class="llevar" id="llevar"></div>
+    <p class="nota">Heyoka es una figura sagrada del pueblo Lakota, asociada al principio del contrario: decir y hacer las cosas al revés para revelar la verdad. Heyocat es una interpretación personal e inspirada en ese principio; no representa ni sustituye la tradición Lakota. Las lecturas son una herramienta de reflexión y juego, no predicen el futuro ni sustituyen consejo profesional.</p>
+  </section>
+
+  <section id="que" class="envolt">
+    <div class="que">
+      <h2>¿Qué es Heyocat?</h2>
+      <p>Son cartas que Gibrán dibuja desde hace años con realidad virtual, medios digitales, lápiz, color y acrílico. Cada una es un arquetipo cósmico: una figura que te devuelve una pregunta en lugar de una respuesta.</p>
+      <p>Aquí puedes hacer una lectura rápida de tres cartas. Si alguna te habla fuerte, puedes llevártela como print, o reservar una lectura en vivo.</p>
+      <a class="btn sec" id="b-vivo" href="#" target="_blank" rel="noopener" style="justify-self:start">Quiero una lectura en vivo</a>
+    </div>
+  </section>
+</div>
+
+<script src="assets/site.js?v=36"></script>
+<script src="assets/heyocat3d.js?v=1"></script>
+<script src="assets/heyocat.js?v=1"></script>
+</body>
+</html>

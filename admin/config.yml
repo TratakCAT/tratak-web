@@ -566,3 +566,33 @@ collections:
         widget: list
         field: { label: "Perfil", name: "perfil_item", widget: string }
       - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
+
+  - name: "heyocat"
+    label: "Heyocat · Oráculo"
+    files:
+      - file: "heyocat/cartas.json"
+        label: "Cartas del oráculo"
+        name: "heyocat_cartas"
+        fields:
+          - { label: "WhatsApp para las prints y lecturas (solo números, con 52)", name: "whatsapp", widget: string }
+          - { label: "Reverso de las cartas (la carátula)", name: "reverso", widget: image }
+          - label: "Nombres de las 3 posiciones de la tirada"
+            name: "posiciones"
+            widget: list
+            field: { label: "Posición", name: "pos", widget: string }
+          - label: "Cartas"
+            name: "cartas"
+            widget: list
+            summary: "{{fields.nombre}} · {{fields.arquetipo}}"
+            fields:
+              - { label: "Nombre de la carta", name: "nombre", widget: string }
+              - { label: "Arquetipo (ej. El Testigo)", name: "arquetipo", widget: string }
+              - { label: "Imagen de la carta (PNG o WebP con fondo transparente; los bordes vacíos se recortan solos. Ideal: ~1600 px de ancho)", name: "imagen", widget: image }
+              - label: "Palabras clave (2 a 5)"
+                name: "palabras"
+                widget: list
+                field: { label: "Palabra", name: "palabra", widget: string }
+              - { label: "Mensaje corto (una frase que resume la carta)", name: "mensaje", widget: string }
+              - { label: "Interpretación (párrafo completo)", name: "interpretacion", widget: text }
+              - { label: "Al revés, a lo heyoka (opcional: lo que parece una cosa y es otra)", name: "contrario", widget: string, required: false }
+              - { label: "Identificador (opcional; si lo dejas vacío se crea solo con el nombre)", name: "id", widget: string, required: false }
