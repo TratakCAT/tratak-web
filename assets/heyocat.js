@@ -120,6 +120,7 @@
     data.cartas.forEach(function (c, i) { c.id = c.id || slug(c.nombre) || ('carta-' + (i + 1)); c.palabras = c.palabras || []; MAPA[c.id] = c; });
     data.posiciones = data.posiciones && data.posiciones.length >= 3 ? data.posiciones : ['Lo que traes', 'Lo que te mueve', 'El camino que se abre'];
     iniciarMascota();
+    if (data.musica && window.HeyoAudio) HeyoAudio.archivo(data.musica);
     $('b-vivo').href = wa('Hola, vi Heyokat y quiero una lectura de oráculo en vivo.');
     var porUrl = (new URLSearchParams(location.search).get('c') || '').split(',').filter(function (id) { return MAPA[id]; });
 

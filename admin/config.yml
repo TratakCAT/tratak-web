@@ -580,6 +580,7 @@ collections:
             name: "posiciones"
             widget: list
             field: { label: "Posición", name: "pos", widget: string }
+          - { label: "Música de fondo (opcional: sube un archivo MP3 propio; si lo dejas vacío suena la música sintetizada)", name: "musica", widget: file, required: false }
           - label: "Mascota Heyokat (frases que dice)"
             name: "mascota"
             widget: object

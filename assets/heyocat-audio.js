@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var KEY = 'heyocat-sonido';
-  var ctx = null, master = null, wet = null, musica = null, timer = null, activo = true, arrancado = false, ruido = null;
+  var ctx = null, master = null, wet = null, busM = null, wetM = null, musica = null, timer = null, activo = true, arrancado = false, ruido = null;
   var PENTA = [293.66, 349.23, 392.0, 440.0, 523.25, 587.33, 698.46]; // re menor pentatónica
 
   try { if (localStorage.getItem(KEY) === 'off') activo = false; } catch (e) {}
@@ -18,6 +18,8 @@
     var d1 = ctx.createDelay(1.5), d2 = ctx.createDelay(1.5), fb = ctx.createGain(), lp = ctx.createBiquadFilter();
     d1.delayTime.value = 0.37; d2.delayTime.value = 0.53; fb.gain.value = 0.42; lp.type = 'lowpass'; lp.frequency.value = 2400;
     wet.connect(d1); wet.connect(d2); d1.connect(lp); d2.connect(lp); lp.connect(fb); fb.connect(d1); fb.connect(d2); lp.connect(master);
+    busM = ctx.createGain(); busM.gain.value = 0.3; busM.connect(master);
+    wetM = ctx.createGain(); wetM.gain.value = 0.3; wetM.connect(wet);
     // ruido blanco reutilizable
     var n = ctx.sampleRate * 2, b = ctx.createBuffer(1, n, ctx.sampleRate), d = b.getChannelData(0);
     for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
@@ -106,77 +108,76 @@
   var FLAUTA = [293.66, 349.23, 392.0, 440.0, 523.25, 587.33]; // re menor pentatónica
   function frase() { var n = 3 + Math.floor(Math.random() * 3), a = [], i = 1 + Math.floor(Math.random() * 3); for (var k = 0; k < n; k++) { a.push([FLAUTA[i], 0.9 + Math.random() * 1.1]); i = Math.max(0, Math.min(FLAUTA.length - 1, i + Math.floor(Math.random() * 3) - 1)); } a.push([FLAUTA[0], 2.2]); return a; }
 
-  // ---------- música: tambor de powwow + voces (vocables) + flauta, con capa digital ----------
-  var D5 = [587.33, 523.25, 440.0, 392.0, 349.23, 293.66]; // re menor pentatónica descendente (re do la sol fa re)
-  var FORMANTES = { e: [400, 2200], a: [760, 1150], o: [500, 900] };
-  function voz(t, f, dur, v1, v2, vol, scoop) { // vocable cantado: diente de sierra + formantes, vibrato pulsante
-    var o = ctx.createOscillator(), g = ctx.createGain(), l = ctx.createOscillator(), lg = ctx.createGain();
-    o.type = 'sawtooth'; o.frequency.setValueAtTime(f * (scoop || 1.06), t); o.frequency.exponentialRampToValueAtTime(f, t + 0.09);
-    l.frequency.value = 6.5; lg.gain.value = f * 0.012; l.connect(lg); lg.connect(o.frequency);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.04); g.gain.setValueAtTime(vol, t + dur * 0.55); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    var sum = ctx.createGain(); sum.gain.value = 1;
-    [0, 1].forEach(function (i) {
-      var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = i ? 9 : 6;
-      bp.frequency.setValueAtTime(FORMANTES[v1][i], t); bp.frequency.linearRampToValueAtTime(FORMANTES[v2][i], t + dur * 0.8);
-      var fg = ctx.createGain(); fg.gain.value = i ? 0.55 : 1.2; o.connect(bp); bp.connect(fg); fg.connect(sum);
-    });
-    sum.connect(g); g.connect(master); g.connect(wet);
-    o.start(t); l.start(t); o.stop(t + dur + 0.05); l.stop(t + dur + 0.05);
+  // ---------- música: flauta de las llanuras, tambor de latido y bordón (más una brisa cósmica) ----------
+  var N_ = { D3: 146.83, A3: 220.0, D4: 293.66, F4: 349.23, G4: 392.0, A4: 440.0, C5: 523.25, D5: 587.33, F5: 698.46, G5: 783.99, A5: 880.0 };
+  // frases en re menor pentatónica: [nota, segundos]; null = respiro
+  var FRASES_FLAUTA = [
+    [['A4', 1.3], ['C5', .8], ['D5', 2.4], ['C5', .7], ['A4', 1.1], ['G4', 1.5], ['F4', .9], ['D4', 3.4]],
+    [['D4', 1.6], ['F4', .8], ['G4', .8], ['A4', 2.2], ['G4', .7], ['A4', .7], ['C5', 2.6], ['A4', 1.2], ['G4', 1.0], ['F4', .9], ['D4', 3.6]],
+    [['C5', 1.2], ['D5', 1.0], ['F5', 2.8], ['D5', .9], ['C5', .9], ['A4', 2.2], ['G4', 1.1], ['A4', .9], ['D4', 3.8]],
+    [['D5', 1.8], ['A4', 1.2], ['D5', .9], ['C5', 2.6], null, ['A4', 1.2], ['G4', .9], ['F4', 1.3], ['D4', 3.6]],
+    [['G4', 1.4], ['A4', 1.0], ['C5', 1.0], ['D5', 3.0], ['F5', 1.2], ['D5', 1.2], ['C5', 1.0], ['A4', 2.6], ['G4', 1.2], ['D4', 4.0]]
+  ];
+  function nFlauta(t, f, dur, vol) { // timbre de flauta nativa: casi seno, soplo y vibrato que entra tarde
+    var o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), g2 = ctx.createGain(), lg = ctx.createGain(), l = ctx.createOscillator(), env = ctx.createGain();
+    o.type = 'sine'; o2.type = 'sine';
+    o.frequency.setValueAtTime(f * 0.985, t); o.frequency.exponentialRampToValueAtTime(f, t + 0.12); o2.frequency.value = f * 2; g2.gain.value = 0.09; g.gain.value = 1;
+    l.frequency.value = 5.0; lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * 0.006, t + Math.min(0.5, dur * 0.5)); l.connect(lg); lg.connect(o.frequency);
+    env.gain.setValueAtTime(0.0001, t); env.gain.exponentialRampToValueAtTime(vol, t + 0.11); env.gain.setValueAtTime(vol * 0.92, t + dur * 0.7); env.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.25);
+    o.connect(g); o2.connect(g2); g.connect(env); g2.connect(env); env.connect(busM); env.connect(wetM);
+    var s = ctx.createBufferSource(); s.buffer = ruido; s.loop = true; var bp = ctx.createBiquadFilter(), sg = ctx.createGain();
+    bp.type = 'bandpass'; bp.frequency.value = f * 2.1; bp.Q.value = 2.2; sg.gain.setValueAtTime(0.0001, t); sg.gain.exponentialRampToValueAtTime(vol * 0.16, t + 0.08); sg.gain.exponentialRampToValueAtTime(vol * 0.05, t + dur * 0.5); sg.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.2);
+    s.connect(bp); bp.connect(sg); sg.connect(busM); sg.connect(wetM);
+    o.start(t); o2.start(t); l.start(t); s.start(t, Math.random()); var fin = t + dur + 0.35; o.stop(fin); o2.stop(fin); l.stop(fin); s.stop(fin);
   }
-  function canto(t, beat) { // frase al estilo de canto de tambor: arranca alto y desciende en terrazas
-    var altos = [0, 0, 1, 1, 2, 2, 3, 5], perfil = altos.map(function (n, i) { return D5[Math.min(D5.length - 1, n + (Math.random() < .2 ? 1 : 0))]; });
-    perfil.forEach(function (f, i) {
-      var tt = t + i * beat * 0.5; // dos sílabas por pulso: "hey-ya"
-      voz(tt, f, beat * 0.46, i % 2 ? 'a' : 'e', i % 2 ? 'o' : 'a', 0.15, i % 2 ? 1.0 : 1.09);
-    });
+  function tocaFrase(t, fr, vol) { var tt = t; fr.forEach(function (n) { if (!n) { tt += 0.6; return; } nFlauta(tt, N_[n[0]], n[1], vol); tt += n[1] * 0.94; }); return tt - t; }
+  function latido(t, vol) { // tambor de marco, cálido y grave
+    var o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(105, t); o.frequency.exponentialRampToValueAtTime(58, t + 0.2);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55); o.connect(g); g.connect(busM); g.connect(wetM); o.start(t); o.stop(t + 0.6);
+    var s = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), sg = ctx.createGain(); s.buffer = ruido; lp.type = 'lowpass'; lp.frequency.value = 520;
+    sg.gain.setValueAtTime(vol * 0.5, t); sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.09); s.connect(lp); lp.connect(sg); sg.connect(busM); s.start(t, Math.random()); s.stop(t + 0.12);
   }
-  function pulso(t, vol) { tambor(t, vol); }
-  function digital(t, beat, paso, ciclo) { // capa digital: arpegios, glitch y sub-bajo
-    var q = beat / 4;
-    if (paso % 16 === 0) { var sb = ctx.createOscillator(), sg = ctx.createGain(), lpf = ctx.createBiquadFilter(); sb.type = 'sawtooth'; sb.frequency.value = 36.7; lpf.type = 'lowpass'; lpf.frequency.setValueAtTime(380, t); lpf.frequency.exponentialRampToValueAtTime(70, t + beat * 1.8);
-      sg.gain.setValueAtTime(0.0001, t); sg.gain.exponentialRampToValueAtTime(0.16, t + .03); sg.gain.exponentialRampToValueAtTime(0.0001, t + beat * 2); sb.connect(lpf); lpf.connect(sg); sg.connect(master); sb.start(t); sb.stop(t + beat * 2.1); }
-    if (ciclo % 2 === 1 && Math.random() < 0.42) { // arpegio de pulsos cuadrados filtrados
-      var f = PENTA[Math.floor(Math.random() * PENTA.length)] * (Math.random() < .35 ? 2 : 1), o = ctx.createOscillator(), g = ctx.createGain(), lp2 = ctx.createBiquadFilter();
-      o.type = 'square'; o.frequency.value = f; lp2.type = 'lowpass'; lp2.frequency.setValueAtTime(3200, t); lp2.frequency.exponentialRampToValueAtTime(500, t + q * 1.6);
-      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.035, t + .008); g.gain.exponentialRampToValueAtTime(0.0001, t + q * 1.8);
-      o.connect(lp2); lp2.connect(g); g.connect(master); g.connect(wet); o.start(t); o.stop(t + q * 2);
-    }
-    if (paso % 64 === 60 && Math.random() < .55) { // tartamudeo digital (glitch)
-      for (var i = 0; i < 6; i++) { var tt = t + i * q * .25, bs = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), bg = ctx.createGain();
-        bs.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 800 + Math.random() * 5000; bp.Q.value = 6;
-        bg.gain.setValueAtTime(0.09, tt); bg.gain.exponentialRampToValueAtTime(0.0001, tt + q * .22); bs.connect(bp); bp.connect(bg); bg.connect(master); bs.start(tt, Math.random()); bs.stop(tt + q * .25); }
-    }
-  }
+  var archivoUrl = null, audioEl = null;
   function arrancarMusica() {
     if (musica || !ctx) return;
-    musica = ctx.createGain(); musica.gain.value = 1; musica.connect(master);
-    // colchón: bordón grave con respiración y barrido de filtro
-    [[73.42, 'sine', 0.13], [110.0, 'sine', 0.08], [146.83, 'triangle', 0.05]].forEach(function (p, i) {
+    musica = ctx.createGain(); musica.gain.value = 1; musica.connect(busM);
+    if (archivoUrl) { // música grabada (si se subió un archivo en el CMS) reemplaza la sintetizada
+      audioEl = new Audio(archivoUrl); audioEl.loop = true; audioEl.crossOrigin = 'anonymous';
+      try { var src = ctx.createMediaElementSource(audioEl); var ag = ctx.createGain(); ag.gain.value = 0.9; src.connect(ag); ag.connect(musica); } catch (e) {}
+      audioEl.play().catch(function () {}); return;
+    }
+    // bordón: re y la abiertos, muy suaves, respirando
+    [[73.42, 'sine', 0.075], [110.0, 'sine', 0.045], [146.83, 'triangle', 0.022]].forEach(function (p, i) {
       var o = ctx.createOscillator(), g = ctx.createGain(), l = ctx.createOscillator(), lg = ctx.createGain(), f = ctx.createBiquadFilter();
-      o.type = p[1]; o.frequency.value = p[0]; f.type = 'lowpass'; f.frequency.value = 650;
-      g.gain.value = p[2]; l.frequency.value = 0.06 + i * 0.03; lg.gain.value = p[2] * 0.6; l.connect(lg); lg.connect(g.gain);
-      o.connect(f); f.connect(g); g.connect(musica); g.connect(wet); o.start(); l.start();
+      o.type = p[1]; o.frequency.value = p[0]; f.type = 'lowpass'; f.frequency.value = 420;
+      g.gain.value = p[2]; l.frequency.value = 0.05 + i * 0.02; lg.gain.value = p[2] * 0.5; l.connect(lg); lg.connect(g.gain);
+      o.connect(f); f.connect(g); g.connect(musica); g.connect(wetM); o.start(); l.start();
     });
-    var BPM = 84, beat = 60 / BPM, paso = 0, prox = ctx.currentTime + 0.3, ACENTO = [1, .42, .62, .42];
+    // latido de tambor, firme pero bajito (alterna fuerte-suave)
+    var beat = 0.95, n = 0, prox = ctx.currentTime + 0.4;
     timer = setInterval(function () {
-      while (prox < ctx.currentTime + 0.35) {
-        if (activo && !document.hidden) {
-          var t = prox, q = beat / 4, pb = Math.floor(paso / 4) % 4, compas = Math.floor(paso / 16), ciclo = Math.floor(paso / 64) % 4, enCiclo = Math.floor(paso / 16) % 4;
-          if (paso % 4 === 0) { pulso(t, 0.26 * ACENTO[pb]); }
-          // "honor beats": redoble de recuerdo al cierre de cada 4 compases
-          if (paso % 64 >= 56 && paso % 2 === 0 && paso % 4 !== 0) tambor(t, 0.07);
-          if (paso % 2 === 0) sonaja(t + (paso % 4 === 2 ? q * 0.08 : 0), paso % 4 === 2 ? 0.045 : 0.022);
-          if (paso % 64 === 16 || paso % 64 === 48) canto(t, beat);
-          if (paso % 128 === 96) flauta(t, frase(), 0.075);
-          if (paso % 16 === 0 && Math.random() < 0.07) trueno(t, 0.16, 5);
-          if (paso % 128 === 112 && Math.random() < 0.4) rayo(t, 0.12);
-          digital(t, beat, paso, ciclo);
-        }
-        prox += beat / 4; paso++;
-      }
-    }, 90);
+      while (prox < ctx.currentTime + 0.4) { if (activo && !document.hidden) latido(prox, n % 2 ? 0.07 : 0.14); prox += beat; n++; }
+    }, 120);
+    // melodía de flauta: frases compuestas, con respiros largos
+    var orden = [0, 1, 2, 3, 4].sort(function () { return Math.random() - .5; }), ip = 0;
+    (function siguiente(espera) {
+      setTimeout(function () {
+        if (!ctx) return;
+        var dur = 6;
+        if (activo && !document.hidden) { dur = tocaFrase(ctx.currentTime + 0.05, FRASES_FLAUTA[orden[ip % orden.length]], 0.085); ip++; }
+        siguiente(dur * 1000 + 3500 + Math.random() * 4500);
+      }, espera);
+    })(2500);
+    // destellos cósmicos: campanitas muy espaciadas (la capa digital, sin estorbar)
+    (function destello() {
+      setTimeout(function () {
+        if (!ctx) return;
+        if (activo && !document.hidden) { var f = [N_.D5, N_.A5, N_.G5, N_.F5, N_.C5][Math.floor(Math.random() * 5)]; campana(f, ctx.currentTime + 0.05, 0.028, 3.6); }
+        destello();
+      }, 5000 + Math.random() * 6000);
+    })();
   }
-  function pararMusica() { if (timer) clearInterval(timer); timer = null; }
+  function pararMusica() { if (timer) clearInterval(timer); timer = null; if (audioEl) audioEl.pause(); }
 
   // ---------- efectos ----------
   var SFX = {
@@ -213,10 +214,12 @@
       if (ctx.state === 'suspended') ctx.resume();
       SFX[n](ctx.currentTime + 0.02);
     },
+    archivo: function (u) { archivoUrl = u || null; },
     activo: function () { return activo; },
     alternar: function () {
       activo = !activo;
       try { localStorage.setItem(KEY, activo ? 'on' : 'off'); } catch (e) {}
+      if (audioEl) { if (activo) audioEl.play().catch(function () {}); else audioEl.pause(); }
       if (activo) { if (!init()) return activo; ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(3, ctx.currentTime, 0.3); if (!arrancado) { arrancado = true; arrancarMusica(); } }
       else if (ctx) { master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0, ctx.currentTime, 0.15); }
       return activo;
