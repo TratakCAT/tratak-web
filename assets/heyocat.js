@@ -7,6 +7,23 @@
   var DATA = null, MAPA = {}, escena = null, tirada = [];
 
   function wa(txt) { return 'https://wa.me/' + DATA.whatsapp + '?text=' + encodeURIComponent(txt); }
+  // mascota: Heyokat habla
+  var ultima = '';
+  function azar(lista) { if (!lista || !lista.length) return ''; var t, n = 0; do { t = lista[Math.floor(Math.random() * lista.length)]; n++; } while (t === ultima && n < 6); ultima = t; return t; }
+  function dice(texto) {
+    var el = $('m-dice'); if (!el || !texto) return;
+    el.classList.add('cae');
+    setTimeout(function () { el.textContent = texto; el.classList.remove('cae'); }, 280);
+    var av = $('m-av'); if (av) { av.classList.remove('mueve'); void av.offsetWidth; av.classList.add('mueve'); }
+  }
+  function dichoDe(clave) { var m = DATA && DATA.mascota; if (m) dice(azar(m[clave] || m.frases)); }
+  function iniciarMascota() {
+    var m = DATA.mascota; if (!m) { if ($('mascota')) $('mascota').hidden = true; return; }
+    $('m-dice').textContent = azar(m.frases);
+    $('m-av').addEventListener('click', function () { dice(azar(m.frases)); if (window.HeyoAudio) { HeyoAudio.arrancar(); HeyoAudio.sfx('elegir'); } });
+    setInterval(function () { if (!document.hidden && escena && (escena.estado() === 'idle' || escena.estado() === 'done')) dice(azar(m.frases)); }, 16000);
+    $('mantra').innerHTML = (m.mantra || []).map(function (x) { return '<p><b>' + esc(x.letra) + '</b>' + esc(x.texto) + '</p>'; }).join('');
+  }
   function guia(texto, pequeno) { $('guia').innerHTML = esc(texto) + (pequeno ? '<small>' + esc(pequeno) + '</small>' : ''); }
 
   // número pseudoaleatorio estable según las cartas (la misma tirada da la misma lectura)
@@ -93,6 +110,7 @@
     data.cartas = (data.cartas || []).filter(function (c) { return c && c.imagen; });
     data.cartas.forEach(function (c, i) { c.id = c.id || slug(c.nombre) || ('carta-' + (i + 1)); c.palabras = c.palabras || []; MAPA[c.id] = c; });
     data.posiciones = data.posiciones && data.posiciones.length >= 3 ? data.posiciones : ['Lo que traes', 'Lo que te mueve', 'El camino que se abre'];
+    iniciarMascota();
     $('b-vivo').href = wa('Hola, vi Heyokat y quiero una lectura de oráculo en vivo.');
     var porUrl = (new URLSearchParams(location.search).get('c') || '').split(',').filter(function (id) { return MAPA[id]; });
 
@@ -104,17 +122,17 @@
         if (A) { A.arrancar(); if (ev === 'carta') A.sfx('elegir'); else if (ev === 'voltea') A.sfx('voltea'); else if (ev === 'listo') A.sfx('listo'); }
         if (ev === 'tocar-mazo') barajar();
         else if (ev === 'elegir') { guia('Elige tres cartas.', 'Confía en la mano. Toca las que te llamen.'); }
-        else if (ev === 'carta') { guia('Carta ' + (a + 1) + ' de 3', a < 2 ? 'Elige otra' : ''); }
+        else if (ev === 'carta') { dichoDe('alElegir'); guia('Carta ' + (a + 1) + ' de 3', a < 2 ? 'Elige otra' : ''); }
         else if (ev === 'voltear') guia('Ahora voltéalas.', 'Toca cada carta para descubrirla');
-        else if (ev === 'listo') { $('escena').classList.add('compacta'); setTimeout(function () { if (escena) escena.compactar(); }, 60); mostrarLectura(a, true); }
-        else if (ev === 'voltea') { guia(DATA.posiciones[a] + '…', MAPA[b] ? MAPA[b].nombre : ''); }
+        else if (ev === 'listo') { dichoDe('alTerminar'); $('escena').classList.add('compacta'); setTimeout(function () { if (escena) escena.compactar(); }, 60); mostrarLectura(a, true); }
+        else if (ev === 'voltea') { dichoDe('alVoltear'); guia(DATA.posiciones[a] + '…', MAPA[b] ? MAPA[b].nombre : ''); }
       }
     });
     window.__hy = escena; // (diagnóstico)
     function barajar() {
       if (!escena || escena.estado() !== 'idle') return;
       $('b-barajar').hidden = true; $('b-reiniciar').hidden = false;
-      guia('Barajando…', 'Piensa en tu pregunta');
+      guia('Barajando…', 'Piensa en tu pregunta'); dichoDe('alBarajar');
       if (window.HeyoAudio) { HeyoAudio.arrancar(); HeyoAudio.sfx('baraja'); }
       escena.shuffle(data.cartas.map(function (c) { return c.id; }));
     }

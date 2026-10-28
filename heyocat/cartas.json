@@ -3,14 +3,23 @@
   "subtitulo": "Oráculo de arquetipos cósmicos",
   "whatsapp": "523332480698",
   "reverso": "heyocat/reverso.webp",
-  "posiciones": ["Lo que traes", "Lo que te mueve", "El camino que se abre"],
+  "posiciones": [
+    "Lo que traes",
+    "Lo que te mueve",
+    "El camino que se abre"
+  ],
   "cartas": [
     {
       "id": "mariposa-mil-ojos",
       "nombre": "La Mariposa de los mil ojos",
       "arquetipo": "El Testigo",
       "imagen": "heyocat/cartas/mariposa-mil-ojos.webp",
-      "palabras": ["atención", "ternura", "asombro", "apertura"],
+      "palabras": [
+        "atención",
+        "ternura",
+        "asombro",
+        "apertura"
+      ],
       "mensaje": "Mirar con todos los ojos también es una forma de amar.",
       "interpretacion": "Ella levanta los brazos hacia un símbolo que irradia luz, con alas llenas de ojos abiertos. Es la atención que se vuelve ternura: ver sin juzgar, sin prisa, dejando que la luz entre por todos lados. Esta carta te invita a observar lo que te rodea, y lo que sientes, con curiosidad en lugar de control. Algo se aclara cuando dejas de intentar entenderlo todo y simplemente lo contemplas.",
       "contrario": "Lo que parece distracción o rareza en ti es tu manera de percibir más."
@@ -20,7 +29,12 @@
       "nombre": "El Giro",
       "arquetipo": "La Danza de los opuestos",
       "imagen": "heyocat/cartas/el-giro.webp",
-      "palabras": ["equilibrio", "paradoja", "vida", "movimiento"],
+      "palabras": [
+        "equilibrio",
+        "paradoja",
+        "vida",
+        "movimiento"
+      ],
       "mensaje": "Danzar en medio de la contradicción también es una forma de oración.",
       "interpretacion": "Dos danzantes giran sobre el mundo mientras, a su alrededor, conviven el código, la hélice de la vida y una nube de destrucción. Nada se excluye: lo digital, lo biológico, lo sagrado y lo que amenaza ocupan el mismo escenario. Esta carta habla de sostener tensiones sin huir de ellas: ni negar el miedo ni dejar que decida por ti. Tu fuerza está en el centro del giro, donde todo se mueve y tú puedes seguir danzando.",
       "contrario": "Lo que ves como caos puede ser el movimiento que te mantiene en pie."
@@ -30,10 +44,72 @@
       "nombre": "La Segadora",
       "arquetipo": "La Guardiana del ciclo",
       "imagen": "heyocat/cartas/la-segadora.webp",
-      "palabras": ["cosecha", "cierre", "regeneración", "soltar"],
+      "palabras": [
+        "cosecha",
+        "cierre",
+        "regeneración",
+        "soltar"
+      ],
       "mensaje": "Lo que cortas con claridad abre espacio para lo que sí quiere crecer.",
       "interpretacion": "Con una hoz llena de ojos y las manos ofreciendo agua, fuego y una flor, esta guardiana corta lo que ya cumplió su ciclo y cuida lo que está por brotar. No es una carta de pérdida, sino de cosecha: reconocer qué se termina, agradecerlo y regar lo nuevo. Pregúntate qué estás sosteniendo por costumbre y qué merece tu agua.",
       "contrario": "Lo que sientes como un final es una siembra."
     }
-  ]
+  ],
+  "mascota": {
+    "nombre": "Heyokat",
+    "mantra": [
+      {
+        "letra": "D",
+        "texto": "iluye la hegemonía de la ingeniería cultural con la presencia de tu verdadera naturaleza."
+      },
+      {
+        "letra": "M",
+        "texto": "ente sana que te pertenece por derecho de consciencia que cierra la ilusoria herida recordando el punto cero de tu nexo espacio-temporal."
+      },
+      {
+        "letra": "T",
+        "texto": "rasciende a co-creación orgánica de los puentes que unifican todas las realidades ensoñadas más deseables y libres de sufrimiento."
+      }
+    ],
+    "frases": [
+      "Diluye lo que te dijeron que eras. Lo que queda ya eres tú.",
+      "Psst… el guion cultural se resbala si te ríes en el momento justo.",
+      "Estoy en el hiperespacio y también detrás de tu oreja. No me busques: parpadea.",
+      "Tu mente sana te pertenece por derecho de consciencia. Reclámala sin pedir permiso.",
+      "Si todo sale al revés, vas bien. Así despierto yo a la gente.",
+      "La herida ilusoria se cierra recordando el punto cero. Respira: ahí estás.",
+      "Cada puente que construyes con otros es un portal. Hazlo orgánico, hazlo con las manos.",
+      "No te voy a dar la respuesta; te voy a mover el piso para que la encuentres.",
+      "El caos es solo orden que todavía no te presentan.",
+      "Trasciende sin escaparte: co-crea la realidad que sí quieres habitar.",
+      "Ríete de la ingeniería cultural. Y luego rediséñala con cariño.",
+      "Tu verdadera naturaleza no necesita permiso, necesita presencia.",
+      "Me escurro porque la verdad no se deja atrapar; se deja reconocer.",
+      "Las realidades más deseables y libres de sufrimiento se arman entre muchas manos.",
+      "Hoy el universo te guiña un ojo. Devuélvelo.",
+      "Despertar no es subir: es recordar dónde estabas parado todo el tiempo.",
+      "Lo sagrado y lo digital se hablan bajito. Ponle atención a ese susurro.",
+      "Atrévete a ser el contrario de lo que esperan de ti, con amor y con humor."
+    ],
+    "alBarajar": [
+      "¡Aquí vamos! Suelta el control y deja que las cartas se acomoden solas.",
+      "Barajo en el hiperespacio. Tú solo piensa en lo que te pesa… y suéltalo.",
+      "El caos está ordenando por ti. Confía."
+    ],
+    "alElegir": [
+      "Esa te llamó, ¿cierto? Yo también la oí.",
+      "Buena. La mano sabe más que la cabeza.",
+      "Ajá, esa… interesante. Sigue.",
+      "Ooh, eso no lo esperaba nadie. Ni yo. Sigue."
+    ],
+    "alVoltear": [
+      "Mira qué te dice… al revés, claro.",
+      "Aquí viene el rayo. Respira.",
+      "Descubre sin juzgar; el contrario ya lo hizo por ti."
+    ],
+    "alTerminar": [
+      "Listo. Diluye lo que no te sirva y quédate con lo que te movió.",
+      "Esa es tu tirada. Ahora hazme caso: no me hagas caso, haz lo tuyo."
+    ]
+  }
 }

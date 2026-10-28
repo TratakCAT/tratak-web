@@ -580,6 +580,23 @@ collections:
             name: "posiciones"
             widget: list
             field: { label: "Posición", name: "pos", widget: string }
+          - label: "Mascota Heyokat (frases que dice)"
+            name: "mascota"
+            widget: object
+            fields:
+              - { label: "Nombre", name: "nombre", widget: string }
+              - label: "Mantra (D · M · T)"
+                name: "mantra"
+                widget: list
+                summary: "{{fields.letra}}"
+                fields:
+                  - { label: "Letra inicial (se resalta)", name: "letra", widget: string }
+                  - { label: "Resto del texto", name: "texto", widget: text }
+              - { label: "Frases sueltas (salen al azar)", name: "frases", widget: list, field: { label: "Frase", name: "f", widget: string } }
+              - { label: "Frases al barajar", name: "alBarajar", widget: list, field: { label: "Frase", name: "f", widget: string } }
+              - { label: "Frases al elegir carta", name: "alElegir", widget: list, field: { label: "Frase", name: "f", widget: string } }
+              - { label: "Frases al voltear carta", name: "alVoltear", widget: list, field: { label: "Frase", name: "f", widget: string } }
+              - { label: "Frases al terminar la tirada", name: "alTerminar", widget: list, field: { label: "Frase", name: "f", widget: string } }
           - label: "Cartas"
             name: "cartas"
             widget: list
