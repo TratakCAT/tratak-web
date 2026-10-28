@@ -1,0 +1,39 @@
+{
+  "titulo": "Heyocat",
+  "subtitulo": "Oráculo de arquetipos cósmicos",
+  "whatsapp": "523332480698",
+  "reverso": "heyocat/reverso.webp",
+  "posiciones": ["Lo que traes", "Lo que te mueve", "El camino que se abre"],
+  "cartas": [
+    {
+      "id": "mariposa-mil-ojos",
+      "nombre": "La Mariposa de los mil ojos",
+      "arquetipo": "El Testigo",
+      "imagen": "heyocat/cartas/mariposa-mil-ojos.webp",
+      "palabras": ["atención", "ternura", "asombro", "apertura"],
+      "mensaje": "Mirar con todos los ojos también es una forma de amar.",
+      "interpretacion": "Ella levanta los brazos hacia un símbolo que irradia luz, con alas llenas de ojos abiertos. Es la atención que se vuelve ternura: ver sin juzgar, sin prisa, dejando que la luz entre por todos lados. Esta carta te invita a observar lo que te rodea, y lo que sientes, con curiosidad en lugar de control. Algo se aclara cuando dejas de intentar entenderlo todo y simplemente lo contemplas.",
+      "contrario": "Lo que parece distracción o rareza en ti es tu manera de percibir más."
+    },
+    {
+      "id": "el-giro",
+      "nombre": "El Giro",
+      "arquetipo": "La Danza de los opuestos",
+      "imagen": "heyocat/cartas/el-giro.webp",
+      "palabras": ["equilibrio", "paradoja", "vida", "movimiento"],
+      "mensaje": "Danzar en medio de la contradicción también es una forma de oración.",
+      "interpretacion": "Dos danzantes giran sobre el mundo mientras, a su alrededor, conviven el código, la hélice de la vida y una nube de destrucción. Nada se excluye: lo digital, lo biológico, lo sagrado y lo que amenaza ocupan el mismo escenario. Esta carta habla de sostener tensiones sin huir de ellas: ni negar el miedo ni dejar que decida por ti. Tu fuerza está en el centro del giro, donde todo se mueve y tú puedes seguir danzando.",
+      "contrario": "Lo que ves como caos puede ser el movimiento que te mantiene en pie."
+    },
+    {
+      "id": "la-segadora",
+      "nombre": "La Segadora",
+      "arquetipo": "La Guardiana del ciclo",
+      "imagen": "heyocat/cartas/la-segadora.webp",
+      "palabras": ["cosecha", "cierre", "regeneración", "soltar"],
+      "mensaje": "Lo que cortas con claridad abre espacio para lo que sí quiere crecer.",
+      "interpretacion": "Con una hoz llena de ojos y las manos ofreciendo agua, fuego y una flor, esta guardiana corta lo que ya cumplió su ciclo y cuida lo que está por brotar. No es una carta de pérdida, sino de cosecha: reconocer qué se termina, agradecerlo y regar lo nuevo. Pregúntate qué estás sosteniendo por costumbre y qué merece tu agua.",
+      "contrario": "Lo que sientes como un final es una siembra."
+    }
+  ]
+}
