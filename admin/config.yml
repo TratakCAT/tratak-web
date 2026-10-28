@@ -184,6 +184,7 @@ collections:
                   - { label: "Etiqueta pequeña", name: "eyebrow", widget: string }
                   - { label: "Ícono de la sección (opcional)", name: "icono", widget: select, required: false, options: [{label: "🍃 Hoja", value: "hoja"}, {label: "🌱 Semilla", value: "semilla"}, {label: "⚛️ Átomo", value: "atomo"}, {label: "👁 Ojo / atención", value: "ojo"}, {label: "◎ Contemplación", value: "contemplacion"}, {label: "🔥 Llama", value: "llama"}, {label: "✨ Chispa", value: "chispa"}, {label: "⚙️ Engranaje", value: "engranaje"}, {label: "🧊 Cubo 3D", value: "cubo"}, {label: "🧪 Laboratorio", value: "laboratorio"}, {label: "📖 Libro", value: "libro"}, {label: "☀️ Sol", value: "sol"}, {label: "🌙 Luna", value: "luna"}, {label: "🌊 Ondas", value: "ondas"}, {label: "❤️ Corazón", value: "corazon"}, {label: "📍 Ubicación", value: "ubicacion"}, {label: "📷 Cámara", value: "camara"}, {label: "💻 Código", value: "codigo"}, {label: "⛰️ Montaña", value: "montana"}, {label: "♾️ Infinito", value: "infinito"}, {label: "💧 Gota", value: "gota"}, {label: "👥 Personas", value: "personas"}, {label: "🖨️ Impresora 3D", value: "impresora"}, {label: "🥽 Realidad virtual", value: "vr"}, {label: "⭐ Estrella", value: "estrella"}, {label: "🏺 Cerámica", value: "ceramica"}, {label: "📅 Calendario", value: "calendario"}, {label: "🕒 Reloj", value: "reloj"}, {label: "✅ Check", value: "check"}, {label: "☸ Gankyil", value: "gankyil"}] }
                   - { label: "Título de la sección", name: "titulo", widget: string }
+                  - { label: "Nota bajo la lista (cómo se cotiza, de qué depende el precio)", name: "nota", widget: text, required: false }
                   - label: "Programas"
                     name: "items"
                     widget: list
@@ -196,6 +197,13 @@ collections:
                       - { label: "Precio (o texto tipo 'Consultar precio')", name: "price", widget: string }
                       - { label: "Identificador único (crea una página propia con más info, ej. taller-vr)", name: "slug", widget: string, required: false }
                       - { label: "Descripción larga (se muestra en la página propia de este programa)", name: "descripcion_larga", widget: text, required: false }
+                      - label: "Clases del tópico (se abren al picar el pez del gankyil y en 'Ver las 6 clases')"
+                        name: "clases"
+                        widget: list
+                        required: false
+                        fields:
+                          - { label: "Título de la clase", name: "titulo", widget: string }
+                          - { label: "Qué se ve en esa clase", name: "detalle", widget: string, required: false }
 
               - label: "Productos / tienda"
                 name: "productos"
