@@ -568,7 +568,7 @@ collections:
       - { label: "Texto de 'después de este taller'", name: "despues_texto", widget: text }
 
   - name: "heyocat"
-    label: "Heyocat · Oráculo"
+    label: "Heyokat · Oráculo"
     files:
       - file: "heyocat/cartas.json"
         label: "Cartas del oráculo"
