@@ -44,8 +44,12 @@
     var nombres = ids.map(function (id) { return '«' + MAPA[id].nombre + '»'; });
     $('llevar').innerHTML = '<h3>Llévate tu tirada</h3><p>Si te gustaron tus cartas, pídelas como print. También puedes compartir tu lectura.</p>' +
       '<div class="acciones"><a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyocat y quiero las tres prints: ' + nombres.join(', ') + '. ¿Cómo las consigo?') + '">Quiero las tres</a>' +
-      '<button class="btn sec" id="b-compartir" type="button">Compartir mi lectura</button></div>';
+      '<button class="btn sec" id="b-compartir" type="button">Compartir mi lectura</button></div>' +
+      '<p style="margin-top:18px">Cuéntanos qué te salió: síguenos o etiquétanos en Instagram.</p>' +
+      '<div class="acciones"><a class="btn ig" target="_blank" rel="noopener" href="https://www.instagram.com/heyokat/">Seguir @heyokat</a>' +
+      '<button class="btn sec" id="b-mencion" type="button">Mencionarnos en mi historia</button></div>';
     $('b-compartir').addEventListener('click', compartir);
+    $('b-mencion').addEventListener('click', mencionar);
     $('lectura').hidden = false;
     $('b-reiniciar').hidden = false; $('b-barajar').hidden = true;
     try { history.replaceState(null, '', '?c=' + ids.join(',')); } catch (e) {}
@@ -58,6 +62,13 @@
     if (navigator.share) { navigator.share({ title: 'Heyocat', text: txt, url: url }).catch(function () {}); return; }
     if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { $('b-compartir').textContent = '¡Enlace copiado!'; });
     else prompt('Copia tu enlace:', url);
+  }
+
+  function mencionar() {
+    var txt = 'Mi lectura en @heyokat ✦ ' + location.href + ' #Heyocat', b = $('b-mencion');
+    function ok() { b.textContent = '¡Texto copiado! Pégalo en tu historia y etiqueta @heyokat'; }
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, function () { prompt('Copia este texto:', txt); });
+    else prompt('Copia este texto:', txt);
   }
 
   function ids3() {
@@ -89,6 +100,8 @@
       reverso: data.reverso, borde: 'heyocat/carta-borde.json',
       caras: data.cartas.map(function (c) { return { id: c.id, imagen: c.imagen }; }), mazo: 9,
       onEvent: function (ev, a, b) {
+        var A = window.HeyoAudio;
+        if (A) { A.arrancar(); if (ev === 'carta') A.sfx('elegir'); else if (ev === 'voltea') A.sfx('voltea'); else if (ev === 'listo') A.sfx('listo'); }
         if (ev === 'tocar-mazo') barajar();
         else if (ev === 'elegir') { guia('Elige tres cartas.', 'Confía en la mano. Toca las que te llamen.'); }
         else if (ev === 'carta') { guia('Carta ' + (a + 1) + ' de 3', a < 2 ? 'Elige otra' : ''); }
@@ -102,6 +115,7 @@
       if (!escena || escena.estado() !== 'idle') return;
       $('b-barajar').hidden = true; $('b-reiniciar').hidden = false;
       guia('Barajando…', 'Piensa en tu pregunta');
+      if (window.HeyoAudio) { HeyoAudio.arrancar(); HeyoAudio.sfx('baraja'); }
       escena.shuffle(data.cartas.map(function (c) { return c.id; }));
     }
     $('b-barajar').addEventListener('click', barajar);
@@ -114,6 +128,15 @@
       $('escena').classList.add('compacta'); escena.mostrar(porUrl.slice(0, 3)); mostrarLectura(porUrl.slice(0, 3), false);
     }
   }
+
+  (function () {
+    var b = $('b-sonido'); if (!b || !window.HeyoAudio) { if (b) b.hidden = true; return; }
+    function pinta() { var on = HeyoAudio.activo(); b.textContent = on ? '🔊' : '🔇'; b.classList.toggle('off', !on); b.setAttribute('aria-pressed', on); }
+    pinta();
+    b.addEventListener('click', function () { HeyoAudio.arrancar(); HeyoAudio.alternar(); pinta(); });
+    var una = function () { HeyoAudio.arrancar(); document.removeEventListener('pointerdown', una); };
+    document.addEventListener('pointerdown', una);
+  })();
 
   fetch('heyocat/cartas.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(iniciar);
 

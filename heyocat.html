@@ -91,6 +91,9 @@
   .que h2{ font-size:clamp(24px,5.4vw,32px); font-style:italic; }
   .que p{ line-height:1.6; opacity:.88; font-size:16px; }
   body.con-nav .hy .cab{ padding-top:22px; }
+  .b-sonido{ position:fixed; left:18px; bottom:20px; z-index:90; width:48px; height:48px; border-radius:50%; border:1.5px solid rgba(232,199,106,.5); background:rgba(13,10,20,.85); color:#f3ecdc; font-size:20px; cursor:pointer; backdrop-filter:blur(6px); }
+  .b-sonido.off{ opacity:.6; }
+  .hy .btn.ig{ background:linear-gradient(45deg,#f9a03a,#e1306c 55%,#833ab4); color:#fff; box-shadow:0 8px 26px rgba(225,48,108,.3); }
   .sin3d{ display:none; }
   .sin3d.on{ display:block; }
   @media (prefers-reduced-motion:reduce){ .cl{ animation:none; opacity:1; transform:none; } }
@@ -99,6 +102,7 @@
 <body>
 <div id="site-top"></div>
 <div id="site-floating"></div>
+<button id="b-sonido" class="b-sonido" type="button" aria-label="Sonido y música" title="Sonido y música">🔊</button>
 <div class="hy">
   <header class="cab envolt">
     <div class="eyebrow">Oráculo de arquetipos cósmicos</div>
@@ -136,6 +140,7 @@
 
 <script src="assets/site.js?v=37"></script>
 <script src="assets/heyocat3d.js?v=1"></script>
-<script src="assets/heyocat.js?v=1"></script>
+<script src="assets/heyocat-audio.js?v=1"></script>
+<script src="assets/heyocat.js?v=2"></script>
 </body>
 </html>
