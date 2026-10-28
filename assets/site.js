@@ -261,6 +261,16 @@
         }
       }
     });
+    // páginas del sitio que no son secciones de esta página
+    var PAGINAS = [
+      { titulo: 'Heyocat · Oráculo', snip: 'Baraja y lee tus tres cartas', href: 'heyocat.html', claves: 'heyocat heyokat heyoka heyocard oraculo oráculo tarot cartas lectura baraja' },
+      { titulo: 'Próximos eventos', snip: 'Talleres y experiencias', href: 'landing.html', claves: 'eventos evento taller talleres retiro esquivias mansion mansión' }
+    ];
+    var qn = q.normalize ? q.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : q;
+    var pgs = PAGINAS.filter(function (p) {
+      return p.claves.split(' ').some(function (c) { c = c.normalize ? c.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : c; return c.indexOf(qn) === 0 || (qn.length >= 4 && qn.indexOf(c) === 0); });
+    }).map(function (p) { return { href: p.href, titulo: p.titulo, snip: p.snip }; });
+    hallazgos = pgs.concat(hallazgos);
     menuBuscar.hallazgos = hallazgos.slice(0, 12);
     res.innerHTML = '';
     if (!hallazgos.length) { res.innerHTML = '<li class="menu-vacio">Sin resultados para “' + esc(q) + '”.</li>'; return; }
@@ -286,7 +296,7 @@
       var sec = t.closest('[data-sec]');
       if (sec) { var s = menuAbrir.secs[parseInt(sec.getAttribute('data-sec'), 10)]; menuAbrir(false); if (s) setTimeout(function () { irA(s.el); }, 120); return; }
       var rs = t.closest('[data-res]');
-      if (rs) { var h = menuBuscar.hallazgos[parseInt(rs.getAttribute('data-res'), 10)]; menuAbrir(false); if (h) setTimeout(function () { irA(h.el); }, 120); return; }
+      if (rs) { var h = menuBuscar.hallazgos[parseInt(rs.getAttribute('data-res'), 10)]; menuAbrir(false); if (h && h.href) { location.href = h.href; return; } if (h) setTimeout(function () { irA(h.el); }, 120); return; }
       var fs = t.closest('[data-fs]');
       if (fs) {
         var v = parseInt(fs.getAttribute('data-fs'), 10);
