@@ -619,6 +619,32 @@
       '<span class="gk-fila"><b>' + nm + ' mentorías especializadas</b></span></span>';
   }
 
+  function clasesLista(cl) {
+    return '<ol class="clases-lista">' + cl.map(function (c, i) {
+      return '<li><span class="cl-n">' + (i + 1) + '</span><span><strong>' + esc(c.titulo) + '</strong>' + (c.detalle ? '<small>' + esc(c.detalle) + '</small>' : '') + '</span></li>';
+    }).join('') + '</ol>';
+  }
+  function itemTopico(s, b) {
+    return ((s && s.items) || []).filter(function (it) { return it.clases && it.clases.length && b.re.test(it.title); })[0];
+  }
+  function gkModulosHTML(s) {
+    var o = GK_BRAZOS.map(function (b) {
+      var it = itemTopico(s, b);
+      if (!it) return '';
+      return '<div class="gk-mod" data-mod="' + b.id + '" hidden style="--c:' + b.color + '"><h3><i></i>' + esc(b.nombre) + '</h3>' +
+        '<p class="gk-mod-sub">' + it.clases.length + ' clases base · luego 3 mentorías especializadas</p>' + clasesLista(it.clases) + '</div>';
+    }).join('');
+    return o ? '<div class="gk-modulos" hidden aria-live="polite">' + o + '</div>' : '';
+  }
+  function gkModulos(brazo) {
+    var p = document.querySelector('.gk-modulos');
+    if (!p) return;
+    var hay = false;
+    p.querySelectorAll('.gk-mod').forEach(function (m) { var on = !!brazo && m.getAttribute('data-mod') === brazo; m.hidden = !on; if (on) hay = true; });
+    p.hidden = !hay;
+    if (hay) p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   function gankyilBloque(s) {
     if (s.gankyil === false) return '';
     var leyenda = GK_BRAZOS.map(function (b) {
@@ -629,7 +655,7 @@
       '<div class="gk-info"><p class="gk-lead">' + esc(gkTexto('lead')) + '</p>' +
       '<ul class="gk-leyenda">' + leyenda + '</ul>' +
       '<button type="button" class="gk-saber" data-gk-abrir>☸ ¿Qué es el gankyil?</button></div>' +
-      '</div>' +
+      '</div>' + gkModulosHTML(s) +
       '<div class="gk-tarjeta" hidden role="dialog" aria-label="El gankyil">' +
       '<div class="gk-tabs"><button type="button" class="gk-tab on" data-tab="steam">Lectura STEAM</button><button type="button" class="gk-tab" data-tab="dzogchen">Lectura Dzogchen</button><button type="button" class="gk-x" data-gk-cerrar aria-label="Cerrar">✕</button></div>' +
       '<p class="gk-txt" data-txt="steam">' + esc(gkTexto('steam')) + '</p>' +
@@ -669,7 +695,7 @@
       var t = e.target;
       if (!t.closest) return;
       var b = t.closest('.gk-wrap [data-brazo]');
-      if (b) { var v = sel(b); fijo = (fijo === v) ? null : v; gkResaltar(fijo); return; }
+      if (b) { var v = sel(b); fijo = (fijo === v) ? null : v; gkResaltar(fijo); gkModulos(fijo); return; }
       if (t.closest('[data-gk-abrir]')) { var c = document.querySelector('.gk-tarjeta'); if (c) { c.hidden = !c.hidden; if (!c.hidden) c.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } return; }
       if (t.closest('[data-gk-cerrar]')) { var c2 = document.querySelector('.gk-tarjeta'); if (c2) c2.hidden = true; return; }
       var tab = t.closest('.gk-tab');
@@ -704,16 +730,22 @@
           link = it.link;
           esExterno = true;
         } else {
-          var mensaje = 'Hola, me interesa el programa "' + it.title + '"' + (it.price ? ' (' + it.price + ')' : '') + ', ¿me pueden dar más información?';
+          var mensaje = /\d/.test(it.price || '')
+            ? 'Hola, me interesa el programa "' + it.title + '" (' + it.price + '), ¿me pueden dar más información?'
+            : 'Hola, me interesa "' + it.title + '". ¿Me compartes precio, fechas y modalidad (presencial, en línea o híbrido)?';
           link = 'https://wa.me/' + esc(contacto ? contacto.whatsapp : '') + '?text=' + encodeURIComponent(mensaje);
           esExterno = true;
         }
         var atributos = esExterno ? ' target="_blank" rel="noopener"' : '';
-        var precioHTML = '<a class="price price-link" href="' + esc(link) + '"' + atributos + '>' + esc(it.price) + '</a>';
+        var conPrecio = /\d/.test(it.price || '');
+        var precioHTML = conPrecio
+          ? '<a class="price price-link" href="' + esc(link) + '"' + atributos + '>' + esc(it.price) + '</a>'
+          : '<a class="price price-link cotiza" href="' + esc(link) + '"' + atributos + '>Cotizar por WhatsApp →</a>';
+        var verClases = (it.clases && it.clases.length) ? '<details class="plan-clases"><summary>Ver las ' + it.clases.length + ' clases</summary>' + clasesLista(it.clases) + '<p class="plan-clases-nota">Después: 3 mentorías especializadas.</p></details>' : '';
         return '<div class="plan-item">' + img +
-          '<div class="plan-item-main">' + (ICONOS[it.icono] ? '<span class="plan-ico">' + iconoSVG(it.icono) + '</span>' : '') + '<span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div></div>' +
+          '<div class="plan-item-main">' + (ICONOS[it.icono] ? '<span class="plan-ico">' + iconoSVG(it.icono) + '</span>' : '') + '<span class="code">' + esc(it.code) + '</span><h3>' + esc(it.title) + '</h3><div class="meta">' + esc(it.meta) + '</div>' + verClases + '</div>' +
           precioHTML + '</div>';
-      }).join('') + '</div></div></section>';
+      }).join('') + '</div>' + (s.nota ? '<p class="plan-nota">' + esc(s.nota) + '</p>' : '') + '</div></section>';
   }
 
   function productoCard(p, whatsapp) {

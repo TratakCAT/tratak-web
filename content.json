@@ -114,14 +114,66 @@
           "title": "Diseño en Realidad Virtual",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
           "price": "Consultar precio",
-          "imagen": ""
+          "imagen": "",
+          "clases": [
+            {
+              "titulo": "Introducción al espacio virtual",
+              "detalle": "Metaverso, interfaces y salud tecnológica."
+            },
+            {
+              "titulo": "Herramientas VR",
+              "detalle": "Gravity Sketch, Tilt Brush y Sculpt."
+            },
+            {
+              "titulo": "Exploración creativa",
+              "detalle": "Dibujo, volumen e intuición espacial."
+            },
+            {
+              "titulo": "Meditación en VR",
+              "detalle": "Percepción, atención y experiencia."
+            },
+            {
+              "titulo": "Postprocesos",
+              "detalle": "Exportación, render e integración."
+            },
+            {
+              "titulo": "De VR a objeto",
+              "detalle": "Impresión 3D desde VR."
+            }
+          ]
         },
         {
           "code": "TÓPICO: CUL_BIO // 00",
           "title": "Cultura Biomaterial",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
           "price": "Consultar precio",
-          "imagen": ""
+          "imagen": "",
+          "clases": [
+            {
+              "titulo": "Lenguaje bio",
+              "detalle": "Conceptos base, bioarte y biocompuestos."
+            },
+            {
+              "titulo": "Recolección y sistemas",
+              "detalle": "Residuos orgánicos, contexto y hábitos."
+            },
+            {
+              "titulo": "Biomasas",
+              "detalle": "Formulación, pruebas y comportamiento."
+            },
+            {
+              "titulo": "Biohilos para LDM",
+              "detalle": "Adaptación e impresión."
+            },
+            {
+              "titulo": "Textiles y teñido",
+              "detalle": "Aplicaciones en tela y superficie."
+            },
+            {
+              "titulo": "Micelio y postmaterialismo",
+              "detalle": "Fungi y reflexión conceptual."
+            }
+          ]
         },
         {
           "code": "P.E.S. · Individual",
@@ -149,7 +201,33 @@
           "title": "Impresión 3D LDM",
           "meta": "Presencial / En línea / Híbrido · 6 sesiones + 3 mentorías (13.5 hrs)",
           "price": "Consultar precio",
-          "imagen": ""
+          "imagen": "",
+          "clases": [
+            {
+              "titulo": "Materia prima",
+              "detalle": "Arcillas, preparación, reología y color en la materia."
+            },
+            {
+              "titulo": "Máquinas LDM",
+              "detalle": "Extrusión de pastas, componentes y marcas."
+            },
+            {
+              "titulo": "Modelado 3D",
+              "detalle": "NURBS, sólidos y lógica de diseño para LDM con Rhinoceros."
+            },
+            {
+              "titulo": "Slicing y parámetros",
+              "detalle": "G-code, flujo, boquillas, capas y errores comunes."
+            },
+            {
+              "titulo": "Proceso y contemplación",
+              "detalle": "Intervención durante la impresión y atención (Trāṭaka)."
+            },
+            {
+              "titulo": "Multitécnica",
+              "detalle": "Integración con otros procesos."
+            }
+          ]
         }
       ],
       "color_acento": "#a8ff7b",
@@ -165,7 +243,8 @@
       "icono": "laboratorio",
       "titulo": "Plan de estudios",
       "type": "lista_precios",
-      "id": "plan"
+      "id": "plan",
+      "nota": "El precio depende de la modalidad (presencial, en línea o híbrido) y de si vas solo/a o en grupo de 2 a 4 personas. Escríbenos y te cotizamos el mismo día."
     },
     {
       "estilo_fuente": null,
