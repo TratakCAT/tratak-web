@@ -4,7 +4,7 @@
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-  var DATA = null, MAPA = {}, escena = null, tirada = [];
+  var DATA = null, MAPA = {}, escena = null, tirada = [], TESS = null, visores = [];
 
   function wa(txt) { return 'https://wa.me/' + DATA.whatsapp + '?text=' + encodeURIComponent(txt); }
   // mascota: Heyokat habla
@@ -15,13 +15,15 @@
     el.classList.add('cae');
     setTimeout(function () { el.textContent = texto; el.classList.remove('cae'); }, 280);
     var av = $('m-av'); if (av) { av.classList.remove('mueve'); void av.offsetWidth; av.classList.add('mueve'); }
+    var bu = $('m-burbuja'); if (bu) { bu.classList.add('on'); clearTimeout(dice.t); dice.t = setTimeout(function () { bu.classList.remove('on'); }, 9000); }
   }
   function dichoDe(clave) { var m = DATA && DATA.mascota; if (m) dice(azar(m[clave] || m.frases)); }
   function iniciarMascota() {
     var m = DATA.mascota; if (!m) { if ($('mascota')) $('mascota').hidden = true; return; }
-    $('m-dice').textContent = azar(m.frases);
+    setTimeout(function () { dice(azar(m.frases)); }, 1800);
+    setInterval(function () { var h = $('mascota'); if (!h || document.hidden) return; h.classList.add('esconde'); setTimeout(function () { h.classList.remove('esconde'); dice(azar(m.frases)); }, 2600); }, 38000);
     $('m-av').addEventListener('click', function () { dice(azar(m.frases)); if (window.HeyoAudio) { HeyoAudio.arrancar(); HeyoAudio.sfx('elegir'); } });
-    setInterval(function () { if (!document.hidden && escena && (escena.estado() === 'idle' || escena.estado() === 'done')) dice(azar(m.frases)); }, 16000);
+    setInterval(function () { if (!document.hidden && escena && (escena.estado() === 'idle' || escena.estado() === 'done')) dice(azar(m.frases)); }, 21000);
     $('mantra').innerHTML = (m.mantra || []).map(function (x) { return '<p><b>' + esc(x.letra) + '</b>' + esc(x.texto) + '</p>'; }).join('');
   }
   function guia(texto, pequeno) { $('guia').innerHTML = esc(texto) + (pequeno ? '<small>' + esc(pequeno) + '</small>' : ''); }
@@ -48,15 +50,22 @@
   function mostrarLectura(ids, desplazar) {
     tirada = ids.slice();
     var pos = DATA.posiciones;
+    visores.forEach(function (v) { try { v.destruir(); } catch (e) {} }); visores = [];
     $('tres').innerHTML = ids.map(function (id, i) {
       var x = MAPA[id];
-      return '<article class="cl"><div class="pos">' + esc(pos[i]) + '</div><img src="' + esc(x.imagen) + '" alt="' + esc(x.nombre) + '">' +
+      return '<article class="cl"><div class="pos">' + esc(pos[i]) + '</div><div class="cl-vis" data-id="' + esc(id) + '"><img src="' + esc(x.imagen) + '" alt="' + esc(x.nombre) + '"></div>' +
         '<h3>' + esc(x.nombre) + '</h3><div class="arq">' + esc(x.arquetipo) + '</div>' +
         '<div class="chips">' + (x.palabras || []).map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' +
         '<p class="msj">“' + esc(x.mensaje) + '”</p>' +
         '<details><summary>Leer la interpretación</summary><p>' + esc(x.interpretacion) + '</p>' + (x.contrario ? '<p class="con">Al revés (heyoka): ' + esc(x.contrario) + '</p>' : '') + '</details>' +
         '<a class="btn wa" target="_blank" rel="noopener" href="' + wa('Hola, hice mi lectura en Heyokat y quiero una print de la carta «' + x.nombre + '». ¿Cómo la consigo?') + '">Quiero una print de esta carta</a></article>';
     }).join('');
+    if (window.Heyocat3D) Array.prototype.forEach.call(document.querySelectorAll('.cl-vis'), function (box) {
+      var id = box.getAttribute('data-id'), cv = document.createElement('canvas'); cv.className = 'cl3d'; cv.setAttribute('aria-label', 'Carta ' + MAPA[id].nombre + ' en 3D: arrastra para girarla');
+      box.appendChild(cv);
+      var v = Heyocat3D.create(cv, { reverso: DATA.reverso, borde: 'heyocat/carta-borde.json', caras: [{ id: id, imagen: MAPA[id].imagen }], solo: id });
+      if (v) { visores.push(v); box.classList.add('en3d'); } else cv.remove();
+    });
     $('sintesis').innerHTML = sintesis(ids);
     var nombres = ids.map(function (id) { return '«' + MAPA[id].nombre + '»'; });
     $('llevar').innerHTML = '<h3>Llévate tu tirada</h3><p>Si te gustaron tus cartas, pídelas como print. También puedes compartir tu lectura.</p>' +
@@ -115,7 +124,7 @@
     var porUrl = (new URLSearchParams(location.search).get('c') || '').split(',').filter(function (id) { return MAPA[id]; });
 
     escena = window.Heyocat3D && Heyocat3D.create($('escena'), {
-      reverso: data.reverso, borde: 'heyocat/carta-borde.json',
+      reverso: data.reverso, borde: 'heyocat/carta-borde.json', teselado: TESS,
       caras: data.cartas.map(function (c) { return { id: c.id, imagen: c.imagen }; }), mazo: 9,
       onEvent: function (ev, a, b) {
         var A = window.HeyoAudio;
@@ -156,7 +165,32 @@
     ['pointerdown','touchend','click','keydown'].forEach(function (e) { document.addEventListener(e, una, true); });
   })();
 
-  fetch('heyocat/cartas.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(iniciar);
+  fetch('heyocat/teselado.json').then(function (r) { return r.json(); }).catch(function () { return null; }).then(function (t) {
+    TESS = t; if (t) fondoTeselado(t);
+    return fetch('heyocat/cartas.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(iniciar);
+  });
+
+  // fondo decorativo: la silueta de la carta encaja consigo misma sin huecos (red hexagonal)
+  function fondoTeselado(t) {
+    var cv = $('teselado'); if (!cv) return;
+    var P = new Path2D(t.path), a = t.a, b = t.b, cols = ['192,162,236', '240,139,209', '232,199,106', '120,200,230'];
+    function pinta() {
+      var esc2 = (innerWidth < 700 ? 0.34 : 0.46), dpr2 = Math.min(devicePixelRatio || 1, 2);
+      var W = innerWidth, H = innerHeight;
+      cv.width = (W + Math.abs(b[0]) * esc2 * 2) * dpr2; cv.height = (H + Math.abs(a[1]) * esc2 * 2) * dpr2;
+      cv.style.width = cv.width / dpr2 + 'px'; cv.style.height = cv.height / dpr2 + 'px';
+      cv.style.setProperty('--dx', (a[0] * esc2) + 'px'); cv.style.setProperty('--dy', (a[1] * esc2) + 'px');
+      var g = cv.getContext('2d'); g.setTransform(dpr2, 0, 0, dpr2, 0, 0); g.clearRect(0, 0, cv.width, cv.height);
+      for (var i = -14; i <= 14; i++) for (var j = -14; j <= 14; j++) {
+        var x = (a[0] * i + b[0] * j) * esc2 + cv.width / dpr2 / 2, y = (a[1] * i + b[1] * j) * esc2 + cv.height / dpr2 / 2;
+        if (x < -200 || y < -200 || x > cv.width / dpr2 + 200 || y > cv.height / dpr2 + 200) continue;
+        var h = ((i * 73856093) ^ (j * 19349663)) >>> 0, col = cols[h % 4], al = .035 + (h % 7) * .011;
+        g.save(); g.translate(x, y); g.scale(esc2, esc2); g.fillStyle = 'rgba(' + col + ',' + al + ')'; g.fill(P, 'evenodd');
+        g.lineWidth = 1.4 / esc2; g.strokeStyle = 'rgba(232,199,106,.22)'; g.stroke(P); g.restore();
+      }
+    }
+    pinta(); var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(pinta, 250); });
+  }
 
   // banner, menú y botón de WhatsApp del sitio
   fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
