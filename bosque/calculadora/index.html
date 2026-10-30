@@ -1,0 +1,121 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Calculadora del Oasis</title><meta name="description" content="Cuántas gallinas, cabras, cerdos, huerto, agua, paneles y jabón según personas y excedente.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: calculadora — panel de datos de entrada fijo arriba, tarjetas de resultado por rubro con su fórmula a la vista, notas y referencias — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+
+.inputs{background:var(--surface);border:1px solid var(--line);padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px 18px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-family:var(--display);font-size:12px;font-weight:600;color:var(--muted)}
+.inputs input,.inputs select{font:16px var(--display);font-variant-numeric:tabular-nums;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px}
+.r{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.r h3{display:flex;gap:8px;align-items:center}.r .big{font-family:var(--display);font-size:34px;font-weight:800;font-stretch:80%;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1}
+.r ul{margin:0;padding-left:18px;font-size:14.5px;display:flex;flex-direction:column;gap:3px;font-variant-numeric:tabular-nums}
+.r .loc{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.r .loc label{display:flex;flex-direction:column;gap:3px;font-family:var(--display);font-size:11.5px;color:var(--muted)}
+.r .loc input{font:15px var(--display);padding:6px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+.f{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--bg);border:1px dashed var(--line);padding:8px 10px;overflow-x:auto;white-space:pre-wrap;color:var(--ink)}
+.warn{border-left:4px solid var(--warn);padding-left:12px;font-size:14px}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/">← Oasis Consciente</a><p class="eyebrow">Oasis Consciente · planeación</p><h1>Calculadora del Oasis</h1>
+<p class="lede">Cuántos animales, cuánto huerto, cuánta agua y cuánta energía según cuántas personas comen del Oasis y cuánto quieren vender. Los números son puntos de partida: ajústalos con lo que registren en la bitácora.</p></header>
+<section class="inputs" aria-label="Datos generales">
+<label>👥 Personas que comen del Oasis<input type="number" id="P" value="6" min="1" max="500"></label>
+<label>🛒 Excedente para vender o trocar (%)<input type="number" id="X" value="50" min="0" max="1000"></label>
+<label>🏕️ Visitantes promedio por semana<input type="number" id="V" value="0" min="0" max="2000"></label>
+<label>📅 Comidas por visitante en su estancia<input type="number" id="VC" value="3" min="0" max="30"></label>
+</section>
+<p class="note">Una persona que vive en el Oasis cuenta como 21 comidas por semana; cada visitante suma sus comidas proporcionalmente. El excedente se aplica a huevo, leche y verdura.</p>
+<section class="res" id="res"></section>
+<section><h2>📚 De dónde salen las cifras</h2><ol class="refs"><li><a href="https://www.unotv.com/negocios/por-que-mexico-consume-tanto-huevo-410-piezas-lidera-consumo-mundial/" target="_blank" rel="noopener">Unión Nacional de Avicultores vía UnoTV: México consume ~410 huevos por persona al año (2025)</a></li><li><a href="https://www.medigraphic.com/pdfs/abanico/av-2013/av131d.pdf" target="_blank" rel="noopener">Bidot Fernández, A. (2013). Producción de leche de cabra Nubia, Saanen y Toggenburg. Abanico Veterinario 3(1): 2.95–3.40 kg/día, 215–235 días</a></li><li><a href="https://www.worldcat.org/search?q=Jeavons+How+to+Grow+More+Vegetables" target="_blank" rel="noopener">Jeavons, J. How to Grow More Vegetables (Ecology Action): ~370 m² por persona para dieta completa (cifra teórica)</a></li><li><a href="https://di.facmed.unam.mx/formatos/NORMA%20Oficial%20Mexicana%20NOM%20033SAG%20ZOO%202014,%20M%C3%A9todos%20para%20dar%20muerte%20a%20los%20animales%20dom%C3%A9sticos%20y%20silvestres.pdf" target="_blank" rel="noopener">NOM-033-SAG/ZOO-2014: métodos para dar muerte a animales domésticos y silvestres</a></li><li><a href="https://fao.org/4/i3247s/i3247s.pdf" target="_blank" rel="noopener">FAO (2013). Captación y almacenamiento de agua de lluvia</a></li><li><a href="https://www.who.int/publications/i/item/WHO-SDE-WSH-03.02" target="_blank" rel="noopener">OMS / Howard, G. y Bartram, J. (2003). Domestic water quantity, service level and health</a></li></ol></section>
+</div><script>
+(function(){
+const $=id=>document.getElementById(id);
+const n=id=>{const v=parseFloat($(id).value);return isFinite(v)?v:0};
+const fmt=(v,d=0)=>v.toLocaleString("es-MX",{maximumFractionDigits:d,minimumFractionDigits:0});
+const up=Math.ceil;
+const C=[
+{id:"gal",e:"🐔",t:"Gallinas",loc:[["hps","Huevos por persona por semana",8],["puesta","Huevos por gallina al año",200],["efi","Gallinas poniendo (%)",85]],
+ calc(P,X,v){const sem=P*v.hps*(1+X/100);const g=up(sem*52/(v.puesta*v.efi/100));
+  return{big:fmt(g)+" gallinas",li:[`Huevo para comer: ${fmt(P*v.hps)} a la semana`,`Excedente: ${fmt(P*v.hps*X/100)} a la semana (${fmt(P*v.hps*X/100/12,1)} docenas)`,`Gallinero cerrado: ${fmt(g*0.35,1)} m² · patio: ${fmt(g*5)} m²`,`Alimento: ${fmt(g*0.12*365)} kg al año (unos 120 g por gallina al día)`,`Agua: ${fmt(g*0.25,1)} L al día`],
+  f:"gallinas = personas × huevos/persona/semana × (1 + excedente) × 52 ÷ (puesta anual × % en postura)"}}},
+{id:"cab",e:"🐐",t:"Cabras lecheras",loc:[["lpp","Leche por persona al día (L)",0.3],["qs","Queso fresco a la semana (kg)",2],["lpc","Leche por cabra al día (L)",3],["lac","Días de lactancia",225]],
+ calc(P,X,v){const ld=P*v.lpp*(1+X/100)+v.qs*6/7;const ord=ld/v.lpc;const tot=up(ord/(v.lac/365));
+  return{big:fmt(tot)+" cabras",li:[`Leche necesaria: ${fmt(ld,1)} L al día`,`En ordeña al mismo tiempo: ${fmt(ord,1)} cabras`,`Más un macho (o servicio de monta) y las crías de cada año`,`Forraje: ${fmt(tot*2*365)} kg de materia seca al año (unos 2 kg por cabra al día)`,`Agua: ${fmt(tot*8)} L al día (más en lactancia y calor)`,`Rendimientos aproximados: 1 L de leche ≈ 1 kg de yogur · 6 L ≈ 1 kg de queso fresco · 1 L ≈ 30 g de mantequilla`],
+  f:"leche/día = personas × L/persona × (1 + excedente) + queso kg/semana × 6 ÷ 7\ncabras = leche/día ÷ L por cabra ÷ (días de lactancia ÷ 365)"}}},
+{id:"cer",e:"🐖",t:"Cerdos",loc:[["kpp","Carne de cerdo por persona al año (kg)",10],["pv","Peso al sacrificio (kg)",100]],
+ calc(P,X,v){const carne=v.pv*0.75*0.75;const c=Math.max(1,up(P*v.kpp/carne));
+  return{big:fmt(c)+(c>1?" cerdos al año":" cerdo al año"),li:[`Carne aprovechable por cerdo: ~${fmt(carne)} kg (canal 75 %, carne 75 % de la canal)`,`Alimento: ~${fmt(c*v.pv*3)} kg al año (unos 3 kg de alimento por kg de peso ganado)`,`Tiempo de engorda: 5 a 6 meses por cerdo`,`Agua: ${fmt(c*12)} L al día`],
+  f:"cerdos/año = personas × kg/persona ÷ (peso vivo × 0.75 × 0.75)"}}},
+{id:"hue",e:"🥬",t:"Huerto",loc:[["m2v","m² de hortaliza por persona",40]],
+ calc(P,X,v){const a=P*v.m2v*(1+X/100);
+  return{big:fmt(a)+" m²",li:[`Para hortalizas y verdura fresca: ${fmt(P*v.m2v)} m² + excedente`,`Dieta completa con método biointensivo: ~${fmt(P*370)} m² (cifra teórica de Jeavons)`,`Tu terreno tiene unos 18,300 m²; el huerto del plano ocupa ~2,400 m²`],
+  f:"huerto = personas × m²/persona × (1 + excedente)"}}},
+{id:"agu",e:"💧",t:"Agua y cosecha de lluvia",loc:[["lpd","Litros por persona al día",80],["mm","Lluvia anual (mm)",900],["sec","Meses de secas a cubrir",7]],
+ calc(P,X,v,all){const per=P*v.lpd;const anim=(all.gal||0)*0.25+(all.cab||0)*8+(all.cer||0)*12;const dia=per+anim;
+  const cis=dia*30*v.sec/1000;const area=dia*365/(v.mm*0.8);
+  return{big:fmt(dia)+" L/día",li:[`Personas: ${fmt(per)} L · animales: ${fmt(anim)} L`,`Para beber: ${fmt(P*3)} L al día (unos 3 L por persona)`,`Cisterna para ${v.sec} meses de secas: ${fmt(cis,1)} m³`,`Techo para captar todo el año: ${fmt(area)} m²`],
+  f:"captación (L) = área de techo (m²) × lluvia (mm) × 0.8\ncisterna (m³) = consumo diario × 30 × meses de secas ÷ 1000"}}},
+{id:"sol",e:"☀️",t:"Paneles solares",loc:[["kwh","Consumo diario (kWh)",5],["hsp","Horas de sol pico",5.5],["w","Watts por panel",450],["aut","Días de respaldo",2]],
+ calc(P,X,v){const kwp=v.kwh/(v.hsp*0.75);const pan=up(kwp*1000/v.w);const bat=v.kwh*v.aut/0.8;
+  return{big:fmt(pan)+" paneles",li:[`Potencia: ${fmt(kwp,2)} kWp`,`Baterías (litio LiFePO4): ${fmt(bat,1)} kWh`,`Inversor: igual o mayor a la carga máxima que se use al mismo tiempo`,`Una impresora de cerámica, bombas y herramientas suben mucho el consumo: mídelo con un medidor de enchufe`],
+  f:"kWp = kWh/día ÷ (horas sol pico × 0.75)\npaneles = kWp × 1000 ÷ watts por panel\nbaterías = kWh/día × días ÷ 0.8"}}},
+{id:"jab",e:"🧼",t:"Jabón",loc:[["ac","Aceite por lote (g)",1000],["sap","SAP de sosa del aceite",0.135],["se","Sobreengrase (%)",5]],
+ calc(P,X,v){const naoh=v.ac*v.sap*(1-v.se/100);
+  return{big:fmt(naoh)+" g de sosa",li:[`Agua: ${fmt(v.ac*0.33)} g (unos 33 % del peso del aceite)`,`SAP de sosa: oliva 0.135 · coco 0.183 · manteca de cerdo 0.138 · girasol 0.134`,`Rinde ~${fmt((v.ac*1.4)/100)} barras de 100 g después de curar 4 a 6 semanas`,`Verifica siempre con una calculadora de jabón antes de mezclar`],
+  f:"sosa (g) = aceite (g) × SAP × (1 − sobreengrase)"}}},
+];
+function render(){
+  const P0=n("P"),X=n("X");const P=P0+n("V")*n("VC")/21;const all={};
+  const out=C.map(c=>{const v={};c.loc.forEach(([k,l,d])=>{const el=$(c.id+"-"+k);v[k]=el?parseFloat(el.value)||0:d});const r=c.calc(P,X,v,all);all[c.id]=parseFloat(r.big.replace(/[^\d.]/g,""))||0;return [c,r,v]});
+  if(!$("res").children.length){$("res").innerHTML=C.map(c=>`<article class="r" id="r-${c.id}"><h3><span aria-hidden="true">${c.e}</span>${c.t}</h3><div class="big" id="b-${c.id}"></div><ul id="u-${c.id}"></ul><div class="loc">${c.loc.map(([k,l,d])=>`<label>${l}<input type="number" step="any" id="${c.id}-${k}" value="${d}"></label>`).join("")}</div><div class="f" id="f-${c.id}"></div></article>`).join("")
+    + `<article class="r"><h3><span aria-hidden="true">⚖️</span>Antes de vender</h3><p class="warn">Huevo: vende limpio en seco, sin lavar, y guárdalo fresco. Lácteos: vende solo de leche pasteurizada; el queso de leche cruda puede transmitir brucelosis y listeria. Carne y embutidos: la matanza para venta debe hacerse en rastro autorizado; la NOM-033 marca cómo dar muerte sin sufrimiento. Para vender alimentos procesados se necesita aviso de funcionamiento ante COFEPRIS.</p></article>`;
+    C.forEach(c=>c.loc.forEach(([k])=>$(c.id+"-"+k).addEventListener("input",render)));render();return}
+  out.forEach(([c,r])=>{$("b-"+c.id).textContent=r.big;$("u-"+c.id).innerHTML=r.li.map(x=>`<li>${x}</li>`).join("");$("f-"+c.id).textContent=r.f});
+}
+["P","X","V","VC"].forEach(id=>$(id).addEventListener("input",render));render();
+})();
+</script></body></html>
