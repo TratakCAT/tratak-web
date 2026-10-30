@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Bitácora del Oasis</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<meta name="apple-mobile-web-app-title" content="Bitácora">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: bitácora de campo — cabecera, botón de nueva entrada, formulario plegable, línea de tiempo de entradas con fotos */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --ok:#3f7a4f; --ok-soft:#dcebdc; --bad:#a14b3c; --bad-soft:#f3dcd6;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--ok:#7fb38c;--ok-soft:#1f3326;--bad:#e08a78;--bad-soft:#3b2520;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--ok:#7fb38c;--ok-soft:#1f3326;--bad:#e08a78;--bad-soft:#3b2520;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 72px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:34px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,54px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:23px;font-weight:700;font-stretch:80%}
+h3{font-size:17px;font-weight:700;font-stretch:88%}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.note{font-size:13.5px;color:var(--muted)}
+.back{font-family:var(--display);font-size:13px;font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);padding:20px 22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.btn{font-family:var(--display);font-size:14px;font-weight:700;border:1px solid var(--accent);border-radius:6px;padding:9px 16px;cursor:pointer;background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=text],input[type=password],textarea{font:15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;width:100%}
+label.f{display:flex;flex-direction:column;gap:4px;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.err{color:var(--bad);font-size:14px}
+.hero{display:flex;flex-direction:column;gap:8px}
+.week{display:flex;gap:16px;align-items:flex-start}
+.week .big{font-size:54px;line-height:1}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--display);font-size:12.5px;font-weight:600}
+.pill{border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
+.pill.on{border-color:var(--accent);color:var(--accent)}
+.q{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.q .num{font-family:var(--display);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em}
+.q .txt{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:9px 12px;cursor:pointer;background:var(--bg)}
+.opt input{margin-top:4px}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.static{cursor:default}
+.exp{font-size:14.5px;border-left:3px solid var(--accent);padding-left:10px}
+.refs{font-size:13px;color:var(--muted);margin:0;padding-left:18px}
+.refs li{margin-top:2px}
+.score{font-family:var(--display);font-size:28px;font-weight:800;font-stretch:80%}
+.board{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.board li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:6px 0;font-family:var(--display);font-size:14.5px}
+.board .who{font-weight:700}
+.act ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.check{display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:600}
+details{background:var(--surface);border:1px solid var(--line)}
+summary{cursor:pointer;padding:14px 18px;font-family:var(--display);font-weight:700;font-size:16px;display:flex;gap:10px;align-items:center}
+details .in{padding:0 18px 18px;display:flex;flex-direction:column;gap:14px}
+.mini{font-size:13.5px;color:var(--muted)}
+.locked{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.lock{border:1px dashed var(--line);padding:12px 14px;display:flex;gap:10px;align-items:center;font-family:var(--display);font-size:14px;color:var(--muted)}
+.lock .e{font-size:24px;filter:grayscale(.6)}
+.answers{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--display)}
+.answers th,.answers td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:center}
+.answers td:first-child,.answers th:first-child{text-align:left}
+.tw{overflow-x:auto}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.ent{background:var(--surface);border:1px solid var(--line);padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ent .top{display:flex;gap:14px;align-items:flex-start}
+.ent .top .e{font-size:40px;line-height:1}
+.ent .meta{font-family:var(--display);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+.relato{white-space:pre-wrap;max-width:70ch}
+.blk h4{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.blk ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.fotos figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.fotos .ph{aspect-ratio:1/1;max-width:100%;background:var(--bg);border:1px solid var(--line);overflow:hidden;cursor:zoom-in;display:block;padding:0}
+.fotos img{width:100%;height:100%;object-fit:cover;display:block}
+.fotos figcaption{font-size:12.5px;color:var(--muted)}
+.upl{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.upl .it{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);padding:6px;background:var(--bg)}
+.upl .it img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.upl .it input{font-size:13px;padding:5px 7px}
+.linkbtn{background:none;border:0;padding:0;font:600 13px var(--display);color:var(--muted);text-decoration:underline;cursor:pointer}
+.linkbtn.danger{color:var(--bad)}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;z-index:50;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));flex-direction:column;gap:10px}
+.lb img{max-width:100%;max-height:85vh;object-fit:contain}
+.lb p{color:#eee;font-size:14px;text-align:center}
+textarea{resize:vertical}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <a class="back" href="/bosque/">← Oasis Consciente</a>
+    <p class="eyebrow">Oasis Consciente · documentación de investigación</p>
+    <h1>Bitácora del Oasis</h1>
+    <p class="note">El diario de campo del proyecto: qué hicimos, con quién, qué aprendimos, qué semillas e ideas se movieron y qué fotos lo cuentan. Cada entrada queda como evidencia para TRATAK, CAT y la investigación.</p>
+  </header>
+  <form class="card" id="login" hidden>
+    <h2>Entrar</h2>
+    <p class="note">Tu nombre y la contraseña del Oasis.</p>
+    <label class="f">Tu nombre<input type="text" id="l-nom" maxlength="40" autocomplete="name"></label>
+    <label class="f">Contraseña<input type="password" id="l-clave" autocomplete="current-password"></label>
+    <p class="err" id="l-err" aria-live="polite"></p>
+    <div><button class="btn" type="submit">Entrar</button></div>
+  </form>
+  <p class="note" id="status" aria-live="polite"></p>
+  <div id="app" hidden style="display:flex;flex-direction:column;gap:28px">
+    <div class="toolbar"><h2 id="count">Entradas</h2><button class="btn" id="newBtn" type="button">+ Nueva entrada</button></div>
+    <form class="card" id="form" hidden>
+      <h2 id="formTitle">Nueva entrada</h2>
+      <div class="grid2">
+        <label class="f">Fecha<input type="date" id="f-fecha"></label>
+        <label class="f">Emoji<input type="text" id="f-e" maxlength="16" placeholder="🌽"></label>
+        <label class="f">Lugar<input type="text" id="f-lugar" maxlength="120" placeholder="Ej. Los Guayabos"></label>
+      </div>
+      <label class="f">Título<input type="text" id="f-titulo" maxlength="140" placeholder="Qué pasó hoy, en pocas palabras"></label>
+      <label class="f">Quiénes estuvieron<input type="text" id="f-personas" maxlength="400"></label>
+      <label class="f">Relato<textarea id="f-relato" rows="6" maxlength="8000"></textarea></label>
+      <div class="grid2">
+        <label class="f">Aprendizajes y consejos (uno por línea)<textarea id="f-aprendizajes" rows="5"></textarea></label>
+        <label class="f">Semillas, plantas o materiales que se movieron (uno por línea)<textarea id="f-semillas" rows="5"></textarea></label>
+        <label class="f">Pendientes que salen de aquí (uno por línea)<textarea id="f-pendientes" rows="5"></textarea></label>
+        <label class="f">Referencias: libros, personas, links (uno por línea)<textarea id="f-referencias" rows="5"></textarea></label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label class="f">Fotos<input type="file" id="f-files" accept="image/*" multiple></label>
+        <p class="note">Se reducen automáticamente antes de subir. Escribe un pie de foto: qué es y por qué te llamó la atención.</p>
+        <div class="upl" id="upl"></div>
+      </div>
+      <p class="err" id="f-err" aria-live="polite"></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit" id="f-save">Guardar entrada</button><button class="btn ghost" type="button" id="f-cancel">Cancelar</button></div>
+    </form>
+    <div id="list" style="display:flex;flex-direction:column;gap:18px"></div>
+  </div>
+</div>
+<div class="lb" id="lb" hidden role="dialog" aria-label="Foto ampliada"><img id="lb-img" alt=""><p id="lb-cap"></p><button class="btn ghost" id="lb-close" type="button" style="color:#fff;border-color:#fff">Cerrar</button></div>
+<script>
+(function(){
+"use strict";
+const API="/api/bosque/",$=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MS=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const DS=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+const fFecha=s=>{const[y,m,d]=s.split("-").map(Number);const t=new Date(Date.UTC(y,m-1,d));return DS[t.getUTCDay()]+" "+d+" de "+MS[m-1]+" de "+y};
+let token=null,me="",E=[],editId=null,fotos=[],busy=false;const urls={};
+try{token=localStorage.getItem("bosque_token");me=localStorage.getItem("bosque_nombre")||""}catch(e){}
+const say=m=>{$("status").textContent=m||""};
+async function api(path,opts){const o=Object.assign({headers:{}},opts||{});if(!o.raw)o.headers["content-type"]="application/json";if(token)o.headers.authorization="Bearer "+token;
+  let r;try{r=await fetch(API+path,o)}catch(e){throw new Error("Sin conexión. Revisa tu internet.")}
+  let j={};try{j=await r.json()}catch(e){}
+  if(r.status===401&&path!=="login"){token=null;try{localStorage.removeItem("bosque_token")}catch(e){};showLogin();throw new Error(j.error||"Vuelve a entrar.")}
+  if(!r.ok)throw new Error(j.error||("Error "+r.status));return j}
+function showLogin(){$("app").hidden=true;$("login").hidden=false;$("l-nom").value=me}
+$("login").addEventListener("submit",async e=>{e.preventDefault();$("l-err").textContent="";
+  try{const j=await api("login",{method:"POST",body:JSON.stringify({nombre:$("l-nom").value.trim(),clave:$("l-clave").value})});
+  token=j.token;me=j.nombre;try{localStorage.setItem("bosque_token",token);localStorage.setItem("bosque_nombre",me)}catch(e){}
+  $("l-clave").value="";$("login").hidden=true;load()}catch(err){$("l-err").textContent=err.message}});
+async function load(){say("Cargando…");try{const j=await api("bitacora");E=j.entradas||[];say("");$("app").hidden=false;render()}catch(err){say(err.message)}}
+async function fotoURL(id){if(urls[id])return urls[id];const r=await fetch(API+"foto/"+id,{headers:{authorization:"Bearer "+token}});if(!r.ok)throw 0;urls[id]=URL.createObjectURL(await r.blob());return urls[id]}
+function hydrate(root){root.querySelectorAll("img[data-f]").forEach(async im=>{try{im.src=await fotoURL(im.dataset.f)}catch(e){im.alt="No se pudo cargar"}})}
+const list=(t,arr)=>arr&&arr.length?`<div class="blk"><h4>${t}</h4><ul>${arr.map(x=>`<li>${/^https?:\/\//.test(x)?`<a href="${esc(x)}" target="_blank" rel="noopener">${esc(x)}</a>`:esc(x)}</li>`).join("")}</ul></div>`:"";
+function render(){
+  $("count").textContent=E.length?`${E.length} entrada${E.length>1?"s":""}`:"Entradas";
+  $("list").innerHTML=E.length?E.map(e=>`<article class="ent" data-id="${esc(e.id)}">
+    <div class="top"><span class="e" aria-hidden="true">${esc(e.e||"📓")}</span><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><p class="eyebrow">${esc(fFecha(e.fecha))}</p><h2>${esc(e.titulo)}</h2>
+    <p class="meta">${e.lugar?`<span>📍 ${esc(e.lugar)}</span>`:""}${e.personas?`<span>👥 ${esc(e.personas)}</span>`:""}<span>✍️ ${esc(e.autor)}${e.editadoPor&&e.editadoPor!==e.autor?` · editó ${esc(e.editadoPor)}`:""}</span></p></div></div>
+    ${e.relato?`<p class="relato">${esc(e.relato)}</p>`:""}
+    ${e.fotos&&e.fotos.length?`<div class="fotos">${e.fotos.map(f=>`<figure><button class="ph" type="button" data-zoom="${esc(f.id)}" data-cap="${esc(f.pie)}"><img data-f="${esc(f.id)}" alt="${esc(f.pie||"Foto")}"></button>${f.pie?`<figcaption>${esc(f.pie)}</figcaption>`:""}</figure>`).join("")}</div>`:""}
+    <div class="grid2">${list("💡 Aprendizajes",e.aprendizajes)}${list("🌱 Semillas y materiales",e.semillas)}${list("📌 Pendientes",e.pendientes)}${list("📚 Referencias",e.referencias)}</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <button class="linkbtn" data-act="edit" type="button">Editar</button>
+      ${e.pendientes&&e.pendientes.length?`<button class="linkbtn" data-act="gantt" type="button">Pasar pendientes al Gantt</button>`:""}
+      <button class="linkbtn" data-act="del" type="button">Eliminar</button>
+      <span class="confirm" hidden>¿Eliminar la entrada y sus fotos? <button class="linkbtn danger" data-act="del2" type="button">Sí, eliminar</button> <button class="linkbtn" data-act="del0" type="button">No</button></span>
+      <span class="note" data-st></span></div>
+  </article>`).join(""):`<div class="card"><h3>Todavía no hay entradas</h3><p class="note">Presiona «Nueva entrada» para escribir la primera.</p></div>`;
+  hydrate($("list"));
+}
+$("list").addEventListener("click",async ev=>{
+  const z=ev.target.closest("[data-zoom]");if(z){$("lb-img").src=await fotoURL(z.dataset.zoom);$("lb-cap").textContent=z.dataset.cap||"";$("lb").hidden=false;$("lb-close").focus();return}
+  const b=ev.target.closest("[data-act]");if(!b)return;const art=b.closest(".ent"),e=E.find(x=>x.id===art.dataset.id),c=art.querySelector(".confirm"),st=art.querySelector("[data-st]");
+  const a=b.dataset.act;
+  if(a==="edit")openForm(e);else if(a==="del")c.hidden=false;else if(a==="del0")c.hidden=true;
+  else if(a==="del2"){try{const j=await api("op",{method:"POST",body:JSON.stringify({op:"bitacora_eliminar",id:e.id})});E=j.entradas;render()}catch(err){st.textContent=err.message}}
+  else if(a==="gantt"){if(busy)return;busy=true;st.textContent="Agregando…";let n=0;
+    try{for(const p of e.pendientes){await api("op",{method:"POST",body:JSON.stringify({op:"agregar",tarea:{p:"PX",n:p,a:e.fecha,s:"next",o:me,d:"Salió de la bitácora: «"+e.titulo+"» ("+e.fecha+")",ya:1,ms:1,e:"📌"}})});n++}
+      st.textContent=`Listo: ${n} tarea${n>1?"s":""} en el Gantt (fase Transversal).`}catch(err){st.textContent=err.message}finally{busy=false}}
+});
+$("lb").addEventListener("click",e=>{if(e.target.id!=="lb-img")$("lb").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("lb").hidden=true});
+// formulario
+const today=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+function openForm(e){editId=e?e.id:null;$("form").hidden=false;$("formTitle").textContent=e?"Editar entrada":"Nueva entrada";$("f-err").textContent="";
+  $("f-fecha").value=e?e.fecha:today();$("f-e").value=e?(e.e||""):"";$("f-lugar").value=e?e.lugar:"";$("f-titulo").value=e?e.titulo:"";$("f-personas").value=e?e.personas:"";$("f-relato").value=e?e.relato:"";
+  ["aprendizajes","semillas","pendientes","referencias"].forEach(k=>$("f-"+k).value=e?(e[k]||[]).join("\n"):"");
+  fotos=e?(e.fotos||[]).map(f=>({id:f.id,pie:f.pie})):[];renderUpl();$("f-files").value="";
+  $("form").scrollIntoView({behavior:"smooth",block:"start"});}
+$("newBtn").onclick=()=>openForm(null);
+$("f-cancel").onclick=()=>{$("form").hidden=true;editId=null};
+function renderUpl(){$("upl").innerHTML=fotos.map((f,i)=>`<div class="it">${f.id?`<img data-f="${esc(f.id)}" alt="">`:(f.preview?`<img src="${f.preview}" alt="">`:"")}<span class="note">${f.estado||""}</span><input type="text" data-i="${i}" placeholder="Pie de foto" value="${esc(f.pie||"")}" maxlength="300"><button class="linkbtn danger" type="button" data-rm="${i}">Quitar</button></div>`).join("");hydrate($("upl"))}
+$("upl").addEventListener("input",e=>{const i=e.target.dataset.i;if(i!=null)fotos[+i].pie=e.target.value});
+$("upl").addEventListener("click",e=>{const i=e.target.dataset.rm;if(i!=null){fotos.splice(+i,1);renderUpl()}});
+async function shrink(file){
+  const url=URL.createObjectURL(file);const img=new Image();img.src=url;await img.decode();
+  let w=img.naturalWidth,h=img.naturalHeight,max=1600;const s=Math.min(1,max/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
+  const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+  for(const q of [.8,.7,.6,.5]){const b=await new Promise(r=>c.toBlob(r,"image/jpeg",q));if(b&&b.size<1800000)return b}
+  throw new Error("La foto es demasiado grande.");
+}
+$("f-files").addEventListener("change",async ev=>{
+  const files=[...ev.target.files];ev.target.value="";
+  for(const file of files){const it={pie:"",estado:"Preparando…"};fotos.push(it);renderUpl();
+    try{const blob=await shrink(file);it.preview=URL.createObjectURL(blob);it.estado="Subiendo…";renderUpl();
+      const r=await fetch(API+"foto",{method:"POST",headers:{"content-type":"image/jpeg",authorization:"Bearer "+token},body:blob});const j=await r.json();
+      if(!r.ok)throw new Error(j.error||"Error al subir");it.id=j.id;urls[j.id]=it.preview;it.estado="Lista ✓"}
+    catch(err){it.estado="No se pudo subir: "+(err.message||"formato no compatible")}
+    renderUpl()}
+});
+$("form").addEventListener("submit",async ev=>{ev.preventDefault();if(busy)return;
+  if(fotos.some(f=>!f.id&&/Subiendo|Preparando/.test(f.estado))){$("f-err").textContent="Espera a que terminen de subir las fotos.";return}
+  if(!$("f-titulo").value.trim()){$("f-err").textContent="Escribe un título.";return}
+  const v=id=>$(id).value;
+  const entrada={id:editId,fecha:v("f-fecha"),e:v("f-e").trim(),lugar:v("f-lugar").trim(),titulo:v("f-titulo").trim(),personas:v("f-personas").trim(),relato:v("f-relato"),
+    aprendizajes:v("f-aprendizajes"),semillas:v("f-semillas"),pendientes:v("f-pendientes"),referencias:v("f-referencias"),fotos:fotos.filter(f=>f.id).map(f=>({id:f.id,pie:f.pie}))};
+  busy=true;$("f-save").disabled=true;
+  try{const j=await api("op",{method:"POST",body:JSON.stringify({op:"bitacora_guardar",entrada})});E=j.entradas;$("form").hidden=true;editId=null;render();say("Entrada guardada.")}
+  catch(err){$("f-err").textContent=err.message}finally{busy=false;$("f-save").disabled=false}
+});
+if(token)load();else showLogin();
+})();
+</script>
+</body>
+</html>
