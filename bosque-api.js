@@ -99,6 +99,14 @@ export class BosquePlan {
     if (!who) return json({ error: 'Tu sesión expiró. Vuelve a entrar.' }, 401);
 
     if (path === 'estado' && request.method === 'GET') return json(await this.snapshot());
+    if (path === 'bitacora' && request.method === 'GET') return json({ entradas: (await this.state.storage.get('bitacora')) || [] });
+    if (path === 'foto' && request.method === 'POST') return this.subirFoto(request, who.n);
+    if (path.startsWith('foto/') && request.method === 'GET') {
+      const id = path.slice(5).replace(/[^A-Za-z0-9_-]/g, '');
+      const f = await this.state.storage.get('foto:' + id);
+      if (!f) return json({ error: 'Foto no encontrada.' }, 404);
+      return new Response(f.data, { headers: { 'content-type': f.type || 'image/jpeg', 'cache-control': 'private, max-age=31536000, immutable' } });
+    }
     if (path === 'retos' && request.method === 'GET') return json({ semana: semanaActual(), retos: (await this.state.storage.get('retos')) || {} });
     if (path === 'op' && request.method === 'POST') {
       let body;
@@ -127,6 +135,17 @@ export class BosquePlan {
     return json({ token: await makeToken(nombre, secret), nombre });
   }
 
+  async subirFoto(request, nombre) {
+    const type = (request.headers.get('content-type') || '').split(';')[0];
+    if (!/^image\/(jpeg|png|webp)$/.test(type)) return json({ error: 'Solo fotos JPG, PNG o WebP.' }, 400);
+    const buf = await request.arrayBuffer();
+    if (!buf.byteLength) return json({ error: 'La foto llegó vacía.' }, 400);
+    if (buf.byteLength > 1900000) return json({ error: 'La foto pesa demasiado (máximo 1.9 MB).' }, 413);
+    const id = 'f' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    await this.state.storage.put('foto:' + id, { type, data: buf, por: nombre, fecha: new Date().toISOString() });
+    return json({ id });
+  }
+
   async snapshot() {
     const [plan, firmas, log] = await Promise.all([
       this.state.storage.get('plan'),
@@ -143,6 +162,38 @@ export class BosquePlan {
     const stamp = new Date().toISOString();
     const push = (txt) => { log.push({ quien: nombre, fecha: stamp, txt: str(txt, 300) }); };
 
+    if (body.op === 'bitacora_guardar' || body.op === 'bitacora_eliminar') {
+      let list = (await st.get('bitacora')) || [];
+      if (body.op === 'bitacora_eliminar') {
+        const e = list.find((x) => x.id === body.id);
+        if (e) {
+          for (const f of e.fotos || []) await st.delete('foto:' + f.id);
+          list = list.filter((x) => x.id !== body.id);
+          push('Eliminó la entrada de bitácora «' + e.titulo + '»');
+        }
+      } else {
+        const b = body.entrada || {};
+        const lines = (v, n) => (Array.isArray(v) ? v : String(v || '').split('\n')).map((x) => str(x, 500)).filter(Boolean).slice(0, n);
+        const prev = list.find((x) => x.id === b.id);
+        const e = {
+          id: prev ? prev.id : 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+          fecha: isDate(b.fecha) ? b.fecha : stamp.slice(0, 10),
+          titulo: str(b.titulo, 140) || 'Sin título',
+          lugar: str(b.lugar, 120), personas: str(b.personas, 400), e: str(b.e, 16),
+          relato: str(b.relato, 8000),
+          aprendizajes: lines(b.aprendizajes, 40), semillas: lines(b.semillas, 40),
+          pendientes: lines(b.pendientes, 40), referencias: lines(b.referencias, 40),
+          fotos: (Array.isArray(b.fotos) ? b.fotos : []).slice(0, 40).map((f) => ({ id: str(f.id, 40).replace(/[^A-Za-z0-9_-]/g, ''), pie: str(f.pie, 300) })).filter((f) => f.id),
+          autor: prev ? prev.autor : nombre, creado: prev ? prev.creado : stamp, editado: stamp, editadoPor: nombre,
+        };
+        if (prev) for (const f of prev.fotos || []) if (!e.fotos.some((x) => x.id === f.id)) await st.delete('foto:' + f.id);
+        list = list.filter((x) => x.id !== e.id).concat(e).sort((x, y) => (y.fecha < x.fecha ? -1 : y.fecha > x.fecha ? 1 : 0));
+        push((prev ? 'Editó' : 'Escribió') + ' en la bitácora: «' + e.titulo + '»');
+      }
+      await st.put('bitacora', list);
+      await st.put('log', log.slice(-MAX_LOG));
+      return { ok: true, entradas: list };
+    }
     if (body.op === 'reto') {
       const sem = parseInt(body.semana, 10);
       if (sem !== semanaActual()) { const e = new Error('Este reto ya está cerrado o todavía no abre.'); e.status = 409; throw e; }
