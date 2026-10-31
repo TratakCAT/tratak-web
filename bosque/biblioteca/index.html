@@ -1,0 +1,93 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Biblioteca del Oasis</title><meta name="description" content="Todas las guías del Oasis Consciente: diseñar, hacer, producir y convivir.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+.lk{text-decoration:none;color:var(--ink);display:block;transition:border-color .15s}.lk:hover{border-color:var(--accent)}.lk h3{color:var(--accent)}.mini ul{margin:6px 0 0;padding-left:18px;font-size:15px}</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/">← Plan maestro</a><p class="eyebrow">Oasis Consciente</p><h1>Biblioteca del Oasis</h1>
+<p class="lede">Todo lo que hemos ido juntando para el Oasis, ordenado por lo que necesitas hacer: diseñar, construir con las manos, producir y cuidar la vida, y convivir y aprender juntos.</p><nav class="nav"><a href="#voces">🎙️ Voces</a><a href="/bosque/">📊 Plan maestro</a></nav></header>
+<section><h2>🧭 Diseñar</h2><p>Pensar antes de mover tierra</p><div class="grid2"><a class="mini lk" href="/bosque/diseno/"><h3>🌀 Diseño permacultural</h3><p>Éticas, principios, zonas, sectores, saberes del paisaje e indicadores</p></a><a class="mini lk" href="/bosque/biodinamica/"><h3>🌙 Biodinámica</h3><p>Preparados, dosis, dinamizador y calendario lunar</p></a><a class="mini lk" href="/bosque/calculadora/"><h3>🧮 Calculadora de autosuficiencia</h3><p>Gallinas, cabras, huerto, agua, solar y jabón según la gente</p></a></div></section><section><h2>🛠️ Hacer</h2><p>Con las manos y con lo del terreno</p><div class="grid2"><a class="mini lk" href="/bosque/tecnicas/"><h3>🧱 Técnicas y estructuras</h3><p>Zarzo, bajareque, tipi, yurta, superadobe, nidos impresos, bambú</p></a><a class="mini lk" href="/bosque/herramientas/"><h3>🪨 Herramientas ancestrales</h3><p>29 herramientas de México, Japón, China, África, Andes</p></a><a class="mini lk" href="/bosque/oficios/"><h3>🔨 Oficios</h3><p>50 oficios por prioridad, con kit y dónde aprender</p></a></div></section><section><h2>🌱 Producir y cuidar</h2><p>Vida que da vida</p><div class="grid2"><a class="mini lk" href="/bosque/animales/"><h3>🐾 Animales del Oasis</h3><p>Qué aporta cada uno, cadenas y calculadora</p></a><a class="mini lk" href="/bosque/guia/"><h3>🌿 Guía de campo</h3><p>Plantas para tejer, árboles, hongos y fauna</p></a><a class="mini lk" href="/bosque/habitos/"><h3>♻️ Hábitos de la Casa Viva</h3><p>Residuos útiles y hábitos para casas de la familia</p></a></div></section><section><h2>🤝 Convivir y aprender</h2><p>Lo que nos sostiene como grupo</p><div class="grid2"><a class="mini lk" href="/bosque/organizacion/"><h3>⭕ Organización y problemas</h3><p>Decidir, resolver conflictos y cuidar lo común</p></a><a class="mini lk" href="/bosque/retos/"><h3>🏆 Retos semanales</h3><p>Un examen nuevo cada semana (con sesión)</p></a><a class="mini lk" href="/bosque/bitacora/"><h3>📓 Bitácora</h3><p>Historias, fotos y aprendizajes (con sesión)</p></a><a class="mini lk" href="/bosque/"><h3>📊 Plan maestro</h3><p>El Gantt del Oasis (con sesión)</p></a></div></section><section id="voces"><h2>🎙️ Voces que acompañan</h2><p>Pensadoras y pensadores cuyas ideas laten en el Oasis, entre lo ancestral y lo científico.</p><div class="grid2"><div class="mini"><h3>🍄 Terence McKenna</h3><p class="orig">Etnobotánico y escritor (EUA, 1946–2000)</p><ul><li>Propuso un &#x27;revival arcaico&#x27;: volver a los valores de las culturas antiguas (comunidad, ritual, cercanía con la naturaleza) como medicina para la crisis moderna. Es casi la misión del Oasis.</li><li>Insistía en que la cultura de consumo no es tu amiga: hay que hacer cultura propia. Menos pantallas, más fogata, música y conversación.</li><li>Confiaba en la experiencia directa por encima de lo que te cuentan: observar y sentir por uno mismo, igual que el primer principio de la permacultura.</li><li>Veía el lenguaje y la imaginación como lo que crea el mundo: contar historias, nombrar los lugares, escribir la bitácora.</li><li>Una frase suya muy citada: «Nature loves courage» (la naturaleza ama el valor).</li></ul><p class=ev>⚠️ También defendió el uso de hongos psilocibios y lanzó ideas especulativas (como la teoría del &#x27;mono drogado&#x27; o la &#x27;onda temporal&#x27; que terminaba en 2012) que no tienen respaldo científico. Por temas legales y de salud, esto no es algo para ofrecer en el Oasis; en México los hongos tienen una tradición ceremonial mazateca propia que merece respeto.</p></div><div class="mini"><h3>🌾 Robin Wall Kimmerer</h3><p class="orig">Botánica potawatomi, <i>Una trenza de hierba sagrada</i></p><ul><li>La &#x27;cosecha honorable&#x27;: pide permiso, no tomes lo primero ni lo último, toma solo lo que necesitas, usa todo lo que tomas, comparte y da algo a cambio.</li><li>Une la ciencia botánica con el saber indígena sin que uno anule al otro.</li></ul></div><div class="mini"><h3>🌽 Efraín Hernández Xolocotzi</h3><p class="orig">Agrónomo mexicano (1913–1991)</p><ul><li>La &#x27;agronomía de huarache&#x27;: aprender en el campo, al lado del campesino, antes que en el escritorio.</li><li>Mostró que la milpa es tecnología, no atraso.</li></ul></div><div class="mini"><h3>🧬 Víctor M. Toledo</h3><p class="orig">Etnoecólogo mexicano</p><ul><li>La memoria biocultural: la diversidad de lenguas y de semillas van juntas; cuando se pierde una se pierde la otra.</li></ul></div><div class="mini"><h3>🍃 Masanobu Fukuoka</h3><p class="orig">Agricultor y microbiólogo japonés</p><ul><li>La agricultura del no hacer: antes de agregar un trabajo, pregúntate si hace falta.</li></ul></div><div class="mini"><h3>🦘 Bill Mollison y David Holmgren</h3><p class="orig">Fundadores de la permacultura, Australia</p><ul><li>Trabajar con la naturaleza y no contra ella; observar mucho y actuar poco pero bien.</li><li>Mollison decía que el problema es la solución: el exceso de caracoles es falta de patos.</li></ul></div><div class="mini"><h3>🌳 Ernst Götsch</h3><p class="orig">Agricultor suizo en Brasil</p><ul><li>La vida tiende a crear más vida y abundancia (sintropía). La poda es una forma de acelerar el bosque.</li></ul></div><div class="mini"><h3>🏛️ Elinor Ostrom</h3><p class="orig">Economista, Nobel 2009</p><ul><li>Las comunidades sí pueden cuidar lo común sin privatizarlo ni que lo controle el gobierno, si se dan buenas reglas.</li></ul></div><div class="mini"><h3>🌱 Vandana Shiva</h3><p class="orig">Física y activista, India</p><ul><li>La semilla es un bien común: guardarla y compartirla es soberanía.</li></ul></div></div></section>
+</div></body></html>

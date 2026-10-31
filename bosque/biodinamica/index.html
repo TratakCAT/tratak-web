@@ -1,0 +1,134 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Biodinámica del Oasis</title><meta name="description" content="Agricultura biodinámica: preparados 500–508, dosis por superficie, composta, dinamizador, calendario lunar y cómo probarla con testigo.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · diseñar</p><h1>Agricultura biodinámica</h1>
+<p class="lede">El método de Rudolf Steiner con sus preparados, calculadoras de dosis para el terreno, un dinamizador con campanita, el calendario lunar de las próximas cuatro semanas y una forma de probarlo con rigor en sus camas.</p><nav class="nav"><a href="#que">🐄 Qué es</a><a href="#prep">🧪 Preparados</a><a href="#dosis">🧮 Dosis</a><a href="#compost">🍂 Composta</a><a href="#dinam">🌀 Dinamizador</a><a href="#luna">🌙 Calendario</a><a href="#experimento">🔬 Probarlo</a></nav></header>
+<section id="que"><h2>🐄 Qué es</h2><div class="box"><p>Rudolf Steiner dio en 1924, en Koberwitz (hoy Polonia), un curso de ocho conferencias a agricultores preocupados por la pérdida de fertilidad. De ahí nació la <b>agricultura biodinámica</b>: la granja como un organismo vivo que produce su propio abono y alimento, con animales, plantas y personas en equilibrio, preparados especiales y un calendario que sigue a la Luna y las constelaciones. Hoy la certifica Demeter en más de 60 países.</p>
+<p class="anc">🪶 Mucho de esto ya vive en el campo mexicano: sembrar y cortar madera según la luna, tener animales y milpa juntos, abonar con lo propio. La biodinámica le dio forma de método.</p>
+<p class="ev">🔬 Lo que dice la ciencia: las granjas biodinámicas suelen tener suelos tan buenos o mejores que las convencionales y parecidos a las orgánicas (Reganold, 1993; Turinek y colegas, 2009). Ese beneficio viene sobre todo de la composta, la diversidad y los animales. Los efectos propios de los preparados han salido pequeños o inconsistentes en los ensayos, y el calendario lunar no tiene respaldo experimental sólido. La mejor actitud es la del campesino: probar en tu tierra con un testigo y observar.</p></div></section>
+<section id="prep"><h2>🧪 Los preparados 500 a 508</h2><p>Se pueden hacer en el Oasis o comprar a una asociación biodinámica. Varios llevan partes animales (cuerno, vejiga, cráneo) que vienen de animales sacrificados para comer.</p><div class="tw"><table class="t"><tr><th>#</th><th>Preparado</th><th>Cómo se hace</th><th>Dónde va</th><th>Para qué (en la teoría de Steiner)</th></tr><tr><td><b>500</b></td><td>🐄 Cuerno de estiércol</td><td>Estiércol fresco de vaca dentro de un cuerno de vaca, enterrado en otoño (oct–nov) y sacado en primavera (mar–abr).</td><td>Al suelo, en gotas grandes, al atardecer, antes de sembrar o trasplantar.</td><td>Para la vida del suelo y las raíces.</td></tr><tr><td><b>501</b></td><td>💎 Cuerno de sílice</td><td>Cuarzo molido muy fino con agua, en cuerno, enterrado en primavera y sacado en otoño.</td><td>A las plantas, en niebla fina, al amanecer con rocío, cuando ya tienen raíz.</td><td>Para la luz, la floración y la maduración.</td></tr><tr><td><b>502</b></td><td>🌼 Milenrama</td><td>Flores de milenrama (Achillea millefolium), tradicionalmente en vejiga de ciervo.</td><td>En la composta.</td><td>Se asocia con el azufre y el potasio.</td></tr><tr><td><b>503</b></td><td>🌼 Manzanilla</td><td>Flores de manzanilla en tripa de vaca.</td><td>En la composta.</td><td>Se asocia con el calcio y el nitrógeno.</td></tr><tr><td><b>504</b></td><td>🌿 Ortiga</td><td>Ortiga entera enterrada en tierra un año, sin envoltura animal.</td><td>En la composta.</td><td>Se asocia con el hierro y la &#x27;salud&#x27; del montón.</td></tr><tr><td><b>505</b></td><td>🌳 Corteza de roble</td><td>Corteza raspada de roble (en el Oasis: encino, el mismo género Quercus) en cráneo de animal doméstico.</td><td>En la composta.</td><td>Se asocia con el calcio y la protección contra enfermedades.</td></tr><tr><td><b>506</b></td><td>🌼 Diente de león</td><td>Flores de diente de león en mesenterio de vaca.</td><td>En la composta.</td><td>Se asocia con la sílice.</td></tr><tr><td><b>507</b></td><td>💐 Valeriana</td><td>Jugo fermentado de flores de valeriana.</td><td>Rociado sobre el montón de composta.</td><td>Se asocia con el fósforo y el calor del montón.</td></tr><tr><td><b>508</b></td><td>🌾 Cola de caballo</td><td>Té o té fermentado de cola de caballo (Equisetum) seca.</td><td>A suelo y plantas en temporada húmeda.</td><td>Para prevenir hongos.</td></tr></table></div></section>
+<section id="dosis"><h2>🧮 Dosis para tu terreno</h2><div class="calc"><div class="cin"><label>Superficie a tratar (m²) <input id="area" type="number" value="1000" min="10" step="50"></label></div><div class="cout" id="o-dosis"></div>
+<p class="fx">Referencias por hectárea: 500 → unos 150 g en 30–50 L de agua; 501 → unos 4–5 g en 25–30 L; 508 té fresco → unos 100 g de hierba seca hervida 20 min en 2–3 L y luego diluida hasta unos 20 L. Agua de lluvia tibia. Para dinamizar a mano conviene no bajar de 5 L aunque la superficie sea chica. 1 ha = 10,000 m². Basado en las indicaciones del Josephine Porter Institute.</p></div></section>
+<section id="compost"><h2>🍂 Preparados para la composta</h2><div class="calc"><div class="cin"><label>Volumen del montón (m³) <input id="vol" type="number" value="3" min="0.5" step="0.5"></label></div><div class="cout" id="o-comp"></div>
+<p class="fx">Fórmula: toneladas ≈ m³ × 0.6 · juegos = toneladas ÷ 10, redondeado hacia arriba (referencia común: un juego de 502–507 por montón de hasta unas 10 t). Cada preparado (1–2 g) se mete en un hoyo hecho con un palo a media altura del montón, separados entre sí; el 507 se dinamiza 10–20 min en unos 4 L de agua tibia y se rocía encima.</p></div></section>
+<section id="dinam"><h2>🌀 Dinamizador</h2><div class="calc"><p>Se revuelve el agua con el preparado hasta formar un remolino profundo; luego se rompe a contracorriente (caos) y se forma el remolino al otro lado. Se repite una hora (20 minutos para el 508). La versión ancestral es meditativa: muchas comunidades lo hacen en grupo, cantando.</p>
+<div class="cin"><label>Duración <select id="dur"><option value="60">60 min (500, 501)</option><option value="20">20 min (508, 507)</option></select></label><label>Cambiar cada (s) <input id="cada" type="number" value="45" min="15" max="120"></label></div>
+<div class="cout"><div><small>Tiempo</small><b id="t-left">60:00</b></div><div><small>Dirección</small><b id="t-dir">↻ derecha</b></div><div><small>Cambios</small><b id="t-n">0</b></div></div>
+<div class="btns"><button class="btn" id="go">▶ Empezar</button><button class="btn o" id="stop">■ Parar</button></div><p class="fx">Suena una campanita en cada cambio. Usar en las dos horas siguientes (el 501 en la primera hora).</p></div></section>
+<section id="luna"><h2>🌙 Calendario lunar de los próximos 28 días</h2><p>Según el método de María Thun: cuando la Luna pasa frente a una constelación de tierra son días de <b>raíz</b> 🥕, de agua son de <b>hoja</b> 🥬, de aire son de <b>flor</b> 🌸 y de fuego son de <b>fruto y semilla</b> 🌽. Luna <b>ascendente</b> (subiendo en el cielo): savia arriba, buena para cosechar frutos y hacer injertos. <b>Descendente</b>: buena para trasplantar, podar y abonar.</p>
+<div class="tw"><table class="t" id="cal"></table></div>
+<p class="fx">Cálculo aproximado (±1 día) con la posición de la Luna y los límites de las constelaciones reales sobre la eclíptica, para la hora central de México. No marca los días que el calendario completo pide evitar (nodos, perigeo, eclipses). Para el detalle exacto, el calendario impreso de Thun de cada año.</p>
+<p class="anc">🪶 Dichos campesinos que se escuchan en muchas regiones: cortar carrizo, otate y madera en luna menguante para que no se apolille; sembrar en creciente lo que da arriba y en menguante lo que da raíz. Se han estudiado poco y con resultados no concluyentes; vale la pena apuntar en la bitácora y comparar.</p></section>
+<section id="experimento"><h2>🔬 Probarlo con testigo</h2><div class="calc"><p>Para saber si funciona en el Oasis: camas iguales, la mitad con preparados y la mitad sin, repartidas al azar para que la sombra o el suelo no engañen. Todo lo demás igual. Se mide la cosecha, un cromatograma y la infiltración.</p>
+<div class="cin"><label>Número de camas <input id="ncamas" type="number" value="8" min="2" max="40" step="2"></label></div><div class="btns"><button class="btn" id="sortea">🎲 Sortear</button></div><ol id="o-exp" class="refs"></ol></div></section>
+<section><h2>📚 Fuentes</h2><ol class="refs"><li>Rudolf Steiner, <i>Curso sobre agricultura biológico-dinámica</i> (1924).</li><li>Maria Thun, <i>Calendario de siembras</i> (anual) y <i>Trabajos en la tierra</i>.</li><li>Reganold, J. P. y colegas (1993). <a href="https://www.soin-de-la-terre.org/wp-content/uploads/Soil-quality-and-profitability-of-biodynamic-and-conventional-farming-system-a-review-Reganold-.pdf" target="_blank" rel="noopener">Soil quality and financial performance of biodynamic and conventional farms</a>. <i>Science</i>.</li><li>Turinek, M. y colegas (2009). <a href="https://zenodo.org/record/5261418/files/Turinek2009.BDprogress.RAFS.pdf" target="_blank" rel="noopener">Biodynamic agriculture research progress and priorities</a>. <i>Renewable Agriculture and Food Systems</i>.</li><li>Josephine Porter Institute, <a href="https://cdn.shopify.com/s/files/1/0017/4473/2221/files/BD-Sprays-500-501-508-Directions.pdf" target="_blank" rel="noopener">instrucciones de aspersión 500, 501 y 508</a>.</li><li>Carpenter-Boggs, L. y colegas (2000). Effects of biodynamic preparations on compost development. <i>Biological Agriculture & Horticulture</i>.</li></ol></section>
+</div><script>
+const $=id=>document.getElementById(id),f=(x,d)=>x.toLocaleString("es-MX",{maximumFractionDigits:d});
+function dosis(){const h=Math.max(0,+$("area").value||0)/10000;const w=v=>Math.max(5,v);
+$("o-dosis").innerHTML=`<div><small>🐄 500 cuerno de estiércol</small><b>${f(h*150,1)} g</b><small>en ${f(w(h*40),0)} L de agua, 1 h</small></div><div><small>💎 501 cuerno de sílice</small><b>${f(h*5,2)} g</b><small>en ${f(w(h*28),0)} L de agua, 1 h</small></div><div><small>🌾 508 cola de caballo</small><b>${f(h*100,0)} g</b><small>hierba seca, en ${f(w(h*20),0)} L, 20 min</small></div>`}
+function comp(){const v=Math.max(0,+$("vol").value||0),t=v*0.6,j=Math.max(1,Math.ceil(t/10));$("o-comp").innerHTML=`<div><small>Peso aprox.</small><b>${f(t,1)} t</b></div><div><small>Juegos 502–507</small><b>${j}</b><small>${j*5} hoyos (502–506) + 507 rociado</small></div><div><small>Agua para el 507</small><b>${4*j} L</b><small>tibia, dinamizar 10–20 min</small></div>`}
+["area"].forEach(i=>$(i).addEventListener("input",dosis));$("vol").addEventListener("input",comp);dosis();comp();
+let timer=null,ac=null;function bell(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.25,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+1.2);o.start();o.stop(ac.currentTime+1.2)}catch(e){}}
+$("go").onclick=()=>{clearInterval(timer);let left=+$("dur").value*60,cada=Math.max(15,+$("cada").value||45),n=0,dir=1,since=0;bell();
+const draw=()=>{$("t-left").textContent=String(Math.floor(left/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0");$("t-dir").textContent=dir>0?"↻ derecha":"↺ izquierda";$("t-n").textContent=n};draw();
+timer=setInterval(()=>{left--;since++;if(since>=cada){since=0;n++;dir=-dir;bell()}if(left<=0){clearInterval(timer);left=0;$("t-dir").textContent="✔ listo";bell();setTimeout(bell,600);$("t-left").textContent="00:00";return}draw()},1000)};
+$("stop").onclick=()=>{clearInterval(timer);$("t-dir").textContent="detenido"};
+// Luna
+const rad=Math.PI/180,norm=a=>(a%360+360)%360,S=x=>Math.sin(x*rad);
+function moonLon(jd){const T=(jd-2451545)/36525;return norm(218.32+481267.881*T+6.29*S(134.9+477198.85*T)-1.27*S(259.2-413335.38*T)+0.66*S(235.7+890534.23*T)+0.21*S(269.9+954397.70*T)-0.19*S(357.5+35999.05*T)-0.11*S(186.6+966404.05*T))}
+function sunLon(jd){const d=jd-2451545,L=280.46+0.9856474*d,g=357.528+0.9856003*d;return norm(L+1.915*S(g)+0.020*S(2*g))}
+const C=[[29,"Aries","🌽","Fruto"],[53,"Tauro","🥕","Raíz"],[90,"Géminis","🌸","Flor"],[118,"Cáncer","🥬","Hoja"],[138,"Leo","🌽","Fruto"],[174,"Virgo","🥕","Raíz"],[218,"Libra","🌸","Flor"],[241,"Escorpio","🥬","Hoja"],[266,"Sagitario","🌽","Fruto"],[300,"Capricornio","🥕","Raíz"],[328,"Acuario","🌸","Flor"],[351,"Piscis","🥬","Hoja"]];
+function cons(l){let c=C[C.length-1];for(let i=0;i<C.length;i++){const s=C[i][0],e=C[(i+1)%C.length][0];if(s<e?(l>=s&&l<e):(l>=s||l<e)){c=C[i];break}}return c}
+function fase(el){const p=["🌑 Nueva","🌒 Creciente","🌓 C. creciente","🌔 Creciente","🌕 Llena","🌖 Menguante","🌗 C. menguante","🌘 Menguante"];return p[Math.floor(norm(el+22.5)/45)%8]}
+const tb=$("cal");let h='<tr><th>Fecha</th><th>Fase</th><th>Frente a</th><th>Día de</th><th>Sube o baja</th></tr>';const now=new Date();
+for(let i=0;i<28;i++){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i,12);const jd=d.getTime()/86400000+2440587.5;const ml=moonLon(jd),el=norm(ml-sunLon(jd)),c=cons(ml);const asc=(ml>=270||ml<90);
+h+=`<tr${i===0?' style="font-weight:700"':''}><td style="white-space:nowrap">${d.toLocaleDateString("es-MX",{weekday:"short",day:"numeric"})}<br><small>${d.toLocaleDateString("es-MX",{month:"short"})}</small></td><td>${fase(el)}</td><td>${c[1]}</td><td>${c[2]} ${c[3]}</td><td>${asc?"⬆️ asc.":"⬇️ desc."}</td></tr>`}
+tb.innerHTML=h;
+$("sortea").onclick=()=>{const n=Math.max(2,Math.min(40,+$("ncamas").value||8));const a=[];for(let i=0;i<n;i++)a.push(i<n/2?"✅ con preparados":"⚪ sin preparados (testigo)");for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}$("o-exp").innerHTML=a.map((t,i)=>`<li>Cama ${i+1}: ${t}</li>`).join("")+"<li>Apunten este sorteo en la bitácora.</li>"};
+</script></body></html>
