@@ -632,7 +632,7 @@ collections:
             summary: "{{fields.icono}} {{fields.titulo}}"
             fields:
               - { label: "Título de la sección", name: "titulo", widget: string }
-              - { label: "Emoji", name: "icono", widget: string, required: false }
+              - { label: "Icono: instagram, whatsapp, youtube o un emoji", name: "icono", widget: string, required: false }
               - { label: "Abierta al entrar", name: "abierta", widget: boolean, default: true }
               - label: "Enlaces"
                 name: "enlaces"
@@ -642,7 +642,7 @@ collections:
                   - { label: "Título", name: "titulo", widget: string }
                   - { label: "Descripción (opcional)", name: "descripcion", widget: text, required: false }
                   - { label: "Dirección del enlace (https://…)", name: "url", widget: string }
-                  - { label: "Emoji (si lo dejas vacío se pone uno según el sitio)", name: "icono", widget: string, required: false }
+                  - { label: "Icono: un emoji, o escribe instagram, whatsapp o youtube (si lo dejas vacío se elige según el sitio)", name: "icono", widget: string, required: false }
                   - { label: "Etiqueta (ej. Nuevo, Gratis, Cupo limitado)", name: "etiqueta", widget: string, required: false }
                   - { label: "Resaltar (tarjeta oscura)", name: "destacado", widget: boolean, default: false, required: false }
           - label: "Iconos de redes (arriba)"
@@ -652,4 +652,4 @@ collections:
             fields:
               - { label: "Nombre", name: "titulo", widget: string }
               - { label: "Dirección", name: "url", widget: string }
-              - { label: "Emoji", name: "icono", widget: string, required: false }
+              - { label: "Icono: instagram, whatsapp, youtube o un emoji", name: "icono", widget: string, required: false }
