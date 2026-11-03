@@ -21,7 +21,7 @@
       "enlaces": [
         { "titulo": "CATálogo de clases presenciales / en línea", "descripcion": "Todas las clases y talleres disponibles.", "url": "https://drive.google.com/drive/u/1/folders/19GnKKuVvEBOC-D25TU4Wgz0MxCRqzvne", "icono": "📚" },
         { "titulo": "Plan de estudios", "descripcion": "Realidad virtual, impresión LDM y cultura biomaterial.", "url": "https://tratakcat.com/#plan", "icono": "🌀" },
-        { "titulo": "Próximo retiro · 8 de noviembre", "descripcion": "Naturaleza, tecnología y contemplación en Mansión Esquivias.", "url": "https://tratakcat.com/landing.html?evento=retiro-8-noviembre", "icono": "🏔️", "etiqueta": "Nuevo" }
+        { "titulo": "Próximo retiro · 8 de noviembre", "descripcion": "Naturaleza, tecnología y contemplación en Mansión Esquivias.", "url": "https://tratakcat.com/landing.html?evento=retiro-8-noviembre", "icono": "🏔️", "etiqueta": "Piloto" }
       ]
     },
     {
@@ -29,7 +29,7 @@
       "icono": "🔮",
       "abierta": true,
       "enlaces": [
-        { "titulo": "Haz tu lectura de tres cartas", "descripcion": "Baraja, elige y recibe el mensaje del contrario.", "url": "https://tratakcat.com/heyocat", "icono": "🃏", "destacado": true, "etiqueta": "Nuevo" },
+        { "titulo": "Haz tu lectura de tres cartas", "descripcion": "Versión piloto, aún en construcción. Baraja, elige y recibe el mensaje del contrario.", "url": "https://tratakcat.com/heyocat", "icono": "🃏", "destacado": true, "etiqueta": "Piloto" },
         { "titulo": "Instagram @heyokat", "descripcion": "Síguelo y mándanos tu lectura.", "url": "https://www.instagram.com/heyokat/", "icono": "🪬" }
       ]
     },
