@@ -11,6 +11,7 @@
 <meta property="og:title" content="TRATAK CAT · Todos los enlaces">
 <meta property="og:description" content="Clases, talleres, el oráculo Heyokat, investigación y contacto.">
 <meta property="og:image" content="https://tratakcat.com/icons/icon_512.png">
+<link rel="stylesheet" href="assets/precarga.css?v=1">
 <style>
   :root{ --ink:#241f18; --lila:#c0a2ec; --azul:#9fcbec; --verde:#b9edb2; --oro:#f2c94c; }
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -56,6 +57,9 @@
 </style>
 </head>
 <body>
+<div id="precarga" aria-hidden="true"></div>
+<script>window.PRECARGA_KEY = 'tk-precarga-links'; window.PRECARGA_MIN = { a: 2000, b: 3600, c: 4200 };</script>
+<script src="assets/precarga.js?v=1"></script>
 <div class="wrap">
   <header>
     <img class="av" id="av" alt="TRATAK CAT" src="icons/icon_192.png">
@@ -69,6 +73,10 @@
   <p class="vacio" id="vacio" hidden>No encontré nada con eso. Prueba con otra palabra o escríbenos por WhatsApp.</p>
   <footer><a href="/">Ir a la página completa de TRATAK CAT →</a></footer>
 </div>
+<script src="assets/site.js?v=38"></script>
+<script>
+  (function () { var h = document.getElementById('pc-gk'); if (h && window.TratakRender && TratakRender.gankyilSVG) h.innerHTML = TratakRender.gankyilSVG({ id: 'pre' }); })();
+</script>
 <script>
 (function () {
   'use strict';
@@ -107,10 +115,11 @@
     var n = 0; (d.secciones || []).forEach(function (s) { n += (s.enlaces || []).length; });
     $('buscar').hidden = d.buscador === false || n < 8;
     chips(); pinta();
+    if (window.__precargaFuera) window.__precargaFuera();
     $('q').addEventListener('input', function (e) { filtro = e.target.value; pinta(); });
     $('chips').addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b) return; sec = b.getAttribute('data-s'); Array.prototype.forEach.call($('chips').children, function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); }); pinta(); });
     $('lista').addEventListener('click', function (e) { var b = e.target.closest('.sec > button'); if (!b) return; var s = b.parentNode, a = s.getAttribute('data-abierta') !== 'true'; s.setAttribute('data-abierta', a); b.setAttribute('aria-expanded', a); });
-  }).catch(function () { $('lista').innerHTML = '<p class="vacio">No pude cargar los enlaces. Escríbenos por <a href="https://wa.me/523332480698">WhatsApp</a>.</p>'; });
+  }).catch(function () { if (window.__precargaFuera) window.__precargaFuera(); $('lista').innerHTML = '<p class="vacio">No pude cargar los enlaces. Escríbenos por <a href="https://wa.me/523332480698">WhatsApp</a>.</p>'; });
 })();
 </script>
 </body>
