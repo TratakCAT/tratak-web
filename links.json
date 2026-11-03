@@ -1,0 +1,50 @@
+{
+  "nombre": "@Tratak.CAT",
+  "bio": "Centro de Aprendizaje Tecno-Ontológico · Tecno-Chamanismo · Diseño Transpersonal",
+  "avatar": "icons/icon_192.png",
+  "buscador": true,
+  "secciones": [
+    {
+      "titulo": "Empieza aquí",
+      "icono": "✨",
+      "abierta": true,
+      "enlaces": [
+        { "titulo": "Página web + info", "descripcion": "Escuela-laboratorio en Guadalajara: impresión 3D sustentable y biomateriales con talleres, cursos y piezas bajo pedido.", "url": "https://tratakcat.com", "icono": "🌐", "destacado": true },
+        { "titulo": "WhatsApp", "descripcion": "Escríbenos para cotizar, inscribirte o resolver dudas.", "url": "https://wa.me/523332480698", "icono": "💬" },
+        { "titulo": "Instagram @tratak.cat", "descripcion": "Procesos, talleres y piezas del laboratorio.", "url": "https://www.instagram.com/tratak.cat/", "icono": "📷" }
+      ]
+    },
+    {
+      "titulo": "Aprende con nosotros",
+      "icono": "🎓",
+      "abierta": true,
+      "enlaces": [
+        { "titulo": "CATálogo de clases presenciales / en línea", "descripcion": "Todas las clases y talleres disponibles.", "url": "https://drive.google.com/drive/u/1/folders/19GnKKuVvEBOC-D25TU4Wgz0MxCRqzvne", "icono": "📚" },
+        { "titulo": "Plan de estudios", "descripcion": "Realidad virtual, impresión LDM y cultura biomaterial.", "url": "https://tratakcat.com/#plan", "icono": "🌀" },
+        { "titulo": "Próximo retiro · 8 de noviembre", "descripcion": "Naturaleza, tecnología y contemplación en Mansión Esquivias.", "url": "https://tratakcat.com/landing.html?evento=retiro-8-noviembre", "icono": "🏔️", "etiqueta": "Nuevo" }
+      ]
+    },
+    {
+      "titulo": "Heyokat · Oráculo",
+      "icono": "🔮",
+      "abierta": true,
+      "enlaces": [
+        { "titulo": "Haz tu lectura de tres cartas", "descripcion": "Baraja, elige y recibe el mensaje del contrario.", "url": "https://tratakcat.com/heyocat", "icono": "🃏", "destacado": true, "etiqueta": "Nuevo" },
+        { "titulo": "Instagram @heyokat", "descripcion": "Síguelo y mándanos tu lectura.", "url": "https://www.instagram.com/heyokat/", "icono": "🪬" }
+      ]
+    },
+    {
+      "titulo": "Investigación",
+      "icono": "🔬",
+      "abierta": true,
+      "enlaces": [
+        { "titulo": "Vestigios Contemplativos", "descripcion": "Proyecto de investigación-creación de Tratak, estudio de Diseño Transpersonal.", "url": "https://youtu.be/qFo8yMZ-vzM", "icono": "🪬" }
+      ]
+    }
+  ],
+  "redes": [
+    { "titulo": "Instagram", "url": "https://www.instagram.com/tratak.cat/", "icono": "📷" },
+    { "titulo": "WhatsApp", "url": "https://wa.me/523332480698", "icono": "💬" },
+    { "titulo": "YouTube", "url": "https://youtu.be/qFo8yMZ-vzM", "icono": "▶️" }
+  ]
+}
