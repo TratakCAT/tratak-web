@@ -10,6 +10,8 @@
       "abierta": true,
       "enlaces": [
         { "titulo": "Página web + info", "descripcion": "Escuela-laboratorio en Guadalajara: impresión 3D sustentable y biomateriales con talleres, cursos y piezas bajo pedido.", "url": "https://tratakcat.com", "icono": "🌐", "destacado": true },
+        { "titulo": "Tienda de productos", "descripcion": "Piezas en biomaterial y cerámica, hechas bajo pedido.", "url": "https://tratakcat.com/#tienda", "icono": "🛍️" },
+        { "titulo": "Solicitar un evento o taller", "descripcion": "Cuéntanos de tu empresa, escuela o comunidad y lo armamos.", "url": "https://wa.me/523332480698?text=Hola%2C%20me%20interesa%20solicitar%20un%20evento%20o%20taller%20con%20TRATAK%20CAT", "icono": "🎟️" },
         { "titulo": "WhatsApp", "descripcion": "Escríbenos para cotizar, inscribirte o resolver dudas.", "url": "https://wa.me/523332480698", "icono": "💬" },
         { "titulo": "Instagram @tratak.cat", "descripcion": "Procesos, talleres y piezas del laboratorio.", "url": "https://www.instagram.com/tratak.cat/", "icono": "📷" }
       ]
@@ -21,7 +23,7 @@
       "enlaces": [
         { "titulo": "CATálogo de clases presenciales / en línea", "descripcion": "Todas las clases y talleres disponibles.", "url": "https://drive.google.com/drive/u/1/folders/19GnKKuVvEBOC-D25TU4Wgz0MxCRqzvne", "icono": "📚" },
         { "titulo": "Plan de estudios", "descripcion": "Realidad virtual, impresión LDM y cultura biomaterial.", "url": "https://tratakcat.com/#plan", "icono": "🌀" },
-        { "titulo": "Próximo retiro · 8 de noviembre", "descripcion": "Naturaleza, tecnología y contemplación en Mansión Esquivias.", "url": "https://tratakcat.com/landing.html?evento=retiro-8-noviembre", "icono": "🏔️", "etiqueta": "Piloto" }
+        { "titulo": "Próximo retiro · 8 de noviembre", "descripcion": "Naturaleza, tecnología y contemplación en Mansión Esquivias.", "url": "https://tratakcat.com/landing.html?evento=retiro-8-noviembre", "icono": "🏔️", "etiqueta": "Nuevo" }
       ]
     },
     {
