@@ -1,0 +1,113 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Impresión LDM abierta</title><meta name="description" content="Impresoras y extrusores de pasta (LDM) de código abierto para tierra, arcilla y biomateriales: 300CC V2 de Emmanuel Hugnot y otros, cómo armarlas y calculadora de flujo.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · hacer</p><h1>Impresión 3D en tierra: LDM abierta</h1>
+<p class="lede">Extrusores e impresoras de pasta de código abierto para imprimir con tierra, arcilla y biomateriales: qué tipos hay, proyectos que se pueden construir en el taller (empezando por el 300CC V2 de Emmanuel Hugnot) y cuánto material y tiempo pide cada pieza.</p><nav class="nav"><a href="#que">🖨️ Qué es</a><a href="#abiertas">🔓 Abiertas</a><a href="#armar">🛠️ Armar</a><a href="#calc">🧮 Cálculo</a></nav></header>
+<section id="que"><h2>🖨️ Qué es LDM</h2><div class="box"><p>LDM (modelado por deposición de líquido) es imprimir en 3D empujando una pasta (arcilla, tierra, cal, biocompuestos) por una boquilla, capa sobre capa. A diferencia del plástico, no se funde nada: el material seca y luego se puede hornear o dejar crudo, como el adobe.</p>
+<div class="grid2"><div class="mini"><h3>💉 Pistón o jeringa</h3><p>Lo más simple: un émbolo empuja el cartucho. Bueno para pruebas chicas; hay que parar para recargar.</p></div>
+<div class="mini"><h3>🔩 Sinfín con depósito a presión</h3><p>Un tornillo dosifica la pasta que llega empujada por aire desde un tanque. Es lo que usan las impresoras grandes; permite imprimir sin parar.</p></div>
+<div class="mini"><h3>🌀 Cavidad progresiva (Moineau)</h3><p>Rotor en hélice en un estator de hule: flujo muy parejo y retracción precisa.</p></div>
+<div class="mini"><h3>🏗️ A gran escala</h3><p>Grúas, deltas grandes o brazos para muros de tierra. La misma física, más volumen.</p></div></div>
+<p class="anc">🪶 Es el churro de barro de la alfarería de siempre, hecho por una máquina: la tradición de Tonalá y la impresora hablan el mismo idioma.</p></div></section>
+<section id="abiertas"><h2>🔓 Proyectos abiertos</h2><div class="ofs"><article class="of" id="300ccv2"><div class="th"><span class="emo" aria-hidden="true">🟠</span><div><h3 class="ot">300CC V2</h3><p class="orig">Emmanuel Hugnot · licencia CC-BY · 2026</p><p>Extrusor abierto para pasta (arcilla, tierra o biocompuestos), de diseño mínimo donde cada pieza tiene una función. Se puede armar por menos de 100 euros. La versión 2 se afinó en septiembre de 2026 en un taller con estudiantes de diseño de la ESAD Orléans.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><ul><li><a href="https://emmanuelhugnot.com/300CCV2" target="_blank" rel="noopener">Página del proyecto</a></li><li><a href="https://github.com/emmanuelhugnot/300CC-V2" target="_blank" rel="noopener">Repositorio en GitHub</a></li><li><a href="https://distributeddesign.eu/?p=12367" target="_blank" rel="noopener">Sobre la primera versión (Distributed Design)</a></li></ul><p class="anc">🌱 Ideal como kit de taller del CAT y para probar mezclas de tierra del sitio y biomateriales antes de pasarlas a la impresora grande.</p></details></article><article class="of" id="moineau"><div class="th"><span class="emo" aria-hidden="true">🌀</span><div><h3 class="ot">Extrusor Moineau de cavidad progresiva</h3><p class="orig">Proyecto abierto en GitHub (doctek)</p><p>Usa un rotor helicoidal dentro de un estator elástico: empuja la pasta de forma continua y puede retraer con precisión, algo difícil con pistón o con tornillo simple.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><ul><li><a href="https://github.com/doctek/Moineau-Paste-Extruder" target="_blank" rel="noopener">Repositorio</a></li></ul><p class="anc">🌱 Bueno para detalle fino y cortes limpios entre piezas.</p></details></article><article class="of" id="cera1"><div class="th"><span class="emo" aria-hidden="true">🏺</span><div><h3 class="ot">Cera-1 clay extruder</h3><p class="orig">Proyecto abierto documentado en línea</p><p>Extrusor de arcilla de construcción casera con instrucciones abiertas.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><ul><li><a href="https://sites.google.com/site/openprojectspage/cera-1-clay-extruder" target="_blank" rel="noopener">Página del proyecto</a></li></ul><p class="anc">🌱 Referencia para comparar diseños.</p></details></article><article class="of" id="bricoleur"><div class="th"><span class="emo" aria-hidden="true">🛠️</span><div><h3 class="ot">Bricoleur clay extruder</h3><p class="orig">YouMagine (diseño abierto)</p><p>Extrusor de arcilla para adaptar a una impresora común, con archivos descargables.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><ul><li><a href="https://youmagine.com/designs/bricoleur-clay-extruder" target="_blank" rel="noopener">Diseño</a></li></ul><p class="anc">🌱 Opción para convertir una impresora FDM grande.</p></details></article><article class="of" id="fab"><div class="th"><span class="emo" aria-hidden="true">🎓</span><div><h3 class="ot">Documentación Fab Academy: impresión 3D de arcilla</h3><p class="orig">Fab Academy 2025, laboratorio Kannai</p><p>Registro abierto de cómo un laboratorio Fab armó y calibró impresión de arcilla: mezclas, parámetros y errores.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><ul><li><a href="https://fabacademy.org/2025/labs/kannai/FAB25/clay_3d_printing/" target="_blank" rel="noopener">Documentación</a></li></ul><p class="anc">🌱 Formato a imitar en la bitácora del Oasis: documentar todo para que otros aprendan.</p></details></article><article class="of" id="horne"><div class="th"><span class="emo" aria-hidden="true">🧪</span><div><h3 class="ot">Universal Paste Extruder y la tradición RepRap</h3><p class="orig">Richard Horne (RichRap) y la comunidad RepRap</p><p>De la comunidad RepRap salieron los primeros extrusores de pasta abiertos de jeringa y pistón, base de muchos diseños actuales.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><p class="anc">🌱 Historia y bases técnicas: pistón (jeringa), sinfín y aire a presión.</p></details></article><article class="of" id="keep"><div class="th"><span class="emo" aria-hidden="true">🎨</span><div><h3 class="ot">Jonathan Keep</h3><p class="orig">Artista ceramista, Reino Unido</p><p>Pionero de la cerámica impresa que publicó cómo hacer una impresora delta de arcilla casera y diseñó piezas con código.</p></div></div><details><summary>Enlaces y uso en el Oasis</summary><p class="anc">🌱 Puente entre arte, código y barro: muy cercano a la investigación de TRATAK.</p></details></article></div><p class="fx">Las impresoras comerciales (WASP, Eazao, Potterbot y otras) no son abiertas, pero sirven de referencia de calidad.</p></section>
+<section id="armar"><h2>🛠️ Armar una impresora abierta en el taller</h2><div class="box"><ol>
+<li><b>Escoge la base:</b> una impresora FDM grande de cartesiana o delta, una CNC vieja o un marco hecho en el taller de herrería.</li>
+<li><b>Monta el extrusor</b> (por ejemplo el 300CC V2) con su motor paso a paso y un cartucho o tubo de alimentación.</li>
+<li><b>Firmware:</b> Marlin o Klipper, ajustando los pasos por mm del extrusor a la pasta.</li>
+<li><b>Laminador:</b> Cura o PrusaSlicer con boquilla de 2–6 mm y capas de 40–60% del diámetro, o código propio desde Grasshopper para formas no planas.</li>
+<li><b>Mezcla:</b> arcilla o tierra cernida con agua hasta consistencia de pasta de dientes; probar fibras (ixtle, bagazo) y mucílago de nopal como aditivos naturales.</li>
+<li><b>Calibra</b> con cilindros de prueba y anota todo en la bitácora: humedad, boquilla, velocidad, altura de capa.</li></ol></div></section>
+<section id="calc"><h2>🧮 Flujo y tiempo de impresión</h2><div class="calc"><div class="cin"><label>Ancho de línea (mm) <input id="w" type="number" value="4" step="0.5"></label><label>Altura de capa (mm) <input id="h" type="number" value="2" step="0.5"></label><label>Velocidad (mm/s) <input id="v" type="number" value="25"></label><label>Cartucho (cm³) <input id="c" type="number" value="300"></label><label>Volumen de la pieza (L de barro) <input id="p" type="number" value="5" step="0.5"></label></div><div class="cout" id="o"></div>
+<p class="fx">Flujo (mm³/s) = ancho × altura × velocidad. Un cartucho dura = volumen ÷ flujo. Tiempo de la pieza = volumen de barro ÷ flujo (sin contar recargas ni pausas). El volumen de barro de una vasija huevo sale de la calculadora de <a href="/bosque/schauberger/#huevo">Agua viva</a>.</p></div></section>
+<section><h2>📚 Fuentes</h2><ol class="refs"><li><a href="https://emmanuelhugnot.com/300CCV2" target="_blank" rel="noopener">Emmanuel Hugnot, 300CC V2</a>.</li><li><a href="https://distributeddesign.eu/?p=12367" target="_blank" rel="noopener">Distributed Design: 300CC</a>.</li><li><a href="https://github.com/doctek/Moineau-Paste-Extruder" target="_blank" rel="noopener">Moineau Paste Extruder</a>.</li><li><a href="https://fabacademy.org/2025/labs/kannai/FAB25/clay_3d_printing/" target="_blank" rel="noopener">Fab Academy 2025, Kannai: clay 3D printing</a>.</li><li>Jonathan Keep, <i>A Guide to Clay 3D Printing</i>.</li></ol></section>
+</div><script>const $=i=>document.getElementById(i),f=(x,d)=>x.toLocaleString("es-MX",{maximumFractionDigits:d});
+function c(){const F=(+$("w").value||0)*(+$("h").value||0)*(+$("v").value||0),cart=(+$("c").value||0)*1000,pz=(+$("p").value||0)*1e6;
+$("o").innerHTML=`<div><small>Flujo</small><b>${f(F/1000,2)} cm³/s</b><small>${f(F*3.6/1000,1)} L por hora</small></div><div><small>Un cartucho dura</small><b>${F>0?f(cart/F/60,1):"—"} min</b></div><div><small>Tiempo de la pieza</small><b>${F>0?f(pz/F/3600,1):"—"} h</b><small>≈ ${F>0?f(pz/cart,0):"—"} cartuchos</small></div>`}
+["w","h","v","c","p"].forEach(i=>$(i).addEventListener("input",c));c();
+if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script></body></html>
