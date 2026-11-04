@@ -17,6 +17,18 @@
           "destacado": true
         },
         {
+          "titulo": "Tienda de productos",
+          "descripcion": "Piezas en biomaterial y cerámica, hechas bajo pedido.",
+          "url": "https://tratakcat.com/#tienda",
+          "icono": "🛍️"
+        },
+        {
+          "titulo": "Solicitar un evento o taller",
+          "descripcion": "Cuéntanos de tu empresa, escuela o comunidad y lo armamos.",
+          "url": "https://wa.me/523332480698?text=Hola%2C%20me%20interesa%20solicitar%20un%20evento%20o%20taller%20con%20TRATAK%20CAT",
+          "icono": "🎟️"
+        },
+        {
           "titulo": "WhatsApp",
           "descripcion": "Escríbenos para cotizar, inscribirte o resolver dudas.",
           "url": "https://wa.me/523332480698",
@@ -63,11 +75,11 @@
       "enlaces": [
         {
           "titulo": "Haz tu lectura de tres cartas",
-          "descripcion": "Baraja, elige y recibe el mensaje del contrario.",
+          "descripcion": "Versión piloto, aún en construcción. Baraja, elige y recibe el mensaje del contrario.",
           "url": "https://tratakcat.com/heyocat",
           "icono": "🃏",
           "destacado": true,
-          "etiqueta": "Nuevo"
+          "etiqueta": "Piloto"
         },
         {
           "titulo": "Instagram @heyokat",
