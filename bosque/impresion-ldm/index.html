@@ -110,4 +110,4 @@ table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td
 function c(){const F=(+$("w").value||0)*(+$("h").value||0)*(+$("v").value||0),cart=(+$("c").value||0)*1000,pz=(+$("p").value||0)*1e6;
 $("o").innerHTML=`<div><small>Flujo</small><b>${f(F/1000,2)} cm³/s</b><small>${f(F*3.6/1000,1)} L por hora</small></div><div><small>Un cartucho dura</small><b>${F>0?f(cart/F/60,1):"—"} min</b></div><div><small>Tiempo de la pieza</small><b>${F>0?f(pz/F/3600,1):"—"} h</b><small>≈ ${F>0?f(pz/cart,0):"—"} cartuchos</small></div>`}
 ["w","h","v","c","p"].forEach(i=>$(i).addEventListener("input",c));c();
-if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script></body></html>
+if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script><script src="/bosque/buscar.js" defer></script></body></html>

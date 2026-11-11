@@ -130,4 +130,4 @@ let hv=h<45?"Échale agua hasta la prueba del puño":h>65?"Muy mojada: agrega ma
 $("o").innerHTML=`<div><small>Relación C:N</small><b>${f(cn,0)} : 1</b><small>${v}</small></div><div><small>Humedad aprox.</small><b>${f(h,0)}%</b><small>${hv}</small></div><div><small>Total</small><b>${f(W,0)} kg</b><small>≈ ${f(W/500,1)} m³ (muy variable)</small></div>`}
 document.getElementById("rows").addEventListener("input",calc);calc();
 const bs=document.querySelectorAll(".filt button");bs.forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.f;bs.forEach(x=>x.setAttribute("aria-pressed",x===b));document.querySelectorAll("#metodos .of").forEach(o=>o.hidden=!(v==="0"||o.dataset.t.split(" ").includes(v)))}));
-if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script></body></html>
+if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script><script src="/bosque/buscar.js" defer></script></body></html>

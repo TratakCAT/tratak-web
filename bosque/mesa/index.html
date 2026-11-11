@@ -146,4 +146,4 @@ $('noM').textContent=Math.round(kM)+' kg';$('noF').textContent=Math.round(kF)+' 
 const pr=(M*0.094+F*0.22)/(0.8*W)*100;$('noPr').textContent=Math.round(pr)+'%';}
 ['nP','nW','nM','nF','nRM','nRF'].forEach(i=>$(i).addEventListener('input',milpa));milpa();
 const bs=document.querySelectorAll(".filt button");bs.forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.f;bs.forEach(x=>x.setAttribute("aria-pressed",x===b));document.querySelectorAll("#lista .of").forEach(o=>o.hidden=!(v==="0"||o.dataset.t.split(" ").includes(v)))}));
-if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script></body></html>
+if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script><script src="/bosque/buscar.js" defer></script></body></html>
