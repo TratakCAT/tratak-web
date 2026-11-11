@@ -287,4 +287,4 @@ details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-
 const bs=document.querySelectorAll(".filt button");bs.forEach(b=>b.addEventListener("click",()=>{const f=b.dataset.f;bs.forEach(x=>x.setAttribute("aria-pressed",x===b));
 document.querySelectorAll(".of").forEach(o=>o.hidden=!(f==="0"||o.dataset.p===f));document.querySelectorAll(".cat").forEach(c=>c.classList.toggle("empty",!c.querySelector(".of:not([hidden])")))}));
 if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}})();
-</script></body></html>
+</script><script src="/bosque/buscar.js" defer></script></body></html>

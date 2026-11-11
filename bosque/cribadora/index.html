@@ -130,4 +130,4 @@ table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td
 </div><script>const $=i=>document.getElementById(i),f=(x,d)=>x.toLocaleString("es-MX",{maximumFractionDigits:d});
 function c(){const D=+$("D").value||0,Lm=+$("Lm").value||0,d=+$("dr").value||0,inc=+$("inc").value||0,s=(D+d)*Math.sin(40*Math.PI/180),Lt=Lm+20,Lr=Lt+25,dh=Lr*Math.tan(inc*Math.PI/180),nc=42.3/Math.sqrt(Math.max(D,1)/100);
 $("o").innerHTML=`<div><small>Malla</small><b>${f(Math.PI*D+5,0)} × ${f(Lm,0)} cm</b></div><div><small>Largo del tambor</small><b>${f(Lt,0)} cm</b><small>con los aros</small></div><div><small>Rieles</small><b>${f(Lr,0)} cm</b><small>separados ${f(s,1)} cm de centro a centro</small></div><div><small>Patas</small><b>70 y ${f(70-dh,0)} cm</b><small>diferencia ${f(dh,1)} cm</small></div><div><small>Giro ideal</small><b>${f(nc*0.3,0)}–${f(nc*0.45,0)} rpm</b><small>crítica ${f(nc,0)} rpm</small></div>`}
-["D","Lm","dr","inc"].forEach(i=>$(i).addEventListener("input",c));c();</script></body></html>
+["D","Lm","dr","inc"].forEach(i=>$(i).addEventListener("input",c));c();</script><script src="/bosque/buscar.js" defer></script></body></html>

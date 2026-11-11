@@ -133,4 +133,4 @@ for(let i=0;i<28;i++){const d=new Date(now.getFullYear(),now.getMonth(),now.getD
 h+=`<tr${i===0?' style="font-weight:700"':''}><td style="white-space:nowrap">${d.toLocaleDateString("es-MX",{weekday:"short",day:"numeric"})}<br><small>${d.toLocaleDateString("es-MX",{month:"short"})}</small></td><td>${fase(el)}</td><td>${c[1]}</td><td>${c[2]} ${c[3]}</td><td>${asc?"⬆️ asc.":"⬇️ desc."}</td></tr>`}
 tb.innerHTML=h;
 $("sortea").onclick=()=>{const n=Math.max(2,Math.min(40,+$("ncamas").value||8));const a=[];for(let i=0;i<n;i++)a.push(i<n/2?"✅ con preparados":"⚪ sin preparados (testigo)");for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}$("o-exp").innerHTML=a.map((t,i)=>`<li>Cama ${i+1}: ${t}</li>`).join("")+"<li>Apunten este sorteo en la bitácora.</li>"};
-</script></body></html>
+</script><script src="/bosque/buscar.js" defer></script></body></html>

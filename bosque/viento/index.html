@@ -125,4 +125,4 @@ function cor(){const H=+$("cH").value||0;$("o-c").innerHTML=`<div><small>Máxima
 function ane(){const r=(+$("aR").value||0)/100,n=(+$("aN").value||0)/30,k=+$("aK").value||3,v=k*2*Math.PI*r*n;$("o-a").innerHTML=`<div><small>Viento</small><b>${f(v,1)} m/s</b><small>${f(v*3.6,0)} km/h</small></div>`}
 [["pD",pap],["pV",pap],["pH",pap],["pT",pap],["tA",tor],["tV",tor],["tR",tor],["cH",cor],["aR",ane],["aN",ane],["aK",ane]].forEach(([i,fn])=>$(i).addEventListener("input",fn));pap();tor();cor();ane();
 const bs=document.querySelectorAll(".filt button");bs.forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.f;bs.forEach(x=>x.setAttribute("aria-pressed",x===b));document.querySelectorAll("#tec .of").forEach(o=>o.hidden=!(v==="0"||o.dataset.t.split(" ").includes(v)))}));
-if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script></body></html>
+if(location.hash){const t=document.querySelector(location.hash);if(t&&t.tagName==="ARTICLE"){const d=t.querySelector("details");if(d)d.open=true}}</script><script src="/bosque/buscar.js" defer></script></body></html>
