@@ -1,0 +1,137 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Agua y energía</title><meta name="description" content="Presupuesto de agua de lluvia para pasar las secas, cisternas, calculadora solar de paneles y baterías, y si conviene Starlink en el terreno.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · diseñar</p><h1>Agua y energía</h1>
+<p class="lede">Cuánta agua de lluvia podemos guardar para los 7 meses de secas, cuántos paneles y baterías necesita el terreno, y qué conviene para tener internet.</p><nav class="nav"><a href="#agua">💧 Agua</a><a href="#solar">☀️ Solar</a><a href="#starlink">🛰️ Starlink</a></nav></header>
+<style>#tc input{width:100%;box-sizing:border-box;font:inherit;padding:4px 6px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}#tc input.lw,#tc input.lh{max-width:90px}</style><section id="agua"><h2>💧 Presupuesto de agua</h2><div class="box">
+<p>En La Primavera llueve alrededor de 900 mm al año, pero casi todo entre junio y septiembre. El reto no es cuánta agua cae, sino guardarla para los 7 meses de secas. Cada metro cuadrado de techo recibe en un año casi un metro cúbico de agua.</p>
+<div class="calc"><h3>🧮 ¿Cuánta agua captamos y cuánta necesitamos?</h3><div class="cin">
+<label>Techo que capta (m²)<input id="aT" type="number" value="120" min="0" step="5"></label>
+<label>Techo<select id="aC"><option value="0.9">Lámina o teja vidriada</option><option value="0.8" selected>Teja de barro</option><option value="0.6">Techo verde o tierra</option><option value="0.5">Palma o zacate</option></select></label>
+<label>Lluvia anual (mm)<input id="aR" type="number" value="900" min="100" step="50"></label>
+<label>Personas<input id="aP" type="number" value="6" min="0"></label>
+<label>Litros por persona al día<input id="aL" type="number" value="50" min="10" step="5"></label>
+<label>Animales (litros al día)<input id="aA" type="number" value="40" min="0" step="5"></label>
+<label>Huerto regado en secas (m²)<input id="aH" type="number" value="100" min="0" step="10"></label>
+<label>Riego (L por m² al día)<input id="aI" type="number" value="4" min="0" step="0.5"></label>
+<label>Meses de secas<input id="aM" type="number" value="7" min="1" max="12"></label></div>
+<div class="cout"><div><b id="aoC">–</b><small>agua captada al año</small></div><div><b id="aoD">–</b><small>agua que se usa al año</small></div><div><b id="aoS">–</b><small>agua que se usa en las secas</small></div><div><b id="aoK">–</b><small>cisterna para pasar las secas</small></div><div><b id="aoB">–</b><small>balance</small></div><div><b id="aoF">–</b><small>primera lluvia a desechar en cada tormenta (lava el techo)</small></div></div>
+<p class="fx">Captación = techo × lluvia × coeficiente del techo. La cisterna guarda lo que se usa en las secas, hasta donde alcanza lo captado. Con baño seco, 50 L por persona al día alcanzan para beber, cocinar, bañarse y lavar con cuidado. El desviador de primeras lluvias: medio litro por m² de techo.</p></div>
+<div class="grid2" style="margin-top:12px">
+<div class="mini"><h3>🏺 Cisterna de ferrocemento</h3><p>Malla y mortero sobre un armazón: la más barata por litro para 10–50 m³, se hace con la comunidad y dura décadas.</p></div>
+<div class="mini"><h3>🌊 Olla o jagüey</h3><p>Estanque excavado con geomembrana o arcilla compactada para el riego y los animales. Pierde agua por evaporación: cúbrelo con plantas flotantes o sombra.</p></div>
+<div class="mini"><h3>🌱 Guardarla en el suelo</h3><p>Zanjas a nivel, hügelkultur, acolchado y árboles: el suelo es la cisterna más grande y la más barata. Ver Schauberger y Suelo vivo.</p></div>
+<div class="mini"><h3>🧪 Calidad</h3><p>El agua de lluvia para beber se filtra (filtro de cerámica con plata o de arena lenta) y se desinfecta. Analiza también el agua del pozo.</p></div></div></div></section>
+<section id="solar"><h2>☀️ Energía solar</h2><div class="box">
+<p>Guadalajara recibe en promedio el equivalente a unas 5.5–6 horas de sol pleno al día, una de las mejores cifras del país. Los paneles van mirando al sur con unos 20° de inclinación, sin sombra entre las 9 y las 15 h.</p>
+<div class="calc"><h3>🧮 ¿Cuántos paneles y baterías?</h3><p>Edita los aparatos, sus watts y las horas al día.</p>
+<div class="tw"><table class="t" id="tc"><tr><th>Aparato</th><th>Watts</th><th>Horas/día</th><th>Wh/día</th></tr><tr><td><input class="ln" value="Focos LED (5 de 9 W)" aria-label="Aparato"></td><td><input class="lw" type="number" value="45" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="5" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Celulares (4)" aria-label="Aparato"></td><td><input class="lw" type="number" value="40" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="2" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Laptop" aria-label="Aparato"></td><td><input class="lw" type="number" value="60" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="6" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Starlink Mini" aria-label="Aparato"></td><td><input class="lw" type="number" value="35" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="12" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Refrigerador eficiente (promedio)" aria-label="Aparato"></td><td><input class="lw" type="number" value="45" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="24" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Bomba de agua" aria-label="Aparato"></td><td><input class="lw" type="number" value="500" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="1" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Impresora LDM + compresor" aria-label="Aparato"></td><td><input class="lw" type="number" value="600" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="4" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr><tr><td><input class="ln" value="Herramienta eléctrica" aria-label="Aparato"></td><td><input class="lw" type="number" value="800" min="0" aria-label="Watts"></td><td><input class="lh" type="number" value="0.5" min="0" step="0.5" aria-label="Horas al día"></td><td class="lwh">–</td></tr></table></div>
+<div class="cin"><label>Horas de sol pleno<input id="eS" type="number" value="5.5" min="2" step="0.1"></label><label>Panel (W)<input id="eP" type="number" value="550" min="100" step="10"></label><label>Días de respaldo<input id="eD" type="number" value="1.5" min="0.5" step="0.5"></label><label>Batería<select id="eB"><option value="0.8" selected>Litio LiFePO4 (80% útil)</option><option value="0.5">Plomo-ácido (50% útil)</option></select></label><label>Voltaje del banco<select id="eV"><option>12</option><option>24</option><option selected>48</option></select></label></div>
+<div class="cout"><div><b id="eoE">–</b><small>energía al día</small></div><div><b id="eoP">–</b><small>paneles</small></div><div><b id="eoK">–</b><small>potencia solar instalada</small></div><div><b id="eoB">–</b><small>banco de baterías</small></div><div><b id="eoI">–</b><small>inversor mínimo (si todo se prende a la vez)</small></div></div>
+<p class="fx">Paneles = energía ÷ (horas de sol × 75% de eficiencia del sistema). Baterías = energía × días de respaldo ÷ profundidad de descarga útil. En lluvias hay menos sol: los días de respaldo cubren las rachas nubladas. Pide el diseño final a un instalador certificado.</p></div></div></section>
+<section id="starlink"><h2>🛰️ ¿Starlink? Mi opinión</h2><div class="box">
+<p><b>Sí conviene, con dos condiciones:</b> que el terreno tenga cielo despejado donde ponerla y que primero descartes señal de celular con antena, que es más barata.</p>
+<div class="grid2">
+<div class="mini"><h3>👍 A favor</h3><ul><li>Internet de verdad en el bosque: talleres en línea, clases de tus universidades, subir videos del proyecto, monitoreo de sensores, emergencias.</li><li>Sin contrato forzoso; el plan itinerante se puede pausar los meses que no haya nadie viviendo.</li><li>El modelo Mini gasta solo 25–40 W: un panel de 200 W y una batería chica lo mueven.</li></ul></div>
+<div class="mini"><h3>👎 En contra</h3><ul><li><b>Necesita cielo abierto</b> (unos 110° de campo de visión). Bajo encinos y pinos no funciona bien: hay que ponerla en un poste o en el techo. Revisa los obstáculos con la app antes de comprar.</li><li>Costo mensual: unos $950 (itinerante 100 GB) a $1,350 (residencial max), más el equipo (desde $3,499 en promoción), según Selectra a noviembre de 2026.</li><li>El modelo estándar gasta 75–100 W todo el día: en un sistema solar pesa.</li><li>En tormentas eléctricas, conéctala a tierra o desconéctala.</li></ul></div></div>
+<p><b>Lo que yo haría:</b> 1) llevar un celular de cada compañía al terreno y probar señal; con antena amplificadora a veces basta. 2) Si no hay, Starlink Mini en plan itinerante, en un poste a la orilla del claro, prendida solo de día con un temporizador. 3) Compartirla entre la familia y los talleres para dividir el costo.</p></div></section>
+<section id="fuentes"><h2>📚 Fuentes</h2><div class="box"><ul>
+<li><a href="https://selectra.mx/companias/starlink" target="_blank" rel="noopener">Selectra: planes y precios de Starlink en México (noviembre 2026)</a></li>
+<li><a href="https://www.drohnen.de/93001/starlink-hardware-comparison-en/" target="_blank" rel="noopener">Comparativa del equipo Starlink: consumo y campo de visión</a></li>
+<li><a href="https://profilesolar.com/locations/Mexico/Guadalajara/" target="_blank" rel="noopener">Profile Solar: producción solar en Guadalajara e inclinación óptima</a></li>
+<li>Ver también <a href="/bosque/viento/">Viento</a>, <a href="/bosque/schauberger/">Schauberger</a> y <a href="/bosque/saneamiento/">Baño seco y aguas grises</a>.</li></ul></div></section>
+</div><script>const $=i=>document.getElementById(i);const f=(n,d=0)=>n.toLocaleString('es-MX',{maximumFractionDigits:d});
+function agua(){const T=+$('aT').value,C=+$('aC').value,R=+$('aR').value,P=+$('aP').value,L=+$('aL').value,A=+$('aA').value,H=+$('aH').value,I=+$('aI').value,M=+$('aM').value;
+const cap=T*R*C;const dia=P*L+A;const dS=(dia+H*I)*M*30.4;const dY=dia*365+H*I*M*30.4;const k=Math.min(dS,cap);
+$('aoC').textContent=f(cap/1000,1)+' m³';$('aoD').textContent=f(dY/1000,1)+' m³';$('aoS').textContent=f(dS/1000,1)+' m³';$('aoK').textContent=f(k/1000,1)+' m³';
+const b=cap-dY;$('aoB').textContent=(b>=0?'sobran ':'faltan ')+f(Math.abs(b)/1000,1)+' m³'+(b<0?' (≈ '+f(Math.abs(b)/R/C,0)+' m² más de techo)':'');$('aoF').textContent=f(T*0.5,0)+' L';}
+function sol(){let wh=0,pk=0;document.querySelectorAll('#tc tr').forEach((r,i)=>{if(!i)return;const w=+r.querySelector('.lw').value,h=+r.querySelector('.lh').value;const e=w*h;wh+=e;if(h>0)pk+=w;r.querySelector('.lwh').textContent=f(e)});
+const S=+$('eS').value,P=+$('eP').value,D=+$('eD').value,B=+$('eB').value,V=+$('eV').value;const kw=wh/(S*0.75)/1000;const n=Math.ceil(kw*1000/P);const bank=wh*D/B;
+$('eoE').textContent=f(wh/1000,2)+' kWh';$('eoP').textContent=n+' de '+P+' W';$('eoK').textContent=f(n*P/1000,2)+' kW';$('eoB').textContent=f(bank/1000,1)+' kWh ('+f(bank/V)+' Ah a '+V+' V)';$('eoI').textContent=f(pk*1.25)+' W';}
+['aT','aC','aR','aP','aL','aA','aH','aI','aM'].forEach(i=>$(i).addEventListener('input',agua));document.getElementById('tc').addEventListener('input',sol);['eS','eP','eD','eB','eV'].forEach(i=>$(i).addEventListener('input',sol));agua();sol();</script><script src="/bosque/buscar.js" defer></script></body></html>
