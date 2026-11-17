@@ -1,0 +1,121 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Talleres, visitantes y monitoreo</title><meta name="description" content="Catálogo de talleres del Oasis, calculadora de precio, reglas para visitantes y voluntarios, y qué medir en el terreno con pluviómetro casero.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · convivir</p><h1>Talleres, visitantes y monitoreo</h1>
+<p class="lede">Cómo convertir las guías en talleres que sostengan el proyecto, recibir visitantes y voluntarios con reglas claras, y medir lo que pasa en el terreno.</p><nav class="nav"><a href="#talleres">🎟️ Talleres</a><a href="#precio">🧮 Precio</a><a href="#visitantes">🏕️ Visitantes</a><a href="#voluntarios">🙋 Voluntarios</a><a href="#monitoreo">📊 Monitoreo</a></nav></header>
+<section id="talleres"><h2>🎟️ Talleres del Oasis</h2><p>Cada guía de la Biblioteca puede ser un taller. Estos son los que tienen más sentido para empezar, de lo más sencillo a lo más completo:</p>
+<div class="ofs"><article class="of" id="t-barro"><div class="th"><span class="emo" aria-hidden="true">🧱</span><div><h3 class="ot">Bioconstrucción con barro</h3><p class="tags"><span class="tg">⏱️ 1 o 2 días</span><span class="tg">👥 8–16 personas</span></p><p>Bajareque, adobe, tadelakt y enjarres: cada grupo deja una pieza construida.</p><p><a href="/bosque/tecnicas/#bajareque">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-ldm"><div class="th"><span class="emo" aria-hidden="true">🖨️</span><div><h3 class="ot">Cerámica e impresión LDM</h3><p class="tags"><span class="tg">⏱️ 2 días + quema</span><span class="tg">👥 6–10 personas</span></p><p>Del barro del terreno a la pieza impresa y quemada en horno de leña.</p><p><a href="/bosque/impresion-ldm/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-suelo"><div class="th"><span class="emo" aria-hidden="true">🌱</span><div><h3 class="ot">Suelo vivo y composta</h3><p class="tags"><span class="tg">⏱️ 1 día</span><span class="tg">👥 10–20 personas</span></p><p>Prueba del frasco, cromatografía, composta caliente y hügelkultur.</p><p><a href="/bosque/suelo-vivo/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-cocina"><div class="th"><span class="emo" aria-hidden="true">🫙</span><div><h3 class="ot">Cocina viva y de temporada</h3><p class="tags"><span class="tg">⏱️ Medio día</span><span class="tg">👥 8–15 personas</span></p><p>Fermentos, nixtamal, recetas de aprovechamiento y los cinco elementos.</p><p><a href="/bosque/mesa/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-cielo"><div class="th"><span class="emo" aria-hidden="true">🌌</span><div><h3 class="ot">Noche de estrellas</h3><p class="tags"><span class="tg">⏱️ Una noche</span><span class="tg">👥 10–25 personas</span></p><p>Orientación, constelaciones con nombres mexicas y relojes de sol; con fogata en temporada permitida.</p><p><a href="/bosque/cielo/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-fuego"><div class="th"><span class="emo" aria-hidden="true">🔥</span><div><h3 class="ot">Fuego, hornos y forja</h3><p class="tags"><span class="tg">⏱️ 1–2 días</span><span class="tg">👥 6–10 personas</span></p><p>Estufa cohete, horno de barro, fragua y fundición de aluminio (con seguridad).</p><p><a href="/bosque/fuego/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-seco"><div class="th"><span class="emo" aria-hidden="true">🚽</span><div><h3 class="ot">Baño seco y agua</h3><p class="tags"><span class="tg">⏱️ 2 días</span><span class="tg">👥 8–12 personas</span></p><p>Construir un baño seco y un humedal; captación de lluvia.</p><p><a href="/bosque/saneamiento/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-tejido"><div class="th"><span class="emo" aria-hidden="true">🧺</span><div><h3 class="ot">Tejido con el bosque</h3><p class="tags"><span class="tg">⏱️ 1 día</span><span class="tg">👥 8–15 personas</span></p><p>Zarzo, cestería de ocochal y cercas vivas.</p><p><a href="/bosque/tecnicas/#zarzo">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-diseno"><div class="th"><span class="emo" aria-hidden="true">☯️</span><div><h3 class="ot">Diseñar tu espacio</h3><p class="tags"><span class="tg">⏱️ 1 día</span><span class="tg">👥 10–20 personas</span></p><p>Permacultura, feng shui de la forma y patrones para la casa o el jardín de cada quien.</p><p><a href="/bosque/feng-shui/">Guía de apoyo →</a></p></div></div></article><article class="of" id="t-retiro"><div class="th"><span class="emo" aria-hidden="true">🧘</span><div><h3 class="ot">Retiro de contemplación y oficio</h3><p class="tags"><span class="tg">⏱️ Fin de semana</span><span class="tg">👥 8–16 personas</span></p><p>Meditación, silencio y trabajo manual: la experiencia completa de CAT.</p><p><a href="/bosque/oficios/">Guía de apoyo →</a></p></div></div></article></div></section>
+<section id="precio"><h2>🧮 Calcular el precio de un taller</h2><div class="box"><div class="calc"><div class="cin">
+<label>Participantes esperados<input id="pN" type="number" value="10" min="1"></label>
+<label>Materiales por persona ($)<input id="pM" type="number" value="250" min="0" step="10"></label>
+<label>Comida por persona ($)<input id="pC" type="number" value="150" min="0" step="10"></label>
+<label>Honorarios del equipo ($)<input id="pH" type="number" value="6000" min="0" step="100"></label>
+<label>Otros fijos: transporte, renta, difusión ($)<input id="pF" type="number" value="1500" min="0" step="100"></label>
+<label>Comisión de cobro o plataforma (%)<input id="pK" type="number" value="5" min="0" max="30" step="0.5"></label>
+<label>Margen para el proyecto (%)<input id="pG" type="number" value="20" min="0" max="80" step="5"></label></div>
+<div class="cout"><div><b id="poE">–</b><small>precio mínimo por persona (sin ganar ni perder)</small></div><div><b id="poP">–</b><small>precio sugerido con margen</small></div><div><b id="poQ">–</b><small>personas mínimas para no perder al precio sugerido</small></div><div><b id="poT">–</b><small>ganancia para el proyecto con el cupo esperado</small></div></div>
+<p class="fx">Precio mínimo = (fijos ÷ participantes + costos por persona) ÷ (1 − comisión). El margen financia el mantenimiento del terreno y los próximos talleres. Considera becas o precio solidario para la comunidad cercana.</p></div></div></section>
+<section id="visitantes"><h2>🏕️ Ecoturismo y visitantes</h2><div class="box"><ul><li>Reservación previa: no se recibe a nadie sin aviso.</li><li>Cupo máximo según baños, agua y estacionamiento disponibles.</li><li>Recorrido de bienvenida con las reglas: fuego, basura, animales, áreas privadas de la familia.</li><li>Todo lo que entra, sale: basura de cada quien de regreso a la ciudad.</li><li>Nada de bocinas a volumen alto: es un bosque con fauna.</li><li>Firma de responsiva y aviso de privacidad (fotos y datos).</li></ul><p>Experiencias sencillas que no requieren construir mucho: noche de estrellas, caminata de plantas con la guía de campo, comida de temporada de la Mesa del Oasis, día de bioconstrucción.</p></div></section>
+<section id="voluntarios"><h2>🙋 Voluntarios</h2><div class="box"><ul><li>Horario claro: 4–5 horas de trabajo al día, 5 días a la semana, a cambio de hospedaje y comida.</li><li>Estancia mínima de 2 semanas para que valga el tiempo de enseñarle.</li><li>Acuerdos escritos: horarios, tareas, convivencia, alcohol y drogas, uso de herramientas y del fuego.</li><li>Pedir que traigan seguro médico y avisen alergias (abejas) y medicamentos.</li><li>Una persona del equipo a cargo de recibirlos y explicarles la seguridad el primer día.</li><li>Lugares para publicarse: Workaway, Worldpackers, WWOOF México y redes de ecoaldeas.</li></ul></div></section>
+<section id="monitoreo"><h2>📊 Monitoreo del terreno</h2><p>Lo que no se mide no se puede mejorar ni presumir en una convocatoria. Anótalo en la bitácora, separado por terreno.</p>
+<div class="grid2"><div class="mini" id="m-lluvia"><h3>🌧️ Lluvia</h3><p>Pluviómetro casero o comprado, leído cada mañana a la misma hora en temporada de lluvias.</p><p class="k">Cada cuándo</p><p>Diario en lluvias</p></div><div class="mini" id="m-suelo"><h3>🌱 Humedad y vida del suelo</h3><p>Prueba del tacto o sensor a 10 y 30 cm en camas con y sin acolchado; croma 2 veces al año.</p><p class="k">Cada cuándo</p><p>Semanal en secas</p></div><div class="mini" id="m-fotos"><h3>📷 Fotos desde el mismo punto</h3><p>Marca 5–10 puntos fijos con una estaca y toma la misma foto cada mes: es la mejor forma de ver el cambio.</p><p class="k">Cada cuándo</p><p>Mensual</p></div><div class="mini" id="m-especies"><h3>🦋 Especies</h3><p>Un proyecto de iNaturalist por terreno: cada foto de planta, hongo, insecto o ave queda identificada y en el mapa (como el tronco con resina y la planta de espigas de La Primavera).</p><p class="k">Cada cuándo</p><p>Siempre que se pueda</p></div><div class="mini" id="m-agua"><h3>💧 Agua guardada</h3><p>Nivel de la cisterna y del estanque cada semana en secas.</p><p class="k">Cada cuándo</p><p>Semanal</p></div><div class="mini" id="m-gente"><h3>👥 Talleres y visitantes</h3><p>Cuántas personas, qué aprendieron, qué comentaron, ingresos y gastos.</p><p class="k">Cada cuándo</p><p>Por evento</p></div></div>
+<div class="box" style="margin-top:12px"><div class="calc"><h3>🌧️ Pluviómetro casero</h3><p>Una botella o lata de lados rectos, enterrada un poco para que no se caiga, lejos de árboles y techos. Mide el agua con una jeringa o vaso medidor.</p>
+<div class="cin"><label>Diámetro de la boca (cm)<input id="rD" type="number" value="10" min="2" step="0.5"></label><label>Agua juntada (mL)<input id="rV" type="number" value="200" min="0" step="10"></label></div>
+<div class="cout"><div><b id="roM">–</b><small>milímetros de lluvia</small></div><div><b id="roF">–</b><small>mL que equivalen a 1 mm</small></div><div><b id="roL">–</b><small>litros que cayeron en 100 m² de techo</small></div></div>
+<p class="fx">1 mm de lluvia = 1 litro por metro cuadrado. mm = mL ÷ área de la boca en cm² × 10.</p></div></div></section>
+<section id="fuentes"><h2>📚 Fuentes y herramientas</h2><div class="box"><ul>
+<li><a href="https://www.inaturalist.org/projects/new" target="_blank" rel="noopener">iNaturalist: crear un proyecto por terreno</a> (en México lo apoya la CONABIO como Naturalista)</li>
+<li><a href="https://www.workaway.info/" target="_blank" rel="noopener">Workaway</a> · <a href="https://www.worldpackers.com/" target="_blank" rel="noopener">Worldpackers</a> · <a href="https://wwoof.net/" target="_blank" rel="noopener">WWOOF</a></li>
+<li>Ver <a href="/bosque/terrenos/">Comparar terrenos</a> y <a href="/bosque/seguridad/">Seguridad</a> antes de recibir gente.</li></ul></div></section>
+</div><script>const $=i=>document.getElementById(i);const f=(n,d=0)=>n.toLocaleString('es-MX',{maximumFractionDigits:d});
+function precio(){const N=+$('pN').value,M=+$('pM').value,C=+$('pC').value,H=+$('pH').value,F=+$('pF').value,K=+$('pK').value/100,G=+$('pG').value/100;
+const var1=M+C,fijo=H+F;const eq=(fijo/N+var1)/(1-K);const p=eq/(1-G);const net=p*(1-K)-var1;const q=net>0?Math.ceil(fijo/net):'—';
+$('poE').textContent='$'+f(Math.ceil(eq/10)*10);$('poP').textContent='$'+f(Math.ceil(p/50)*50);$('poQ').textContent=q;$('poT').textContent='$'+f(N*(Math.ceil(p/50)*50*(1-K)-var1)-fijo);}
+function pluv(){const D=+$('rD').value,V=+$('rV').value;const a=Math.PI*(D/2)**2;const mm=V/a*10;$('roM').textContent=f(mm,1)+' mm';$('roF').textContent=f(a/10,1)+' mL';$('roL').textContent=f(mm*100)+' L';}
+['pN','pM','pC','pH','pF','pK','pG'].forEach(i=>$(i).addEventListener('input',precio));['rD','rV'].forEach(i=>$(i).addEventListener('input',pluv));precio();pluv();</script><script src="/bosque/buscar.js" defer></script></body></html>

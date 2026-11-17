@@ -11,6 +11,8 @@
   '.bqs{position:relative}.bqs>summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--surface);white-space:nowrap}.bqs>summary::-webkit-details-marker{display:none}'+
   '.bqs nav{position:absolute;right:0;top:calc(100% + 4px);background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.15);padding:6px;display:flex;flex-direction:column;min-width:220px;max-height:60vh;overflow:auto}.bqs nav a{padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--ink);font-family:var(--display);font-size:14px}.bqs nav a:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}'+
   '.bqn{flex-basis:100%;font-size:13px;color:var(--muted);font-family:var(--display);margin:0}.bqup{position:fixed;right:14px;bottom:14px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none}.bqup.on{display:block}'+
+  '.bqpr{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--surface);color:var(--ink);cursor:pointer}.bqok{flex-basis:100%;font-size:12.5px;color:var(--muted);font-family:var(--display);margin:0}'+
+  '@media print{.bqbar,.bqup,.bqn,header .nav,.filt,.acts,.bqs,.btns,button{display:none!important}body{background:#fff!important;color:#000!important}a{color:#000!important}details>summary{list-style:none}.of,.tech,.box,.mini{break-inside:avoid}}'+
   '.bqhide{display:none!important}mark.bqm{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;border-radius:3px}';
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var header=document.querySelector('header');if(!header)return;
@@ -20,6 +22,8 @@
   if(nav&&nav.querySelectorAll('a[href^="#"]').length>2){var sec=document.createElement('details');sec.className='bqs';sec.innerHTML='<summary>☰ Secciones</summary><nav></nav>';
     nav.querySelectorAll('a').forEach(function(a){var c=a.cloneNode(true);c.addEventListener('click',function(){sec.open=false});sec.querySelector('nav').appendChild(c)});bar.appendChild(sec);
     document.addEventListener('click',function(e){if(!sec.contains(e.target))sec.open=false});}
+  var pr=document.createElement('button');pr.type='button';pr.className='bqpr';pr.textContent='🖨️';pr.title='Imprimir o guardar en PDF';pr.setAttribute('aria-label','Imprimir o guardar en PDF');pr.onclick=function(){window.print()};bar.appendChild(pr);
+  var opened=[];window.addEventListener('beforeprint',function(){opened=[].slice.call(document.querySelectorAll('details:not([open])'));opened.forEach(function(d){d.open=true})});window.addEventListener('afterprint',function(){opened.forEach(function(d){d.open=false});opened=[]});
   header.parentNode.insertBefore(bar,header.nextSibling);
   var info=document.createElement('p');info.className='bqn';info.hidden=true;bar.appendChild(info);
   var inp=bar.querySelector('#bqi'),res=bar.querySelector('#bqr');
@@ -57,6 +61,7 @@
     var p=t;while(p){if(p.tagName==='DETAILS')p.open=true;if(p.hidden)p.hidden=false;p=p.parentElement}
     var d=t.querySelector&&t.querySelector(':scope > details');if(d)d.open=true;
     setTimeout(function(){t.scrollIntoView({block:'start'});window.scrollBy(0,-(bar.offsetHeight+8))},60)}
+  if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('/bosque/sw.js',{scope:'/bosque/'}).then(function(reg){if(!navigator.serviceWorker.controller){reg.addEventListener('updatefound',function(){var w=reg.installing;if(!w)return;w.addEventListener('statechange',function(){if(w.state==='activated'){var m=document.createElement('p');m.className='bqok';m.textContent='📴 Guías guardadas en este dispositivo: ya puedes abrirlas sin internet.';bar.appendChild(m);setTimeout(function(){m.remove()},6000)}})})}}).catch(function(){})}
   window.addEventListener('hashchange',openHash);if(location.hash)setTimeout(openHash,80);
   var up=document.createElement('button');up.className='bqup';up.type='button';up.setAttribute('aria-label','Subir al inicio');up.textContent='↑';document.body.appendChild(up);
   up.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});

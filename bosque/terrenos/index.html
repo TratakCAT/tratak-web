@@ -1,0 +1,128 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Comparar terrenos</title><meta name="description" content="Comparador privado de terrenos con pesos y calificaciones que se guardan solo en el dispositivo, lista de revisión antes de comprar y formas legales para el proyecto.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · diseñar</p><h1>Comparar terrenos</h1>
+<p class="lede">Una herramienta para decidir entre los terrenos con criterios claros, la lista de papeles que hay que revisar y las formas legales posibles. Lo que escribas se queda en tu dispositivo.</p><nav class="nav"><a href="#comparador">🗺️ Comparador</a><a href="#antes">✅ Antes de comprometerse</a><a href="#legal">⚖️ Formas legales</a></nav></header>
+<style>.cmp td,.cmp th{vertical-align:top}.cmp input,.cmp select,.cmp textarea{font:inherit;padding:4px 6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-sizing:border-box}
+.cmp .sc{width:58px}.cmp .wt{width:52px}.cmp .nm{width:130px;font-weight:700}.cmp textarea{width:130px;min-height:54px}.cmp small{color:var(--muted)}.cmp .x{border:0;background:none;color:var(--accent);cursor:pointer;font-size:13px}
+.rank{display:flex;flex-direction:column;gap:8px;margin-top:12px}.rk{display:grid;grid-template-columns:140px 1fr 56px;gap:8px;align-items:center;font-family:var(--display);font-weight:700}.rk .bar{height:14px;background:color-mix(in srgb,var(--accent) 15%,transparent);border-radius:7px;overflow:hidden}.rk .bar i{display:block;height:100%;background:var(--accent)}
+.acts{display:flex;gap:8px;flex-wrap:wrap}.cks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px}.ck{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:8px 10px;cursor:pointer}.ck input{margin-top:3px;width:18px;height:18px;flex:none}</style><section id="comparador"><h2>🗺️ Comparador de terrenos</h2><div class="box">
+<p class="seg">🔒 Privado: lo que escribas aquí se guarda solo en este dispositivo y no se publica en el sitio. Para compartirlo con la familia, usa "Copiar para compartir" y pégalo en el chat; quien lo reciba lo carga con "Pegar".</p>
+<div class="acts"><button type="button" class="btn" id="add">+ Agregar terreno</button><button type="button" class="btn o" id="share">📋 Copiar para compartir</button><button type="button" class="btn o" id="load">📥 Pegar</button><button type="button" class="btn o" id="reset">↺ Borrar todo</button></div>
+<div class="tw" style="margin-top:12px"><table class="t cmp" id="cmp"></table></div>
+<p class="fx">Califica cada aspecto del 1 (malo) al 5 (excelente). El peso (1 a 3) dice qué tan importante es para ustedes; puedes cambiarlo. El puntaje es el promedio ponderado sobre 5. Escribe notas para recordar por qué calificaste así.</p>
+<div id="rank" class="rank"></div></div></section>
+<section id="antes"><h2>✅ Antes de comprometerse con un terreno</h2><div class="box"><p>Marca lo que ya tienes de cada terreno (se guarda en este dispositivo).</p><div class="cks"><label class="ck"><input type="checkbox" data-i="0"> Copia de la escritura y del plano con medidas y colindancias</label><label class="ck"><input type="checkbox" data-i="1"> Certificado de libertad de gravamen del Registro Público</label><label class="ck"><input type="checkbox" data-i="2"> Predial al corriente</label><label class="ck"><input type="checkbox" data-i="3"> Saber si es propiedad privada, ejidal o comunal (si es ejidal, revisar en el Registro Agrario Nacional: no se puede vender libremente sin dominio pleno)</label><label class="ck"><input type="checkbox" data-i="4"> Dictamen de uso de suelo del municipio</label><label class="ck"><input type="checkbox" data-i="5"> Confirmar si está dentro del área protegida (polígono oficial)</label><label class="ck"><input type="checkbox" data-i="6"> Linderos marcados y aceptados por los vecinos</label><label class="ck"><input type="checkbox" data-i="7"> Acceso por camino público o servidumbre de paso escriturada</label><label class="ck"><input type="checkbox" data-i="8"> Título o concesión del pozo, o al menos prueba de agua</label><label class="ck"><input type="checkbox" data-i="9"> Factibilidad de luz con CFE</label><label class="ck"><input type="checkbox" data-i="10"> Avalúo y comparación con terrenos parecidos</label><label class="ck"><input type="checkbox" data-i="11"> Revisión de un notario o abogado antes de firmar</label></div></div></section>
+<section id="legal"><h2>⚖️ Formas legales para el proyecto</h2><p class="fx">Información general para llevar preguntas claras al notario: no soy abogado y cada caso cambia. Es común combinar dos: por ejemplo, el terreno en comodato o copropiedad y una A.C. o cooperativa para los talleres.</p>
+<div class="grid2"><div class="mini" id="comodato"><h3>🤝 Comodato</h3><p>Préstamo gratuito de uso. Sirve cuando un familiar o amigo presta el terreno.</p><p class="k">Cuidado</p><p>Hazlo por escrito (mejor ante notario): plazo, qué se puede construir, qué pasa con lo construido al terminar, quién paga el predial.</p></div><div class="mini" id="renta"><h3>📄 Arrendamiento</h3><p>Renta del terreno por un plazo.</p><p class="k">Cuidado</p><p>Contrato largo (5–10 años o más) para que valga la pena invertir; derecho de preferencia si se vende.</p></div><div class="mini" id="copro"><h3>🏡 Copropiedad</h3><p>Varias personas son dueñas de partes del mismo terreno.</p><p class="k">Cuidado</p><p>Acuerdo escrito de uso y de qué pasa si alguien quiere vender o fallece. Es la forma más común de conflicto familiar.</p></div><div class="mini" id="ac"><h3>🌱 Asociación civil (A.C.)</h3><p>Organización sin fines de lucro: educación, medio ambiente, cultura.</p><p class="k">Cuidado</p><p>Puede recibir donativos y convocatorias; para dar recibos deducibles necesita autorización del SAT como donataria. No reparte ganancias.</p></div><div class="mini" id="coop"><h3>🧺 Sociedad cooperativa</h3><p>Empresa de sus socios, que deciden con un voto por persona.</p><p class="k">Cuidado</p><p>La ley pide al menos cinco socios. Buena para producir y vender juntos (talleres, alimentos, cerámica).</p></div><div class="mini" id="empresa"><h3>🏢 S.A.S. o sociedad civil</h3><p>Para la parte de negocio: talleres, venta de impresoras, ecoturismo.</p><p class="k">Cuidado</p><p>La S.A.S. se abre en línea y puede tener un solo socio; útil para facturar.</p></div></div></section>
+<section id="fuentes"><h2>📚 Fuentes</h2><div class="box"><ul>
+<li><a href="https://www.gob.mx/ran" target="_blank" rel="noopener">Registro Agrario Nacional (tierras ejidales y comunales)</a></li>
+<li><a href="https://www.diputados.gob.mx/LeyesBiblio/ref/lgsc.htm" target="_blank" rel="noopener">Ley General de Sociedades Cooperativas</a></li>
+<li><a href="https://www.gob.mx/tuempresa" target="_blank" rel="noopener">Tu Empresa: constitución de S.A.S. en línea</a></li>
+<li>Ver <a href="/bosque/organizacion/">Organización</a> (acuerdos con los principios de Ostrom) y <a href="/bosque/seguridad/">Seguridad</a> (riesgo de incendio).</li></ul></div></section>
+</div><script>const C=[{"k": "legal", "e": "⚖️", "n": "Papeles en regla", "d": "Escritura a nombre del dueño, sin gravámenes ni pleitos", "w": 3}, {"k": "costo", "e": "💰", "n": "Costo y forma de acceso", "d": "Comprar, rentar, comodato: ¿podemos pagarlo?", "w": 3}, {"k": "agua", "e": "💧", "n": "Agua", "d": "Pozo con concesión, arroyo, lluvia que se puede captar", "w": 3}, {"k": "luz", "e": "⚡", "n": "Luz", "d": "Red de CFE cerca o buen sol para paneles", "w": 2}, {"k": "acceso", "e": "🛣️", "n": "Acceso", "d": "Camino propio, transitable en lluvias, sin pasar por terrenos ajenos", "w": 2}, {"k": "anp", "e": "🌲", "n": "Área protegida", "d": "Fuera = más libertad para construir", "w": 2}, {"k": "fuego", "e": "🔥", "n": "Riesgo de incendio", "d": "5 = bajo riesgo", "w": 2}, {"k": "suelo", "e": "🌱", "n": "Suelo", "d": "Profundidad, textura, drenaje (prueba del frasco, croma)", "w": 2}, {"k": "tamano", "e": "📐", "n": "Tamaño y forma", "d": "Suficiente para casas, huerto, animales y talleres", "w": 2}, {"k": "vecinos", "e": "🏘️", "n": "Vecinos y comunidad", "d": "Relación, seguridad, posibilidad de colaborar", "w": 2}, {"k": "ciudad", "e": "🚗", "n": "Distancia a la ciudad", "d": "Tiempo a Guadalajara, escuelas, hospital", "w": 1}, {"k": "talleres", "e": "🎟️", "n": "Potencial para talleres", "d": "Que la gente pueda llegar, estacionarse y quedarse", "w": 2}, {"k": "ya", "e": "⏱️", "n": "Disponible ya", "d": "¿Se puede empezar este año?", "w": 2}];const K='terrenos-cmp-v1';
+const def=()=>({t:[{n:'Terreno 1',s:{},nota:''},{n:'Terreno 2',s:{},nota:''},{n:'Terreno 3',s:{},nota:''}],w:Object.fromEntries(C.map(c=>[c.k,c.w]))});
+let D;try{D=JSON.parse(localStorage.getItem(K))}catch(e){}if(!D||!D.t)D=def();
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(D))}catch(e){}};const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function score(t){let a=0,b=0;C.forEach(c=>{const v=+t.s[c.k];if(v){a+=v*D.w[c.k];b+=D.w[c.k]}});return b?a/b:0}
+function draw(){const tb=document.getElementById('cmp');let h='<tr><th>Aspecto</th><th>Peso</th>'+D.t.map((t,i)=>'<th><input class="nm" data-t="'+i+'" value="'+esc(t.n)+'" aria-label="Nombre del terreno">'+(D.t.length>1?'<br><button type="button" class="x" data-del="'+i+'">quitar</button>':'')+'</th>').join('')+'</tr>';
+C.forEach(c=>{h+='<tr><td><b>'+c.e+' '+esc(c.n)+'</b><br><small>'+esc(c.d)+'</small></td><td><select class="wt" data-w="'+c.k+'">'+[1,2,3].map(v=>'<option'+(D.w[c.k]==v?' selected':'')+'>'+v+'</option>').join('')+'</select></td>'+D.t.map((t,i)=>'<td><select class="sc" data-t="'+i+'" data-k="'+c.k+'"><option value="">–</option>'+[1,2,3,4,5].map(v=>'<option'+(t.s[c.k]==v?' selected':'')+'>'+v+'</option>').join('')+'</select></td>').join('')+'</tr>'});
+h+='<tr><td><b>📝 Notas</b></td><td></td>'+D.t.map((t,i)=>'<td><textarea data-nota="'+i+'" aria-label="Notas">'+esc(t.nota)+'</textarea></td>').join('')+'</tr>';
+h+='<tr><td><b>Puntaje</b></td><td></td>'+D.t.map(t=>'<td><b>'+score(t).toFixed(2)+'</b> / 5</td>').join('')+'</tr>';tb.innerHTML=h;rank()}
+function rank(){const r=D.t.map(t=>({n:t.n,s:score(t)})).sort((a,b)=>b.s-a.s);document.getElementById('rank').innerHTML=r.map(x=>'<div class="rk"><span>'+esc(x.n)+'</span><span class="bar"><i style="width:'+(x.s/5*100)+'%"></i></span><span>'+x.s.toFixed(2)+'</span></div>').join('')}
+document.getElementById('cmp').addEventListener('change',e=>{const el=e.target;if(el.dataset.w)D.w[el.dataset.w]=+el.value;else if(el.dataset.k)D.t[+el.dataset.t].s[el.dataset.k]=el.value?+el.value:'';save();draw()});
+document.getElementById('cmp').addEventListener('input',e=>{const el=e.target;if(el.classList.contains('nm')){D.t[+el.dataset.t].n=el.value;save();rank()}else if(el.dataset.nota!==undefined){D.t[+el.dataset.nota].nota=el.value;save()}});
+document.getElementById('cmp').addEventListener('click',e=>{const d=e.target.dataset.del;if(d!==undefined&&confirm('¿Quitar este terreno?')){D.t.splice(+d,1);save();draw()}});
+document.getElementById('add').onclick=()=>{D.t.push({n:'Terreno '+(D.t.length+1),s:{},nota:''});save();draw()};
+document.getElementById('reset').onclick=()=>{if(confirm('¿Borrar todas las calificaciones de este dispositivo?')){D=def();save();draw()}};
+document.getElementById('share').onclick=async()=>{const code='OASIS-TERRENOS:'+btoa(unescape(encodeURIComponent(JSON.stringify(D))));try{await navigator.clipboard.writeText(code);alert('Copiado. Pégalo en el chat de la familia.')}catch(e){prompt('Copia este texto:',code)}};
+document.getElementById('load').onclick=()=>{const c=prompt('Pega aquí el texto que te compartieron:');if(!c)return;try{const j=JSON.parse(decodeURIComponent(escape(atob(c.replace(/^OASIS-TERRENOS:/,'').trim()))));if(j&&j.t&&j.w){D=j;save();draw()}else throw 0}catch(e){alert('No se pudo leer el texto.')}};
+draw();
+const KC='terrenos-checklist';let S={};try{S=JSON.parse(localStorage.getItem(KC)||'{}')}catch(e){}
+document.querySelectorAll('.ck input').forEach(c=>{c.checked=!!S[c.dataset.i];c.addEventListener('change',()=>{S[c.dataset.i]=c.checked;try{localStorage.setItem(KC,JSON.stringify(S))}catch(e){}})});</script><script src="/bosque/buscar.js" defer></script></body></html>
