@@ -1,0 +1,112 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Radio y comunicación</title><meta name="description" content="Radios UV-K5 y la ley en México, frecuencias de uso libre, licencia de radioaficionado, repetidores, Meshtastic, reglas de radio, plan de canales y alfabeto fonético.">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/bosque_32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/bosque_180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: oficios por categoría — filtro de prioridad arriba, secciones por categoría con tarjetas compactas que se despliegan — cabecera, reglas, técnicas de tejido, y fichas por grupo (tejer, árboles, hongos, fauna), referencias al final */
+
+/* Layout: guía de bolsillo — cabecera breve, tres preguntas, estaciones de la casa como fichas, luego proyectos con cuidado (aluminio, jabón) y hábitos de resiliencia */
+:root{
+  --bg:#eef0ea; --surface:#f8f9f5; --ink:#1d2a22; --muted:#5b665e; --line:#d3d8cf;
+  --accent:#a8641c; --accent-soft:#f1e3cf; --warn:#a14b3c; --ok:#4e7d5b;
+  --s-org:#5c7a2c; --s-bio:#a8641c; --s-met:#6b7f95; --s-vid:#2f6f6a; --s-pap:#8c6a4a; --s-tex:#7a4f6d; --s-pla:#7d8a80; --s-pel:#a14b3c; --s-agu:#3f5f8a;
+  --display:"Archivo",system-ui,sans-serif; --body:"Literata",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16;--surface:#1b231e;--ink:#e3e8e1;--muted:#9aa69d;--line:#2e3a32;--accent:#e0a35a;--accent-soft:#3a2c1a;--warn:#e08a78;--ok:#7fb38c;
+  --s-org:#9cc066;--s-bio:#e0a35a;--s-met:#9fb2c8;--s-vid:#6fb7ae;--s-pap:#c9a27e;--s-tex:#c08ab0;--s-pla:#a3a89f;--s-pel:#e08a78;--s-agu:#86a7d6;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;font-stretch:72%;line-height:1}
+h2{font-size:24px;font-weight:700;font-stretch:80%;display:flex;gap:10px;align-items:center}
+h3{font-size:18px;font-weight:700;font-stretch:86%}
+p{margin:0;max-width:70ch} a{color:var(--accent)}
+.eyebrow{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--muted);font-size:17px} .back{font-family:var(--display);font-size:13px;font-weight:600}
+header,section{display:flex;flex-direction:column;gap:14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px} .nav a{font-family:var(--display);font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sp{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sp .head{display:flex;gap:12px;align-items:center} .sp .emo{font-size:34px;line-height:1}
+.sci{font-size:13.5px;color:var(--muted)}
+.sp dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14.5px}
+.sp dt{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px} .sp dd{margin:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);padding:16px 20px}
+.rules ul,.tech ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tech>div{border-top:3px solid var(--accent);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.how{font-family:var(--display);font-weight:700;font-size:13.5px;margin-top:auto}
+.refs{padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:5px;margin:0}
+@media (max-width:420px){.sp dl{grid-template-columns:1fr}}
+.of{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.of .th{display:flex;gap:14px;align-items:flex-start}.of .th .emo{font-size:44px;line-height:1}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.g3 h3{font-size:15px;margin-bottom:6px}.g3 ul,.g3 ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.kit{list-style:none;padding-left:0!important}.kit label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.kit input{margin-top:5px}
+.kit .pri{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-left:4px}
+.seg{border-left:4px solid var(--warn);padding-left:12px;font-size:14.5px}
+.learn{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.vbtn{font-family:var(--display);font-weight:700;font-size:13.5px;text-decoration:none;background:#c4302b;color:#fff;border-radius:6px;padding:7px 12px}
+.who{font-family:var(--display);font-size:13px;color:var(--muted)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.cat h2{display:flex;gap:10px;align-items:center}.cnt{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.ofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px}
+.of{padding:16px 18px;gap:8px}.of .th .emo{font-size:36px}.ot{font-size:18px}
+.prio{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.p1{color:var(--accent)}.p2{color:#5c7a2c}.p3{color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--accent);padding:4px 0}
+details[open] summary{margin-bottom:10px}.g3 h4{font-family:var(--display);font-size:13.5px;margin:0 0 6px}
+.filt{display:flex;flex-wrap:wrap;gap:8px}.filt button{font-family:var(--display);font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filt button[aria-pressed="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.cat.empty{display:none}
+
+.orig{font-family:var(--display);font-size:13px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tg{font-family:var(--display);font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}.mini h3{font-size:16px;margin:0 0 4px}.mini p{font-size:15px;margin:4px 0 0}
+.mini .k{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ev{font-size:14.5px;border-left:4px solid #5a7fb0;padding:6px 10px;background:color-mix(in srgb,#5a7fb0 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+.anc{font-size:14.5px;border-left:4px solid var(--accent);padding:6px 10px;background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:0 8px 8px 0;margin-top:8px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.t th{font-family:var(--display);font-size:13px}
+.tw{overflow-x:auto}
+.calc{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:12px}
+.cin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.cin label{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.cin input,.cin select{width:90px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.cout{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.cout div{border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.cout b{display:block;font-family:var(--display);font-size:20px}.cout small{color:var(--muted)}
+.fx{font-size:13.5px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--accent)}
+.st{font-family:var(--display);font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 8px}.st.ok{background:color-mix(in srgb,#4f7a3a 18%,transparent);color:#4f7a3a}.st.pe{background:color-mix(in srgb,#b07a1e 18%,transparent);color:#b07a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#9cc98a}:root:not([data-theme="light"]) .st.pe{color:#e2b45f}}
+</style></head><body><div class="wrap">
+<header><a class="back" href="/bosque/biblioteca/">← Biblioteca del Oasis</a><p class="eyebrow">Oasis Consciente · convivir</p><h1>Radio y comunicación</h1>
+<p class="lede">Cómo comunicarnos en el terreno sin señal de celular: qué radios se pueden usar legalmente, cómo llegar más lejos y las reglas para hablar claro, sobre todo en una emergencia.</p><nav class="nav"><a href="#radios">📻 Radios y ley</a><a href="#alcance">⛰️ Alcance</a><a href="#reglas">📋 Reglas</a><a href="#fonetico">🔤 Fonético</a></nav></header>
+<style>.fon{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}.fon span{border:1px solid var(--line);padding:6px 10px;font-family:var(--display)}.fon b{color:var(--accent);margin-right:6px}</style><section id="radios"><h2>📻 Tus radios y la ley</h2><div class="box">
+<p>Los radios tipo UV-K5 (como el K5 Plus) son de doble banda (VHF y UHF), de unos 5 W, y pueden recibir y transmitir en muchas frecuencias. Que puedan no quiere decir que se permita: en México, transmitir en una frecuencia sin autorización puede causar interferencias a servicios de emergencia o aviación y está sancionado.</p>
+<p class="seg">⚠️ Cómo usar los tuyos legalmente: como <b>radioaficionado con licencia</b> en las bandas de 2 m y 70 cm, o solo para <b>escuchar</b>. Las frecuencias de uso libre (FRS) piden radios homologados de 0.5 W con antena fija, y el K5 no cumple esas condiciones. En una emergencia real, cualquier persona puede usar el radio para pedir ayuda.</p></div>
+<div class="grid2" style="margin-top:12px"><div class="mini" id="frs"><h3>📻 Radios de uso libre (FRS)</h3><p>Los únicos que se pueden usar en México sin licencia: 14 canales en 462 y 467 MHz, máximo 0.5 W, con antena fija, sin repetidores, alcance de hasta 2 km. Deben estar homologados.</p><p class="k">Para el Oasis</p><p>Para visitantes, talleres y el uso diario del equipo. Unos radios de esta banda, sencillos, se reparten al llegar.</p></div><div class="mini" id="ham"><h3>🎙️ Radioaficionados (con licencia)</h3><p>Con licencia de radioaficionado se puede usar el radio a toda su potencia en las bandas de radioaficionado de 2 m (144–148 MHz) y 70 cm (UHF), conectar repetidores y hablar con toda la región. La licencia se tramita con la Comisión Reguladora de Telecomunicaciones (antes IFT) y se prepara con un club de la Federación Mexicana de Radioexperimentadores.</p><p class="k">Para el Oasis</p><p>Para el equipo responsable: que al menos dos personas saquen la licencia. Es la forma legal de usar tus radios.</p></div><div class="mini" id="mesh"><h3>📡 Meshtastic (mensajes por LoRa)</h3><p>Pequeños radios LoRa conectados al celular por Bluetooth: mandan textos y ubicación GPS de radio en radio, hasta varios kilómetros, sin internet ni licencia, en la banda libre de 902–928 MHz. Cada radio repite los mensajes de los demás y forma una red.</p><p class="k">Para el Oasis</p><p>Muy bueno para el terreno: un nodo en lo alto con panel solar cubre todo y cuesta poco.</p></div></div></section>
+<section id="alcance"><h2>⛰️ Alcance, antenas y repetidores</h2><div class="box"><svg viewBox="0 0 600 260" role="img" style="display:block;width:100%;max-width:700px;height:auto;margin:0 auto"><path d="M0 230 Q80 200 150 215 Q220 225 300 120 Q340 70 380 120 Q450 210 520 205 Q570 200 600 215 L600 260 L0 260Z" fill="#7d6a4a" opacity=".35"/><path d="M210 205 Q240 150 270 205Z" fill="#5c7a2c" opacity=".55"/><text x="240" y="198" text-anchor="middle" font-size="10.5" font-family="Archivo,sans-serif" font-weight="600" fill="var(--muted)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">cerro o árboles</text><rect x="56" y="196" width="10" height="22" rx="2" fill="var(--ink)"/><line x1="61" y1="196" x2="61" y2="184" stroke="var(--ink)" stroke-width="2"/><text x="61" y="250" text-anchor="middle" font-size="12" font-family="Archivo,sans-serif" font-weight="800" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">tú</text><rect x="506" y="182" width="10" height="22" rx="2" fill="var(--ink)"/><line x1="511" y1="182" x2="511" y2="170" stroke="var(--ink)" stroke-width="2"/><text x="511" y="250" text-anchor="middle" font-size="12" font-family="Archivo,sans-serif" font-weight="800" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">compañero</text><line x1="66" y1="190" x2="505" y2="178" stroke="#d0502a" stroke-width="2" stroke-dasharray="6 5"/><text x="300" y="175" text-anchor="middle" font-size="11.5" font-family="Archivo,sans-serif" font-weight="700" fill="#d0502a" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">✕ directo: el cerro bloquea</text><rect x="334" y="55" width="12" height="22" fill="#2f5d8a"/><line x1="340" y1="55" x2="340" y2="30" stroke="#2f5d8a" stroke-width="3"/><text x="340" y="22" text-anchor="middle" font-size="12" font-family="Archivo,sans-serif" font-weight="800" fill="#2f5d8a" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">repetidor en lo alto</text><path d="M66 186 L334 66" stroke="#2f5d8a" stroke-width="2.5"/><path d="M346 66 L506 174" stroke="#2f5d8a" stroke-width="2.5"/><text x="170" y="110" text-anchor="middle" font-size="11.5" font-family="Archivo,sans-serif" font-weight="700" fill="#2f5d8a" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">✓ por el repetidor</text></svg>
+<p>Las bandas VHF y UHF viajan casi en línea recta: el cerro, los árboles y las paredes de tierra se comen la señal. En el bosque, de radio a radio se logra de 1 a 3 km; desde un punto alto con buena vista, decenas de kilómetros.</p>
+<ul><li><b>Antena:</b> la que viene es corta; una antena más larga y de calidad mejora mucho. Para una base fija, antena exterior en un mástil alto.</li><li><b>Repetidor:</b> una estación en lo alto recibe en una frecuencia y retransmite en otra, saltando el cerro. Usar los repetidores de radioaficionados de la región o instalar uno propio requiere licencia.</li><li><b>Altura:</b> subir la antena unos metros vale más que subir la potencia.</li></ul>
+<div class="calc"><h3>🧮 ¿Hasta dónde llega en línea de vista?</h3><div class="cin"><label>Altura de tu antena (m)<input id="h1" type="number" value="1.5" min="0" step="0.5"></label><label>Altura de la otra antena (m)<input id="h2" type="number" value="1.5" min="0" step="0.5"></label><label>Capacidad de la batería (mAh)<input id="bC" type="number" value="1600" min="100" step="100"></label><label>Consumo promedio (mA)<input id="bM" type="number" value="150" min="10" step="10"></label></div>
+<div class="cout"><div><b id="oR">–</b><small>horizonte de radio sin obstáculos</small></div><div><b id="oB">–</b><small>horas de batería</small></div></div>
+<p class="fx">Horizonte de radio ≈ 4.12 × (√h1 + √h2) km. Es el máximo teórico sobre terreno plano: cerros y árboles lo reducen mucho. El consumo promedio mezcla escuchar (≈ 50–80 mA) y transmitir (≈ 1–1.5 A): si hablas poco, dura más.</p></div></div></section>
+<section id="reglas"><h2>📋 Reglas de radio del Oasis</h2><div class="box"><ol><li>Escucha antes de hablar: si alguien está hablando, espera.</li><li>Aprieta el botón, espera un segundo y luego habla: el primer medio segundo se corta.</li><li>Di a quién llamas y quién eres: «Cocina, aquí Taller».</li><li>Frases cortas, voz normal, el radio a unos 5 cm de la boca.</li><li>Al terminar tu turno di «cambio»; al terminar la conversación, «fuera».</li><li>Para deletrear nombres o datos usa el alfabeto fonético.</li><li>Nada de datos privados: cualquiera puede escuchar.</li><li>Emergencia: di tres veces «emergencia», quién eres, dónde estás y qué pasa. Todos los demás callan y dejan el canal libre.</li><li>Prueba de radio a la misma hora todos los días: «Aquí Taller, prueba de radio, ¿me copian?».</li><li>Cargar las baterías cada noche y llevar una de repuesto al monte.</li></ol>
+<h3>Vocabulario</h3><div class="grid2"><div class="mini"><h3>Copiado / Enterado</h3><p>Te entendí.</p></div><div class="mini"><h3>Repite</h3><p>No te entendí, dilo otra vez.</p></div><div class="mini"><h3>Afirmativo / Negativo</h3><p>Sí / No.</p></div><div class="mini"><h3>Cambio</h3><p>Terminé, te toca.</p></div><div class="mini"><h3>Fuera</h3><p>Terminó la conversación.</p></div><div class="mini"><h3>En espera</h3><p>Dame un momento.</p></div><div class="mini"><h3>Cuál es tu ubicación</h3><p>Dónde estás.</p></div></div>
+<h3>Plan de canales (ejemplo)</h3><div class="tw"><table class="t"><tr><th>Canal</th><th>Uso</th></tr><tr><td>1</td><td>General: todo el equipo</td></tr><tr><td>2</td><td>Taller y obra</td></tr><tr><td>3</td><td>Cocina y huerto</td></tr><tr><td>4</td><td>Eventos y visitantes</td></tr><tr><td>Canal de emergencia</td><td>Solo emergencias; siempre en escucha</td></tr></table></div><p class="fx">Asigna las frecuencias según lo que el equipo pueda usar legalmente y escríbelas en una tarjeta pegada a cada radio.</p></div></section>
+<section id="fonetico"><h2>🔤 Alfabeto fonético</h2><div class="box"><div class="fon"><span><b>A</b> Alfa</span><span><b>B</b> Bravo</span><span><b>C</b> Charlie</span><span><b>D</b> Delta</span><span><b>E</b> Eco</span><span><b>F</b> Foxtrot</span><span><b>G</b> Golf</span><span><b>H</b> Hotel</span><span><b>I</b> India</span><span><b>J</b> Juliet</span><span><b>K</b> Kilo</span><span><b>L</b> Lima</span><span><b>M</b> Mike</span><span><b>N</b> November</span><span><b>O</b> Oscar</span><span><b>P</b> Papa</span><span><b>Q</b> Quebec</span><span><b>R</b> Romeo</span><span><b>S</b> Sierra</span><span><b>T</b> Tango</span><span><b>U</b> Uniform</span><span><b>V</b> Victor</span><span><b>W</b> Whiskey</span><span><b>X</b> X-ray</span><span><b>Y</b> Yankee</span><span><b>Z</b> Zulu</span></div></div></section>
+<section id="fuentes"><h2>📚 Fuentes</h2><div class="box"><ul>
+<li><a href="https://www.ift.org.mx/sites/default/files/contenidogeneral/espectro-radioelectrico/inventariodebandasdefrecuenciasclasificadascomoespectrolibre-mayo2025.pdf" target="_blank" rel="noopener">IFT: inventario de bandas de espectro libre (mayo 2025)</a></li>
+<li><a href="https://ondaterrestre.com/frecuenciaslibres/mexico/" target="_blank" rel="noopener">Onda Terrestre: frecuencias de uso libre en México (CRT, antes IFT)</a></li>
+<li><a href="https://www.qsl.net/xe1pm/LIGAS.html" target="_blank" rel="noopener">Federación Mexicana de Radioexperimentadores (FMRE)</a> · <a href="https://www.qsl.net/xe1rm" target="_blank" rel="noopener">Club de Radioaficionados de Jalisco</a></li>
+<li><a href="https://meshtastic.org/" target="_blank" rel="noopener">Meshtastic: red de mensajes por LoRa</a></li>
+<li>Ver también <a href="/bosque/seguridad/">Seguridad</a> y <a href="/bosque/agua-energia/#starlink">Starlink</a>.</li></ul></div></section>
+</div><script>const $=i=>document.getElementById(i);function r(){const a=+$('h1').value,b=+$('h2').value;$('oR').textContent=(4.12*(Math.sqrt(a)+Math.sqrt(b))).toFixed(1)+' km';$('oB').textContent=(+$('bC').value/ +$('bM').value).toFixed(1)+' h'}['h1','h2','bC','bM'].forEach(i=>$(i).addEventListener('input',r));r();</script><script src="/bosque/buscar.js" defer></script></body></html>
