@@ -156,7 +156,7 @@
       '<p class="menu-titulo">Ir a</p><ul class="menu-lista">' +
       '<li><a class="menu-item" href="' + esc(homeHref) + '">' + mi('casa') + 'Inicio</a></li>' +
       '<li><a class="menu-item" href="landing.html">' + mi('calendario') + 'Próximos eventos</a></li>' +
-      '<li><a class="menu-item" href="taller.html">' + mi('chispa') + 'Taller · Materia y Ser</a></li>' +
+      '<li><a class="menu-item" href="taller.html">' + mi('chispa') + 'Actividades</a></li>' +
       '<li><a class="menu-item" href="heyocat.html">' + mi('estrella') + 'Heyokat · Oráculo <small style="opacity:.6">(piloto)</small></a></li>' +
       '<li><a class="menu-item" id="menu-contacto" href="' + esc(homeHref) + '#contacto">' + mi('correo') + 'Contacto</a></li>' +
       '<li><a class="menu-item" id="menu-wa" href="#" target="_blank" rel="noopener">' + mi('chat') + 'WhatsApp</a></li>' +
