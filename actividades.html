@@ -42,6 +42,7 @@
   .app .clase{ opacity:1; cursor:pointer; border-style:solid; background:rgba(255,255,255,.85); }
   .app .clase.t{ border-width:2px; }
   .app .clase .cand{ opacity:.55; }
+  .app .clase{ padding:18px 6px 16px; } .app .clase b{ font-size:28px; }
   .app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:10px; }
   .modal{ position:fixed; inset:0; background:rgba(36,31,24,.55); display:flex; align-items:flex-end; justify-content:center; padding:16px; z-index:60; }
   .modal-caja{ width:100%; max-width:480px; background:#fff; border-radius:26px; padding:22px 20px 22px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
@@ -102,7 +103,7 @@
   var ACT = {};  // id -> { nombre, hash, url }
   ACT['g0'] = { nombre: 'Materia y ser', hash: '1dy0hpoubsn', url: 'taller.html' };
 
-  var GENERALES = [ { id: 'g0', n: '0', cap: 'Materia y ser' }, { id: 'g1', n: '1', cap: 'Por definir' }, { id: 'g2', n: '2', cap: 'Por definir' } ];
+  var GENERALES = [ { id: 'g0', n: '0' }, { id: 'g1', n: '1' }, { id: 'g2', n: '2' } ];
   var TOPICOS = [
     { id: 't1', n: 'Impresión 3D', c: '#c0a2ec' },
     { id: 't2', n: 'Diseño en Realidad Virtual', c: '#9fcbec' },
@@ -130,18 +131,18 @@
 
   function tile(cont, id, num, cap, etiqueta, titulo, clase) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'clase ' + (clase || '');
-    b.innerHTML = '<span class="cand">🔑</span><b></b><span></span>'; b.querySelector('b').textContent = num; b.lastChild.textContent = cap;
+    b.innerHTML = '<span class="cand">🔑</span><b></b>'; b.querySelector('b').textContent = num; b.setAttribute('aria-label', etiqueta + ', actividad ' + num);
     b.onclick = function () { abrirModal(id, etiqueta, titulo); };
     cont.appendChild(b);
   }
-  GENERALES.forEach(function (g) { tile($('generales'), g.id, g.n, g.cap, 'Actividad general ' + g.n, g.id === 'g0' ? 'Materia y ser' : 'Actividad general ' + g.n, 't'); });
+  GENERALES.forEach(function (g) { tile($('generales'), g.id, g.n, '', 'Actividades generales', 'Actividad ' + g.n, 't'); });
   var cont = $('topicos');
   TOPICOS.forEach(function (tp) {
     var card = document.createElement('div'); card.className = 'card';
     var h = document.createElement('div'); h.className = 'top-head';
     var dot = document.createElement('i'); dot.style.background = tp.c; var h2 = document.createElement('h2'); h2.textContent = tp.n; h.appendChild(dot); h.appendChild(h2); card.appendChild(h);
     var g = document.createElement('div'); g.className = 'clases';
-    for (var i = 1; i <= 6; i++) tile(g, tp.id + 'c' + i, i, 'Clase', tp.n, 'Clase ' + i);
+    for (var i = 1; i <= 6; i++) tile(g, tp.id + 'c' + i, i, '', tp.n, 'Actividad ' + i);
     card.appendChild(g); cont.appendChild(card);
   });
 
