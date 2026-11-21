@@ -754,17 +754,17 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
   };
 
   // ---------- Clave de entrada (es un filtro para la clase, no seguridad real) ----------
-  var CLAVE_HASH = '11q0hoievpa';  // clave: ver mensaje de Claude; para cambiarla pide un nuevo hash
+  var CLAVE_HASH = '1dy0hpoubsn';  // hash de la clave de esta actividad
   function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
   function cyrb53(str) { var h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (var i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); }
-  function abrir() { document.getElementById('gate').hidden = true; document.getElementById('actividad').hidden = false; try { sessionStorage.setItem('tk-taller-ok', '1'); } catch (e) {} window.scrollTo(0, 0); }
+  function abrir() { document.getElementById('gate').hidden = true; document.getElementById('actividad').hidden = false; try { sessionStorage.setItem('tk-act-g0', '1'); } catch (e) {} window.scrollTo(0, 0); }
   function probar() {
     var ok = cyrb53(norm(document.getElementById('clave').value)) === CLAVE_HASH;
     document.getElementById('gate-error').hidden = ok; if (ok) abrir();
   }
   document.getElementById('entrar').onclick = probar;
   document.getElementById('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') probar(); });
-  try { if (sessionStorage.getItem('tk-taller-ok') === '1') abrir(); } catch (e) {}
+  try { if (sessionStorage.getItem('tk-act-g0') === '1') abrir(); } catch (e) {}
 
   // Barra superior, botones de Instagram/WhatsApp y Shishi, igual que el resto del sitio
   fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
