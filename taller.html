@@ -73,6 +73,18 @@
   .ficha .pie{ margin-top:20px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.55; }
   .evento{ background:var(--amarillo); border-radius:20px; padding:16px 18px; margin-top:20px; }
   .evento p{ margin:0 0 6px; font-size:15px; } .evento .btn{ margin-top:12px; }
+  .marcador{ display:flex; justify-content:space-between; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin:14px 0 8px; }
+  .carta{ min-height:150px; display:flex; align-items:center; justify-content:center; text-align:center; font-family:Georgia,serif; font-size:24px; line-height:1.2; padding:22px 18px; border-radius:22px; background:linear-gradient(160deg,#f6ecff,#e3f3ff); border:1.5px solid rgba(36,31,24,.12); }
+  .carta.sale{ animation:sale .35s ease; } @keyframes sale{ from{ opacity:0; transform:translateX(30px) rotate(2deg);} to{ opacity:1; transform:none; } }
+  .trio{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
+  .trio button{ border:1.5px solid rgba(36,31,24,.25); background:#fff; border-radius:16px; padding:14px 4px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; color:var(--ink); }
+  .trio.off button{ pointer-events:none; opacity:.4; } .trio button.el{ background:var(--ink); color:#fff; opacity:1; }
+  .reveal{ margin-top:12px; padding:14px 16px; border-radius:16px; font-size:15px; line-height:1.4; background:#fff; border-left:5px solid var(--mor); }
+  .reveal.ok{ border-color:#1fa855; } .reveal.no{ border-color:#d9534f; }
+  .resumen{ font-family:Georgia,serif; font-size:21px; line-height:1.25; margin-top:14px; }
+  .fila{ display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; font-size:14px; font-weight:600; margin:6px 0; }
+  #semilla-ayuda{ margin-bottom:8px; }
+  [hidden]{ display:none !important; }
   @media (prefers-reduced-motion:reduce){ .paso{ animation:none; } .aro .prog.corre{ animation-duration:.01s; } }
 </style>
 </head>
@@ -90,7 +102,7 @@
       <span class="tag">IBERO Puebla · Biomateriales</span>
       <h1>Antes de imprimir, <em>¿quién imprime?</em></h1>
       <p>Esta clase no empieza con la máquina. Empieza contigo y con la materia que trajiste, que nadie más trajo igual.</p>
-      <p class="suave">Son 4 paradas de unos 10 minutos. No hay respuestas correctas: la ciencia aquí es <b>patafísica</b>, el estudio de las soluciones imaginarias y de las excepciones. Lo que escribas se queda en tu teléfono, tú decides si lo compartes.</p>
+      <p class="suave">Son 5 paradas. La última es la más importante: los <b>hábitos</b>, porque la evolución de una persona y de una cultura se construye con lo que repite cada día. No hay respuestas correctas: la ciencia aquí es <b>patafísica</b>, el estudio de las soluciones imaginarias y de las excepciones. Lo que escribas se queda en tu teléfono, tú decides si lo compartes.</p>
       <label for="nombre">¿Cómo te llamas (o cómo quieres que te llame la materia)?</label>
       <input type="text" id="nombre" maxlength="40" autocomplete="off" placeholder="Tu nombre o apodo">
       <button class="btn" data-sig>Entrar</button>
@@ -165,12 +177,44 @@
       <textarea id="voz" maxlength="220"></textarea>
       <label>Pacto: al imprimirla me comprometo a…</label>
       <div class="chips" id="pacto"></div>
-      <button class="btn" data-sig>Ver mi ficha</button>
+      <button class="btn" data-sig>Último paso: hábitos</button>
       <button class="atras" data-atras>Atrás</button>
     </section>
 
-    <!-- 5 · Ficha -->
+    <!-- 5 · Hábitos -->
     <section class="paso" data-paso="5">
+      <span class="tag">Parada 5 · Hábitos</span>
+      <h2>La cultura es <em>lo que repites</em></h2>
+      <p>Una cultura biomaterial regenerativa empieza en un hábito diario, y tu salud entera (cuerpo, mente, emoción, vínculos, territorio y espíritu) es parte de ese mismo sistema.</p>
+      <div id="juego">
+        <div class="marcador"><span id="jn">1 / 8</span><span id="jp">0 aciertos</span></div>
+        <div class="carta" id="carta"></div>
+        <div class="trio" id="trio">
+          <button type="button" data-r="regenera">🌱 Regenera</button>
+          <button type="button" data-r="depende">⚖️ Depende</button>
+          <button type="button" data-r="extrae">🕳️ Extrae</button>
+        </div>
+        <div class="reveal" id="reveal" hidden></div>
+        <button class="btn sec" id="jsig" hidden>Siguiente carta</button>
+      </div>
+      <div id="post" hidden>
+        <p class="resumen" id="resumen"></p>
+        <label>Tu rueda de salud holística <small>Del 0 al 10: ¿qué tan sostenido está hoy tu hábito de cuidar cada zona?</small></label>
+        <canvas id="radar" width="640" height="560" style="width:100%;height:auto"></canvas>
+        <div id="sliders"></div>
+        <label for="extractivo">Tu hábito más extractivo <small>El que sabes que te gasta a ti o al planeta</small></label>
+        <input type="text" id="extractivo" maxlength="80">
+        <label>Tu hábito semilla <small>Tan pequeño que no puedas fallar: dura 2 minutos y se pega a algo que ya haces.</small></label>
+        <div id="semilla-ayuda" class="suave"></div>
+        <input type="text" id="ancla" maxlength="70" placeholder="Después de… (ej. lavarme los dientes)">
+        <input type="text" id="semilla" maxlength="80" placeholder="voy a… (ej. separar mis cáscaras)" style="margin-top:8px">
+        <button class="btn" data-sig>Ver mi ficha</button>
+      </div>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 6 · Ficha -->
+    <section class="paso" data-paso="6">
       <span class="tag">Tu ficha</span>
       <h2>Esto salió de <em>ti y de tu materia</em></h2>
       <div class="ficha" id="ficha"></div>
@@ -225,7 +269,7 @@
   ];
 
   var K = 'tk-taller-ibero';
-  var S = { paso:0, nombre:'', carrera:'', pct:50, nocabe:'', c1:'', c2:'', c3:'', mat:'', otro:'', origen:[], vida:'', olor:[], tacto:[], voz:'', pacto:[] };
+  var S = { paso:0, nombre:'', carrera:'', pct:50, nocabe:'', c1:'', c2:'', c3:'', mat:'', otro:'', origen:[], vida:'', olor:[], tacto:[], voz:'', pacto:[], hab:[], rueda:[5,5,5,5,5,5], extractivo:'', ancla:'', semilla:'' };
   try { var g = JSON.parse(localStorage.getItem(K) || 'null'); if (g) S = Object.assign(S, g); } catch (e) {}
   function guardar() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
 
@@ -239,15 +283,16 @@
     pasos.forEach(function (p, i) { p.classList.toggle('on', i === n); });
     Array.prototype.forEach.call(puntos.children, function (d, i) { d.className = i === n ? 'on' : (i < n ? 'hecho' : ''); });
     if (n === 4) { var m = materia(); $('aliadaNombre').textContent = m ? m.n.toLowerCase() : 'tu materia'; }
-    if (n === 5) ficha();
+    if (n === 5) iniciarHabitos();
+    if (n === 6) ficha();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function leer() {
-    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz'].forEach(function (k) { S[k] = $(k).value.trim(); });
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla'].forEach(function (k) { S[k] = $(k).value.trim(); });
     S.pct = +$('pct').value;
   }
   function volcar() {
-    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz'].forEach(function (k) { $(k).value = S[k] || ''; });
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla'].forEach(function (k) { $(k).value = S[k] || ''; });
     $('pct').value = S.pct; $('pctv').textContent = S.pct;
   }
   $('pct').addEventListener('input', function () { $('pctv').textContent = this.value; });
@@ -281,6 +326,8 @@
   var REQ = { 0:['nombre'], 1:['carrera'], 2:['c1'], 3:[] };
   function puede(n) {
     leer();
+    if (n === 5 && S.hab.length < CARTAS.length) return 'Termina las 8 cartas para ver tu rueda.';
+    if (n === 5 && !S.semilla) return 'Escribe tu hábito semilla, aunque sea pequeñito.';
     if (n === 3 && !S.mat) return 'Elige tu materia para seguir.';
     if (REQ[n]) for (var i = 0; i < REQ[n].length; i++) if (!S[REQ[n][i]]) return 'Escribe algo para seguir. Puede ser breve.';
     return '';
@@ -307,6 +354,81 @@
     }, 1000);
   };
 
+  // Parada 5 · Hábitos
+  var CARTAS = [
+    { t:'Comprar café en vaso desechable cada mañana', r:'extrae', x:'Un hábito de 2 minutos se repite cientos de veces al año. Multiplica un vaso por cada persona de tu ciudad.' },
+    { t:'Llevar tu termo y darle los posos a una planta', r:'regenera', x:'El residuo de uno se vuelve alimento de otro. Así funciona un bosque.' },
+    { t:'Dormir de 7 a 8 horas', r:'regenera', x:'Descansar no es perder tiempo: es regenerar el sistema que toma todas tus demás decisiones.' },
+    { t:'Hacer scroll en la cama hasta la 1 am', r:'extrae', x:'Extrae tu atención, que es tu recurso más escaso, y la entrega a quien la vende.' },
+    { t:'Separar tus residuos orgánicos', r:'regenera', x:'Sin este hábito no existiría ninguna biofabricación: toda tu materia prima empieza ahí.' },
+    { t:'Comer rápido frente a una pantalla', r:'extrae', x:'Tu cuerpo es la primera materia con la que tienes relación. Si no la sientes, tampoco sentirás otras.' },
+    { t:'Imprimir prototipos y tirar los fallidos a la basura', r:'depende', x:'Extrae si se tiran. Regenera si los trituras y vuelven a la mezcla. El mismo acto, dos culturas.' },
+    { t:'Decir que sí a todo y no parar', r:'depende', x:'Si te vacía, extrae. Si es una temporada elegida con sentido, puede regenerar. La clave es que descanses después.' }
+  ];
+  var ZONAS = ['Cuerpo','Mente','Emoción','Vínculos','Territorio','Espíritu'];
+  var AYUDA = {
+    'Cuerpo':'tomar un vaso de agua y estirar 2 minutos', 'Mente':'escribir 3 líneas sin editar',
+    'Emoción':'nombrar lo que siento en una palabra', 'Vínculos':'mandar un mensaje de agradecimiento',
+    'Territorio':'guardar mis cáscaras en un frasco', 'Espíritu':'respirar 10 veces con los ojos cerrados'
+  };
+  var ci = 0, bloqueada = false;
+  function pts() { return S.hab.filter(function (h, i) { return h === CARTAS[i].r; }).length; }
+  function mostrarCarta() {
+    var c = CARTAS[ci];
+    $('jn').textContent = (ci + 1) + ' / ' + CARTAS.length; $('jp').textContent = pts() + ' aciertos';
+    var el = $('carta'); el.textContent = c.t; el.classList.remove('sale'); void el.offsetWidth; el.classList.add('sale');
+    $('trio').classList.remove('off'); Array.prototype.forEach.call($('trio').children, function (b) { b.classList.remove('el'); });
+    $('reveal').hidden = true; $('jsig').hidden = true; bloqueada = false;
+  }
+  function iniciarHabitos() {
+    var hecho = S.hab.length >= CARTAS.length;
+    $('juego').hidden = hecho; $('post').hidden = !hecho;
+    if (hecho) { postJuego(); return; }
+    ci = Math.min(S.hab.length, CARTAS.length - 1); mostrarCarta();
+  }
+  Array.prototype.forEach.call($('trio').children, function (b) {
+    b.onclick = function () {
+      if (bloqueada) return; bloqueada = true;
+      var c = CARTAS[ci], r = b.getAttribute('data-r'), ok = r === c.r;
+      S.hab[ci] = r; guardar(); $('trio').classList.add('off'); b.classList.add('el');
+      var rv = $('reveal'); rv.hidden = false; rv.className = 'reveal ' + (ok ? 'ok' : 'no');
+      rv.textContent = (ok ? 'Coincidimos. ' : 'Yo lo veo distinto: para mí ' + (c.r === 'depende' ? 'depende.' : c.r === 'regenera' ? 'regenera.' : 'extrae.') + ' ') + c.x;
+      $('jp').textContent = pts() + ' aciertos';
+      var jb = $('jsig'); jb.hidden = false; jb.textContent = ci + 1 >= CARTAS.length ? 'Ver mi resultado' : 'Siguiente carta';
+    };
+  });
+  $('jsig').onclick = function () { if (ci + 1 >= CARTAS.length) { $('juego').hidden = true; $('post').hidden = false; postJuego(); } else { ci++; mostrarCarta(); } };
+  function postJuego() {
+    var n = pts();
+    $('resumen').textContent = n >= 6 ? 'Ya ves los hábitos como una fuerza cultural: ' + n + ' de 8.' : n >= 3 ? n + ' de 8. Lo que te sorprendió es justo lo que no veías como hábito.' : n + ' de 8. Tu mirada es otra, y esa diferencia vale para discutirla en clase.';
+    var cont = $('sliders'); cont.innerHTML = '';
+    ZONAS.forEach(function (z, i) {
+      var f = document.createElement('div'); f.className = 'fila';
+      var a = document.createElement('span'); a.textContent = z;
+      var r = document.createElement('input'); r.type = 'range'; r.min = 0; r.max = 10; r.value = S.rueda[i];
+      var v = document.createElement('span'); v.textContent = S.rueda[i];
+      r.oninput = function () { S.rueda[i] = +r.value; v.textContent = r.value; guardar(); radar($('radar').getContext('2d'), 320, 280, 190, S.rueda, false); ayuda(); };
+      f.appendChild(a); f.appendChild(r); f.appendChild(v); cont.appendChild(f);
+    });
+    radar($('radar').getContext('2d'), 320, 280, 190, S.rueda, false); ayuda();
+  }
+  function debil() { var m = 0; S.rueda.forEach(function (v, i) { if (v < S.rueda[m]) m = i; }); return m; }
+  function ayuda() { var z = ZONAS[debil()]; $('semilla-ayuda').textContent = 'Tu zona más baja es ' + z.toLowerCase() + '. Una idea mínima ahí: ' + AYUDA[z] + '.'; }
+  function radar(c, cx, cy, R, vals, oscuro) {
+    var n = ZONAS.length, ink = oscuro ? '#fff' : '#241f18', grid = oscuro ? 'rgba(255,255,255,.25)' : 'rgba(36,31,24,.18)';
+    if (!oscuro) c.clearRect(0, 0, 640, 560);
+    function pt(i, k) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [cx + Math.cos(a) * R * k, cy + Math.sin(a) * R * k]; }
+    c.lineWidth = 1.5; c.strokeStyle = grid;
+    [.25, .5, .75, 1].forEach(function (k) { c.beginPath(); for (var i = 0; i < n; i++) { var p = pt(i, k); i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.closePath(); c.stroke(); });
+    for (var i = 0; i < n; i++) { var p = pt(i, 1); c.beginPath(); c.moveTo(cx, cy); c.lineTo(p[0], p[1]); c.stroke(); }
+    var g = c.createLinearGradient(cx - R, cy - R, cx + R, cy + R); g.addColorStop(0, 'rgba(192,162,236,.85)'); g.addColorStop(.5, 'rgba(159,203,236,.85)'); g.addColorStop(1, 'rgba(185,237,178,.85)');
+    c.beginPath(); vals.forEach(function (v, i) { var p = pt(i, Math.max(.04, v / 10)); i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.closePath();
+    c.fillStyle = g; c.fill(); c.strokeStyle = oscuro ? '#fff' : '#6d49b8'; c.lineWidth = 3; c.stroke();
+    c.fillStyle = ink; c.font = '600 ' + Math.round(R * .105) + 'px system-ui,sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    ZONAS.forEach(function (z, i) { var p = pt(i, 1.2); c.fillText(z, p[0], p[1]); });
+    c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  }
+
   // Generación
   function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
   function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
@@ -324,7 +446,9 @@
       tercera: S.c3 ? 'Algo en mí quiere ' + S.c3.replace(/^(…|\.\.\.)?\s*(quiere\s+)?/i, '') : '',
       voz: S.voz, sentidos: (S.olor.length || S.tacto.length) ? 'Huele ' + (lista(S.olor) || '—') + ' · se siente ' + (lista(S.tacto) || '—') : '',
       pacto: S.pacto.length ? 'Me comprometo a ' + lista(S.pacto) : '',
-      mision: MISIONES[(seed >> 3) % MISIONES.length]
+      mision: MISIONES[(seed >> 3) % MISIONES.length],
+      aciertos: pts(), zona: ZONAS[debil()], extractivo: S.extractivo,
+      semilla: S.semilla ? ('Después de ' + (S.ancla || 'algo que ya hago') + ', voy a ' + S.semilla.replace(/^voy a\s+/i, '')) : ''
     };
   }
   function add(cont, k, v, cls) {
@@ -348,6 +472,12 @@
     add(f, 'Lo que le dijo', d.voz ? '“' + d.voz + '”' : '', 'i');
     add(f, 'Pacto', d.pacto);
     add(f, 'Misión de impresión', d.mision);
+    var rk = document.createElement('div'); rk.className = 'k'; rk.textContent = 'Su rueda de salud holística'; f.appendChild(rk);
+    var rc = document.createElement('canvas'); rc.width = 640; rc.height = 560; rc.style.cssText = 'width:100%;height:auto'; f.appendChild(rc);
+    radar(rc.getContext('2d'), 320, 280, 190, S.rueda, true);
+    add(f, 'Zona a cuidar primero', d.zona);
+    add(f, 'Hábito que suelta', d.extractivo);
+    add(f, 'Hábito semilla', d.semilla, 'i');
     var p = document.createElement('div'); p.className = 'pie'; p.textContent = 'TRATAK CAT · IBERO Puebla · 21 nov 2026'; f.appendChild(p);
   }
 
@@ -376,6 +506,9 @@
     bloque('Lo que lo trajo', d.tercera, 36, 1); bloque('Materia aliada', d.aliada, 40, 1);
     bloque('Lo que le dijo', d.voz ? '“' + d.voz + '”' : '', 34, 1); bloque('Pacto', d.pacto, 34);
     bloque('Misión de impresión', d.mision, 34);
+    bloque('Hábito que suelta', d.extractivo, 34); bloque('Hábito semilla', d.semilla, 38, 1);
+    c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText('SU RUEDA DE SALUD HOLÍSTICA', X, y); y += 20;
+    radar(c, W / 2, y + 430, 330, S.rueda, true); y += 880;
     var HF = Math.min(H, Math.max(1350, y + 150)), out = document.createElement('canvas'); out.width = W; out.height = HF;
     var o = out.getContext('2d'); o.drawImage(cv, 0, 0); 
     o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · IBERO PUEBLA · 21 NOV 2026', X, HF - 60);
@@ -385,7 +518,7 @@
     });
   };
   $('wa').onclick = function () {
-    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision].filter(Boolean).join('\n');
+    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision, d.semilla ? 'Hábito semilla: ' + d.semilla : '', 'Rueda (0-10): ' + ZONAS.map(function (z, i) { return z + ' ' + S.rueda[i]; }).join(', ')].filter(Boolean).join('\n');
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t), '_blank', 'noopener');
   };
   $('reiniciar').onclick = function () {
