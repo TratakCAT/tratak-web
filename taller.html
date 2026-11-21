@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/icon_180.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-title" content="TRATAK CAT">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#c9a6ee">
+<title>Taller · Materia y Ser · TRATAK CAT</title>
+<meta name="description" content="Actividad interactiva: quién eres, por qué estás aquí y qué relación tienes con la materia que trajiste.">
+<style>
+  :root{ --ink:#241f18; --lila:#c0a2ec; --azul:#9fcbec; --verde:#b9edb2; --amarillo:#f2c94c; --mor:#6d49b8; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; }
+  body{ min-height:100vh; color:var(--ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+        background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed; }
+  .app{ max-width:640px; margin:0 auto; padding:18px 16px calc(40px + env(safe-area-inset-bottom)); }
+  .top{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .top img{ width:36px; height:36px; border-radius:10px; }
+  .top b{ font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+  .puntos{ display:flex; gap:6px; margin-left:auto; }
+  .puntos i{ width:9px; height:9px; border-radius:50%; background:rgba(36,31,24,.2); transition:.3s; }
+  .puntos i.on{ background:var(--ink); transform:scale(1.25); }
+  .puntos i.hecho{ background:var(--mor); }
+  .card{ background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+         border-radius:26px; padding:24px 20px 26px; box-shadow:0 12px 40px rgba(60,40,110,.16); }
+  .paso{ display:none; animation:ent .45s ease; }
+  .paso.on{ display:block; }
+  @keyframes ent{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none; } }
+  h1,h2{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 10px; line-height:1.1; }
+  h1{ font-size:clamp(32px,8.4vw,48px); } h1 em,h2 em{ color:var(--mor); }
+  h2{ font-size:clamp(25px,6.6vw,32px); }
+  p{ margin:0 0 12px; font-size:16.5px; line-height:1.5; }
+  .suave{ opacity:.75; font-size:14.5px; }
+  .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
+  label{ display:block; font-weight:700; font-size:15px; margin:18px 0 6px; }
+  label small{ display:block; font-weight:400; opacity:.7; font-size:13.5px; margin-top:2px; }
+  input[type=text],textarea{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--ink); }
+  textarea{ min-height:84px; resize:vertical; }
+  input:focus,textarea:focus{ outline:2px solid var(--mor); outline-offset:1px; }
+  input[type=range]{ width:100%; accent-color:var(--mor); }
+  .rango{ display:flex; justify-content:space-between; font-size:13px; opacity:.7; margin-top:-2px; }
+  .valor{ font-family:Georgia,serif; font-size:34px; color:var(--mor); }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ border:1.5px solid rgba(36,31,24,.25); background:#fff; color:var(--ink); border-radius:999px; padding:10px 15px; font:inherit; font-size:15px; font-weight:600; cursor:pointer; }
+  .chip.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .mats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .mat{ border:1.5px solid rgba(36,31,24,.2); background:#fff; border-radius:18px; padding:12px 4px; text-align:center; font:inherit; font-size:13px; font-weight:600; cursor:pointer; line-height:1.2; color:var(--ink); }
+  .mat span{ display:block; font-size:30px; margin-bottom:4px; }
+  .mat.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .btn{ display:block; width:100%; border:0; border-radius:999px; padding:16px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; background:var(--ink); color:#fff; margin-top:22px; }
+  .btn.wa{ background:#1fa855; } .btn.sec{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); font-weight:600; }
+  .btn + .btn{ margin-top:10px; } .btn[disabled]{ opacity:.35; cursor:default; }
+  .atras{ background:none; border:0; font:inherit; font-size:14px; opacity:.7; cursor:pointer; margin-top:14px; text-decoration:underline; color:var(--ink); }
+  .capa{ border-left:4px solid var(--mor); padding:2px 0 2px 12px; margin-top:6px; }
+  .capa b{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--mor); }
+  .aro{ width:170px; height:170px; margin:12px auto; position:relative; }
+  .aro svg{ width:100%; height:100%; transform:rotate(-90deg); }
+  .aro circle{ fill:none; stroke-width:8; }
+  .aro .fondo{ stroke:rgba(36,31,24,.12); } .aro .prog{ stroke:var(--mor); stroke-linecap:round; stroke-dasharray:471; stroke-dashoffset:471; }
+  .aro .prog.corre{ animation:aro 30s linear forwards; } @keyframes aro{ to{ stroke-dashoffset:0; } }
+  .aro .seg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:44px; }
+  .ficha{ background:linear-gradient(160deg,#2a2250,#1f3b57); color:#fff; border-radius:24px; padding:26px 22px; }
+  .ficha .k{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.65; margin:16px 0 3px; }
+  .ficha .n{ font-family:Georgia,serif; font-size:34px; line-height:1.05; }
+  .ficha .v{ font-size:16px; line-height:1.4; } .ficha .v.i{ font-style:italic; font-family:Georgia,serif; font-size:18px; }
+  .ficha .barra{ height:10px; border-radius:6px; background:rgba(255,255,255,.18); overflow:hidden; margin-top:6px; }
+  .ficha .barra i{ display:block; height:100%; background:linear-gradient(90deg,var(--lila),var(--azul),var(--verde)); }
+  .ficha .pie{ margin-top:20px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.55; }
+  .evento{ background:var(--amarillo); border-radius:20px; padding:16px 18px; margin-top:20px; }
+  .evento p{ margin:0 0 6px; font-size:15px; } .evento .btn{ margin-top:12px; }
+  @media (prefers-reduced-motion:reduce){ .paso{ animation:none; } .aro .prog.corre{ animation-duration:.01s; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <img src="icons/icon_192.png" alt="TRATAK CAT">
+    <b>Taller · Materia y Ser</b>
+    <div class="puntos" id="puntos"></div>
+  </div>
+  <div class="card">
+
+    <!-- 0 · Entrada -->
+    <section class="paso on" data-paso="0">
+      <span class="tag">IBERO Puebla · Biomateriales</span>
+      <h1>Antes de imprimir, <em>¿quién imprime?</em></h1>
+      <p>Esta clase no empieza con la máquina. Empieza contigo y con la materia que trajiste, que nadie más trajo igual.</p>
+      <p class="suave">Son 4 paradas de unos 10 minutos. No hay respuestas correctas: la ciencia aquí es <b>patafísica</b>, el estudio de las soluciones imaginarias y de las excepciones. Lo que escribas se queda en tu teléfono, tú decides si lo compartes.</p>
+      <label for="nombre">¿Cómo te llamas (o cómo quieres que te llame la materia)?</label>
+      <input type="text" id="nombre" maxlength="40" autocomplete="off" placeholder="Tu nombre o apodo">
+      <button class="btn" data-sig>Entrar</button>
+    </section>
+
+    <!-- 1 · Quién -->
+    <section class="paso" data-paso="1">
+      <span class="tag">Parada 1 · Quién</span>
+      <h2>Lo que estudiaste <em>no es lo que eres</em></h2>
+      <p>Tu carrera es un traje que te prestaron. Veamos quién lo está usando.</p>
+      <label for="carrera">¿Qué estudias?</label>
+      <input type="text" id="carrera" maxlength="50" autocomplete="off" placeholder="Arquitectura, Diseño, Ingeniería…">
+      <label>¿Cuánto eres lo que estudiaste? <small>Sé honest@. Nadie lo ve si tú no quieres.</small></label>
+      <div class="valor"><span id="pctv">50</span>%</div>
+      <input type="range" id="pct" min="0" max="100" value="50">
+      <div class="rango"><span>Solo un traje</span><span>Soy mi carrera</span></div>
+      <label for="nocabe">¿Qué parte de ti no cabe en tu título?</label>
+      <textarea id="nocabe" maxlength="200" placeholder="Lo que haces sin que te lo pidan, lo que te da vergüenza o lo que te hace perder el tiempo"></textarea>
+      <button class="btn" data-sig>Siguiente</button>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 2 · Por qué -->
+    <section class="paso" data-paso="2">
+      <span class="tag">Parada 2 · Por qué</span>
+      <h2>Tres razones <em>por las que estás aquí</em></h2>
+      <p>Cada razón es una capa. La de arriba la dices en voz alta, la de abajo casi nunca.</p>
+      <div class="capa"><b>Capa 1 · La oficial</b></div>
+      <label for="c1" style="margin-top:4px">¿Qué le dices a otros que haces en esta clase?<small>"Es una materia que me tocó", "me interesa lo sustentable"…</small></label>
+      <textarea id="c1" maxlength="200"></textarea>
+      <div class="capa" style="margin-top:18px"><b>Capa 2 · La honesta</b></div>
+      <label for="c2" style="margin-top:4px">¿Qué esperas en secreto que pase aquí?</label>
+      <textarea id="c2" maxlength="200"></textarea>
+      <div class="capa" style="margin-top:18px"><b>Capa 3 · La que no sabías</b></div>
+      <label for="c3" style="margin-top:4px">Completa: "Algo en mí me trajo a esta clase porque quiere…"</label>
+      <textarea id="c3" maxlength="200" placeholder="…recordar, soltar, crear, curarse, perder el miedo a…"></textarea>
+      <button class="btn" data-sig>Siguiente</button>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 3 · Materia -->
+    <section class="paso" data-paso="3">
+      <span class="tag">Parada 3 · La materia</span>
+      <h2>Lo que trajiste <em>también te eligió</em></h2>
+      <p>Todos pedimos las mismas herramientas, pero cada quien llegó con un residuo distinto. Nadie más tiene exactamente el tuyo.</p>
+      <label>Saca tu residuo orgánico y elígelo aquí</label>
+      <div class="mats" id="mats"></div>
+      <input type="text" id="otro" maxlength="40" placeholder="Escribe cuál es" style="display:none;margin-top:10px">
+      <label>¿De dónde vino?</label>
+      <div class="chips" id="origen"></div>
+      <label for="vida">¿Qué vida tuvo antes de llegar a tu mano? <small>Quién lo tocó, qué fue antes, cuánto tiempo esperó</small></label>
+      <textarea id="vida" maxlength="200"></textarea>
+      <button class="btn" data-sig>Ahora hay que conocerla</button>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 4 · Escuchar -->
+    <section class="paso" data-paso="4">
+      <span class="tag">Parada 4 · El encuentro</span>
+      <h2>Conoce a <em id="aliadaNombre">tu materia</em></h2>
+      <label style="margin-top:4px">La huelo y huele a…</label>
+      <div class="chips" id="olor"></div>
+      <label>La toco y se siente…</label>
+      <div class="chips" id="tacto"></div>
+      <label>El ritual: 30 segundos <small>Ponla en tu mano, cierra los ojos y respira. Solo escúchala.</small></label>
+      <div class="aro">
+        <svg viewBox="0 0 160 160"><circle class="fondo" cx="80" cy="80" r="75"/><circle class="prog" id="prog" cx="80" cy="80" r="75"/></svg>
+        <div class="seg" id="seg">30</div>
+      </div>
+      <button class="btn sec" id="ritual" style="margin-top:6px">Empezar los 30 segundos</button>
+      <label for="voz">Si pudiera hablarte, ¿qué te diría? <small>Escribe lo primero que llegue, sin editarlo.</small></label>
+      <textarea id="voz" maxlength="220"></textarea>
+      <label>Pacto: al imprimirla me comprometo a…</label>
+      <div class="chips" id="pacto"></div>
+      <button class="btn" data-sig>Ver mi ficha</button>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 5 · Ficha -->
+    <section class="paso" data-paso="5">
+      <span class="tag">Tu ficha</span>
+      <h2>Esto salió de <em>ti y de tu materia</em></h2>
+      <div class="ficha" id="ficha"></div>
+      <button class="btn" id="descargar">Guardar mi ficha como imagen</button>
+      <button class="btn wa" id="wa">Enviársela a Gibrán por WhatsApp</button>
+      <div class="evento">
+        <p><b>Esto fue una probada.</b> En el curso completo de TRATAK CAT combinas realidad virtual, impresión LDM y cultura biomaterial para llevar esta relación con la materia a objetos reales.</p>
+        <a class="btn" href="https://tratakcat.com/#plan" target="_blank" rel="noopener">Ver el plan de estudios</a>
+        <a class="btn sec" href="https://wa.me/523332480698?text=Hola%2C%20vengo%20de%20tu%20clase%20en%20la%20IBERO%20y%20quiero%20saber%20m%C3%A1s%20del%20curso" target="_blank" rel="noopener">Quiero saber más del curso</a>
+      </div>
+      <button class="atras" data-atras>Editar mis respuestas</button>
+      <button class="atras" id="reiniciar" style="margin-left:14px">Empezar de nuevo</button>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var WA = '523332480698';
+  var MATERIAS = [
+    { id:'naranja', e:'🍊', n:'Cáscara de cítrico', ep:'que recuerda al sol', v:'fue luz, fue fruto, fue desecho' },
+    { id:'cafe', e:'☕', n:'Café molido', ep:'de la vigilia', v:'fue desvelo convertido en polvo' },
+    { id:'huevo', e:'🥚', n:'Cascarón de huevo', ep:'de la promesa vacía', v:'fue la casa de una vida que no ocurrió' },
+    { id:'agave', e:'🌵', n:'Bagazo de agave', ep:'del corazón entregado', v:'es lo que queda cuando el corazón se volvió bebida' },
+    { id:'aguacate', e:'🥑', n:'Semilla de aguacate', ep:'que esperó', v:'es una semilla que aprendió a esperar' },
+    { id:'platano', e:'🍌', n:'Cáscara de plátano', ep:'del abrazo', v:'fue el abrigo de algo que ya no está' },
+    { id:'maiz', e:'🌽', n:'Hoja o olote de maíz', ep:'de la milpa', v:'viene de la planta que alimentó a este continente' },
+    { id:'nopal', e:'🌿', n:'Nopal', ep:'que guarda el agua', v:'es una memoria de agua con espinas' },
+    { id:'coco', e:'🥥', n:'Fibra de coco', ep:'del viaje', v:'cruzó el mar antes de llegar a tu mano' },
+    { id:'madera', e:'🪵', n:'Aserrín o viruta', ep:'del árbol que fue', v:'es el árbol hecho polvo' },
+    { id:'te', e:'🍵', n:'Posos de té o hierbas', ep:'de la infusión', v:'ya cumplió su ritual y sigue aquí' },
+    { id:'otro', e:'✨', n:'Otro', ep:'sin nombre todavía', v:'no entra en ninguna lista' }
+  ];
+  var ORIGEN = ['De mi casa','Del mercado','De un restaurante','Del campo','De alguien que quiero','Lo encontré'];
+  var OLOR = ['dulce','ácido','tierra','humo','rancio','vivo','a nada'];
+  var TACTO = ['áspero','suave','pegajoso','seco','frío','fibroso','polvo'];
+  var PACTO = ['escucharla','no desperdiciarla','darle una forma digna','dejar que me enseñe','devolver algo a la tierra','soltar el control'];
+  var PLANTILLAS = [
+    '{C} patafísica de lo que no cabe en el título',
+    'Ciencia de las soluciones imaginarias aplicada a {C}',
+    '{C} transpersonal de lo inútil sagrado',
+    'Contra-{C}: el arte de desaprender el uniforme',
+    '{C} del punto cero'
+  ];
+  var MISIONES = [
+    'Imprime una pieza que le dé a tu materia un lugar donde descansar.',
+    'Imprime algo inútil a propósito y observa qué te hace sentir.',
+    'Imprime una forma que tu materia elegiría para sí misma, no la que tú elegirías.',
+    'Imprime un objeto que le sirva a la persona de quien viene tu materia.',
+    'Imprime la primera forma que veas con los ojos cerrados y déjala imperfecta.'
+  ];
+
+  var K = 'tk-taller-ibero';
+  var S = { paso:0, nombre:'', carrera:'', pct:50, nocabe:'', c1:'', c2:'', c3:'', mat:'', otro:'', origen:[], vida:'', olor:[], tacto:[], voz:'', pacto:[] };
+  try { var g = JSON.parse(localStorage.getItem(K) || 'null'); if (g) S = Object.assign(S, g); } catch (e) {}
+  function guardar() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pasos = Array.prototype.slice.call(document.querySelectorAll('.paso'));
+  var puntos = $('puntos');
+  pasos.forEach(function () { puntos.appendChild(document.createElement('i')); });
+
+  function ir(n) {
+    S.paso = n; guardar();
+    pasos.forEach(function (p, i) { p.classList.toggle('on', i === n); });
+    Array.prototype.forEach.call(puntos.children, function (d, i) { d.className = i === n ? 'on' : (i < n ? 'hecho' : ''); });
+    if (n === 4) { var m = materia(); $('aliadaNombre').textContent = m ? m.n.toLowerCase() : 'tu materia'; }
+    if (n === 5) ficha();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function leer() {
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz'].forEach(function (k) { S[k] = $(k).value.trim(); });
+    S.pct = +$('pct').value;
+  }
+  function volcar() {
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz'].forEach(function (k) { $(k).value = S[k] || ''; });
+    $('pct').value = S.pct; $('pctv').textContent = S.pct;
+  }
+  $('pct').addEventListener('input', function () { $('pctv').textContent = this.value; });
+
+  function chips(id, lista, clave) {
+    var cont = $(id); cont.innerHTML = '';
+    lista.forEach(function (t) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (S[clave].indexOf(t) > -1 ? ' on' : ''); b.textContent = t;
+      b.onclick = function () {
+        var i = S[clave].indexOf(t);
+        if (i > -1) S[clave].splice(i, 1); else S[clave].push(t);
+        b.classList.toggle('on'); guardar();
+      };
+      cont.appendChild(b);
+    });
+  }
+  function pintarMats() {
+    var cont = $('mats'); cont.innerHTML = '';
+    MATERIAS.forEach(function (m) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'mat' + (S.mat === m.id ? ' on' : '');
+      b.innerHTML = '<span></span>'; b.firstChild.textContent = m.e; b.appendChild(document.createTextNode(m.n));
+      b.onclick = function () { S.mat = m.id; guardar(); pintarMats(); $('otro').style.display = m.id === 'otro' ? 'block' : 'none'; };
+      cont.appendChild(b);
+    });
+    $('otro').style.display = S.mat === 'otro' ? 'block' : 'none';
+  }
+  function materia() { return MATERIAS.filter(function (m) { return m.id === S.mat; })[0]; }
+  chips('origen', ORIGEN, 'origen'); chips('olor', OLOR, 'olor'); chips('tacto', TACTO, 'tacto'); chips('pacto', PACTO, 'pacto'); pintarMats(); volcar();
+
+  // Validación mínima por paso
+  var REQ = { 0:['nombre'], 1:['carrera'], 2:['c1'], 3:[] };
+  function puede(n) {
+    leer();
+    if (n === 3 && !S.mat) return 'Elige tu materia para seguir.';
+    if (REQ[n]) for (var i = 0; i < REQ[n].length; i++) if (!S[REQ[n][i]]) return 'Escribe algo para seguir. Puede ser breve.';
+    return '';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sig]'), function (b) {
+    b.onclick = function () {
+      var n = S.paso, e = puede(n);
+      if (e) { alert(e); return; }
+      guardar(); ir(n + 1);
+    };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-atras]'), function (b) { b.onclick = function () { leer(); guardar(); ir(Math.max(0, S.paso - 1)); }; });
+
+  // Ritual de 30 s
+  var timer = null;
+  $('ritual').onclick = function () {
+    if (timer) return;
+    var t = 30, p = $('prog'); p.classList.remove('corre'); void p.getBoundingClientRect(); p.classList.add('corre');
+    this.textContent = 'Respira…'; this.disabled = true; $('seg').textContent = t;
+    var btn = this;
+    timer = setInterval(function () {
+      t--; $('seg').textContent = t;
+      if (t <= 0) { clearInterval(timer); timer = null; $('seg').textContent = '✓'; btn.textContent = 'Repetir'; btn.disabled = false; try { navigator.vibrate && navigator.vibrate(200); } catch (e) {} }
+    }, 1000);
+  };
+
+  // Generación
+  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
+  function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function lista(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' y ' + a[a.length - 1]; }
+  function datos() {
+    leer();
+    var m = materia() || MATERIAS[MATERIAS.length - 1];
+    var nombreMat = m.id === 'otro' && S.otro ? cap(S.otro) : m.n;
+    var seed = hash(S.nombre + S.carrera + S.mat);
+    var disc = cap(PLANTILLAS[seed % PLANTILLAS.length].replace('{C}', S.carrera.toLowerCase() || 'Diseño'));
+    return {
+      nombre: S.nombre, carrera: cap(S.carrera), pct: S.pct, nocabe: S.nocabe, disc: disc,
+      aliada: nombreMat + ' ' + m.ep,
+      destino: nombreMat + ' ' + m.v,
+      tercera: S.c3 ? 'Algo en mí quiere ' + S.c3.replace(/^(…|\.\.\.)?\s*(quiere\s+)?/i, '') : '',
+      voz: S.voz, sentidos: (S.olor.length || S.tacto.length) ? 'Huele ' + (lista(S.olor) || '—') + ' · se siente ' + (lista(S.tacto) || '—') : '',
+      pacto: S.pacto.length ? 'Me comprometo a ' + lista(S.pacto) : '',
+      mision: MISIONES[(seed >> 3) % MISIONES.length]
+    };
+  }
+  function add(cont, k, v, cls) {
+    if (!v) return;
+    var a = document.createElement('div'); a.className = 'k'; a.textContent = k;
+    var b = document.createElement('div'); b.className = 'v' + (cls ? ' ' + cls : ''); b.textContent = v;
+    cont.appendChild(a); cont.appendChild(b);
+  }
+  function ficha() {
+    var d = datos(), f = $('ficha'); f.innerHTML = '';
+    var n = document.createElement('div'); n.className = 'n'; n.textContent = d.nombre; f.appendChild(n);
+    add(f, 'Estudió', d.carrera);
+    add(f, 'Su disciplina real', d.disc, 'i');
+    var k = document.createElement('div'); k.className = 'k'; k.textContent = 'Cuánto cabe en su título: ' + d.pct + '%'; f.appendChild(k);
+    var bar = document.createElement('div'); bar.className = 'barra'; bar.innerHTML = '<i style="width:' + d.pct + '%"></i>'; f.appendChild(bar);
+    add(f, 'Lo que no cabe en el título', d.nocabe);
+    add(f, 'Lo que lo trajo', d.tercera, 'i');
+    add(f, 'Materia aliada', d.aliada, 'i');
+    add(f, 'Lo que sabe de ella', d.destino);
+    add(f, 'Sus sentidos', d.sentidos);
+    add(f, 'Lo que le dijo', d.voz ? '“' + d.voz + '”' : '', 'i');
+    add(f, 'Pacto', d.pacto);
+    add(f, 'Misión de impresión', d.mision);
+    var p = document.createElement('div'); p.className = 'pie'; p.textContent = 'TRATAK CAT · IBERO Puebla · 21 nov 2026'; f.appendChild(p);
+  }
+
+  // Imagen
+  function envolver(c, texto, x, y, ancho, alto) {
+    var pal = texto.split(' '), l = '';
+    for (var i = 0; i < pal.length; i++) {
+      var t = l ? l + ' ' + pal[i] : pal[i];
+      if (c.measureText(t).width > ancho && l) { c.fillText(l, x, y); y += alto; l = pal[i]; } else l = t;
+    }
+    c.fillText(l, x, y); return y + alto;
+  }
+  $('descargar').onclick = function () {
+    var d = datos(), W = 1080, H = 2600, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#2a2250'); g.addColorStop(1, '#1f3b57'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    var y = 120, X = 90, A = W - 180;
+    function bloque(k, v, f, it) {
+      if (!v) return;
+      c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText(k.toUpperCase(), X, y); y += 44;
+      c.fillStyle = '#fff'; c.font = (it ? 'italic ' : '') + f + 'px Georgia,serif'; y = envolver(c, v, X, y, A, f * 1.28) + 26;
+    }
+    c.fillStyle = '#fff'; c.font = '400 92px Georgia,serif'; y = envolver(c, d.nombre, X, y, A, 100) + 14;
+    bloque('Estudió', d.carrera, 40); bloque('Su disciplina real', d.disc, 42, 1);
+    bloque('Cuánto cabe en su título', d.pct + '%', 40);
+    bloque('Lo que lo trajo', d.tercera, 36, 1); bloque('Materia aliada', d.aliada, 40, 1);
+    bloque('Lo que le dijo', d.voz ? '“' + d.voz + '”' : '', 34, 1); bloque('Pacto', d.pacto, 34);
+    bloque('Misión de impresión', d.mision, 34);
+    var HF = Math.min(H, Math.max(1350, y + 150)), out = document.createElement('canvas'); out.width = W; out.height = HF;
+    var o = out.getContext('2d'); o.drawImage(cv, 0, 0); 
+    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · IBERO PUEBLA · 21 NOV 2026', X, HF - 60);
+    out.toBlob(function (b) {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-tratak.png';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    });
+  };
+  $('wa').onclick = function () {
+    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision].filter(Boolean).join('\n');
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t), '_blank', 'noopener');
+  };
+  $('reiniciar').onclick = function () {
+    if (!confirm('¿Borrar tus respuestas y empezar de nuevo?')) return;
+    try { localStorage.removeItem(K); } catch (e) {}
+    location.reload();
+  };
+
+  ir(Math.min(S.paso || 0, pasos.length - 1));
+})();
+</script>
+</body>
+</html>
