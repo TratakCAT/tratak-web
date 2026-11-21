@@ -7,92 +7,121 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon_16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon_180.png">
 <link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="styles.css?v=38">
+<link rel="stylesheet" href="assets/shishi.css?v=38">
 <meta name="apple-mobile-web-app-title" content="TRATAK CAT">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#c9a6ee">
-<title>Taller · Materia y Ser · TRATAK CAT</title>
+<title>Actividades · Materia y Ser · TRATAK CAT</title>
 <meta name="description" content="Actividad interactiva: quién eres, por qué estás aquí y qué relación tienes con la materia que trajiste.">
-<style>
-  :root{ --ink:#241f18; --lila:#c0a2ec; --azul:#9fcbec; --verde:#b9edb2; --amarillo:#f2c94c; --mor:#6d49b8; }
-  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body{ margin:0; }
-  body{ min-height:100vh; color:var(--ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+<style>:root{ --tk-ink:#241f18; --tk-lila:#c0a2ec; --tk-azul:#9fcbec; --tk-verde:#b9edb2; --tk-amarillo:#f2c94c; --tk-mor:#6d49b8; }
+.app *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ margin:0; }
+body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
         background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed; }
-  .app{ max-width:640px; margin:0 auto; padding:18px 16px calc(40px + env(safe-area-inset-bottom)); }
-  .top{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
-  .top img{ width:36px; height:36px; border-radius:10px; }
-  .top b{ font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
-  .puntos{ display:flex; gap:6px; margin-left:auto; }
-  .puntos i{ width:9px; height:9px; border-radius:50%; background:rgba(36,31,24,.2); transition:.3s; }
-  .puntos i.on{ background:var(--ink); transform:scale(1.25); }
-  .puntos i.hecho{ background:var(--mor); }
-  .card{ background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+.app{ max-width:640px; margin:0 auto; padding:18px 16px calc(40px + env(safe-area-inset-bottom)); }
+.app .top{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.app .top img{ width:36px; height:36px; border-radius:10px; }
+.app .top b{ font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+.app .puntos{ display:flex; gap:6px; margin-left:auto; }
+.app .puntos i{ width:9px; height:9px; border-radius:50%; background:rgba(36,31,24,.2); transition:.3s; }
+.app .puntos i.on{ background:var(--tk-ink); transform:scale(1.25); }
+.app .puntos i.hecho{ background:var(--tk-mor); }
+.app .card{ background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
          border-radius:26px; padding:24px 20px 26px; box-shadow:0 12px 40px rgba(60,40,110,.16); }
-  .paso{ display:none; animation:ent .45s ease; }
-  .paso.on{ display:block; }
-  @keyframes ent{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none; } }
-  h1,h2{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 10px; line-height:1.1; }
-  h1{ font-size:clamp(32px,8.4vw,48px); } h1 em,h2 em{ color:var(--mor); }
-  h2{ font-size:clamp(25px,6.6vw,32px); }
-  p{ margin:0 0 12px; font-size:16.5px; line-height:1.5; }
-  .suave{ opacity:.75; font-size:14.5px; }
-  .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
-  label{ display:block; font-weight:700; font-size:15px; margin:18px 0 6px; }
-  label small{ display:block; font-weight:400; opacity:.7; font-size:13.5px; margin-top:2px; }
-  input[type=text],textarea{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--ink); }
-  textarea{ min-height:84px; resize:vertical; }
-  input:focus,textarea:focus{ outline:2px solid var(--mor); outline-offset:1px; }
-  input[type=range]{ width:100%; accent-color:var(--mor); }
-  .rango{ display:flex; justify-content:space-between; font-size:13px; opacity:.7; margin-top:-2px; }
-  .valor{ font-family:Georgia,serif; font-size:34px; color:var(--mor); }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .chip{ border:1.5px solid rgba(36,31,24,.25); background:#fff; color:var(--ink); border-radius:999px; padding:10px 15px; font:inherit; font-size:15px; font-weight:600; cursor:pointer; }
-  .chip.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
-  .mats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-  .mat{ border:1.5px solid rgba(36,31,24,.2); background:#fff; border-radius:18px; padding:12px 4px; text-align:center; font:inherit; font-size:13px; font-weight:600; cursor:pointer; line-height:1.2; color:var(--ink); }
-  .mat span{ display:block; font-size:30px; margin-bottom:4px; }
-  .mat.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
-  .btn{ display:block; width:100%; border:0; border-radius:999px; padding:16px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; background:var(--ink); color:#fff; margin-top:22px; }
-  .btn.wa{ background:#1fa855; } .btn.sec{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); font-weight:600; }
-  .btn + .btn{ margin-top:10px; } .btn[disabled]{ opacity:.35; cursor:default; }
-  .atras{ background:none; border:0; font:inherit; font-size:14px; opacity:.7; cursor:pointer; margin-top:14px; text-decoration:underline; color:var(--ink); }
-  .capa{ border-left:4px solid var(--mor); padding:2px 0 2px 12px; margin-top:6px; }
-  .capa b{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--mor); }
-  .aro{ width:170px; height:170px; margin:12px auto; position:relative; }
-  .aro svg{ width:100%; height:100%; transform:rotate(-90deg); }
-  .aro circle{ fill:none; stroke-width:8; }
-  .aro .fondo{ stroke:rgba(36,31,24,.12); } .aro .prog{ stroke:var(--mor); stroke-linecap:round; stroke-dasharray:471; stroke-dashoffset:471; }
-  .aro .prog.corre{ animation:aro 30s linear forwards; } @keyframes aro{ to{ stroke-dashoffset:0; } }
-  .aro .seg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:44px; }
-  .ficha{ background:linear-gradient(160deg,#2a2250,#1f3b57); color:#fff; border-radius:24px; padding:26px 22px; }
-  .ficha .k{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.65; margin:16px 0 3px; }
-  .ficha .n{ font-family:Georgia,serif; font-size:34px; line-height:1.05; }
-  .ficha .v{ font-size:16px; line-height:1.4; } .ficha .v.i{ font-style:italic; font-family:Georgia,serif; font-size:18px; }
-  .ficha .barra{ height:10px; border-radius:6px; background:rgba(255,255,255,.18); overflow:hidden; margin-top:6px; }
-  .ficha .barra i{ display:block; height:100%; background:linear-gradient(90deg,var(--lila),var(--azul),var(--verde)); }
-  .ficha .pie{ margin-top:20px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.55; }
-  .evento{ background:var(--amarillo); border-radius:20px; padding:16px 18px; margin-top:20px; }
-  .evento p{ margin:0 0 6px; font-size:15px; } .evento .btn{ margin-top:12px; }
-  .marcador{ display:flex; justify-content:space-between; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin:14px 0 8px; }
-  .carta{ min-height:150px; display:flex; align-items:center; justify-content:center; text-align:center; font-family:Georgia,serif; font-size:24px; line-height:1.2; padding:22px 18px; border-radius:22px; background:linear-gradient(160deg,#f6ecff,#e3f3ff); border:1.5px solid rgba(36,31,24,.12); }
-  .carta.sale{ animation:sale .35s ease; } @keyframes sale{ from{ opacity:0; transform:translateX(30px) rotate(2deg);} to{ opacity:1; transform:none; } }
-  .trio{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
-  .trio button{ border:1.5px solid rgba(36,31,24,.25); background:#fff; border-radius:16px; padding:14px 4px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; color:var(--ink); }
-  .trio.off button{ pointer-events:none; opacity:.4; } .trio button.el{ background:var(--ink); color:#fff; opacity:1; }
-  .reveal{ margin-top:12px; padding:14px 16px; border-radius:16px; font-size:15px; line-height:1.4; background:#fff; border-left:5px solid var(--mor); }
-  .reveal.ok{ border-color:#1fa855; } .reveal.no{ border-color:#d9534f; }
-  .resumen{ font-family:Georgia,serif; font-size:21px; line-height:1.25; margin-top:14px; }
-  .fila{ display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; font-size:14px; font-weight:600; margin:6px 0; }
-  #semilla-ayuda{ margin-bottom:8px; }
-  [hidden]{ display:none !important; }
-  @media (prefers-reduced-motion:reduce){ .paso{ animation:none; } .aro .prog.corre{ animation-duration:.01s; } }
+.app .paso{ display:none; animation:ent .45s ease; }
+.app .paso.on{ display:block; }
+@keyframes ent{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none; } }
+.app h1,.app h2{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 10px; line-height:1.1; }
+.app h1{ font-size:clamp(32px,8.4vw,48px); }
+.app h1 em,.app h2 em{ color:var(--tk-mor); }
+.app h2{ font-size:clamp(25px,6.6vw,32px); }
+.app p{ margin:0 0 12px; font-size:16.5px; line-height:1.5; }
+.app .suave{ opacity:.75; font-size:14.5px; }
+.app .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
+.app label{ display:block; font-weight:700; font-size:15px; margin:18px 0 6px; }
+.app label small{ display:block; font-weight:400; opacity:.7; font-size:13.5px; margin-top:2px; }
+.app input[type=text],.app textarea{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
+.app textarea{ min-height:84px; resize:vertical; }
+.app input:focus,.app textarea:focus{ outline:2px solid var(--tk-mor); outline-offset:1px; }
+.app input[type=range]{ width:100%; accent-color:var(--tk-mor); }
+.app .rango{ display:flex; justify-content:space-between; font-size:13px; opacity:.7; margin-top:-2px; }
+.app .valor{ font-family:Georgia,serif; font-size:34px; color:var(--tk-mor); }
+.app .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.app .chip{ border:1.5px solid rgba(36,31,24,.25); background:#fff; color:var(--tk-ink); border-radius:999px; padding:10px 15px; font:inherit; font-size:15px; font-weight:600; cursor:pointer; }
+.app .chip.on{ background:var(--tk-ink); color:#fff; border-color:var(--tk-ink); }
+.app .mats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.app .mat{ border:1.5px solid rgba(36,31,24,.2); background:#fff; border-radius:18px; padding:12px 4px; text-align:center; font:inherit; font-size:13px; font-weight:600; cursor:pointer; line-height:1.2; color:var(--tk-ink); }
+.app .mat span{ display:block; font-size:30px; margin-bottom:4px; }
+.app .mat.on{ background:var(--tk-ink); color:#fff; border-color:var(--tk-ink); }
+.app .btn{ display:block; width:100%; border:0; border-radius:999px; padding:16px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; background:var(--tk-ink); color:#fff; margin-top:22px; }
+.app .btn.wa{ background:#1fa855; }
+.app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; }
+.app .btn + .btn{ margin-top:10px; }
+.app .btn[disabled]{ opacity:.35; cursor:default; }
+.app .atras{ background:none; border:0; font:inherit; font-size:14px; opacity:.7; cursor:pointer; margin-top:14px; text-decoration:underline; color:var(--tk-ink); }
+.app .capa{ border-left:4px solid var(--tk-mor); padding:2px 0 2px 12px; margin-top:6px; }
+.app .capa b{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--tk-mor); }
+.app .aro{ width:170px; height:170px; margin:12px auto; position:relative; }
+.app .aro svg{ width:100%; height:100%; transform:rotate(-90deg); }
+.app .aro circle{ fill:none; stroke-width:8; }
+.app .aro .fondo{ stroke:rgba(36,31,24,.12); }
+.app .aro .prog{ stroke:var(--tk-mor); stroke-linecap:round; stroke-dasharray:471; stroke-dashoffset:471; }
+.app .aro .prog.corre{ animation:aro 30s linear forwards; }
+@keyframes aro{ to{ stroke-dashoffset:0; } }
+.app .aro .seg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:44px; }
+.app .ficha{ background:linear-gradient(160deg,#2a2250,#1f3b57); color:#fff; border-radius:24px; padding:26px 22px; }
+.app .ficha .k{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.65; margin:16px 0 3px; }
+.app .ficha .n{ font-family:Georgia,serif; font-size:34px; line-height:1.05; }
+.app .ficha .v{ font-size:16px; line-height:1.4; }
+.app .ficha .v.i{ font-style:italic; font-family:Georgia,serif; font-size:18px; }
+.app .ficha .barra{ height:10px; border-radius:6px; background:rgba(255,255,255,.18); overflow:hidden; margin-top:6px; }
+.app .ficha .barra i{ display:block; height:100%; background:linear-gradient(90deg,var(--tk-lila),var(--tk-azul),var(--tk-verde)); }
+.app .ficha .pie{ margin-top:20px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.55; }
+.app .evento{ background:var(--tk-amarillo); border-radius:20px; padding:16px 18px; margin-top:20px; }
+.app .evento p{ margin:0 0 6px; font-size:15px; }
+.app .evento .btn{ margin-top:12px; }
+.app .marcador{ display:flex; justify-content:space-between; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin:14px 0 8px; }
+.app .carta{ min-height:150px; display:flex; align-items:center; justify-content:center; text-align:center; font-family:Georgia,serif; font-size:24px; line-height:1.2; padding:22px 18px; border-radius:22px; background:linear-gradient(160deg,#f6ecff,#e3f3ff); border:1.5px solid rgba(36,31,24,.12); }
+.app .carta.sale{ animation:sale .35s ease; }
+@keyframes sale{ from{ opacity:0; transform:translateX(30px) rotate(2deg);} to{ opacity:1; transform:none; } }
+.app .trio{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
+.app .trio button{ border:1.5px solid rgba(36,31,24,.25); background:#fff; border-radius:16px; padding:14px 4px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; color:var(--tk-ink); }
+.app .trio.off button{ pointer-events:none; opacity:.4; }
+.app .trio button.el{ background:var(--tk-ink); color:#fff; opacity:1; }
+.app .reveal{ margin-top:12px; padding:14px 16px; border-radius:16px; font-size:15px; line-height:1.4; background:#fff; border-left:5px solid var(--tk-mor); }
+.app .reveal.ok{ border-color:#1fa855; }
+.app .reveal.no{ border-color:#d9534f; }
+.app .resumen{ font-family:Georgia,serif; font-size:21px; line-height:1.25; margin-top:14px; }
+.app .fila{ display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; font-size:14px; font-weight:600; margin:6px 0; }
+.app #semilla-ayuda{ margin-bottom:8px; }
+[hidden]{ display:none !important; }
+@media (prefers-reduced-motion:reduce){.app .paso{ animation:none; }
+.app .aro .prog.corre{ animation-duration:.01s; }
+ }
+
+
+  body{ background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed !important; }
+  .app .card section{ border:0 !important; }
+  body.con-nav .app{ padding-top:10px; }
 </style>
 </head>
 <body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
 <div class="app">
+  <div class="card" id="gate">
+    <span class="tag">Actividades</span>
+    <h1>Materia y <em>ser</em></h1>
+    <p>Esta actividad se hace en clase. Escribe la clave que dijo Gibrán para entrar.</p>
+    <label for="clave">Clave</label>
+    <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
+    <p id="gate-error" class="suave" style="color:#b3261e;margin-top:8px" hidden>Esa no es. Revisa en el pizarrón o pregúntale a Gibrán.</p>
+    <button class="btn" id="entrar">Entrar</button>
+  </div>
+  <div id="actividad" hidden>
   <div class="top">
-    <img src="icons/icon_192.png" alt="TRATAK CAT">
-    <b>Taller · Materia y Ser</b>
+    <b>Actividades · Materia y Ser</b>
     <div class="puntos" id="puntos"></div>
   </div>
   <div class="card">
@@ -187,7 +216,7 @@
       <h2>La cultura es <em>lo que repites</em></h2>
       <p>Una cultura biomaterial regenerativa empieza en un hábito diario, y tu salud entera (cuerpo, mente, emoción, vínculos, territorio y espíritu) es parte de ese mismo sistema.</p>
       <div id="juego">
-        <div class="marcador"><span id="jn">1 / 8</span><span id="jp">0 aciertos</span></div>
+        <div class="marcador"><span id="jn">1 / 8</span><span id="jp">0 coincidencias</span></div>
         <div class="carta" id="carta"></div>
         <div class="trio" id="trio">
           <button type="button" data-r="regenera">🌱 Regenera</button>
@@ -229,8 +258,11 @@
       <button class="atras" id="reiniciar" style="margin-left:14px">Empezar de nuevo</button>
     </section>
   </div>
+  </div>
 </div>
 
+<script src="assets/site.js?v=41"></script>
+<script src="assets/shishi.js?v=38"></script>
 <script>
 (function () {
   'use strict';
@@ -356,14 +388,44 @@
 
   // Parada 5 · Hábitos
   var CARTAS = [
-    { t:'Comprar café en vaso desechable cada mañana', r:'extrae', x:'Un hábito de 2 minutos se repite cientos de veces al año. Multiplica un vaso por cada persona de tu ciudad.' },
-    { t:'Llevar tu termo y darle los posos a una planta', r:'regenera', x:'El residuo de uno se vuelve alimento de otro. Así funciona un bosque.' },
-    { t:'Dormir de 7 a 8 horas', r:'regenera', x:'Descansar no es perder tiempo: es regenerar el sistema que toma todas tus demás decisiones.' },
-    { t:'Hacer scroll en la cama hasta la 1 am', r:'extrae', x:'Extrae tu atención, que es tu recurso más escaso, y la entrega a quien la vende.' },
-    { t:'Separar tus residuos orgánicos', r:'regenera', x:'Sin este hábito no existiría ninguna biofabricación: toda tu materia prima empieza ahí.' },
-    { t:'Comer rápido frente a una pantalla', r:'extrae', x:'Tu cuerpo es la primera materia con la que tienes relación. Si no la sientes, tampoco sentirás otras.' },
-    { t:'Imprimir prototipos y tirar los fallidos a la basura', r:'depende', x:'Extrae si se tiran. Regenera si los trituras y vuelven a la mezcla. El mismo acto, dos culturas.' },
-    { t:'Decir que sí a todo y no parar', r:'depende', x:'Si te vacía, extrae. Si es una temporada elegida con sentido, puede regenerar. La clave es que descanses después.' }
+    { t:'Comprar café en vaso desechable cada mañana', r:'extrae',
+      sabemos:'La mayoría de los vasos de papel lleva un recubrimiento de polietileno que limita que se reciclen junto con el papel.',
+      discute:'Existen recubrimientos nuevos reciclables o compostables, y usar tu propio termo evita el problema. Qué tanto pesa en tu ciudad depende de si hay un sistema que procese esos vasos.',
+      fuente:'BASF Insights; BioResources (NC State)' },
+    { t:'Echar los posos de café directo a tus plantas', r:'depende',
+      sabemos:'En un estudio de 2016 (Hardgrove y Livesley), todas las plantas hortícolas crecieron mal con posos aplicados directo, sin importar el suelo ni el fertilizante, probablemente por efectos fitotóxicos.',
+      discute:'Otro estudio halló que posos de 7 meses o menos inhibían el crecimiento, y los de 14 meses lo favorecían: depende de cuánto se hayan descompuesto. Una guía de extensión sugiere no pasar de 20% de posos en la composta.',
+      fuente:'Hardgrove y Livesley 2016; Horgan et al.; Ask Extension' },
+    { t:'Dormir menos de lo que tu cuerpo pide para rendir más', r:'extrae',
+      sabemos:'La mayoría de los adultos necesita entre 7 y 9 horas, y restringir el sueño aumenta la presión de sueño que luego se cobra.',
+      discute:'La necesidad varía entre personas: existen "dormilones cortos naturales" que necesitan de 4 a 6 horas por una base genética, pero son raros. Es fácil creer que eres uno cuando solo acumulas deuda de sueño.',
+      fuente:'The Conversation; Neuron 2019 (vía Scientific American)' },
+    { t:'Abrir redes "solo un minuto" cada vez que sientes aburrimiento', r:'depende',
+      sabemos:'Las plataformas usan recompensas variables: la dopamina sigue la diferencia entre lo que esperas y lo que llega, y el feed está diseñado para mantener esa brecha abierta.',
+      discute:'Se habla de "adicción" y de "químicos", pero ningún manual clínico de uso amplio la reconoce como diagnóstico, y faltan estudios a largo plazo que prueben cambios cerebrales causados por las redes. Lo que sí se estudia es el uso problemático.',
+      fuente:'Wadsley e Ihssen 2023 (Brain Sciences); The City Celeb (divulgación)' },
+    { t:'¿Qué necesita una composta para funcionar bien?', r:'b',
+      opts:[
+        { id:'a', t:'Que todo vaya junto en una bolsa cerrada para que no huela' },
+        { id:'b', t:'Mezcla de restos húmedos y material seco (hojas, cartón, aserrín), con aire y humedad como esponja exprimida' },
+        { id:'c', t:'Solo cáscaras de fruta y nada más' },
+        { id:'d', t:'Sol directo y que nunca se mezcle' }
+      ],
+      sabemos:'Sin aire la descomposición es anaerobia. En los rellenos sanitarios, la comida genera así metano, con un potencial de calentamiento al menos 28 veces el del CO₂.',
+      discute:'Hay muchas técnicas (pila aerobia, lombricomposta, bokashi, industrial) y ninguna es perfecta: un análisis de ciclo de vida encontró que el compostaje también emite amoníaco y SO₂ que acidifican. La respuesta b son principios básicos de compostaje, no una búsqueda específica.',
+      fuente:'NSW EPA 2024; Deng et al. (análisis de ciclo de vida)' },
+    { t:'Comer mirando una pantalla', r:'depende',
+      sabemos:'Un metaanálisis de 2026 con 50 estudios halló que comer distraído lleva a comer más en la siguiente comida (efecto moderado).',
+      discute:'Lo que comes en ese momento no cambió de forma significativa, y el efecto es pequeño. Una revisión sobre televisión mostró lo mismo: sube la ingesta sobre todo en la siguiente comida. Los estudios no coinciden del todo.',
+      fuente:'Gough et al. 2026 (AJCN); Garg et al. 2025 (Nutrients)' },
+    { t:'Tirar a la basura tus prototipos fallidos de biomaterial', r:'extrae',
+      sabemos:'La materia orgánica en un relleno se descompone sin aire y genera metano; además el lixiviado con mucha materia orgánica aumenta la demanda de oxígeno del agua.',
+      discute:'No sabemos cuánto tarda en degradarse tu mezcla: depende de la fórmula y de los aditivos, y no encontramos estudios que comparen biomateriales caseros contra polímeros sintéticos. Es una pregunta abierta que tu laboratorio puede responder midiendo.',
+      fuente:'NSW EPA 2024; Springer 2024 (análisis de ciclo de vida)' },
+    { t:'Respirar lento 2 minutos antes de diseñar, estudiar o imprimir', r:'regenera',
+      sabemos:'Un metaanálisis de 31 estudios (1,133 personas) halló que la respiración lenta (cerca de 6 por minuto) reduce la presión sistólica y aumenta la variabilidad de la frecuencia cardíaca.',
+      discute:'Para el estrés, un metaanálisis de 12 ensayos aleatorizados (785 adultos) va a favor, pero la mayoría tenía riesgo de sesgo moderado. Que mejore tu creatividad o tu aprendizaje no está probado: es una hipótesis para probar aquí.',
+      fuente:'Shao, Man y Lee 2024 (Mindfulness); Scientific Reports 2023' }
   ];
   var ZONAS = ['Cuerpo','Mente','Emoción','Vínculos','Territorio','Espíritu'];
   var AYUDA = {
@@ -375,10 +437,21 @@
   function pts() { return S.hab.filter(function (h, i) { return h === CARTAS[i].r; }).length; }
   function mostrarCarta() {
     var c = CARTAS[ci];
-    $('jn').textContent = (ci + 1) + ' / ' + CARTAS.length; $('jp').textContent = pts() + ' aciertos';
+    pintarOpciones(c);
+    $('jn').textContent = (ci + 1) + ' / ' + CARTAS.length; $('jp').textContent = pts() + ' coincidencias';
     var el = $('carta'); el.textContent = c.t; el.classList.remove('sale'); void el.offsetWidth; el.classList.add('sale');
     $('trio').classList.remove('off'); Array.prototype.forEach.call($('trio').children, function (b) { b.classList.remove('el'); });
     $('reveal').hidden = true; $('jsig').hidden = true; bloqueada = false;
+  }
+  var TRIO_BASE = [['regenera','🌱 Regenera'],['depende','⚖️ Depende'],['extrae','🕳️ Extrae']];
+  function pintarOpciones(c) {
+    var t = $('trio'); t.innerHTML = ''; t.style.gridTemplateColumns = c.opts ? '1fr' : '';
+    (c.opts ? c.opts.map(function (o) { return [o.id, o.t]; }) : TRIO_BASE).forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-r', o[0]); b.textContent = o[1];
+      if (c.opts) b.style.textAlign = 'left', b.style.padding = '14px 16px';
+      b.onclick = function () { responder(b, o[0]); };
+      t.appendChild(b);
+    });
   }
   function iniciarHabitos() {
     var hecho = S.hab.length >= CARTAS.length;
@@ -386,21 +459,23 @@
     if (hecho) { postJuego(); return; }
     ci = Math.min(S.hab.length, CARTAS.length - 1); mostrarCarta();
   }
-  Array.prototype.forEach.call($('trio').children, function (b) {
-    b.onclick = function () {
-      if (bloqueada) return; bloqueada = true;
-      var c = CARTAS[ci], r = b.getAttribute('data-r'), ok = r === c.r;
-      S.hab[ci] = r; guardar(); $('trio').classList.add('off'); b.classList.add('el');
-      var rv = $('reveal'); rv.hidden = false; rv.className = 'reveal ' + (ok ? 'ok' : 'no');
-      rv.textContent = (ok ? 'Coincidimos. ' : 'Yo lo veo distinto: para mí ' + (c.r === 'depende' ? 'depende.' : c.r === 'regenera' ? 'regenera.' : 'extrae.') + ' ') + c.x;
-      $('jp').textContent = pts() + ' aciertos';
-      var jb = $('jsig'); jb.hidden = false; jb.textContent = ci + 1 >= CARTAS.length ? 'Ver mi resultado' : 'Siguiente carta';
-    };
-  });
+  var ETQ = { regenera:'regenera', depende:'depende', extrae:'extrae' };
+  function responder(b, r) {
+    if (bloqueada) return; bloqueada = true;
+    var c = CARTAS[ci], ok = r === c.r;
+    S.hab[ci] = r; guardar(); $('trio').classList.add('off'); b.classList.add('el');
+    var rv = $('reveal'); rv.hidden = false; rv.className = 'reveal ' + (ok ? 'ok' : 'no'); rv.innerHTML = '';
+    function linea(k, v) { var d = document.createElement('p'); d.style.margin = '0 0 8px'; var bb = document.createElement('b'); bb.textContent = k + ' '; d.appendChild(bb); d.appendChild(document.createTextNode(v)); rv.appendChild(d); }
+    linea(c.opts ? (ok ? '¡Correcto!' : 'Casi.') : (ok ? 'Coincidimos.' : 'Una lectura posible:'), c.opts ? 'la mejor respuesta es la b.' : 'para Gibrán ' + ETQ[c.r] + '.');
+    linea('Lo que sabemos:', c.sabemos); linea('Lo que se discute:', c.discute);
+    var f = document.createElement('p'); f.className = 'suave'; f.style.margin = '0'; f.textContent = 'Fuente: ' + c.fuente; rv.appendChild(f);
+    $('jp').textContent = pts() + ' coincidencias';
+    var jb = $('jsig'); jb.hidden = false; jb.textContent = ci + 1 >= CARTAS.length ? 'Ver mi resultado' : 'Siguiente carta';
+  }
   $('jsig').onclick = function () { if (ci + 1 >= CARTAS.length) { $('juego').hidden = true; $('post').hidden = false; postJuego(); } else { ci++; mostrarCarta(); } };
   function postJuego() {
     var n = pts();
-    $('resumen').textContent = n >= 6 ? 'Ya ves los hábitos como una fuerza cultural: ' + n + ' de 8.' : n >= 3 ? n + ' de 8. Lo que te sorprendió es justo lo que no veías como hábito.' : n + ' de 8. Tu mirada es otra, y esa diferencia vale para discutirla en clase.';
+    $('resumen').textContent = n >= 6 ? 'Coincidimos en ' + n + ' de 8.' : n >= 3 ? n + ' de 8. Lo que te sorprendió es justo lo que no veías como hábito.' : n + ' de 8. Tu mirada es otra, y esa diferencia vale para discutirla en clase.';
     var cont = $('sliders'); cont.innerHTML = '';
     ZONAS.forEach(function (z, i) {
       var f = document.createElement('div'); f.className = 'fila';
@@ -526,6 +601,30 @@
     try { localStorage.removeItem(K); } catch (e) {}
     location.reload();
   };
+
+  // ---------- Clave de entrada (es un filtro para la clase, no seguridad real) ----------
+  var CLAVE_HASH = '11q0hoievpa';  // clave: ver mensaje de Claude; para cambiarla pide un nuevo hash
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
+  function cyrb53(str) { var h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (var i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); }
+  function abrir() { document.getElementById('gate').hidden = true; document.getElementById('actividad').hidden = false; try { sessionStorage.setItem('tk-taller-ok', '1'); } catch (e) {} window.scrollTo(0, 0); }
+  function probar() {
+    var ok = cyrb53(norm(document.getElementById('clave').value)) === CLAVE_HASH;
+    document.getElementById('gate-error').hidden = ok; if (ok) abrir();
+  }
+  document.getElementById('entrar').onclick = probar;
+  document.getElementById('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') probar(); });
+  try { if (sessionStorage.getItem('tk-taller-ok') === '1') abrir(); } catch (e) {}
+
+  // Barra superior, botones de Instagram/WhatsApp y Shishi, igual que el resto del sitio
+  fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
+    var R = window.TratakRender;
+    R.applyTheme(content.theme, document.documentElement.style);
+    document.getElementById('site-top').innerHTML = R.renderNav(content.theme);
+    document.getElementById('site-floating').innerHTML = R.renderFloatingButtons(content.contacto);
+    document.body.classList.add('con-nav');
+    R.bindGlobalInteractions(content.theme);
+    if (window.Shishi) Shishi.montar(content);
+  }).catch(function () {});
 
   ir(Math.min(S.paso || 0, pasos.length - 1));
 })();
