@@ -48,9 +48,9 @@
       "abierta": true,
       "enlaces": [
         {
-          "titulo": "Taller interactivo · Materia y Ser",
-          "descripcion": "Actividad para clase: quién eres, por qué estás aquí y qué relación tienes con tu materia.",
-          "url": "https://tratakcat.com/taller",
+          "titulo": "Actividades de clase",
+          "descripcion": "Una actividad por clase del curso. Pide la clave a quien da la clase.",
+          "url": "https://tratakcat.com/actividades",
           "icono": "🌀",
           "destacado": true,
           "etiqueta": "Nuevo"

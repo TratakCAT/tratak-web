@@ -96,6 +96,8 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
 .app .fila{ display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; font-size:14px; font-weight:600; margin:6px 0; }
 .app #semilla-ayuda{ margin-bottom:8px; }
 
+.app .aviso{ background:#fff7e0; border:1.5px solid #e8c766; border-radius:18px; padding:14px 16px; margin:4px 0 6px; font-size:14.5px; line-height:1.4; }
+.app .aviso ul{ margin:8px 0 6px; padding-left:18px; } .app .aviso li{ margin-bottom:6px; } .app .aviso small{ opacity:.7; }
 .app .progreso{ display:flex; align-items:center; gap:10px; margin:6px 0 4px; font-size:13px; font-weight:700; }
 .app .progreso-barra{ flex:1; height:12px; border-radius:8px; background:rgba(36,31,24,.12); overflow:hidden; }
 .app .progreso-barra i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#c0a2ec,#9fcbec,#b9edb2); transition:width .35s; }
@@ -125,15 +127,15 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
   <div class="card" id="gate">
     <span class="tag">Actividades</span>
     <h1>Materia y <em>ser</em></h1>
-    <p>Esta actividad se hace en clase. Escribe la clave que dijo Gibrán para entrar.</p>
+    <p>Esta actividad se hace en clase. Escribe la clave que se dijo en clase para entrar.</p>
     <label for="clave">Clave</label>
     <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
-    <p id="gate-error" class="suave" style="color:#b3261e;margin-top:8px" hidden>Esa no es. Revisa en el pizarrón o pregúntale a Gibrán.</p>
+    <p id="gate-error" class="suave" style="color:#b3261e;margin-top:8px" hidden>Esa no es. Revisa lo que se dijo en clase o pregunta a quien da la clase.</p>
     <button class="btn" id="entrar">Entrar</button>
   </div>
   <div id="actividad" hidden>
   <div class="top">
-    <b>Actividades · Materia y Ser</b>
+    <a href="actividades.html" style="color:inherit;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none">← Actividades</a>
     <div class="puntos" id="puntos"></div>
   </div>
   <div class="card">
@@ -218,6 +220,17 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     <section class="paso" data-paso="5">
       <span class="tag">Parada 5 · El encuentro</span>
       <h2>Conoce a <em id="aliadaNombre">tu materia</em></h2>
+      <div class="aviso">
+        <b>Antes de oler, con cuidado</b>
+        <ul>
+          <li><b>Huele a distancia:</b> sostén la materia a un palmo (unos 15 cm) de la cara, abanica el aire hacia tu nariz con la otra mano y aspira poco y suave. No metas la nariz ni inhales profundo.</li>
+          <li><b>Señales de moho:</b> olor a humedad, a rancio o a tierra mojada; manchas de cualquier color, aspecto algodonoso o polvoso. Si lo ves o lo hueles, no la inhales, no la toques sin guantes y no la uses.</li>
+          <li><b>No todo moho se ve:</b> puede estar en poca cantidad o escondido. En algunas personas no pasa nada y en otras causa congestión, tos o sibilancias; no se puede saber de antemano quién reacciona, y oler no garantiza que esté limpia.</li>
+          <li><b>Si tienes alergias, asma o defensas bajas,</b> no la huelas: solo obsérvala y tócala con guantes.</li>
+          <li><b>Material seco y molido:</b> no lo sacudas ni lo soples; el polvo fino se respira. Usa cubrebocas KN95.</li>
+        </ul>
+        <small>Basado en guías de seguridad de laboratorio y de los CDC/EPA sobre moho.</small>
+      </div>
       <label style="margin-top:4px">La huelo y huele a…</label>
       <div class="chips" id="olor"></div>
       <label>La toco y se siente…</label>
@@ -228,6 +241,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
         <div class="seg" id="seg">30</div>
       </div>
       <button class="btn sec" id="ritual" style="margin-top:6px">Empezar los 30 segundos</button>
+      <button class="atras" id="probar-sonido" type="button" style="display:block;margin:8px auto 0">🔔 Probar el sonido</button>
       <label for="voz">Si pudiera hablarte, ¿qué te diría? <small>Escribe lo primero que llegue, sin editarlo.</small></label>
       <textarea id="voz" maxlength="220"></textarea>
       <label>Pacto: al imprimirla me comprometo a…</label>
@@ -274,7 +288,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
       <h2>Esto salió de <em>ti y de tu materia</em></h2>
       <div class="ficha" id="ficha"></div>
       <button class="btn" id="descargar">Guardar mi ficha como imagen</button>
-      <button class="btn wa" id="wa">Enviársela a Gibrán por WhatsApp</button>
+      <button class="btn wa" id="wa">Enviar mi ficha por WhatsApp</button>
       <div class="evento">
         <p><b>Esto fue una probada.</b> En el curso completo de TRATAK CAT combinas realidad virtual, impresión LDM y cultura biomaterial para llevar esta relación con la materia a objetos reales.</p>
         <a class="btn" href="https://tratakcat.com/#plan" target="_blank" rel="noopener">Ver el plan de estudios</a>
@@ -287,7 +301,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
   </div>
 </div>
 
-<script src="assets/site.js?v=41"></script>
+<script src="assets/site.js?v=42"></script>
 <script src="assets/shishi.js?v=38"></script>
 <script>
 (function () {
@@ -402,16 +416,49 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
 
   // Ritual de 30 s
   var timer = null;
+  // Campana suave: se genera como WAV y suena con <audio> (funciona incluso con el teléfono en modo silencio de iOS)
+  function crearCampana() {
+    var sr = 22050, dur = 6, n = sr * dur, buf = new Int16Array(n), f0 = 392;
+    var parc = [[1, 1, 3.2], [2.01, .5, 2.4], [2.76, .35, 1.8], [4.07, .18, 1.2], [5.43, .1, .8], [1.003, .6, 3.0]];
+    var max = 0, x = new Float32Array(n);
+    for (var i = 0; i < n; i++) {
+      var t = i / sr, v = 0;
+      for (var k = 0; k < parc.length; k++) v += parc[k][1] * Math.sin(2 * Math.PI * f0 * parc[k][0] * t) * Math.exp(-t / parc[k][2]);
+      v *= Math.min(1, t / 0.006);
+      x[i] = v; if (Math.abs(v) > max) max = Math.abs(v);
+    }
+    for (var j = 0; j < n; j++) buf[j] = Math.round(x[j] / max * 0.85 * 32767);
+    var d = new DataView(new ArrayBuffer(44 + n * 2)), w = function (o, s2) { for (var q = 0; q < s2.length; q++) d.setUint8(o + q, s2.charCodeAt(q)); };
+    w(0, 'RIFF'); d.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); d.setUint32(16, 16, true); d.setUint16(20, 1, true); d.setUint16(22, 1, true);
+    d.setUint32(24, sr, true); d.setUint32(28, sr * 2, true); d.setUint16(32, 2, true); d.setUint16(34, 16, true); w(36, 'data'); d.setUint32(40, n * 2, true);
+    for (var m = 0; m < n; m++) d.setInt16(44 + m * 2, buf[m], true);
+    return URL.createObjectURL(new Blob([d], { type: 'audio/wav' }));
+  }
+  var campana = null;
+  function prepararCampana() {
+    if (!campana) { campana = new Audio(crearCampana()); campana.preload = 'auto'; }
+    campana.muted = true;
+    var pr = campana.play(); if (pr && pr.then) pr.then(function () { campana.pause(); campana.currentTime = 0; campana.muted = false; }).catch(function () { campana.muted = false; });
+  }
+  function sonarCampana() {
+    if (!campana) campana = new Audio(crearCampana());
+    campana.muted = false; campana.volume = 1; campana.currentTime = 0;
+    var pr = campana.play(); if (pr && pr.catch) pr.catch(function () {});
+  }
+  window.__sonarCampana = sonarCampana;
+  $('probar-sonido').onclick = function () { sonarCampana(); };
   $('ritual').onclick = function () {
     if (timer) return;
+    prepararCampana();
     var t = 30, p = $('prog'); p.classList.remove('corre'); void p.getBoundingClientRect(); p.classList.add('corre');
     this.textContent = 'Respira…'; this.disabled = true; $('seg').textContent = t;
     var btn = this;
     timer = setInterval(function () {
       t--; $('seg').textContent = t;
-      if (t <= 0) { clearInterval(timer); timer = null; $('seg').textContent = '✓'; btn.textContent = 'Repetir'; btn.disabled = false; try { navigator.vibrate && navigator.vibrate(200); } catch (e) {} }
+      if (t <= 0) { clearInterval(timer); timer = null; $('seg').textContent = '✓'; btn.textContent = 'Repetir'; btn.disabled = false; sonarCampana(); try { navigator.vibrate && navigator.vibrate(200); } catch (e) {} }
     }, 1000);
   };
+
 
   // Checklist de materiales (basado en la lista del curso)
   var MATS = [
@@ -501,10 +548,10 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
       sabemos:'La mayoría de los adultos necesita entre 7 y 9 horas, y restringir el sueño aumenta la presión de sueño que luego se cobra.',
       discute:'La necesidad varía entre personas: existen "dormilones cortos naturales" que necesitan de 4 a 6 horas por una base genética, pero son raros. Es fácil creer que eres uno cuando solo acumulas deuda de sueño.',
       fuente:'The Conversation; Neuron 2019 (vía Scientific American)' },
-    { t:'Abrir redes "solo un minuto" cada vez que sientes aburrimiento', r:'depende',
-      sabemos:'Las plataformas usan recompensas variables: la dopamina sigue la diferencia entre lo que esperas y lo que llega, y el feed está diseñado para mantener esa brecha abierta.',
-      discute:'Se habla de "adicción" y de "químicos", pero ningún manual clínico de uso amplio la reconoce como diagnóstico, y faltan estudios a largo plazo que prueben cambios cerebrales causados por las redes. Lo que sí se estudia es el uso problemático.',
-      fuente:'Wadsley e Ihssen 2023 (Brain Sciences); The City Celeb (divulgación)' },
+    { t:'Usar redes por impulso, sin decidirlo, cada vez que sientes aburrimiento o incomodidad', r:'extrae',
+      sabemos:'Con escalas validadas de uso adictivo, un estudio de JAMA 2025 siguió a 4,285 niños durante años: cerca de 40% tuvo un uso adictivo de redes alto o creciente, y ese patrón (no las horas totales) se asoció con peor salud mental. Un metaanálisis de 153 estudios longitudinales (JAMA Pediatrics 2026) asocia más uso de redes con depresión, uso problemático de internet y menor rendimiento escolar.',
+      discute:'Son asociaciones, no una causa demostrada. La adicción a redes no es todavía un diagnóstico formal y la pediatría prefiere hablar de "uso problemático". Tampoco hay estudios que prueben que "un minuto" baste para generar adicción: lo que se mide es el patrón compulsivo sostenido, y la evidencia sobre cambios cerebrales causados por redes sigue siendo limitada.',
+      fuente:'Xiao et al. 2025 (JAMA); Teague et al. 2026 (JAMA Pediatrics); Scientific American; Wadsley e Ihssen 2023' },
     { t:'¿Qué necesita una composta para funcionar bien?', r:'b',
       opts:[
         { id:'a', t:'Que todo vaya junto en una bolsa cerrada para que no huela' },
@@ -567,7 +614,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     S.hab[ci] = r; guardar(); $('trio').classList.add('off'); b.classList.add('el');
     var rv = $('reveal'); rv.hidden = false; rv.className = 'reveal ' + (ok ? 'ok' : 'no'); rv.innerHTML = '';
     function linea(k, v) { var d = document.createElement('p'); d.style.margin = '0 0 8px'; var bb = document.createElement('b'); bb.textContent = k + ' '; d.appendChild(bb); d.appendChild(document.createTextNode(v)); rv.appendChild(d); }
-    linea(c.opts ? (ok ? '¡Correcto!' : 'Casi.') : (ok ? 'Coincidimos.' : 'Una lectura posible:'), c.opts ? 'la mejor respuesta es la b.' : 'para Gibrán ' + ETQ[c.r] + '.');
+    linea(c.opts ? (ok ? '¡Correcto!' : 'Casi.') : (ok ? 'Coincidimos.' : 'Una lectura posible:'), c.opts ? 'la mejor respuesta es la b.' : 'esta práctica ' + ETQ[c.r] + '.');
     linea('Lo que sabemos:', c.sabemos); linea('Lo que se discute:', c.discute);
     var f = document.createElement('p'); f.className = 'suave'; f.style.margin = '0'; f.textContent = 'Fuente: ' + c.fuente; rv.appendChild(f);
     $('jp').textContent = pts() + ' coincidencias';
