@@ -39,6 +39,18 @@
   .app .clase b{ display:block; font-family:Georgia,serif; font-size:24px; font-weight:400; }
   .app .clase span{ display:block; font-size:12px; font-weight:600; opacity:.75; }
   .app .clase .cand{ position:absolute; top:6px; right:8px; font-size:13px; }
+  .app .clase{ opacity:1; cursor:pointer; border-style:solid; background:rgba(255,255,255,.85); }
+  .app .clase.t{ border-width:2px; }
+  .app .clase .cand{ opacity:.55; }
+  .app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:10px; }
+  .modal{ position:fixed; inset:0; background:rgba(36,31,24,.55); display:flex; align-items:flex-end; justify-content:center; padding:16px; z-index:60; }
+  .modal-caja{ width:100%; max-width:480px; background:#fff; border-radius:26px; padding:22px 20px 22px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  .modal-caja h2{ font-family:Georgia,serif; font-weight:400; font-size:26px; margin:0 0 6px; }
+  .modal-caja .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:10px; }
+  .modal-caja label{ display:block; font-weight:700; font-size:15px; margin:14px 0 6px; }
+  .modal-caja input{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); }
+  .modal-caja .btn{ display:block; width:100%; border:0; border-radius:999px; padding:15px 20px; font:inherit; font-size:16px; font-weight:700; cursor:pointer; background:var(--tk-ink); color:#fff; margin-top:14px; }
+  .modal-caja .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:8px; }
   .aviso-toast{ position:fixed; left:50%; bottom:110px; transform:translateX(-50%); background:var(--tk-ink); color:#fff; padding:12px 18px; border-radius:999px; font-size:14.5px; font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s; z-index:50; max-width:90vw; text-align:center; }
   .aviso-toast.on{ opacity:1; }
   [hidden]{ display:none !important; }
@@ -48,34 +60,32 @@
 <div id="site-top"></div>
 <div id="site-floating"></div>
 <div class="app">
-  <div class="card" id="gate">
-    <span class="tag">Actividades</span>
-    <h1>Una actividad <em>por clase</em></h1>
-    <p>Las actividades se hacen en clase. Escribe la clave que se dijo en clase para entrar.</p>
-    <label for="clave">Clave</label>
-    <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
-    <p id="gate-error" class="suave" style="color:#b3261e;margin-top:8px" hidden>Esa no es. Revisa lo que se dijo en clase o pregunta a quien da la clase.</p>
-    <button class="btn" id="entrar">Entrar</button>
-  </div>
-
-  <div id="hub" hidden>
+  <div id="hub">
     <div class="card">
       <span class="tag">Actividades</span>
-      <h1>Cada clase, <em>su actividad</em></h1>
-      <p>Cada clase del curso tiene una actividad propia. Se abren cuando llegas a esa clase.</p>
+      <h1>Cada actividad, <em>su clave</em></h1>
+      <p>Elige una actividad y escribe su clave. Cada una tiene la suya, y la da quien dirige la actividad.</p>
     </div>
 
-    <div class="card cero">
-      <span class="num">0</span>
-      <h2>Materia y ser</h2>
-      <p>Actividad de arranque: quién eres, qué materia trajiste y qué hábitos sostienen tu cultura.</p>
-      <a class="btn" href="taller.html">Abrir actividad 0</a>
+    <div class="card">
+      <div class="top-head"><i style="background:#f2c94c"></i><h2>Actividades generales</h2></div>
+      <div class="clases" id="generales"></div>
     </div>
 
     <div id="topicos"></div>
   </div>
 </div>
-<div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="modal" hidden>
+  <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="m-titulo">
+    <span class="tag" id="m-tag"></span>
+    <h2 id="m-titulo"></h2>
+    <label for="clave">Clave de esta actividad</label>
+    <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
+    <p id="m-error" class="suave" style="color:#b3261e;margin-top:8px" hidden></p>
+    <button class="btn" id="entrar">Entrar</button>
+    <button class="btn sec" id="cerrar" type="button">Cancelar</button>
+  </div>
+</div>
 
 <script src="assets/site.js?v=42"></script>
 <script src="assets/shishi.js?v=38"></script>
@@ -83,39 +93,57 @@
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
-  // Misma clave y misma sesión que la actividad (es un filtro para la clase, no seguridad real)
-  var CLAVE_HASH = '11q0hoievpa';
+  // Cada actividad tiene su propia clave (guardada como huella, no en claro).
+  // Para activar una actividad: pon su 'hash' (se calcula con la misma función) y su 'url'.
+  // Es un filtro para la clase, no seguridad real.
   function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
   function cyrb53(str) { var h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (var i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); }
-  function abrir() { $('gate').hidden = true; $('hub').hidden = false; try { sessionStorage.setItem('tk-taller-ok', '1'); } catch (e) {} window.scrollTo(0, 0); }
-  function probar() { var ok = cyrb53(norm($('clave').value)) === CLAVE_HASH; $('gate-error').hidden = ok; if (ok) abrir(); }
-  $('entrar').onclick = probar;
-  $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') probar(); });
 
+  var ACT = {};  // id -> { nombre, hash, url }
+  ACT['g0'] = { nombre: 'Materia y ser', hash: '1dy0hpoubsn', url: 'taller.html' };
+
+  var GENERALES = [ { id: 'g0', n: '0', cap: 'Materia y ser' }, { id: 'g1', n: '1', cap: 'Por definir' }, { id: 'g2', n: '2', cap: 'Por definir' } ];
   var TOPICOS = [
-    { n: 'Impresión 3D', c: '#c0a2ec' },
-    { n: 'Diseño en Realidad Virtual', c: '#9fcbec' },
-    { n: 'Cultura Biomaterial', c: '#b9edb2' }
+    { id: 't1', n: 'Impresión 3D', c: '#c0a2ec' },
+    { id: 't2', n: 'Diseño en Realidad Virtual', c: '#9fcbec' },
+    { id: 't3', n: 'Cultura Biomaterial', c: '#b9edb2' }
   ];
-  var cont = $('topicos'), toastT = null;
-  function aviso() {
-    var t = $('toast'); t.textContent = 'Se abre cuando llegues a esa clase.'; t.classList.add('on');
-    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 2200);
+
+  var actual = null;
+  function abrirModal(id, etiqueta, titulo) {
+    actual = id; $('m-tag').textContent = etiqueta; $('m-titulo').textContent = titulo;
+    $('clave').value = ''; $('m-error').hidden = true; $('modal').hidden = false;
+    setTimeout(function () { $('clave').focus(); }, 50);
   }
+  function cerrarModal() { $('modal').hidden = true; actual = null; }
+  function probar() {
+    var a = ACT[actual];
+    if (!a) { $('m-error').textContent = 'Esta actividad todavía no tiene clave.'; $('m-error').hidden = false; return; }
+    if (cyrb53(norm($('clave').value)) !== a.hash) { $('m-error').textContent = 'Esa no es la clave de esta actividad.'; $('m-error').hidden = false; return; }
+    try { sessionStorage.setItem('tk-act-' + actual, '1'); } catch (e) {}
+    location.href = a.url;
+  }
+  $('entrar').onclick = probar; $('cerrar').onclick = cerrarModal;
+  $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') probar(); if (e.key === 'Escape') cerrarModal(); });
+  $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) cerrarModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('modal').hidden) cerrarModal(); });
+
+  function tile(cont, id, num, cap, etiqueta, titulo, clase) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'clase ' + (clase || '');
+    b.innerHTML = '<span class="cand">🔑</span><b></b><span></span>'; b.querySelector('b').textContent = num; b.lastChild.textContent = cap;
+    b.onclick = function () { abrirModal(id, etiqueta, titulo); };
+    cont.appendChild(b);
+  }
+  GENERALES.forEach(function (g) { tile($('generales'), g.id, g.n, g.cap, 'Actividad general ' + g.n, g.id === 'g0' ? 'Materia y ser' : 'Actividad general ' + g.n, 't'); });
+  var cont = $('topicos');
   TOPICOS.forEach(function (tp) {
     var card = document.createElement('div'); card.className = 'card';
     var h = document.createElement('div'); h.className = 'top-head';
     var dot = document.createElement('i'); dot.style.background = tp.c; var h2 = document.createElement('h2'); h2.textContent = tp.n; h.appendChild(dot); h.appendChild(h2); card.appendChild(h);
     var g = document.createElement('div'); g.className = 'clases';
-    for (var i = 1; i <= 6; i++) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'clase'; b.setAttribute('aria-disabled', 'true');
-      b.innerHTML = '<span class="cand">🔒</span><b></b><span>Clase</span>'; b.querySelector('b').textContent = i;
-      b.onclick = aviso; g.appendChild(b);
-    }
+    for (var i = 1; i <= 6; i++) tile(g, tp.id + 'c' + i, i, 'Clase', tp.n, 'Clase ' + i);
     card.appendChild(g); cont.appendChild(card);
   });
-
-  try { if (sessionStorage.getItem('tk-taller-ok') === '1') abrir(); } catch (e) {}
 
   fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
     var R = window.TratakRender;
