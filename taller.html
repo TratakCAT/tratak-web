@@ -95,6 +95,18 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
 .app .resumen{ font-family:Georgia,serif; font-size:21px; line-height:1.25; margin-top:14px; }
 .app .fila{ display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; font-size:14px; font-weight:600; margin:6px 0; }
 .app #semilla-ayuda{ margin-bottom:8px; }
+
+.app .progreso{ display:flex; align-items:center; gap:10px; margin:6px 0 4px; font-size:13px; font-weight:700; }
+.app .progreso-barra{ flex:1; height:12px; border-radius:8px; background:rgba(36,31,24,.12); overflow:hidden; }
+.app .progreso-barra i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#c0a2ec,#9fcbec,#b9edb2); transition:width .35s; }
+.app .grupo-mats{ margin-top:16px; }
+.app .grupo-mats h3{ margin:0; font-size:14px; letter-spacing:.06em; text-transform:uppercase; display:flex; justify-content:space-between; gap:8px; }
+.app .grupo-mats h3 span{ opacity:.65; font-weight:600; text-transform:none; letter-spacing:0; }
+.app .grupo-mats .nota{ font-size:13px; opacity:.7; margin:2px 0 6px; }
+.app .item-mat{ display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left; padding:12px 14px; margin-top:6px; border:1.5px solid rgba(36,31,24,.18); border-radius:16px; background:#fff; font:inherit; font-size:15px; cursor:pointer; color:var(--tk-ink); }
+.app .item-mat .caja{ flex:none; width:24px; height:24px; border-radius:8px; border:2px solid rgba(36,31,24,.4); display:flex; align-items:center; justify-content:center; font-size:16px; color:#fff; margin-top:1px; }
+.app .item-mat.on{ background:#eef9ec; border-color:#4aa75f; } .app .item-mat.on .caja{ background:#4aa75f; border-color:#4aa75f; }
+.app .item-mat b{ display:block; font-weight:600; line-height:1.25; } .app .item-mat small{ display:block; opacity:.65; font-size:13px; line-height:1.3; margin-top:2px; }
 [hidden]{ display:none !important; }
 @media (prefers-reduced-motion:reduce){.app .paso{ animation:none; }
 .app .aro .prog.corre{ animation-duration:.01s; }
@@ -131,7 +143,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
       <span class="tag">IBERO Puebla · Biomateriales</span>
       <h1>Antes de imprimir, <em>¿quién imprime?</em></h1>
       <p>Esta clase no empieza con la máquina. Empieza contigo y con la materia que trajiste, que nadie más trajo igual.</p>
-      <p class="suave">Son 5 paradas. La última es la más importante: los <b>hábitos</b>, porque la evolución de una persona y de una cultura se construye con lo que repite cada día. No hay respuestas correctas: la ciencia aquí es <b>patafísica</b>, el estudio de las soluciones imaginarias y de las excepciones. Lo que escribas se queda en tu teléfono, tú decides si lo compartes.</p>
+      <p class="suave">Son 6 paradas. La última es la más importante: los <b>hábitos</b>, porque la evolución de una persona y de una cultura se construye con lo que repite cada día. No hay respuestas correctas: la ciencia aquí es <b>patafísica</b>, el estudio de las soluciones imaginarias y de las excepciones. Lo que escribas se queda en tu teléfono, tú decides si lo compartes.</p>
       <label for="nombre">¿Cómo te llamas (o cómo quieres que te llame la materia)?</label>
       <input type="text" id="nombre" maxlength="40" autocomplete="off" placeholder="Tu nombre o apodo">
       <button class="btn" data-sig>Entrar</button>
@@ -172,9 +184,23 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
       <button class="atras" data-atras>Atrás</button>
     </section>
 
-    <!-- 3 · Materia -->
+    <!-- 3 · Checklist de materiales -->
     <section class="paso" data-paso="3">
-      <span class="tag">Parada 3 · La materia</span>
+      <span class="tag">Parada 3 · Tus materiales</span>
+      <h2>¿Qué <em>conseguiste</em>?</h2>
+      <p>Marca lo que ya traes. Lo que falte no es un error: es información para resolverlo juntos o para sustituirlo con ingenio.</p>
+      <div class="progreso"><div class="progreso-barra"><i id="mat-barra"></i></div><span id="mat-texto"></span></div>
+      <div id="lista-mats"></div>
+      <label for="faltan">Lo que no conseguí lo voy a resolver así… <small>Un sustituto, un préstamo, o preguntarle a alguien</small></label>
+      <textarea id="faltan" maxlength="220"></textarea>
+      <p class="suave" style="margin-top:14px">Cantidades por equipo o estudiante. Prueba al menos 2 cargas distintas para comparar cómo se comportan.</p>
+      <button class="btn" data-sig>Siguiente</button>
+      <button class="atras" data-atras>Atrás</button>
+    </section>
+
+    <!-- 4 · Materia -->
+    <section class="paso" data-paso="4">
+      <span class="tag">Parada 4 · La materia</span>
       <h2>Lo que trajiste <em>también te eligió</em></h2>
       <p>Todos pedimos las mismas herramientas, pero cada quien llegó con un residuo distinto. Nadie más tiene exactamente el tuyo.</p>
       <label>Saca tu residuo orgánico y elígelo aquí</label>
@@ -189,8 +215,8 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     </section>
 
     <!-- 4 · Escuchar -->
-    <section class="paso" data-paso="4">
-      <span class="tag">Parada 4 · El encuentro</span>
+    <section class="paso" data-paso="5">
+      <span class="tag">Parada 5 · El encuentro</span>
       <h2>Conoce a <em id="aliadaNombre">tu materia</em></h2>
       <label style="margin-top:4px">La huelo y huele a…</label>
       <div class="chips" id="olor"></div>
@@ -211,8 +237,8 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     </section>
 
     <!-- 5 · Hábitos -->
-    <section class="paso" data-paso="5">
-      <span class="tag">Parada 5 · Hábitos</span>
+    <section class="paso" data-paso="6">
+      <span class="tag">Parada 6 · Hábitos</span>
       <h2>La cultura es <em>lo que repites</em></h2>
       <p>Una cultura biomaterial regenerativa empieza en un hábito diario, y tu salud entera (cuerpo, mente, emoción, vínculos, territorio y espíritu) es parte de ese mismo sistema.</p>
       <div id="juego">
@@ -243,7 +269,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     </section>
 
     <!-- 6 · Ficha -->
-    <section class="paso" data-paso="6">
+    <section class="paso" data-paso="7">
       <span class="tag">Tu ficha</span>
       <h2>Esto salió de <em>ti y de tu materia</em></h2>
       <div class="ficha" id="ficha"></div>
@@ -301,7 +327,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
   ];
 
   var K = 'tk-taller-ibero';
-  var S = { paso:0, nombre:'', carrera:'', pct:50, nocabe:'', c1:'', c2:'', c3:'', mat:'', otro:'', origen:[], vida:'', olor:[], tacto:[], voz:'', pacto:[], hab:[], rueda:[5,5,5,5,5,5], extractivo:'', ancla:'', semilla:'' };
+  var S = { paso:0, nombre:'', carrera:'', pct:50, nocabe:'', c1:'', c2:'', c3:'', mat:'', otro:'', origen:[], vida:'', olor:[], tacto:[], voz:'', pacto:[], hab:[], mats:[], faltan:'', rueda:[5,5,5,5,5,5], extractivo:'', ancla:'', semilla:'' };
   try { var g = JSON.parse(localStorage.getItem(K) || 'null'); if (g) S = Object.assign(S, g); } catch (e) {}
   function guardar() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
 
@@ -314,17 +340,18 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     S.paso = n; guardar();
     pasos.forEach(function (p, i) { p.classList.toggle('on', i === n); });
     Array.prototype.forEach.call(puntos.children, function (d, i) { d.className = i === n ? 'on' : (i < n ? 'hecho' : ''); });
-    if (n === 4) { var m = materia(); $('aliadaNombre').textContent = m ? m.n.toLowerCase() : 'tu materia'; }
-    if (n === 5) iniciarHabitos();
-    if (n === 6) ficha();
+    if (n === 3) pintarLista();
+    if (n === 5) { var m = materia(); $('aliadaNombre').textContent = m ? m.n.toLowerCase() : 'tu materia'; }
+    if (n === 6) iniciarHabitos();
+    if (n === 7) ficha();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function leer() {
-    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla'].forEach(function (k) { S[k] = $(k).value.trim(); });
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla','faltan'].forEach(function (k) { S[k] = $(k).value.trim(); });
     S.pct = +$('pct').value;
   }
   function volcar() {
-    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla'].forEach(function (k) { $(k).value = S[k] || ''; });
+    ['nombre','carrera','nocabe','c1','c2','c3','otro','vida','voz','extractivo','ancla','semilla','faltan'].forEach(function (k) { $(k).value = S[k] || ''; });
     $('pct').value = S.pct; $('pctv').textContent = S.pct;
   }
   $('pct').addEventListener('input', function () { $('pctv').textContent = this.value; });
@@ -355,12 +382,12 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
   chips('origen', ORIGEN, 'origen'); chips('olor', OLOR, 'olor'); chips('tacto', TACTO, 'tacto'); chips('pacto', PACTO, 'pacto'); pintarMats(); volcar();
 
   // Validación mínima por paso
-  var REQ = { 0:['nombre'], 1:['carrera'], 2:['c1'], 3:[] };
+  var REQ = { 0:['nombre'], 1:['carrera'], 2:['c1'], 3:[], 4:[] };
   function puede(n) {
     leer();
-    if (n === 5 && S.hab.length < CARTAS.length) return 'Termina las 8 cartas para ver tu rueda.';
-    if (n === 5 && !S.semilla) return 'Escribe tu hábito semilla, aunque sea pequeñito.';
-    if (n === 3 && !S.mat) return 'Elige tu materia para seguir.';
+    if (n === 6 && S.hab.length < CARTAS.length) return 'Termina las 8 cartas para ver tu rueda.';
+    if (n === 6 && !S.semilla) return 'Escribe tu hábito semilla, aunque sea pequeñito.';
+    if (n === 4 && !S.mat) return 'Elige tu materia para seguir.';
     if (REQ[n]) for (var i = 0; i < REQ[n].length; i++) if (!S[REQ[n][i]]) return 'Escribe algo para seguir. Puede ser breve.';
     return '';
   }
@@ -386,7 +413,81 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     }, 1000);
   };
 
-  // Parada 5 · Hábitos
+  // Checklist de materiales (basado en la lista del curso)
+  var MATS = [
+    { g:'Cargas: residuo orgánico deshidratado y molido', nota:'Elige 3 y además la tierra', need:4, items:[
+      ['Tierra o arcilla','Cernida, sin piedras · 200 g'], ['Cáscara de huevo','Recolectar y lavar con vinagre · 200 g'],
+      ['Aserrín o viruta de madera fina','Tamizar para granulometría uniforme · 200 g'], ['Cáscaras de fruta deshidratadas y pulverizadas','Mango, plátano, cítricos · 200 g'],
+      ['Bagazo de café o de caña','Secado al sol o al horno · 200 g'], ['Fibra de coco o de agave molida','200 g'], ['Cáscara de nuez o almendra pulverizada','200 g'] ] },
+    { g:'Aglutinantes', items:[ ['Goma xantana','Aglutinante principal · 50 g'], ['Agua','1 L'] ] },
+    { g:'Aditivos complementarios', nota:'Opcionales', opc:true, items:[
+      ['Glicerina','Plastificante, reduce agrietamiento · 100 ml'], ['Vinagre o ácido cítrico','Control de pH en algunas mezclas · 100 ml'],
+      ['Aceite vegetal','Desmoldante / lubricante · 100 ml'], ['Colorante natural (cúrcuma, achiote)','Solo para diferenciar muestras · 1 pieza'] ] },
+    { g:'Mezclado y preparación', items:[
+      ['Licuadora o mini procesadora','Para pulverizar cargas secas · 1'], ['Batidora manual o cuchara de madera','1'],
+      ['Coladores o cernidores de distinta malla','Control de granulometría · 2 a 3'], ['Recipientes medidores (vasos graduados)','2'], ['Bowls o recipientes pequeños','Uno por lote de prueba · 4 a 6'] ] },
+    { g:'Extrusora simulada', items:[
+      ['Jeringas (100 ml o más) sin aguja','3 a 4'], ['Boquillas intercambiables o puntas de repostería','O corta la punta de la jeringa en distintos diámetros · 3 a 4'],
+      ['Émbolo de refuerzo o prensa manual','Para mezclas muy viscosas · opcional', true] ] },
+    { g:'Plataforma de impresión', nota:'Elige 1', need:1, items:[
+      ['Placa de vidrio, acrílico o silicón','Superficie lisa reutilizable · 1'], ['Papel encerado o film plástico','Cama desechable · 1 rollo'],
+      ['Plantillas o guías (círculos, líneas, espirales)','Debajo del vidrio, para trazar geometrías · 1 set'] ] },
+    { g:'Instrumentos de medición', items:[
+      ['Báscula de cocina (resolución de 1 g)','1'], ['Cronómetro','Tiempo de extrusión, gel y secado · 1'], ['Regla o calibrador','Ancho de línea y contracción al secar · 1'] ] },
+    { g:'Secado y curado', items:[
+      ['Espacio ventilado o deshidratador casero','1'], ['Espátulas finas','1 caja'], ['Celular para bitácora fotográfica','Registro en intervalos fijos · 1'] ] },
+    { g:'Protección y limpieza', items:[
+      ['Guantes','Para despegar piezas · 1 caja'], ['Cubrebocas KN95','Al pulverizar material seco (genera polvo fino) · 1 caja'], ['Franela y agua','Limpieza de jeringas entre pruebas'] ] }
+  ];
+  function progresoMats() {
+    var need = 0, got = 0, falta = [];
+    MATS.forEach(function (g, gi) {
+      var base = g.items.filter(function (it) { return !it[2] && !g.opc; });
+      var n = g.need || base.length;
+      var c = base.filter(function (it, ii) { return S.mats.indexOf(gi + ':' + g.items.indexOf(it)) > -1; }).length;
+      need += n; got += Math.min(n, c);
+      if (c < n) {
+        if (g.need) falta.push(g.g.split(':')[0].toLowerCase() + ' (' + (n - c) + ' más)');
+        else base.forEach(function (it) { if (S.mats.indexOf(gi + ':' + g.items.indexOf(it)) < 0) falta.push(it[0].toLowerCase()); });
+      }
+    });
+    return { need: need, got: got, falta: falta };
+  }
+  function actualizarMats() {
+    var p = progresoMats();
+    $('mat-barra').style.width = Math.round(100 * p.got / p.need) + '%';
+    $('mat-texto').textContent = p.got + ' de ' + p.need + ' listos';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-conteo]'), function (el) {
+      var gi = +el.getAttribute('data-conteo'), g = MATS[gi];
+      var c = g.items.filter(function (it, ii) { return S.mats.indexOf(gi + ':' + ii) > -1; }).length;
+      el.textContent = Math.min(c, g.need || g.items.length) + ' / ' + (g.need || g.items.length);
+    });
+  }
+  function pintarLista() {
+    var cont = $('lista-mats'); if (cont.childNodes.length) { actualizarMats(); return; }
+    MATS.forEach(function (g, gi) {
+      var d = document.createElement('div'); d.className = 'grupo-mats';
+      var h = document.createElement('h3'); var t = document.createElement('div'); t.textContent = g.g; var sp = document.createElement('span'); sp.setAttribute('data-conteo', gi);
+      h.appendChild(t); h.appendChild(sp); d.appendChild(h);
+      if (g.nota) { var nt = document.createElement('div'); nt.className = 'nota'; nt.textContent = g.nota; d.appendChild(nt); }
+      g.items.forEach(function (it, ii) {
+        var id = gi + ':' + ii, b = document.createElement('button'); b.type = 'button'; b.className = 'item-mat' + (S.mats.indexOf(id) > -1 ? ' on' : '');
+        var caja = document.createElement('span'); caja.className = 'caja'; caja.textContent = S.mats.indexOf(id) > -1 ? '✓' : '';
+        var tx = document.createElement('span'); var bb = document.createElement('b'); bb.textContent = it[0]; tx.appendChild(bb);
+        if (it[1]) { var sm = document.createElement('small'); sm.textContent = it[1]; tx.appendChild(sm); }
+        b.appendChild(caja); b.appendChild(tx);
+        b.onclick = function () {
+          var i = S.mats.indexOf(id); if (i > -1) S.mats.splice(i, 1); else S.mats.push(id);
+          var on = S.mats.indexOf(id) > -1; b.classList.toggle('on', on); caja.textContent = on ? '✓' : ''; guardar(); actualizarMats();
+        };
+        d.appendChild(b);
+      });
+      cont.appendChild(d);
+    });
+    actualizarMats();
+  }
+
+  // Parada 6 · Hábitos
   var CARTAS = [
     { t:'Comprar café en vaso desechable cada mañana', r:'extrae',
       sabemos:'La mayoría de los vasos de papel lleva un recubrimiento de polietileno que limita que se reciclen junto con el papel.',
@@ -522,7 +623,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
       voz: S.voz, sentidos: (S.olor.length || S.tacto.length) ? 'Huele ' + (lista(S.olor) || '—') + ' · se siente ' + (lista(S.tacto) || '—') : '',
       pacto: S.pacto.length ? 'Me comprometo a ' + lista(S.pacto) : '',
       mision: MISIONES[(seed >> 3) % MISIONES.length],
-      aciertos: pts(), zona: ZONAS[debil()], extractivo: S.extractivo,
+      mats: progresoMats(), faltan: S.faltan, aciertos: pts(), zona: ZONAS[debil()], extractivo: S.extractivo,
       semilla: S.semilla ? ('Después de ' + (S.ancla || 'algo que ya hago') + ', voy a ' + S.semilla.replace(/^voy a\s+/i, '')) : ''
     };
   }
@@ -541,6 +642,9 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     var bar = document.createElement('div'); bar.className = 'barra'; bar.innerHTML = '<i style="width:' + d.pct + '%"></i>'; f.appendChild(bar);
     add(f, 'Lo que no cabe en el título', d.nocabe);
     add(f, 'Lo que lo trajo', d.tercera, 'i');
+    add(f, 'Materiales listos', d.mats.got + ' de ' + d.mats.need);
+    add(f, 'Le falta', d.mats.falta.length ? d.mats.falta.slice(0, 8).join(', ') + (d.mats.falta.length > 8 ? ' y ' + (d.mats.falta.length - 8) + ' más' : '') : 'Nada: todo listo');
+    add(f, 'Lo resolverá así', d.faltan, 'i');
     add(f, 'Materia aliada', d.aliada, 'i');
     add(f, 'Lo que sabe de ella', d.destino);
     add(f, 'Sus sentidos', d.sentidos);
@@ -578,7 +682,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     c.fillStyle = '#fff'; c.font = '400 92px Georgia,serif'; y = envolver(c, d.nombre, X, y, A, 100) + 14;
     bloque('Estudió', d.carrera, 40); bloque('Su disciplina real', d.disc, 42, 1);
     bloque('Cuánto cabe en su título', d.pct + '%', 40);
-    bloque('Lo que lo trajo', d.tercera, 36, 1); bloque('Materia aliada', d.aliada, 40, 1);
+    bloque('Lo que lo trajo', d.tercera, 36, 1); bloque('Materiales listos', d.mats.got + ' de ' + d.mats.need, 40); bloque('Le falta', d.mats.falta.length ? d.mats.falta.slice(0, 8).join(', ') : 'Nada: todo listo', 32); bloque('Materia aliada', d.aliada, 40, 1);
     bloque('Lo que le dijo', d.voz ? '“' + d.voz + '”' : '', 34, 1); bloque('Pacto', d.pacto, 34);
     bloque('Misión de impresión', d.mision, 34);
     bloque('Hábito que suelta', d.extractivo, 34); bloque('Hábito semilla', d.semilla, 38, 1);
@@ -593,7 +697,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     });
   };
   $('wa').onclick = function () {
-    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision, d.semilla ? 'Hábito semilla: ' + d.semilla : '', 'Rueda (0-10): ' + ZONAS.map(function (z, i) { return z + ' ' + S.rueda[i]; }).join(', ')].filter(Boolean).join('\n');
+    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materiales listos: ' + d.mats.got + ' de ' + d.mats.need, d.mats.falta.length ? 'Me falta: ' + d.mats.falta.slice(0, 8).join(', ') : '', d.faltan ? 'Lo resolveré: ' + d.faltan : '', 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision, d.semilla ? 'Hábito semilla: ' + d.semilla : '', 'Rueda (0-10): ' + ZONAS.map(function (z, i) { return z + ' ' + S.rueda[i]; }).join(', ')].filter(Boolean).join('\n');
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t), '_blank', 'noopener');
   };
   $('reiniciar').onclick = function () {
