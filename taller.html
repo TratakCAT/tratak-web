@@ -704,7 +704,7 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     add(f, 'Zona a cuidar primero', d.zona);
     add(f, 'Hábito que suelta', d.extractivo);
     add(f, 'Hábito semilla', d.semilla, 'i');
-    var p = document.createElement('div'); p.className = 'pie'; p.textContent = 'TRATAK CAT · IBERO Puebla · 21 nov 2026'; f.appendChild(p);
+    var p = document.createElement('div'); p.className = 'pie'; p.innerHTML = 'TRATAK CAT · IBERO Puebla · 21 nov 2026<br><b style="font-size:15px;letter-spacing:.06em;text-transform:none;opacity:1">tratakcat.com</b>'; f.appendChild(p);
   }
 
   // Imagen
@@ -735,16 +735,17 @@ body{ min-height:100vh; color:var(--tk-ink); font-family:system-ui,-apple-system
     bloque('Hábito que suelta', d.extractivo, 34); bloque('Hábito semilla', d.semilla, 38, 1);
     c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText('SU RUEDA DE SALUD HOLÍSTICA', X, y); y += 20;
     radar(c, W / 2, y + 430, 330, S.rueda, true); y += 880;
-    var HF = Math.min(H, Math.max(1350, y + 150)), out = document.createElement('canvas'); out.width = W; out.height = HF;
+    var HF = Math.min(H, Math.max(1350, y + 210)), out = document.createElement('canvas'); out.width = W; out.height = HF;
     var o = out.getContext('2d'); o.drawImage(cv, 0, 0); 
-    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · IBERO PUEBLA · 21 NOV 2026', X, HF - 60);
+    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · IBERO PUEBLA · 21 NOV 2026', X, HF - 105);
+    o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
     out.toBlob(function (b) {
       var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-tratak.png';
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
     });
   };
   $('wa').onclick = function () {
-    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materiales listos: ' + d.mats.got + ' de ' + d.mats.need, d.mats.falta.length ? 'Me falta: ' + d.mats.falta.slice(0, 8).join(', ') : '', d.faltan ? 'Lo resolveré: ' + d.faltan : '', 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision, d.semilla ? 'Hábito semilla: ' + d.semilla : '', 'Rueda (0-10): ' + ZONAS.map(function (z, i) { return z + ' ' + S.rueda[i]; }).join(', ')].filter(Boolean).join('\n');
+    var d = datos(), t = ['*Ficha de ' + d.nombre + '* (IBERO Puebla)', 'Estudia: ' + d.carrera + ' (' + d.pct + '% cabe en su título)', 'Disciplina real: ' + d.disc, 'Materiales listos: ' + d.mats.got + ' de ' + d.mats.need, d.mats.falta.length ? 'Me falta: ' + d.mats.falta.slice(0, 8).join(', ') : '', d.faltan ? 'Lo resolveré: ' + d.faltan : '', 'Materia aliada: ' + d.aliada, d.tercera, d.voz ? 'Me dijo: "' + d.voz + '"' : '', d.pacto, 'Misión: ' + d.mision, 'tratakcat.com', d.semilla ? 'Hábito semilla: ' + d.semilla : '', 'Rueda (0-10): ' + ZONAS.map(function (z, i) { return z + ' ' + S.rueda[i]; }).join(', ')].filter(Boolean).join('\n');
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t), '_blank', 'noopener');
   };
   $('reiniciar').onclick = function () {
