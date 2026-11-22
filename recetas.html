@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/icon_180.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="styles.css?v=38">
+<link rel="stylesheet" href="assets/shishi.css?v=38">
+<meta name="apple-mobile-web-app-title" content="TRATAK CAT">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#b9edb2">
+<title>Recetas · TRATAK CAT</title>
+<meta name="description" content="Recetas de biomateriales de TRATAK CAT.">
+<style>
+  :root{ --tk-ink:#241f18; --tk-mor:#6d49b8; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ min-height:100vh; background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed !important; }
+  .app{ max-width:640px; margin:0 auto; padding:18px 16px 120px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  body.con-nav .app{ padding-top:10px; }
+  .app .card{ background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:26px; padding:22px 20px 24px; box-shadow:0 12px 40px rgba(60,40,110,.16); color:var(--tk-ink); margin-bottom:16px; }
+  .app h1,.app h2{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 10px; line-height:1.1; color:var(--tk-ink); max-width:none; }
+  .app h1{ font-size:clamp(32px,8.4vw,46px); } .app h2{ font-size:clamp(23px,6vw,28px); }
+  .app h1 em{ color:var(--tk-mor); }
+  .app p{ margin:0 0 12px; font-size:16px; line-height:1.5; color:var(--tk-ink); } .app .suave{ opacity:.75; font-size:14.5px; }
+  .app .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
+  .app label{ display:block; font-weight:700; font-size:15px; margin:16px 0 6px; }
+  .app input[type=text]{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
+  .app .btn{ display:block; width:100%; border:0; border-radius:999px; padding:16px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; background:var(--tk-ink); color:#fff; margin-top:18px; }
+  .app .cero{ border:2px solid var(--tk-ink); }
+  .app .cero .num{ display:inline-flex; width:44px; height:44px; border-radius:50%; background:var(--tk-ink); color:#fff; font-family:Georgia,serif; font-size:26px; align-items:center; justify-content:center; margin-bottom:10px; }
+  .app .top-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .app .top-head i{ width:14px; height:14px; border-radius:50%; flex:none; }
+  .app .top-head h2{ margin:0; }
+  .app .clases{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; }
+  .app .clase{ position:relative; border:1.5px dashed rgba(36,31,24,.3); border-radius:16px; background:rgba(255,255,255,.6); padding:14px 6px 12px; font:inherit; text-align:center; color:var(--tk-ink); opacity:.7; cursor:not-allowed; }
+  .app .clase b{ display:block; font-family:Georgia,serif; font-size:24px; font-weight:400; }
+  .app .clase span{ display:block; font-size:12px; font-weight:600; opacity:.75; }
+  .app .clase .cand{ position:absolute; top:6px; right:8px; font-size:13px; }
+  .app .clase{ opacity:1; cursor:pointer; border-style:solid; background:rgba(255,255,255,.85); }
+  .app .clase.t{ border-width:2px; }
+  .app .clase .cand{ opacity:.55; }
+  .app .clase{ padding:18px 6px 16px; } .app .clase b{ font-size:28px; }
+  .app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:10px; }
+  .modal{ position:fixed; inset:0; background:rgba(36,31,24,.55); display:flex; align-items:flex-end; justify-content:center; padding:16px; z-index:60; }
+  .modal-caja{ width:100%; max-width:480px; background:#fff; border-radius:26px; padding:22px 20px 22px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  .modal-caja h2{ font-family:Georgia,serif; font-weight:400; font-size:26px; margin:0 0 6px; }
+  .modal-caja .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:10px; }
+  .modal-caja label{ display:block; font-weight:700; font-size:15px; margin:14px 0 6px; }
+  .modal-caja input{ width:100%; font:inherit; font-size:16.5px; padding:13px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); }
+  .modal-caja .btn{ display:block; width:100%; border:0; border-radius:999px; padding:15px 20px; font:inherit; font-size:16px; font-weight:700; cursor:pointer; background:var(--tk-ink); color:#fff; margin-top:14px; }
+  .modal-caja .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:8px; }
+  .aviso-toast{ position:fixed; left:50%; bottom:110px; transform:translateX(-50%); background:var(--tk-ink); color:#fff; padding:12px 18px; border-radius:999px; font-size:14.5px; font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s; z-index:50; max-width:90vw; text-align:center; }
+  .aviso-toast.on{ opacity:1; }
+  [hidden]{ display:none !important; }
+
+  .app .clase.ok .cand{ opacity:1; }
+  .app .grupo-desc{ font-size:14px; opacity:.75; margin:0 0 4px; }
+  .app .rowi{ display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid rgba(36,31,24,.12); font-size:16px; }
+  .app .rowi:last-child{ border-bottom:0; } .app .rowi b{ font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .app .rowi small{ opacity:.6; display:block; font-size:12.5px; }
+  .app .campo{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0 4px; }
+  .app .campo label{ margin:8px 0 4px; font-size:13.5px; }
+  .app input[type=number]{ width:100%; font:inherit; font-size:16.5px; padding:12px 12px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
+  .app ol,.app ul{ margin:0 0 12px; padding-left:22px; font-size:15.5px; line-height:1.5; } .app li{ margin-bottom:6px; }
+  .app .nota{ background:rgba(242,201,76,.28); border-radius:14px; padding:10px 12px; font-size:14.5px; line-height:1.45; margin:0 0 8px; }
+  .app .barra{ display:flex; height:14px; border-radius:99px; overflow:hidden; margin:8px 0 4px; }
+  .app .barra i{ display:block; height:100%; }
+</style>
+</head>
+<body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
+<div class="app">
+  <div id="hub">
+    <div class="card">
+      <span class="tag">Recetas</span>
+      <h1>Cada receta, <em>su clave</em></h1>
+      <p>Elige un número y escribe su clave. Cada receta tiene la suya.</p>
+    </div>
+    <div id="grupos"></div>
+  </div>
+  <div id="vista" hidden></div>
+</div>
+<div class="modal" id="modal" hidden>
+  <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="m-titulo">
+    <span class="tag" id="m-tag"></span>
+    <h2 id="m-titulo"></h2>
+    <label for="clave">Clave de esta receta</label>
+    <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
+    <p id="m-error" class="suave" style="color:#b3261e;margin-top:8px" hidden></p>
+    <button class="btn" id="entrar">Entrar</button>
+    <button class="btn sec" id="cerrar" type="button">Cancelar</button>
+  </div>
+</div>
+<script src="assets/site.js?v=43"></script>
+<script src="assets/shishi.js?v=38"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  // Cada receta tiene su clave guardada como huella. Es un filtro, no seguridad real:
+  // el contenido viaja en la página.
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim(); }
+  function cyrb53(str) { var h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (var i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); }
+  var RECETAS = [{"n": 1, "g": "b", "nombre": "Hueso de aguacate · F11", "ing": [["Hueso de aguacate (molido)", 175, "g"], ["Agua", 315, "ml"], ["Xantano", 10, "g"]], "desc": "Tu base de bitácora para 500 mL (35 % / 63 % / 2 %).", "notas": ["Equivale a la relación 1 : 1.8 : 0.06 (sólido : agua : xantano) que anotaste."], "pasos": [], "fuente": "", "texto": [], "hash": "29e29ncm1cd"}, {"n": 2, "g": "b", "nombre": "Hueso de aguacate · F6", "ing": [["Hueso de aguacate (molido)", 167.5, "g"], ["Agua", 325, "ml"], ["Xantano", 7.5, "g"]], "desc": "Variante con más agua y menos xantano (33.5 % / 65 % / 1.5 %).", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "6vymamsk4g"}, {"n": 3, "g": "b", "nombre": "Aguacate con naranja", "ing": [["Hueso de aguacate", 85, "g"], ["Naranja (cáscara)", 85, "g"], ["Agua", 320, "ml"], ["Xantano", 10, "g"]], "desc": "Mezcla de dos residuos.", "notas": ["Revisa en tu bitácora: en tu hoja la segunda cantidad de 85 no tiene etiqueta; la leí como naranja."], "pasos": [], "fuente": "", "texto": [], "hash": "18x2wohwojg"}, {"n": 4, "g": "b", "nombre": "Huevo (columna D de la bitácora)", "ing": [["Material base (huevo/cáscara)", 780, "g"], ["Agua", 300, "ml"], ["Xantano", 12, "g"]], "desc": "Cantidades tal cual las anotaste (58.6 % / 40 % / 1.4 %).", "notas": ["Revisa en tu bitácora: la columna dice “Huevo” pero cuelga de la fila del hueso de aguacate; confirma qué material es."], "pasos": [], "fuente": "", "texto": [], "hash": "i3yl3yrwxm"}, {"n": 5, "g": "b", "nombre": "Cáscara de huevo", "ing": [["Cáscara de huevo (molida)", 26.79, "g"], ["Agua", 22.32, "ml"], ["Xantano", 0.89, "g"]], "desc": "Tu hoja de cáscara de huevo (53.6 % / 44.6 % / 1.8 %), anotada para 50 g.", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "3ttbt2qheu"}, {"n": 6, "g": "b", "nombre": "Café", "ing": [["Café (posos)", 175, "g"], ["Agua", 315, "ml"], ["Xantano", 10, "g"]], "desc": "Base de 500 mL.", "notas": ["En tu hoja los porcentajes del café (48.6 / 50 / 1.4) no coinciden con estos gramos (35 / 63 / 2); usé los gramos."], "pasos": [], "fuente": "", "texto": [], "hash": "tmgn8a13ez"}, {"n": 7, "g": "b", "nombre": "Naranja", "ing": [["Naranja (cáscara)", 160, "g"], ["Agua", 330, "ml"], ["Xantano", 10, "g"]], "desc": "Base de 500 mL (32 % / 66 % / 2 %).", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "1ypabrl4gat"}, {"n": 8, "g": "b", "nombre": "Micelio sobre sustrato", "ing": [["Sustrato", 105, "g"], ["Micelio", 75, "g"], ["Agua destilada", 286, "ml"], ["Agua oxigenada", 29, "ml"], ["Aglutinante", 10, "g"]], "desc": "Suman 505; el escalador lo lleva a lo que necesites.", "notas": ["Revisa en tu bitácora: concentración del agua oxigenada y qué aglutinante usaste."], "pasos": [], "fuente": "", "texto": [], "hash": "1xausm88a2b"}, {"n": 9, "g": "b", "nombre": "Alginato 2 % + café + cascarón", "ing": [["Solución de alginato 2 %", 300, "g"], ["Café", 150, "g"], ["Cascarón de huevo", 100, "g"]], "desc": "Mezcla anotada para 550 g (lote grande: ×10).", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "11i9bsqn5ei"}, {"n": 10, "g": "b", "nombre": "MDF + goma", "ing": [["Agua", 1350, "ml"], ["MDF (polvo)", 500, "g"], ["Goma xantana", 37, "g"]], "desc": "Suman 1887 g; escala a tu tubo.", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "1qvpsh0czy"}, {"n": 11, "g": "b", "nombre": "Alga + goma", "ing": [["Agua", 150, "ml"], ["Alga (polvo)", 45, "g"], ["Goma xantana", 5, "g"]], "desc": "Suman 200 g.", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "ad1r29jzd1"}, {"n": 12, "g": "b", "nombre": "Biohilo", "ing": [["Alga", 10, "g"], ["Alginato", 8, "g"], ["Agua con flor de clitoria", 500, "ml"], ["Goma xantana", 1, "g"]], "desc": "Para hilo, no para tubo; las cantidades son las de tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": [], "hash": "bpdkvv0476"}, {"n": 13, "g": "b", "nombre": "Salmuera con vinagre", "ing": [["Agua", 100, "ml"], ["Sal", 5, "g"], ["Vinagre", 5, "ml"]], "desc": "Solo la anotaste sin título.", "notas": ["Revisa en tu bitácora: para qué la usabas (remojo, conservación…)."], "pasos": [], "fuente": "", "texto": [], "hash": "fgxdneyozy"}, {"n": 14, "g": "s", "nombre": "Fórmula de SCOBY seco (la tuya)", "ing": [["SCOBY seco", 3.3, "g"], ["Micelio / milo / fibra de coco", 4.4, "g"], ["Agua de lluvia", 22.2, "ml"]], "desc": "Tu prueba reciente. A 500 g: 11.0 % / 14.7 % / 74.3 %.", "notas": ["Usa el campo “gramos de SCOBY seco” para ajustar el lote a lo que tengas."], "pasos": ["Hidrata el SCOBY seco con el agua de lluvia 10–15 min.", "Licúa o muele hasta pulpa.", "Incorpora la fibra y amasa hasta que no queden grumos.", "Reposa 10 min y revisa consistencia antes de cargar el tubo."], "fuente": "", "texto": [], "hash": "20cp7fgp9zw"}, {"n": 15, "g": "s", "nombre": "SCOBY seco A · más aglutinante", "ing": [["SCOBY seco", 70, "g"], ["Micelio / milo / fibra de coco", 70, "g"], ["Agua de lluvia", 360, "ml"]], "desc": "14 % / 14 % / 72 %. Más cohesión; puede encoger más y pedir más presión.", "notas": ["Prueba de 100 g antes del lote completo."], "pasos": ["Hidrata el SCOBY seco con el agua.", "Licúa.", "Mezcla la fibra.", "Reposa y revisa."], "fuente": "", "texto": [], "hash": "219710zqy98"}, {"n": 16, "g": "s", "nombre": "SCOBY seco B · más fibra", "ing": [["SCOBY seco", 40, "g"], ["Micelio / milo / fibra de coco", 80, "g"], ["Agua de lluvia", 380, "ml"]], "desc": "8 % / 16 % / 76 %. Menos aglutinante; más estructura de fibra.", "notas": ["Prueba de 100 g antes del lote completo."], "pasos": ["Hidrata el SCOBY seco con el agua.", "Licúa.", "Mezcla la fibra.", "Reposa y revisa."], "fuente": "", "texto": [], "hash": "23y7n8lxnhq"}, {"n": 17, "g": "s", "nombre": "SCOBY líquido L1 · con xantano", "ing": [["SCOBY licuado (película + su líquido)", 380, "g"], ["Micelio / milo / fibra de coco", 75, "g"], ["Agua de lluvia (ajuste)", 35, "ml"], ["Xantano", 10, "g"]], "desc": "El líquido del SCOBY es casi todo agua, así que casi no se añade agua de lluvia. El xantano compensa el aglutinante que falta.", "notas": ["Cantidades estimadas, sin probar. La película fresca es casi toda agua (muy poca celulosa por gramo), por eso el SCOBY líquido aporta menos aglutinante que el seco.", "Mide tu fracción de sólidos: seca 50 g escurridos a 60–70 °C y divide seco ÷ húmedo.", "El licuado suele estar ácido; si tu micelio está vivo, inactívalo o usa micelio seco.", "Si queda muy aguado, escurre o prensa el licuado antes de pesar."], "pasos": ["Licúa la película con su líquido hasta que no haya trozos.", "Mezcla la fibra con el licuado.", "Agrega el xantano espolvoreado mientras mezclas.", "Ajusta con agua de lluvia solo si hace falta."], "fuente": "", "texto": [], "hash": "1g60cdfln37"}, {"n": 18, "g": "s", "nombre": "SCOBY líquido L2 · más espeso", "ing": [["SCOBY licuado (película + su líquido)", 340, "g"], ["Micelio / milo / fibra de coco", 110, "g"], ["Agua de lluvia (ajuste)", 40, "ml"], ["Xantano", 10, "g"]], "desc": "68 % / 22 % / 8 % / 2 %. Más fibra para ganar cuerpo.", "notas": ["Cantidades estimadas, sin probar. La película fresca es casi toda agua (muy poca celulosa por gramo), por eso el SCOBY líquido aporta menos aglutinante que el seco.", "Mide tu fracción de sólidos: seca 50 g escurridos a 60–70 °C y divide seco ÷ húmedo.", "El licuado suele estar ácido; si tu micelio está vivo, inactívalo o usa micelio seco.", "Si queda muy aguado, escurre o prensa el licuado antes de pesar."], "pasos": ["Licúa la película con su líquido.", "Mezcla la fibra.", "Agrega el xantano.", "Ajusta con agua de lluvia."], "fuente": "", "texto": [], "hash": "ex9r2dyuz7"}, {"n": 19, "g": "s", "nombre": "SCOBY líquido L3 · solo SCOBY y fibra", "ing": [["SCOBY licuado prensado", 400, "g"], ["Micelio / milo / fibra de coco", 100, "g"]], "desc": "80 % / 20 %. Sin xantano: solo las fibrillas del SCOBY hacen de aglutinante. Es la más incierta.", "notas": ["Cantidades estimadas, sin probar. La película fresca es casi toda agua (muy poca celulosa por gramo), por eso el SCOBY líquido aporta menos aglutinante que el seco.", "Mide tu fracción de sólidos: seca 50 g escurridos a 60–70 °C y divide seco ÷ húmedo.", "El licuado suele estar ácido; si tu micelio está vivo, inactívalo o usa micelio seco.", "Si queda muy aguado, escurre o prensa el licuado antes de pesar.", "Si no sostiene la forma, ve a L1."], "pasos": ["Licúa y prensa la película hasta que suelte líquido.", "Mezcla con la fibra.", "Prueba la extrusión con un tubo corto."], "fuente": "", "texto": [], "hash": "1m13k17nsty"}, {"n": 20, "g": "c", "nombre": "Barro silvestre de río (BR-01)", "ing": [["Barro tamizado", 660, "g"], ["Agua", 340, "ml"]], "desc": "66 % sólidos / 34 % agua. Tamiza <0.25 mm y deja reposar 7–14 días.", "notas": ["Boquilla 1.5–2.0 mm; presión 0.3–0.5 MPa en Tronxy Moore 1."], "pasos": [], "fuente": "Registro propio", "texto": [], "hash": "596bwk8de6"}, {"n": 21, "g": "c", "nombre": "Barro de lago Michoacán (BL-01)", "ing": [["Barro de lago", 650, "g"], ["Agua", 350, "ml"]], "desc": "65 % sólidos / 35 % agua. Alta carga orgánica.", "notas": ["Boquilla 1.5–2.0 mm; presión 0.3–0.5 MPa."], "pasos": [], "fuente": "Registro propio", "texto": [], "hash": "7aywlndzxo"}, {"n": 22, "g": "c", "nombre": "Barro Guanajuato (BG-01) · corregido", "ing": [["Barro Guanajuato", 1000, "g"], ["Agua", 467, "ml"]], "desc": "Corregido: 1000 g de barro + 467 ml de agua (31.8 % agua sobre el total). Antes tenía 290 ml (22.5 %), que no coincidía con tu propia nota.", "notas": ["Valor empírico tuyo para Tronxy Moore 1. Confirma si los 1000 g son barro seco o húmedo.", "Si es húmedo, el agua a añadir es menor.", "Afina con lotes de 100 g: 400, 440, 480, 520 ml/kg."], "pasos": [], "fuente": "Registro de taller (Tonalá)", "texto": [], "hash": "xz2xa4exn7"}, {"n": 23, "g": "c", "nombre": "Quinpasta C-4 (Tonalá)", "ing": [["Pasta C-4", 8000, "g"], ["Agua", 2800, "ml"]], "desc": "8 kg + 2.8 L (74.1 % / 25.9 %). Firme, buena estabilidad vertical.", "notas": ["Boquilla 1.5–2.0 mm; presión 0.2–0.4 MPa."], "pasos": [], "fuente": "Tadeo Gibrán Romero Vargas & Salvador Jarero", "texto": [], "hash": "2cgukbdne85"}, {"n": 24, "g": "c", "nombre": "LDM-01 · Arcilla Comercial", "ing": [["Arcilla Comercial", 950.0, "g"], ["Agua", 50.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Blanda / Plástica", "Granulometría: Malla 80–100"], "pasos": ["Añadir agua a la pasta comercial mediante amado mecánico."], "fuente": "3D WASP Open Clay", "texto": [], "hash": "2d6lpdzk3w6"}, {"n": 25, "g": "c", "nombre": "LDM-02 · Dióxido de Titanio (TiO2)", "ing": [["Dióxido de Titanio (TiO2)", 460.0, "g"], ["Agua", 518.4, "g"], ["PVA", 21.6, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Fluida / LDM", "Granulometría: Submicrónica"], "pasos": ["Preparar solución PVA al 4% en agua a 80^circC. Mezclar con TiO2."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "1mfgniqi4ae"}, {"n": 26, "g": "c", "nombre": "LDM-03 · Dióxido de Titanio (TiO2)", "ing": [["Dióxido de Titanio (TiO2)", 480.0, "g"], ["Agua", 499.2, "g"], ["PVA", 20.8, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Pasta intermedia", "Granulometría: Submicrónica"], "pasos": ["Disolver PVA al 4% en agua caliente. Agregar polvo TiO2 en agitación."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "ruepg96ysd"}, {"n": 27, "g": "c", "nombre": "LDM-04 · Dióxido de Titanio (TiO2)", "ing": [["Dióxido de Titanio (TiO2)", 500.0, "g"], ["Agua", 480.0, "g"], ["PVA", 20.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Consistencia de pasta", "Granulometría: Submicrónica"], "pasos": ["Formulación Óptima: Solución PVA 4% (500 g) + TiO2 (500 g)."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "1pdijgsvf41"}, {"n": 28, "g": "c", "nombre": "LDM-05 · Dióxido de Titanio (TiO2)", "ing": [["Dióxido de Titanio (TiO2)", 520.0, "g"], ["Agua", 460.8, "g"], ["PVA", 19.2, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Pasta densa", "Granulometría: Submicrónica"], "pasos": ["Solución PVA 4% + TiO2. Requiere mayor presión neumática."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "mhrrqrl9od"}, {"n": 29, "g": "c", "nombre": "LDM-06 · Circonia (ZrO2-3Y)", "ing": [["Circonia (ZrO2-3Y)", 680.0, "g"], ["Agua", 307.2, "g"], ["PVA", 12.8, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Pasta plástica suave", "Granulometría: D50 approx 0.3,µm"], "pasos": ["Mezclar ZrO2 con solución de PVA al 4% previamente preparada."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "10s41i2b49n"}, {"n": 30, "g": "c", "nombre": "LDM-07 · Circonia (ZrO2-3Y)", "ing": [["Circonia (ZrO2-3Y)", 700.0, "g"], ["Agua", 288.0, "g"], ["PVA", 12.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Excelente forma verde", "Granulometría: D50 approx 0.3,µm"], "pasos": ["Formulación Balanceada: 700 g ZrO2 + 300 g solución PVA 4%."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "bbvyjdunwo"}, {"n": 31, "g": "c", "nombre": "LDM-08 · Circonia (ZrO2-3Y)", "ing": [["Circonia (ZrO2-3Y)", 720.0, "g"], ["Agua", 268.8, "g"], ["PVA", 11.2, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Masa firme", "Granulometría: D50 approx 0.3,µm"], "pasos": ["Integrar en molino de bolas de laboratorio o amasadora planetaria."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "2xzz4kwgzx"}, {"n": 32, "g": "c", "nombre": "LDM-09 · Circonia (ZrO2-3Y)", "ing": [["Circonia (ZrO2-3Y)", 740.0, "g"], ["Agua", 249.6, "g"], ["PVA", 10.4, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Muy densa / Rígida", "Granulometría: D50 approx 0.3,µm"], "pasos": ["Mezcla de densidad máxima. Evitar pausas de extrusión para prevenir atasco."], "fuente": "Repnin et al. (2023)", "texto": [], "hash": "24t9ip69aqa"}, {"n": 33, "g": "c", "nombre": "LDM-10 · Arcilla LOBO", "ing": [["Arcilla LOBO", 820.0, "g"], ["Agua", 180.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Pasta plástica", "Granulometría: Malla 80–100"], "pasos": ["Integrar agua gradualmente a la arcilla seca hasta lograr 18% de humedad."], "fuente": "Chen et al. (2024)", "texto": [], "hash": "o8ve3afloi"}, {"n": 34, "g": "c", "nombre": "LDM-11 · Arcilla Sayong", "ing": [["Arcilla Sayong", 700.0, "g"], ["Agua", 300.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Consistencia firme", "Granulometría: Malla 80–100"], "pasos": ["Mezcla directa 70:30. Amasar durante 20 min y reposar 24 h."], "fuente": "Zahri & Ibrahim (2025)", "texto": [], "hash": "59gkyedoub"}, {"n": 35, "g": "c", "nombre": "LDM-12 · Arcilla Sayong", "ing": [["Arcilla Sayong", 680.0, "g"], ["Agua", 320.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Consistencia media", "Granulometría: Malla 80–100"], "pasos": ["Mezcla directa 68:32. Ideal para velocidad de extrusión media en Moore 1."], "fuente": "Zahri & Ibrahim (2025)", "texto": [], "hash": "1yua1i2ozi9"}, {"n": 36, "g": "c", "nombre": "LDM-13 · Arcilla Sayong", "ing": [["Arcilla Sayong", 660.0, "g"], ["Agua", 340.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Suave / Fluida", "Granulometría: Malla 80–100"], "pasos": ["Mezcla directa 66:34. Permite extrusión con baja presión neumática en cartucho."], "fuente": "Zahri & Ibrahim (2025)", "texto": [], "hash": "qgozm0eid9"}, {"n": 37, "g": "c", "nombre": "D-W05 · Arcilla Blanca / Caolín", "ing": [["Arcilla Blanca / Caolín", 765.0, "g"], ["Agua", 231.0, "g"], ["Silicato de Sodio", 3.8, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Masa tixotrópica", "Granulometría: Malla 80–120"], "pasos": ["Disolver silicato en agua. Incorporar el polvo gradualmente y amasar."], "fuente": "Diz-Mellado et al. (2025)", "texto": [], "hash": "1i0a3yw71qp"}, {"n": 38, "g": "c", "nombre": "D-R05 · Arcilla Roja", "ing": [["Arcilla Roja", 792.0, "g"], ["Agua", 207.0, "g"], ["Silicato de Sodio", 0.8, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Masa plástica plana", "Granulometría: Malla 80–100"], "pasos": ["Disolver silicato en agua antes de agregar la arcilla terracota."], "fuente": "Diz-Mellado et al. (2025)", "texto": [], "hash": "1kdicf33ss4"}, {"n": 39, "g": "c", "nombre": "F-02 · Gres con Chamota", "ing": [["Gres con Chamota", 730.0, "g"], ["Agua", 262.0, "g"], ["Silicato Na", 2.0, "g"], ["CMC", 6.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Plástica estructural", "Granulometría: Chamota < 0.2 mm"], "pasos": ["Paso 1: Hidratar CMC en agua 4 horas. Paso 2: Agregar silicato. Paso 3: Incorporar gres."], "fuente": "Unfold Studio Clay", "texto": [], "hash": "1yunvuvaqjw"}, {"n": 40, "g": "c", "nombre": "F-08 · Caolín para Piezas Altas", "ing": [["Caolín para Piezas Altas", 710.0, "g"], ["Agua", 278.0, "g"], ["Bentonita Na", 4.0, "g"], ["Xantana", 8.0, "g"]], "desc": "Adaptación a 1 kg de tu hoja de referentes.", "notas": ["Condición: Tixotrópica rígida", "Granulometría: Malla 100–200"], "pasos": ["Paso 1: Mezclar xantana en agua a alta velocidad. Paso 2: Mezclar bentonita + caolín seco."], "fuente": "Clay 3D Printing Lab", "texto": [], "hash": "1ipsx307ig5"}, {"n": 41, "g": "c", "nombre": "LDM-14 · Arcilla M370 (Plainsman Clays)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Arcilla de fábrica (21.7-22.7% humedad de fábrica) + 7% agua adicional", "Aditivo: Agua", "Equipo: Tronxy Moore 2 Pro; capa 1.5-3mm; línea 0.8-1.4mm; flujo 0.7-0.9mm/s; relleno 40-55%", "Resultado: Sinterizado a 1100Â°C; contracción y densidad variables según flujo/relleno.", "Fuente: Donyadari, R.; Ortiz, B.F.; Khondoker, M.A.H. (2024). Eng. Proc. 76(1), 47."], "hash": "u1ghwesog3"}, {"n": 42, "g": "c", "nombre": "LDM-15 · Porcelana Cone 5 (Armadillo Clay & Supplies)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Relación agua:arcilla 1:5 (16.2 wt% agua desionizada)", "Aditivo: Agua desionizada (DI)", "Equipo: Impresión DIW; sensor inalÃ¡mbrico embebido de temperatura/humedad", "Resultado: Composición óptima identificada; permite embeber sensores durante impresión. Compresión: 70 MPa (cocido) / 90 MPa (sin cocer).", "Fuente: Marquez, C. et al. (2023). Sensors 23(6), 3352."], "hash": "259v8839waj"}, {"n": 43, "g": "c", "nombre": "LDM-16 · Caolín (Colombia)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: 63.7 wt% caolín + 36.3 wt% agua (W/C 0.57)", "Aditivo: Ninguno (solo agua)", "Equipo: DIW; Extrusión por jeringa; rango probado W/C ver nota", "Resultado: Resistencia a compresión óptima de 38 MPa tras sinterizado a 1100Â°C/1h.", "Fuente: Revelo, C.F.; Colorado, H.A. (2018). Ceramics International 44(5), 5673-5682."], "hash": "1fozc48yowk"}, {"n": 44, "g": "c", "nombre": "LDM-17 · Caolín + cal / ceniza volante / talco", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: W/C 0.68-0.72; aditivo cerámico 3-7 wt% (óptimo: 3 wt%)", "Aditivo: Cal, ceniza volante o talco (3 wt% Óptimo)", "Equipo: DIW; muestras cilíndricas 20x20mm; sinterizado 1100Â°C/1h (curado 3 días previo)", "Resultado: Aditivos económicos de la industria Cerámica tradicional mejoran resistencia sin costo alto.", "Fuente: Revelo, C.F.; Colorado, H.A. (2019). Processing and Application of Ceramics 13(3), 287-299."], "hash": "hgdv5sz9he"}, {"n": 45, "g": "c", "nombre": "LDM-18 · Gres blanco (AA103 PB103, Walker Ceramics)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Fracción volumétrica de sólidos 25-57 vol%", "Aditivo: Ninguno reportado en el resumen", "Equipo: Boquillas 0.27-3mm; Extrusión directa", "Resultado: Ventana óptima de módulo de almacenamiento: evita taponamiento y hundimiento.", "Fuente: Chan, S.S.L. et al. (2020). Additive Manufacturing 35, 101335."], "hash": "1nfy3dpjqk2"}, {"n": 46, "g": "c", "nombre": "LDM-19 · Pastas Cerámicas tradicionales (formulaciones industriales tÃpicas)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Formulaciones tÃpicas de la industria Cerámica tradicional, con silicato de sodio y poliacrilato de sodio como aditivos", "Aditivo: Silicato de sodio y poliacrilato de sodio (según fracción sólido/agua)", "Equipo: DIW; Extrusión", "Resultado: Adapta formulaciones industriales estÃ¡ndar aimpresión DIW; las piezas mantienen su forma tras laimpresión.", "Fuente: Ordoñez, E.; Gallego, J.M.; Colorado, H.A. (2019). Applied Clay Science 182, 105285."], "hash": "1ettmrnxi24"}, {"n": 47, "g": "c", "nombre": "LDM-20 · Alúmina (Al2O3)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: 79.37 wt% Al2O3 (63.5 vol%) sólidos", "Aditivo: PVA + ISOBAM 104 + glicerol (~1.6 wt% total aditivos)", "Equipo: Robocasting; impresora comercial de Extrusión", "Resultado: Mejor Formulación lograda; contracción tras sinterizado a 1700Â°C: 8% (X) 6.8% (Y) 13.8% (Z).", "Fuente: Flores-Martinez, N. et al. Aluminum concentration range for the extrudability of ceramic pastes. Open Ceramics 9 (2022) 100213."], "hash": "j39anwg72g"}, {"n": 48, "g": "c", "nombre": "LDM-21 · Alúmina Î± (0.52 Î¼m)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Polvo alúmina + 35 wt% agua", "Aditivo: Metilcelulosa 0.25 wt% + PEG", "Equipo: Impresora tipo ram/robocasting; comportamiento pseudoplástico", "Resultado: Formulación simple de bajo costo con un solo aglutinante económico.", "Fuente: 3D printing of complex shaped alumina parts. Ceramics International (2018)."], "hash": "1m0i0y1atmu"}, {"n": 49, "g": "c", "nombre": "LDM-22 · Arcilla local indonesia (tanah liat lokal)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: 400 g arcilla + 200-250 ml agua (tamizada con malla Mesh 100)", "Aditivo: Agua (sin aditivo químico reportado)", "Equipo: Tronxy Moore 1 LDM; boquillas de 1, 3 y 5 mm; Extrusión tipo husillo", "Resultado: Formulación de bajo costo con arcilla local para sustituir el material de fÃ¡brica (caro) en impresoras LDM; enfocado en pequeÃ±as empresas Cerámicas (UMKM) de Indonesia.", "Fuente: Rosid, I.A.; Dewi, G.S.; Anggoro, P.W.; Pratama, P.N.N.; Damayanti, A.; Prakoso, B. (2024). Jurnal Rekayasa Mesin 19(3), 439-448."], "hash": "1gdkruxs9eo"}, {"n": 50, "g": "c", "nombre": "LDM-23 · Titanato de Aluminio (Tialita, Al2TiO5)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Pasta acuosa Cerámica con hasta 51 vol% de sólidos", "Aditivo: Espesante (no especificado el nombre comercial en el resumen)", "Equipo: LDM (Liquid Deposition Modeling); comparado contra prensado convencional", "Resultado: Densidad tras sinterizado: 67.6±0.7% (impreso por LDM) vs 75.6±0.1% (prensado). Mayor resistencia mecánica en piezas prensadas vs impresas.", "Fuente: Bezzi, F.; Fabbri, P.; Magnani, G.; Salernitano, E.; Scafè, M.; Strafella, A. (2022). Open Ceramics 9, 100224."], "hash": "10n6a3hr3do"}, {"n": 51, "g": "c", "nombre": "LDM-24 · Porcelana (mismo grupo de investigación que LDM-15)", "ing": [], "desc": "Referente publicado; sin tabla de gramos en tu hoja.", "notas": [], "pasos": [], "fuente": "", "texto": ["Formulación: Ajuste de reología con citrato de sodio (SC)", "Aditivo: Citrato de sodio (SC) 0.05% + contenido sólido de pasta 75%", "Equipo: DIW 3D printing de porcelana con geometrías complejas", "Resultado: SC aumenta el potencial zeta absoluto y reduce la viscosidad; alto SC reduce el módulo de almacenamiento. Formulación óptima: SC 0.05% + 75% sólidos.", "Fuente: Marquez, C. et al. (2024). ACS Omega. Rheology and Printability of a Porcelain Clay Paste for DIW 3D Printing of Ceramics with Complex Geometric Structures."], "hash": "kne54b8joa"}];
+  var GRUPOS = [
+    { g: 'b', n: 'Bitácora de biomateriales', d: 'Tus fórmulas de residuos orgánicos.', c: '#b9edb2' },
+    { g: 's', n: 'SCOBY', d: 'Con SCOBY seco y con SCOBY líquido.', c: '#f2c94c' },
+    { g: 'c', n: 'Referentes cerámicos / LDM', d: 'Pastas para la Tronxy Moore 1.', c: '#9fcbec' }
+  ];
+  var COLORES = ['#6d49b8', '#e0a030', '#4aa3d8', '#7bc36b', '#c46a8a'];
+  function ok(n) { try { return sessionStorage.getItem('tk-rec-' + n) === '1'; } catch (e) { return false; } }
+  var actual = null;
+  function abrirModal(r) {
+    actual = r; $('m-tag').textContent = 'Receta'; $('m-titulo').textContent = 'Receta ' + r.n;
+    $('clave').value = ''; $('m-error').hidden = true; $('modal').hidden = false;
+    setTimeout(function () { $('clave').focus(); }, 50);
+  }
+  function cerrarModal() { $('modal').hidden = true; actual = null; }
+  function probar() {
+    if (!actual) return;
+    if (cyrb53(norm($('clave').value)) !== actual.hash) { $('m-error').textContent = 'Esa no es la clave de esta receta.'; $('m-error').hidden = false; return; }
+    try { sessionStorage.setItem('tk-rec-' + actual.n, '1'); } catch (e) {}
+    var r = actual; cerrarModal(); pintarHub(); ver(r);
+  }
+  $('entrar').onclick = probar; $('cerrar').onclick = cerrarModal;
+  $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') probar(); if (e.key === 'Escape') cerrarModal(); });
+  $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) cerrarModal(); });
+
+  function pintarHub() {
+    var cont = $('grupos'); cont.innerHTML = '';
+    GRUPOS.forEach(function (gr) {
+      var card = document.createElement('div'); card.className = 'card';
+      var h = document.createElement('div'); h.className = 'top-head';
+      var dot = document.createElement('i'); dot.style.background = gr.c;
+      var h2 = document.createElement('h2'); h2.textContent = gr.n; h.appendChild(dot); h.appendChild(h2); card.appendChild(h);
+      var p = document.createElement('p'); p.className = 'grupo-desc'; p.textContent = gr.d; card.appendChild(p);
+      var g = document.createElement('div'); g.className = 'clases';
+      RECETAS.filter(function (r) { return r.g === gr.g; }).forEach(function (r) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'clase t' + (ok(r.n) ? ' ok' : '');
+        b.innerHTML = '<span class="cand"></span><b></b>'; b.querySelector('b').textContent = r.n;
+        b.querySelector('.cand').textContent = ok(r.n) ? '✓' : '🔑';
+        b.setAttribute('aria-label', 'Receta ' + r.n);
+        b.onclick = function () { ok(r.n) ? ver(r) : abrirModal(r); };
+        g.appendChild(b);
+      });
+      card.appendChild(g); cont.appendChild(card);
+    });
+  }
+  function fmt(x) { var v = Math.round(x * 100) / 100; return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, function (m, o, s) { return s.indexOf('.') >= 0 && o > s.indexOf('.') ? '' : ','; }); }
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function ver(r) {
+    $('hub').hidden = true; var v = $('vista'); v.hidden = false; window.scrollTo(0, 0);
+    var base = r.ing.reduce(function (a, i) { return a + i[1]; }, 0);
+    var h = '<div class="card"><span class="tag">Receta ' + r.n + '</span><h2>' + esc(r.nombre) + '</h2><p>' + esc(r.desc) + '</p>';
+    if (r.ing.length) {
+      h += '<div class="campo"><div><label for="tot">Cantidad total (g)</label><input type="number" id="tot" inputmode="decimal" min="0" step="any"></div>' +
+           '<div><label for="uno" id="uno-l"></label><input type="number" id="uno" inputmode="decimal" min="0" step="any"></div></div>';
+      h += '<div class="barra" id="barra"></div><div id="lista"></div>';
+    }
+    h += '</div>';
+    if (r.pasos.length) h += '<div class="card"><h2>Preparación</h2><ol>' + r.pasos.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
+    if (r.notas.length || r.texto.length || r.fuente) {
+      h += '<div class="card"><h2>Notas</h2>' + r.notas.map(function (n) { return '<p class="nota">' + esc(n) + '</p>'; }).join('') +
+           (r.texto.length ? '<ul>' + r.texto.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
+           (r.fuente ? '<p class="suave">Fuente: ' + esc(r.fuente) + '</p>' : '') + '</div>';
+    }
+    h += '<div class="card"><button class="btn sec" id="volver" type="button" style="margin-top:0">← Todas las recetas</button></div>';
+    v.innerHTML = h; $('volver').onclick = function () { v.hidden = true; $('hub').hidden = false; window.scrollTo(0, 0); };
+    if (!r.ing.length) return;
+    var tot = $('tot'), uno = $('uno'); tot.value = 500; $('uno-l').textContent = 'Gramos de: ' + r.ing[0][0].toLowerCase();
+    function pintar() {
+      var t = parseFloat(tot.value) || 0, f = base ? t / base : 0, L = $('lista'), B = $('barra'); L.innerHTML = ''; B.innerHTML = '';
+      r.ing.forEach(function (i, k) {
+        var q = i[1] * f, pc = base ? i[1] / base * 100 : 0, d = document.createElement('div'); d.className = 'rowi';
+        d.innerHTML = '<span>' + esc(i[0]) + '<small>' + fmt(pc) + ' %</small></span><b>' + fmt(q) + ' ' + i[2] + '</b>'; L.appendChild(d);
+        var s = document.createElement('i'); s.style.width = pc + '%'; s.style.background = COLORES[k % COLORES.length]; B.appendChild(s);
+      });
+      if (document.activeElement !== uno) uno.value = r.ing.length ? Math.round(r.ing[0][1] * f * 100) / 100 : '';
+    }
+    tot.addEventListener('input', pintar);
+    uno.addEventListener('input', function () { var q = parseFloat(uno.value) || 0; tot.value = r.ing[0][1] ? Math.round(q / r.ing[0][1] * base * 100) / 100 : 0; pintar(); });
+    uno.addEventListener('blur', pintar);
+    pintar();
+  }
+  pintarHub();
+  fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
+    var R = window.TratakRender;
+    R.applyTheme(content.theme, document.documentElement.style);
+    $('site-top').innerHTML = R.renderNav(content.theme);
+    $('site-floating').innerHTML = R.renderFloatingButtons(content.contacto);
+    document.body.classList.add('con-nav');
+    R.bindGlobalInteractions(content.theme);
+    if (window.Shishi) Shishi.montar(content);
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
