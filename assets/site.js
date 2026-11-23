@@ -157,7 +157,7 @@
       '<li><a class="menu-item" href="' + esc(homeHref) + '">' + mi('casa') + 'Inicio</a></li>' +
       '<li><a class="menu-item" href="landing.html">' + mi('calendario') + 'Próximos eventos</a></li>' +
       '<li><a class="menu-item" href="actividades.html">' + mi('chispa') + 'Actividades</a></li>' +
-      '<li><a class="menu-item" href="recetas.html">' + mi('estrella') + 'Recetas</a></li>' +
+      '<li><a class="menu-item" href="recetas.html">' + mi('estrella3') + 'Recetas</a></li>' +
       '<li><a class="menu-item" href="heyocat.html">' + mi('estrella') + 'Heyokat · Oráculo <small style="opacity:.6">(piloto)</small></a></li>' +
       '<li><a class="menu-item" id="menu-contacto" href="' + esc(homeHref) + '#contacto">' + mi('correo') + 'Contacto</a></li>' +
       '<li><a class="menu-item" id="menu-wa" href="#" target="_blank" rel="noopener">' + mi('chat') + 'WhatsApp</a></li>' +
@@ -429,6 +429,7 @@
     personas: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 2 5 5"/>',
     impresora: '<path d="M5 3h14v4H5zM3 7h18v8H3zM7 15v6h10v-6"/>',
     vr: '<path d="M2 8h20v8h-6l-2-3h-4l-2 3H2z"/>',
+    estrella3: '<path d="M12 3.5L15.64 10.4 19.79 17 12 16.7 4.21 17 8.36 10.4z"/>',
     estrella: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
     ceramica: '<path d="M9 3h6M10 3c0 3-4 4-4 9a6 6 0 0 0 12 0c0-5-4-6-4-9"/>',
     calendario: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
