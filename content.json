@@ -30,12 +30,16 @@
     "kicker": "Escuela-laboratorio · Guadalajara · En línea ",
     "botones": [
       {
-        "texto": "Reserva tu lugar en el próximo taller →",
-        "link": "landing.html"
+        "texto": "Agenda tu primera clase →",
+        "link": "https://wa.me/523332480698?text=Hola%2C%20quiero%20agendar%20una%20clase"
       },
       {
-        "texto": "Ver programas →",
+        "texto": "Ver plan de estudios →",
         "link": "#plan"
+      },
+      {
+        "texto": "Ver productos →",
+        "link": "#tienda%20bajo%20pedido"
       }
     ],
     "title_line1": "Contempla y biofabrica",
