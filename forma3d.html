@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/icon_180.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="styles.css?v=38">
+<link rel="stylesheet" href="assets/shishi.css?v=38">
+<meta name="apple-mobile-web-app-title" content="TRATAK CAT">
+<meta name="theme-color" content="#b9edb2">
+<title>Taller 3D · TRATAK CAT</title>
+<meta name="description" content="Crea figuras simples en 3D (vasos, jarrones, formas geométricas), modifica altura, perfil y textura, y exporta a STL u OBJ.">
+<style>
+  :root{ --tk-ink:#241f18; --tk-mor:#6d49b8; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ min-height:100vh; background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed !important; }
+  .app{ max-width:1100px; margin:0 auto; padding:18px 16px 130px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  body.con-nav .app{ padding-top:10px; }
+  .app .card{ background:rgba(255,255,255,.9); border-radius:26px; padding:20px 20px 22px; box-shadow:0 12px 40px rgba(60,40,110,.16); margin-bottom:14px; }
+  .app h1,.app h2,.app h3{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 8px; line-height:1.1; max-width:none; color:var(--tk-ink); }
+  .app h1{ font-size:clamp(30px,7.6vw,42px); } .app h1 em{ color:var(--tk-mor); } .app h2{ font-size:22px; }
+  .app p{ margin:0 0 8px; font-size:15.5px; line-height:1.5; } .app .suave{ opacity:.72; font-size:14px; }
+  .app .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:10px; }
+  .grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+  @media (min-width:900px){ .grid{ grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); align-items:start; } .visor{ position:sticky; top:8px; } }
+  .visor{ padding:10px !important; }
+  #cv{ width:100%; aspect-ratio:1/1; border-radius:18px; background:radial-gradient(circle at 50% 35%,#ffffff,#e9e4f5); touch-action:none; display:block; cursor:grab; }
+  .vbar{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .b{ border:1.5px solid rgba(36,31,24,.25); background:#fff; border-radius:999px; font:inherit; font-size:13.5px; font-weight:600; padding:8px 12px; cursor:pointer; color:var(--tk-ink); }
+  .b.on{ background:var(--tk-ink); color:#fff; border-color:var(--tk-ink); }
+  .b.p{ background:var(--tk-ink); color:#fff; border-color:var(--tk-ink); } .b.g{ background:#1fa855; color:#fff; border-color:#1fa855; }
+  .stats{ font-size:13.5px; margin-top:8px; line-height:1.5; opacity:.85; }
+  details.pn{ background:rgba(255,255,255,.9); border-radius:20px; padding:12px 16px; margin-bottom:10px; box-shadow:0 6px 20px rgba(60,40,110,.1); }
+  details.pn > summary{ font-weight:700; cursor:pointer; font-size:16px; list-style:none; } details.pn > summary::-webkit-details-marker{ display:none; }
+  details.pn > summary::after{ content:'＋'; float:right; opacity:.5; } details.pn[open] > summary::after{ content:'－'; }
+  .ctl{ margin-top:10px; } .ctl label{ display:flex; justify-content:space-between; font-size:14px; font-weight:600; } .ctl output{ font-weight:700; opacity:.7; }
+  .ctl input[type=range]{ width:100%; margin:4px 0 0; accent-color:#6d49b8; }
+  .app select,.app input[type=text],.app input[type=number],.app textarea{ width:100%; font:inherit; font-size:15.5px; padding:10px 12px; border-radius:14px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); margin-top:4px; }
+  .app textarea{ min-height:80px; }
+  .fl{ font-size:14px; font-weight:600; margin-top:10px; display:block; }
+  .check{ display:flex; gap:8px; align-items:center; margin-top:10px; font-size:14.5px; font-weight:600; }
+  .aviso{ background:#fff4d9; border-radius:12px; padding:8px 10px; margin-top:8px; font-size:14px; line-height:1.4; } .aviso.ok{ background:#e6f6e6; }
+  .fichab{ font-size:15px; line-height:1.55; } .fichab b{ font-weight:700; }
+  .src{ font-size:12.5px; opacity:.8; line-height:1.5; word-break:break-word; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
+<div class="app">
+  <div class="card">
+    <span class="tag">Recursos · Taller 3D</span>
+    <h1>Diseña una forma, <em>gírala y expórtala</em></h1>
+    <p>Crea piezas de revolución (vasos, jarrones, columnas) o prismas y estrellas. Cambia altura, perfil, pared y textura, y descarga tu modelo en STL u OBJ para llevarlo a tu laminador.</p>
+    <p class="suave">Las medidas están en milímetros. Arrastra para girar, rueda o pellizca para acercar.</p>
+  </div>
+  <div class="grid">
+    <div class="card visor">
+      <canvas id="cv" aria-label="Vista 3D de la pieza"></canvas>
+      <div class="vbar">
+        <button class="b" data-v="f">Frente</button><button class="b" data-v="a">Arriba</button><button class="b" data-v="i">Isométrica</button>
+        <button class="b" id="auto" aria-pressed="false">↻ Girar solo</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div id="alertas"></div>
+      <div class="vbar" style="margin-top:12px">
+        <button class="b p" id="x-stl">Exportar STL</button><button class="b p" id="x-obj">Exportar OBJ</button>
+        <button class="b" id="x-png">Captura</button><button class="b g" id="x-ficha">Guardar ficha</button>
+      </div>
+    </div>
+    <div>
+      <details class="pn" open><summary>1 · Forma y medidas</summary>
+        <label class="fl">Figura de la sección</label>
+        <select id="forma"><option value="circ">Círculo</option><option value="tri">Triángulo</option><option value="cuad">Cuadrado</option><option value="pent">Pentágono</option><option value="hex">Hexágono</option><option value="oct">Octágono</option><option value="est">Estrella</option></select>
+        <div id="c-forma"></div>
+      </details>
+      <details class="pn"><summary>2 · Perfil (silueta)</summary>
+        <label class="fl">Silueta de partida</label>
+        <select id="pre"></select>
+        <p class="suave" style="margin-top:6px">A es la boca (arriba) y E la base. Cada control es el ancho en ese punto, en % del diámetro.</p>
+        <div id="c-perfil"></div>
+        <svg id="svgp" viewBox="0 0 200 120" style="width:100%;max-height:120px;margin-top:6px"></svg>
+      </details>
+      <details class="pn"><summary>3 · Pared y base</summary>
+        <label class="check"><input type="checkbox" id="hueco" checked> Pieza hueca (con pared)</label>
+        <div id="c-pared"></div>
+      </details>
+      <details class="pn"><summary>4 · Textura</summary>
+        <label class="fl">Tipo de textura</label>
+        <select id="tex"><option value="lisa">Lisa</option><option value="estrias">Estrías verticales</option><option value="ondas">Ondas horizontales</option><option value="espiral">Espiral</option><option value="rombos">Rombos</option><option value="rugosa">Rugosa</option><option value="capas">Capas visibles</option></select>
+        <div id="c-tex"></div>
+        <p class="suave" style="margin-top:6px">La textura es relieve real: se exporta en el modelo.</p>
+      </details>
+      <details class="pn"><summary>5 · Material, boquilla y capas</summary>
+        <label class="fl">Color en pantalla</label>
+        <select id="color"><option value="#c98f6a">Terracota</option><option value="#e8dcc8">Porcelana</option><option value="#9a7b5a">Arcilla café</option><option value="#7fb77e">Biomaterial verde</option><option value="#8fb3d9">Azul</option><option value="#b9a2e0">Lila</option></select>
+        <label class="fl">Altura de capa (mm)</label><input type="number" id="capa" value="1" min="0.1" step="0.1">
+        <label class="fl">Densidad de tu pasta (g/cm³), si la conoces</label><input type="number" id="dens" placeholder="Pesa 100 ml de tu pasta y divide" min="0" step="0.05">
+        <p class="suave">Con la densidad calculamos los gramos de pasta que necesitas.</p>
+      </details>
+      <details class="pn"><summary>6 · Método THEY</summary>
+        <p>Para orientar y preparar tu pieza en impresión de arcilla (LDM) y FDM, te recomendamos seguir el <b>método THEY</b> del libro <i>Advanced 3D Printing with Grasshopper: Clay and FDM</i> de Diego García Cuevas y Gianluca Pugliese (2020).</p>
+        <p class="suave">Según el libro, la regla THEY es un conjunto de reglas básicas que explica cómo orientar las piezas para imprimir según su geometría. Consulta el libro para las reglas completas.</p>
+        <label class="fl">¿Cómo aplicaste THEY a esta pieza?</label>
+        <textarea id="they" maxlength="600" placeholder="Anota la orientación que elegiste y por qué"></textarea>
+      </details>
+      <div class="card"><h2>Ficha de la pieza</h2>
+        <label class="fl" style="margin-top:0">Nombre de tu pieza</label><input type="text" id="nombre" maxlength="50" placeholder="Ej. Vaso espiral 1">
+        <div class="fichab" id="fichab" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><h2>Fuentes</h2><p class="src">1. D. García Cuevas y G. Pugliese, <i>Advanced 3D Printing with Grasshopper: Clay and FDM</i> (2020). Presentación del libro: <a href="https://www.3dwasp.com/en/3d-printing-grasshopper/" target="_blank" rel="noopener">3dwasp.com/en/3d-printing-grasshopper</a>.<br>2. Referencia a la regla THEY: <a href="https://www.scribd.com/document/928467227/Advanced-3D-Printing-With-Grasshopper-D-garciaCuevas-compressed" target="_blank" rel="noopener">copia del libro en Scribd</a>.<br>3. Límite orientativo de voladizo en LDM, cercano a 30° respecto a la vertical: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11355899" target="_blank" rel="noopener">PMC11355899</a>. Depende de la arcilla y de la viscosidad: pruébalo con tu pasta.</p></div>
+</div>
+<script src="assets/site.js?v=45"></script>
+<script src="assets/shishi.js?v=38"></script>
+<script src="assets/forma3d.js?v=1"></script>
+<script>
+(function () {
+  fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
+    var R = window.TratakRender; var $ = function (i) { return document.getElementById(i); };
+    R.applyTheme(content.theme, document.documentElement.style);
+    $('site-top').innerHTML = R.renderNav(content.theme); $('site-floating').innerHTML = R.renderFloatingButtons(content.contacto);
+    document.body.classList.add('con-nav'); R.bindGlobalInteractions(content.theme); if (window.Shishi) Shishi.montar(content);
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
