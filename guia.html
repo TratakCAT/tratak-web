@@ -100,18 +100,32 @@
     });
     return h;
   }
-  function vacio() { return '<div class="vacio">No encontré nada con esa búsqueda 🔍</div>'; }
+  function mMat(m) { if (origen && m.origen !== origen) return false; return !q || norm([m.nombre, m.que, m.activa, m.usos, m.cuidado, m.grupo, m.donde || ''].join(' ')).indexOf(q) >= 0; }
+  function mGlo(t) { return !q || norm(t.t + ' ' + t.d + ' ' + t.e).indexOf(q) >= 0; }
+  function mFam(f) { return !q || norm([f.f, f.o, f.a, f.p, f.q].join(' ')).indexOf(q) >= 0; }
+  var NOM = { materiales: 'Materiales', glosario: 'Glosario', familias: 'Familias' };
+  function conteos() { return { materiales: D.materiales.filter(mMat).length, glosario: D.glosario.filter(mGlo).length, familias: D.familias.filter(mFam).length }; }
+  function vacio() {
+    var c = conteos(), otros = Object.keys(c).filter(function (k) { return k !== tab && c[k] > 0; });
+    var h = '<div class="vacio">No encontré nada en <b>' + NOM[tab] + '</b> con esa búsqueda 🔍';
+    if (otros.length) h += '<br>' + otros.map(function (k) { return '<button class="chip" data-t="' + k + '" data-keep="1">' + NOM[k] + ' (' + c[k] + ') →</button>'; }).join(' ');
+    else if (tab === 'materiales' && origen) h += '<br>Prueba quitando el filtro de origen.';
+    return h + '</div>';
+  }
+  var RAZONA = '<div class="f" style="background:#fff8e1"><div class="cab"><span style="font-size:24px">🧭</span><b>¿No encuentras tu residuo?</b></div><dl><dd>Casi todo residuo mezcla varios componentes. Hazte tres preguntas:</dd>' +
+    '<dt>1 · ¿Es duro y leñoso? (nuez, olote, aserrín)</dt><dd>Busca <a class="gl" data-b="celulosa">celulosa</a> y <a class="gl" data-b="lignina">lignina</a>: <span class="ref" style="cursor:default">53</span></dd>' +
+    '<dt>2 · ¿Es una semilla o hueso carnoso? (aguacate)</dt><dd>Empieza por <a class="gl" data-b="almidón">almidón</a>: <span class="ref" style="cursor:default">52</span></dd>' +
+    '<dt>3 · ¿Es un cascarón blanco y duro? (huevo, concha)</dt><dd>Es sobre todo <a class="gl" data-b="cascarón">carbonato de calcio</a>: <span class="ref" style="cursor:default">37</span></dd></dl></div>';
   function pMat() {
-    var out = '', g = '', n = 0;
+    var out = RAZONA, g = '', n = 0;
+    if (q || origen) out = '';
     D.materiales.forEach(function (m) {
-      if (origen && m.origen !== origen) return;
-      var hay = norm([m.nombre, m.que, m.activa, m.usos, m.cuidado, m.grupo].join(' '));
-      if (q && hay.indexOf(q) < 0) return;
+      if (!mMat(m)) return;
       n++;
       if (m.grupo !== g) { g = m.grupo; out += '<h2 class="gr">' + esc(g) + '</h2>'; }
       var o = D.origen[m.origen];
       out += '<article class="f" id="m-' + esc(norm(m.nombre).replace(/[^a-z0-9]+/g, '-')) + '"><div class="cab"><span style="font-size:26px">' + o[0] + '</span><b>' + esc(m.nombre) + '</b><span class="ori ' + m.origen + '">' + o[1] + '</span></div><dl>' +
-        '<dt>Qué es</dt><dd>' + esc(m.que) + '</dd><dt>Cómo se activa</dt><dd>' + conLinks(m.activa) + '</dd><dt>Usos</dt><dd>' + esc(m.usos) + '</dd></dl>' +
+        '<dt>Qué es</dt><dd>' + esc(m.que) + '</dd><dt>Cómo se activa</dt><dd>' + conLinks(m.activa) + '</dd><dt>Usos</dt><dd>' + esc(m.usos) + '</dd>' + (m.donde ? '<dt>📍 Dónde lo encuentras</dt><dd>' + esc(m.donde) + '</dd>' : '') + '</dl>' +
         (m.cuidado && m.cuidado !== '—' ? '<div class="cuid">⚠️ ' + esc(m.cuidado) + '</div>' : '') +
         '<div class="fu">' + refs(m.fuentes) + '</div></article>';
     });
@@ -120,8 +134,7 @@
   function pGlo() {
     var out = '', n = 0, l = '';
     D.glosario.forEach(function (t) {
-      var hay = norm(t.t + ' ' + t.d + ' ' + t.e);
-      if (q && hay.indexOf(q) < 0) return;
+      if (!mGlo(t)) return;
       n++;
       var L = norm(t.t)[0].toUpperCase();
       if (L !== l) { l = L; out += '<h2 class="gr">' + L + '</h2>'; }
@@ -132,7 +145,7 @@
   function pFam() {
     var out = '', n = 0;
     D.familias.forEach(function (f) {
-      if (q && norm([f.f, f.o, f.a, f.p, f.q].join(' ')).indexOf(q) < 0) return;
+      if (!mFam(f)) return;
       n++;
       out += '<article class="f"><div class="cab"><b>' + esc(f.f) + '</b></div><dl><dt>Origen del material</dt><dd>' + esc(f.o) + '</dd><dt>Qué lo une</dt><dd>' + esc(f.a) + '</dd><dt>Proceso</dt><dd>' + esc(f.p) + '</dd><dt>Quién lo construye</dt><dd>' + esc(f.q) + '</dd></dl><div class="fu">' + refs(f.fuentes) + '</div></article>';
     });
@@ -142,7 +155,8 @@
     $('lista').innerHTML = tab === 'materiales' ? pMat() : tab === 'glosario' ? pGlo() : pFam();
     $('chips').style.display = tab === 'materiales' ? 'flex' : 'none';
     $('q').placeholder = tab === 'materiales' ? 'Buscar un material, uso o propiedad…' : tab === 'glosario' ? 'Buscar un término…' : 'Buscar una familia…';
-    ['materiales', 'glosario', 'familias'].forEach(function (t) { $('t-' + t).setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+    var c = conteos(), E = { materiales: '🧪 Materiales', glosario: '📘 Glosario', familias: '🌳 Familias' };
+    ['materiales', 'glosario', 'familias'].forEach(function (t) { var el = $('t-' + t); el.setAttribute('aria-selected', t === tab ? 'true' : 'false'); el.textContent = E[t] + (q ? ' (' + c[t] + ')' : ''); });
   }
   function irTab(t, texto) { tab = t; q = texto ? norm(texto) : ''; $('q').value = texto || ''; history.replaceState(null, '', '#' + t); pintar(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   function chips() {
@@ -151,7 +165,8 @@
     $('chips').innerHTML = h;
   }
   document.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-t]'); if (t) { irTab(t.getAttribute('data-t')); return; }
+    var b = e.target.closest('[data-b]'); if (b) { e.preventDefault(); q = norm(b.getAttribute('data-b')); $('q').value = b.getAttribute('data-b'); pintar(); return; }
+    var t = e.target.closest('[data-t]'); if (t) { if (t.getAttribute('data-keep')) { tab = t.getAttribute('data-t'); history.replaceState(null, '', '#' + tab); pintar(); window.scrollTo({ top: 0, behavior: 'smooth' }); } else irTab(t.getAttribute('data-t')); return; }
     var c = e.target.closest('.chip'); if (c) { origen = c.getAttribute('data-o'); Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); }); pintar(); return; }
     var g = e.target.closest('a.gl'); if (g) { e.preventDefault(); irTab('glosario', g.getAttribute('data-g')); return; }
     var r = e.target.closest('a.ref'); if (r) {
@@ -161,7 +176,7 @@
     }
   });
   $('q').addEventListener('input', function () { q = norm(this.value.trim()); pintar(); });
-  fetch('assets/guia.json?v=1').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('assets/guia.json?v=2').then(function (r) { return r.json(); }).then(function (d) {
     D = d; chips();
     $('of').innerHTML = D.fuentes.map(function (f) { return '<li id="f' + f.n + '"><b>' + f.n + '.</b> ' + esc(f.t) + ' <a href="' + esc(f.u) + '" target="_blank" rel="noopener">' + esc(f.u.replace(/^https?:\/\//, '').slice(0, 60)) + '</a></li>'; }).join('');
     $('nf').textContent = D.fuentes.length;
