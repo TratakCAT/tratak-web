@@ -275,7 +275,7 @@
   $('entrar').onclick = function () { var ok = cyrb53(norm($('clave').value)) === CLAVE_HASH; $('gate-error').hidden = ok; if (ok) abrir(); };
   $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('entrar').click(); });
   try { if (sessionStorage.getItem('tk-act-t3c4') === '1') abrir(); } catch (e) {}
-  fetch('assets/guia.json?v=1').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('assets/guia.json?v=2').then(function (r) { return r.json(); }).then(function (d) {
     G = d; var names = d.materiales.map(function (m) { return m.nombre; });
     $('l-carga').innerHTML = CARGAS.concat(names).map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
     $('l-aglu').innerHTML = names.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
