@@ -1,0 +1,904 @@
+{
+ "origen": {
+  "V": [
+   "🌿",
+   "Vegetal"
+  ],
+  "A": [
+   "🐾",
+   "Animal"
+  ],
+  "M": [
+   "🦠",
+   "Microbiano"
+  ],
+  "N": [
+   "🪨",
+   "Mineral"
+  ],
+  "X": [
+   "🔀",
+   "Varía"
+  ]
+ },
+ "fuentes": [
+  {
+   "n": 1,
+   "t": "Premazzi, C. Bio-based Materials Taxonomy (Fabricademy / Textile Academy, 2025).",
+   "u": "https://class.textile-academy.org/2026/carlotta-premazzi/assignments/week07/"
+  },
+  {
+   "n": 2,
+   "t": "Beirão, C. BioFabricating Materials (Textile Academy).",
+   "u": "https://class.textile-academy.org/2025/carolina-beirao/assignments/week07/"
+  },
+  {
+   "n": 3,
+   "t": "Vizcaya, P. BioFabricating Materials: biobasado, biofabricado, biosintético.",
+   "u": "https://class.textile-academy.org/2026/patricia-vizcaya/assignments/week07/"
+  },
+  {
+   "n": 4,
+   "t": "Emerging materials for transition: a taxonomy proposal from a design perspective.",
+   "u": "https://www.researchgate.net/publication/377453623"
+  },
+  {
+   "n": 5,
+   "t": "Xanthan gum: production, recovery, and properties. Biotechnol Adv 2000;18(7):549-79.",
+   "u": "https://pubmed.ncbi.nlm.nih.gov/14538095/"
+  },
+  {
+   "n": 6,
+   "t": "FAO. The seaweed industry (alginato de algas pardas; agar de algas rojas).",
+   "u": "https://www.fao.org/3/y3550e/Y3550E04.htm"
+  },
+  {
+   "n": 7,
+   "t": "Britannica. Alginate.",
+   "u": "https://www.britannica.com/science/alginate"
+  },
+  {
+   "n": 8,
+   "t": "Kombucha: microbiota y celulosa bacteriana (Komagataeibacter). PMC9238417.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9238417"
+  },
+  {
+   "n": 9,
+   "t": "Colorado State University, Food Source Information. Kombucha.",
+   "u": "https://www.chhs.colostate.edu/fsi/food-articles/complex-food/kombucha/"
+  },
+  {
+   "n": 10,
+   "t": "da Costa et al. (2023). Clasificación de materiales derivados de hongos. PeerJ Mater Sci 5:e31.",
+   "u": "https://peerj.com/articles/matsci-31"
+  },
+  {
+   "n": 11,
+   "t": "Nomenclatura y clasificación de materiales miceliales (doi 10.1116/6.0003441).",
+   "u": "https://infoscience.epfl.ch/record/310425/files/document.pdf"
+  },
+  {
+   "n": 12,
+   "t": "Díaz Lantada, Korvink, Islam. Taxonomy for engineered living materials.",
+   "u": "https://publikationen.bibliothek.kit.edu/1000148488/149009379"
+  },
+  {
+   "n": 13,
+   "t": "Bio-based polymers: pueden no ser biodegradables y viceversa. PMC9787771.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9787771/"
+  },
+  {
+   "n": 14,
+   "t": "Estructura de la pared celular del micelio (quitina, glucanos, proteínas). PMC5259796.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5259796"
+  },
+  {
+   "n": 15,
+   "t": "Material Function of Mycelium-Based Bio-Composite: A Review. Front. Mater., 2021.",
+   "u": "https://www.frontiersin.org/journals/materials/articles/10.3389/fmats.2021.737377/full"
+  },
+  {
+   "n": 16,
+   "t": "Laavanya et al. (2021). SCOBY cellulose of kombucha fermentation.",
+   "u": "https://agris.fao.org/search/en/records/65df09480f3e94b9e5d43c9c"
+  },
+  {
+   "n": 17,
+   "t": "Wikipedia. Agar (hysteresis: gelifica a ~32–42 °C).",
+   "u": "https://www.wikipedia.com/wiki/E406"
+  },
+  {
+   "n": 18,
+   "t": "SciMad Wiki. Agar (se funde a 85 °C, solidifica a 32–40 °C).",
+   "u": "https://www.sciencemadness.org/smwiki/index.php/Agar"
+  },
+  {
+   "n": 19,
+   "t": "Alginate hydrogels: gelación iónica con cationes polivalentes. PMC8150954.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8150954"
+  },
+  {
+   "n": 20,
+   "t": "Wang et al. (2015). Starch Retrogradation: A Comprehensive Review.",
+   "u": "https://agris.fao.org/search/en/records/65de1e950f3e94b9e5cac0d6"
+  },
+  {
+   "n": 21,
+   "t": "Wikipedia. Retrogradation (starch).",
+   "u": "https://en.wikipedia.org/wiki/Retrogradation_(starch)"
+  },
+  {
+   "n": 22,
+   "t": "Taylor & Francis. Gelatin (hidrólisis de colágeno; sol–gel a ~30 °C).",
+   "u": "https://taylorandfrancis.com/knowledge/Engineering_and_technology/Materials_science/Gelatin"
+  },
+  {
+   "n": 23,
+   "t": "ChemicalBook. Properties and Applications of Gelatin (piel y huesos de cerdo/res; funde <35 °C).",
+   "u": "https://www.chemicalbook.com/article/properties-and-applications-of-gelatin.htm"
+  },
+  {
+   "n": 24,
+   "t": "UK COT (2024). Position paper on chitosan (fuente crustáceos; alergia a mariscos).",
+   "u": "https://cot.food.gov.uk/sites/default/files/2024-01/Position%20paper%20on%20chitosan%20Jan%2024.pdf"
+  },
+  {
+   "n": 25,
+   "t": "NTP/NIEHS. Chitosan (soluble en ácidos orgánicos diluidos).",
+   "u": "https://ntp.niehs.nih.gov/sites/default/files/ntp/htdocs/chem_background/exsumpdf/chitosan_508.pdf"
+  },
+  {
+   "n": 26,
+   "t": "Chitin: fuentes y extracción. PMC4377977.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4377977"
+  },
+  {
+   "n": 27,
+   "t": "USDA Forest Service. Chemistry of wood (celulosa, hemicelulosas, lignina 18–35 %).",
+   "u": "https://research.fs.usda.gov/treesearch/22043"
+  },
+  {
+   "n": 28,
+   "t": "LSBU Water Structure. Carboxymethylcellulose.",
+   "u": "https://water.lsbu.ac.uk/water/carboxymethylcellulose.html"
+  },
+  {
+   "n": 29,
+   "t": "UGA Extension. Pectin for home food preservation (HM: azúcar + ácido; LM: calcio).",
+   "u": "https://fieldreport.caes.uga.edu/publications/C1373/pectin-for-home-food-preservation/"
+  },
+  {
+   "n": 30,
+   "t": "LSBU Water Structure. Pectin.",
+   "u": "https://water.lsbu.ac.uk/water/pectin.html"
+  },
+  {
+   "n": 31,
+   "t": "MFA Cameo. Casein plastic (endurece con formaldehído).",
+   "u": "https://cameo.mfa.org/wiki/Casein_plastic"
+  },
+  {
+   "n": 32,
+   "t": "Guerrero et al. (2010). Soy protein films processed by casting and compression.",
+   "u": "https://agris.fao.org/search/en/records/65dfabb34c5aef494fe42d65"
+  },
+  {
+   "n": 33,
+   "t": "Thermo Fisher. Latex (Hevea brasiliensis): composición y alergia.",
+   "u": "https://www.thermofisher.com/phadia/us/en/resources/allergen-encyclopedia/k82.html"
+  },
+  {
+   "n": 34,
+   "t": "CDC/NIOSH. Natural rubber latex: composición y coagulación.",
+   "u": "https://stacks.cdc.gov/view/cdc/191047/cdc_191047_DS1.pdf"
+  },
+  {
+   "n": 35,
+   "t": "FAO/JECFA. Beeswax (mezcla de ésteres, hidrocarburos y ácidos grasos).",
+   "u": "https://www.fao.org/fileadmin/templates/agns/pdf/jecfa/cta/65/beeswax.pdf"
+  },
+  {
+   "n": 36,
+   "t": "Taylor & Francis. Beeswax (funde a 62–64 °C).",
+   "u": "https://taylorandfrancis.com/knowledge/Engineering_and_technology/Materials_science/Beeswax"
+  },
+  {
+   "n": 37,
+   "t": "Eggshell waste: composición (calcita 94–97 %). PMC7873488.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7873488"
+  },
+  {
+   "n": 38,
+   "t": "Checa (2018). Molluscan shell microstructures (mineral 95–99 %, materia orgánica 0.1–5 %). Front. Mar. Sci.",
+   "u": "https://www.frontiersin.org/articles/10.3389/fmars.2018.00353/full"
+  },
+  {
+   "n": 39,
+   "t": "Tarique et al. (2021). Glycerol plasticizer loading in arrowroot starch films. Sci Rep. PMC8260728.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8260728"
+  },
+  {
+   "n": 40,
+   "t": "Torres-Ayala et al. (2025). Alginate–xanthan hydrogels: shear-thinning y tixotropía. Polym Bull.",
+   "u": "https://link.springer.com/article/10.1007/s00289-025-05923-z"
+  },
+  {
+   "n": 41,
+   "t": "Wikipedia. Lignin.",
+   "u": "https://wikipedia.com/wiki/Lignin"
+  },
+  {
+   "n": 42,
+   "t": "Biochar-filled polymer bio-composites (óptimo de carga y luego pérdida de propiedades). SciELO.",
+   "u": "https://scielo.br/j/rmat/a/WVWKsK8xswt3n5WsGP6RLps/?lang=en"
+  },
+  {
+   "n": 43,
+   "t": "Alisi et al. (2022). Sustainable additives from Opuntia mucilage in restoration mortars. Acta Hortic.",
+   "u": "https://doi.org/10.17660/actahortic.2022.1343.55"
+  },
+  {
+   "n": 44,
+   "t": "El mucílago de nopal como agente de hidratación de cal aérea (Dialnet).",
+   "u": "https://dialnet.unirioja.es/descarga/articulo/6053529.pdf"
+  },
+  {
+   "n": 45,
+   "t": "MFA Cameo. Rosin (colofonia).",
+   "u": "https://cameo.mfa.org/wiki/Rosin"
+  },
+  {
+   "n": 46,
+   "t": "IUPAC Gold Book. Hydrogel.",
+   "u": "https://dev.goldbook.iupac.org/terms/view/HT07519/plain"
+  },
+  {
+   "n": 47,
+   "t": "Wikipedia. Carboxymethyl cellulose (higroscópica, derivado de celulosa).",
+   "u": "https://www.wikipedia.com/wiki/E469"
+  },
+  {
+   "n": 48,
+   "t": "Taylor & Francis. Sinapyl alcohol (madera: lignina, celulosa, hemicelulosa).",
+   "u": "https://taylorandfrancis.com/knowledge/Engineering_and_technology/Chemical_engineering/Sinapyl_alcohol"
+  },
+  {
+   "n": 49,
+   "t": "Eggshell composition and valorization. PMC11701074.",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11701074"
+  },
+  {
+   "n": 50,
+   "t": "Wikipedia. Rosin (asma ocupacional por humos).",
+   "u": "https://www.wikipedia.com/wiki/E915"
+  },
+  {
+   "n": 51,
+   "t": "Cape Crystal Brands. Hydrocolloid glossary.",
+   "u": "https://www.capecrystalbrands.com/pages/hydrocolloid-glossary-cape-crystal-brands"
+  }
+ ],
+ "materiales": [
+  {
+   "grupo": "Algas",
+   "nombre": "Alginato",
+   "origen": "V",
+   "que": "Polisacárido de algas pardas (bloques de ácido manurónico y gulurónico).",
+   "activa": "Disuelto en agua, gelifica por reticulación iónica: enlace mediante iones de calcio (Ca²⁺) u otros cationes polivalentes.",
+   "usos": "Geles, esferificación, películas, tintas para impresión.",
+   "cuidado": "—",
+   "fuentes": [
+    19,
+    7,
+    6
+   ]
+  },
+  {
+   "grupo": "Algas",
+   "nombre": "Agar-agar",
+   "origen": "V",
+   "que": "Polisacárido de algas rojas (agarosa + agaropectina).",
+   "activa": "Se disuelve al calentar (se funde cerca de 85 °C) y gelifica al enfriar (≈32–40 °C). Gel termorreversible.",
+   "usos": "Geles rígidos, medios de cultivo, películas.",
+   "cuidado": "—",
+   "fuentes": [
+    17,
+    18
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "Almidón (maíz)",
+   "origen": "V",
+   "que": "Polisacárido de reserva: amilosa (lineal) + amilopectina (ramificada).",
+   "activa": "Se calienta en agua (gelatinización) y al enfriar las cadenas se reordenan (retrogradación).",
+   "usos": "Aglutinante, películas, pastas imprimibles.",
+   "cuidado": "—",
+   "fuentes": [
+    20,
+    21
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "Pectina",
+   "origen": "V",
+   "que": "Polisacárido vegetal hecho de ácido galacturónico.",
+   "activa": "HM (alto metoxilo): necesita mucho azúcar y ácido (pH ≈3). LM (bajo metoxilo): gelifica con calcio. Verifica en la etiqueta cuál tienes.",
+   "usos": "Geles, aglutinante.",
+   "cuidado": "—",
+   "fuentes": [
+    29,
+    30
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "Celulosa",
+   "origen": "V",
+   "que": "Polímero de glucosa; componente más abundante de la madera.",
+   "activa": "No gelifica: se usa como fibra o carga dentro de una matriz.",
+   "usos": "Refuerzo, papel, fibras.",
+   "cuidado": "—",
+   "fuentes": [
+    27,
+    48
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "CMC (carboximetilcelulosa)",
+   "origen": "V",
+   "que": "Derivado semisintético de la celulosa (se modifica con álcali y ácido cloroacético).",
+   "activa": "Se disuelve en agua fría o caliente y da una solución viscosa.",
+   "usos": "Espesante, aglutinante, control de viscosidad.",
+   "cuidado": "—",
+   "fuentes": [
+    28,
+    47
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "Mucílago de nopal",
+   "origen": "V",
+   "que": "Mezcla de polisacáridos del cladodio de Opuntia (con ácido galacturónico).",
+   "activa": "Extracción tradicional: macerar el cladodio en agua ≈24 h (relación 1:1).",
+   "usos": "Aditivo de morteros de cal y pastas minerales.",
+   "cuidado": "—",
+   "fuentes": [
+    43,
+    44
+   ]
+  },
+  {
+   "grupo": "Plantas",
+   "nombre": "Lignina",
+   "origen": "V",
+   "que": "Polímero aromático e hidrofóbico; 18–35 % de la madera seca.",
+   "activa": "No se activa: viene en la fibra vegetal y une las fibras en la pared celular.",
+   "usos": "Componente de biocompuestos con fibra, aglutinante natural.",
+   "cuidado": "—",
+   "fuentes": [
+    27,
+    41,
+    48
+   ]
+  },
+  {
+   "grupo": "Microbiano",
+   "nombre": "Goma xantana",
+   "origen": "M",
+   "que": "Polisacárido producido por bacterias (Xanthomonas).",
+   "activa": "Se dispersa en agua y espesa; pierde viscosidad al agitar o extruir (adelgazamiento por cizalla) y la recupera en reposo.",
+   "usos": "Espesante, estabilizador, tintas para LDM.",
+   "cuidado": "—",
+   "fuentes": [
+    5,
+    40
+   ]
+  },
+  {
+   "grupo": "Proteínas",
+   "nombre": "Gelatina",
+   "origen": "A",
+   "que": "Proteína: colágeno hidrolizado de piel y huesos (cerdo, res).",
+   "activa": "Se disuelve al calentar; gelifica al enfriar (sol–gel ≈30 °C) y se vuelve a fundir <35 °C.",
+   "usos": "Geles, películas, aglutinante.",
+   "cuidado": "Origen animal (no apta para dieta vegetariana).",
+   "fuentes": [
+    22,
+    23
+   ]
+  },
+  {
+   "grupo": "Proteínas",
+   "nombre": "Caseína",
+   "origen": "A",
+   "que": "Proteína de la leche.",
+   "activa": "Con formaldehído se endurece y se vuelve insoluble (plástico Galalith).",
+   "usos": "Plásticos históricos (botones), pegamentos, pinturas.",
+   "cuidado": "Alérgeno lácteo (dato general, sin cita). El formaldehído es tóxico.",
+   "fuentes": [
+    31
+   ]
+  },
+  {
+   "grupo": "Proteínas",
+   "nombre": "Proteína de soya",
+   "origen": "V",
+   "que": "Proteína vegetal (el aislado de soya es la forma usada).",
+   "activa": "Se calienta (desnaturalización) con plastificante; sin él, queda frágil. Con glicerol 30–40 % se obtienen películas flexibles.",
+   "usos": "Películas, bioplásticos, resinas.",
+   "cuidado": "Alérgeno común (dato general, sin cita).",
+   "fuentes": [
+    32
+   ]
+  },
+  {
+   "grupo": "Animal",
+   "nombre": "Quitosano",
+   "origen": "A",
+   "que": "Quitina desacetilada (polisacárido con grupos amino); se obtiene sobre todo de caparazones de crustáceos y existe en algunos hongos.",
+   "activa": "Se disuelve en ácidos orgánicos diluidos (p. ej. acético), no en agua neutra.",
+   "usos": "Películas, recubrimientos, geles.",
+   "cuidado": "Puede contener proteína de crustáceos: riesgo para personas alérgicas a mariscos.",
+   "fuentes": [
+    24,
+    25,
+    26
+   ]
+  },
+  {
+   "grupo": "Animal",
+   "nombre": "Cera de abeja",
+   "origen": "A",
+   "que": "Mezcla de ésteres de ácidos grasos y alcoholes de cadena larga, hidrocarburos y ácidos grasos libres.",
+   "activa": "Se funde a 62–64 °C; prácticamente insoluble en agua.",
+   "usos": "Impermeabilizante, recubrimientos, aglutinante en ceras.",
+   "cuidado": "—",
+   "fuentes": [
+    35,
+    36
+   ]
+  },
+  {
+   "grupo": "Resinas",
+   "nombre": "Látex natural",
+   "origen": "V",
+   "que": "Emulsión de caucho (≈34 % cis-1,4-poliisopreno) con 2–3 % de proteínas.",
+   "activa": "En la planta coagula por acción de proteínas de sus vacuolas; en taller se usa líquido como recubrimiento.",
+   "usos": "Recubrimientos, moldes, películas elásticas.",
+   "cuidado": "Alergia al látex: las proteínas causan reacciones.",
+   "fuentes": [
+    33,
+    34
+   ]
+  },
+  {
+   "grupo": "Resinas",
+   "nombre": "Resina de pino (colofonia)",
+   "origen": "V",
+   "que": "Sólido frágil formado principalmente por ácidos resínicos (sobre todo abiético).",
+   "activa": "Se ablanda y se pone pegajosa al calentar; se disuelve en etanol, no en agua. Poca resistencia a la humedad.",
+   "usos": "Adhesivo, barniz, aglutinante con cera.",
+   "cuidado": "Los humos pueden causar asma ocupacional.",
+   "fuentes": [
+    45,
+    50
+   ]
+  },
+  {
+   "grupo": "Minerales y carbón",
+   "nombre": "Cascarón de huevo",
+   "origen": "N",
+   "que": "Carbonato de calcio en forma de calcita (94–97 %) más materia orgánica y una membrana proteica.",
+   "activa": "No se activa: se muele fino. Se usa como fuente de calcio y como carga.",
+   "usos": "Carga mineral, fuente de calcio.",
+   "cuidado": "Alérgeno de huevo en la membrana (dato general, sin cita).",
+   "fuentes": [
+    37,
+    49
+   ]
+  },
+  {
+   "grupo": "Minerales y carbón",
+   "nombre": "Conchas marinas",
+   "origen": "N",
+   "que": "Carbonato de calcio (95–99 %) con una matriz orgánica de proteínas y polisacáridos (0.1–5 %).",
+   "activa": "No se activa: se muele fino. La quitina es mayoritaria en crustáceos, no en conchas.",
+   "usos": "Carga mineral, fuente de calcio.",
+   "cuidado": "—",
+   "fuentes": [
+    38
+   ]
+  },
+  {
+   "grupo": "Minerales y carbón",
+   "nombre": "Biochar",
+   "origen": "X",
+   "que": "Carbón vegetal de biomasa pirolizada; sus propiedades dependen de la temperatura y de la biomasa de origen.",
+   "activa": "No se activa: es carga. Con poca dosis mejora rigidez/resistencia hasta un óptimo; arriba de ese punto empeora.",
+   "usos": "Carga.",
+   "cuidado": "—",
+   "fuentes": [
+    42
+   ]
+  },
+  {
+   "grupo": "Minerales y carbón",
+   "nombre": "Arcilla + biopolímero",
+   "origen": "X",
+   "que": "Mezcla de arcilla con un biopolímero como aglutinante.",
+   "activa": "Probado en Tronxy Moore 1 (resultado propio del taller; sin fuente externa).",
+   "usos": "Pastas para impresión LDM.",
+   "cuidado": "—",
+   "fuentes": []
+  },
+  {
+   "grupo": "Aditivos",
+   "nombre": "Glicerina",
+   "origen": "X",
+   "que": "Plastificante (alcohol con tres grupos –OH).",
+   "activa": "Se mezcla en la pasta o la solución: reduce la fragilidad, pero aumenta la permeabilidad al vapor de agua.",
+   "usos": "Plastificante en películas de almidón, soya, gelatina.",
+   "cuidado": "Origen variable (grasas/aceites): sin fuente propia.",
+   "fuentes": [
+    39
+   ]
+  },
+  {
+   "grupo": "Aditivos",
+   "nombre": "Azúcar (sacarosa)",
+   "origen": "V",
+   "que": "Disacárido.",
+   "activa": "Con pectina HM, el azúcar en alta concentración ayuda a formar el gel.",
+   "usos": "Co-soluto en geles de pectina.",
+   "cuidado": "Sin fuente propia para otros usos.",
+   "fuentes": [
+    29,
+    30
+   ]
+  }
+ ],
+ "glosario": [
+  {
+   "t": "Aglutinante",
+   "d": "Sustancia que une partículas o fibras sueltas para formar una pieza.",
+   "e": "Xantano, alginato o almidón con residuo molido.",
+   "fuentes": [
+    1
+   ]
+  },
+  {
+   "t": "Amilopectina",
+   "d": "Fracción ramificada del almidón.",
+   "e": "Se recristaliza más lento que la amilosa.",
+   "fuentes": [
+    21
+   ]
+  },
+  {
+   "t": "Amilosa",
+   "d": "Fracción lineal del almidón.",
+   "e": "Su gel es la base de la rigidez del almidón.",
+   "fuentes": [
+    20,
+    21
+   ]
+  },
+  {
+   "t": "Biobasado",
+   "d": "Hecho a partir de materia biológica renovable.",
+   "e": "Almidón, alginato, celulosa.",
+   "fuentes": [
+    3,
+    13
+   ]
+  },
+  {
+   "t": "Biodegradable",
+   "d": "Que los microorganismos pueden descomponer. No todo lo biobasado lo es, ni al revés.",
+   "e": "Se comprueba caso por caso.",
+   "fuentes": [
+    13
+   ]
+  },
+  {
+   "t": "Biofabricado",
+   "d": "Material construido por organismos vivos.",
+   "e": "Micelio, celulosa bacteriana.",
+   "fuentes": [
+    3
+   ]
+  },
+  {
+   "t": "Biopolímero",
+   "d": "Polímero producido por seres vivos o derivado de ellos.",
+   "e": "Alginato, celulosa, gelatina.",
+   "fuentes": [
+    13
+   ]
+  },
+  {
+   "t": "Biosintético",
+   "d": "Tercera categoría de la taxonomía junto a biobasado y biofabricado; consulta la definición en la fuente.",
+   "e": "Ver fuente 3.",
+   "fuentes": [
+    3
+   ]
+  },
+  {
+   "t": "Carga",
+   "d": "Material añadido a una matriz para dar volumen, peso o abaratar. No necesariamente mejora la resistencia.",
+   "e": "Cascarón molido.",
+   "fuentes": [
+    42
+   ]
+  },
+  {
+   "t": "Coagulación",
+   "d": "Paso de líquido a masa sólida o semisólida.",
+   "e": "Látex que se corta.",
+   "fuentes": [
+    34
+   ]
+  },
+  {
+   "t": "Compostable",
+   "d": "Que se degrada en condiciones de compostaje (más exigente que biodegradable).",
+   "e": "Sin cita puntual; confirmar con la norma aplicable.",
+   "fuentes": []
+  },
+  {
+   "t": "Compósito",
+   "d": "Material hecho de dos o más componentes que conservan su identidad (matriz + carga o refuerzo).",
+   "e": "Micelio sobre sustrato.",
+   "fuentes": [
+    15
+   ]
+  },
+  {
+   "t": "Desnaturalización",
+   "d": "Pérdida de la estructura nativa de una proteína por calor, ácido o agitación.",
+   "e": "Clara de huevo al cocerse; proteína de soya al calentarse.",
+   "fuentes": [
+    32
+   ]
+  },
+  {
+   "t": "Gelatinización",
+   "d": "El almidón calentado en exceso de agua pierde su orden granular y se hincha.",
+   "e": "Almidón de maíz en agua caliente.",
+   "fuentes": [
+    20
+   ]
+  },
+  {
+   "t": "Gelificación",
+   "d": "Formación de una red que atrapa líquido y le da forma de gel.",
+   "e": "Agar al enfriar.",
+   "fuentes": [
+    46
+   ]
+  },
+  {
+   "t": "Hidrocoloide",
+   "d": "Sustancia (goma, almidón, gelatina) que se dispersa en agua y espesa o gelifica.",
+   "e": "Xantano, agar, pectina.",
+   "fuentes": [
+    51
+   ]
+  },
+  {
+   "t": "Hidrogel",
+   "d": "Gel cuyo líquido es agua, con una red de polímero.",
+   "e": "Alginato con calcio.",
+   "fuentes": [
+    46
+   ]
+  },
+  {
+   "t": "Higroscópico",
+   "d": "Que absorbe humedad del ambiente.",
+   "e": "CMC.",
+   "fuentes": [
+    47
+   ]
+  },
+  {
+   "t": "LDM",
+   "d": "Siglas en inglés de modelado por deposición líquida: se extruye una pasta o barro con impresora 3D.",
+   "e": "Usado en el taller para arcilla y biopastas (sin cita puntual).",
+   "fuentes": []
+  },
+  {
+   "t": "Matriz",
+   "d": "Fase continua que rodea y une a la carga o al refuerzo.",
+   "e": "Almidón con fibra.",
+   "fuentes": []
+  },
+  {
+   "t": "Micelio",
+   "d": "Red de hifas del hongo; su pared contiene quitina, glucanos y proteínas.",
+   "e": "Compósito de micelio.",
+   "fuentes": [
+    14
+   ]
+  },
+  {
+   "t": "Monómero",
+   "d": "Unidad pequeña que se repite para formar un polímero.",
+   "e": "Glucosa en la celulosa y el almidón.",
+   "fuentes": [
+    48
+   ]
+  },
+  {
+   "t": "pH",
+   "d": "Medida de acidez; condiciona cuándo gelifican algunos materiales.",
+   "e": "Pectina HM gelifica a pH ≈3.",
+   "fuentes": [
+    30
+   ]
+  },
+  {
+   "t": "Plastificante",
+   "d": "Sustancia que se intercala entre cadenas para volver flexible un material frágil.",
+   "e": "Glicerina.",
+   "fuentes": [
+    39
+   ]
+  },
+  {
+   "t": "Polímero",
+   "d": "Molécula larga formada por muchas unidades repetidas.",
+   "e": "Celulosa, poliisopreno.",
+   "fuentes": []
+  },
+  {
+   "t": "Polisacárido",
+   "d": "Carbohidrato formado por muchas moléculas de azúcar unidas.",
+   "e": "Alginato, agar, pectina.",
+   "fuentes": [
+    29
+   ]
+  },
+  {
+   "t": "Precipitación",
+   "d": "Aparición de un sólido a partir de una disolución.",
+   "e": "Quitosano que se separa al subir el pH (dato general, sin cita).",
+   "fuentes": []
+  },
+  {
+   "t": "Refuerzo",
+   "d": "Fibra o partícula que mejora la resistencia mecánica de la matriz. Si solo rellena, es carga.",
+   "e": "Fibras de celulosa; biochar en dosis óptima.",
+   "fuentes": [
+    42
+   ]
+  },
+  {
+   "t": "Reticulación",
+   "d": "Formación de enlaces entre cadenas de polímero. Puede ser iónica (Ca²⁺ en alginato) o covalente (formaldehído en caseína).",
+   "e": "Alginato + calcio.",
+   "fuentes": [
+    19,
+    31
+   ]
+  },
+  {
+   "t": "Reticulación iónica",
+   "d": "Enlace entre cadenas mediante iones, p. ej. Ca²⁺ (modelo «caja de huevos»).",
+   "e": "Alginato, pectina LM.",
+   "fuentes": [
+    19,
+    30
+   ]
+  },
+  {
+   "t": "Termorreversible",
+   "d": "Gel que se funde al calentar y vuelve a gelificar al enfriar.",
+   "e": "Agar, gelatina.",
+   "fuentes": [
+    17,
+    22
+   ]
+  },
+  {
+   "t": "Tixotropía / adelgazamiento por cizalla",
+   "d": "El material fluye al agitarlo o extruirlo y recupera su espesor en reposo.",
+   "e": "Xantano en tintas LDM.",
+   "fuentes": [
+    40
+   ]
+  },
+  {
+   "t": "Translúcido",
+   "d": "Deja pasar la luz pero la difunde: no se ve nítido a través de él.",
+   "e": "Gelatina fina, caseína.",
+   "fuentes": []
+  },
+  {
+   "t": "Viscosidad",
+   "d": "Resistencia de un fluido a fluir.",
+   "e": "CMC da alta viscosidad.",
+   "fuentes": [
+    28
+   ]
+  }
+ ],
+ "familias": [
+  {
+   "f": "Biomasas (residuo + aglutinante)",
+   "o": "Vegetal y mineral",
+   "a": "Varía: xantano, alginato, almidón…",
+   "p": "Artesanal",
+   "q": "Biobasado",
+   "fuentes": [
+    1,
+    5
+   ]
+  },
+  {
+   "f": "Biopolímeros (alginato, agar, almidón)",
+   "o": "Plantas y algas",
+   "a": "El mismo polímero",
+   "p": "Artesanal",
+   "q": "Biobasado",
+   "fuentes": [
+    1,
+    6,
+    7
+   ]
+  },
+  {
+   "f": "Biofibras (hilos, tejidos, biocuero)",
+   "o": "Plantas y algas",
+   "a": "Varía: alginato u otro",
+   "p": "Artesanal",
+   "q": "Biobasado",
+   "fuentes": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "f": "Celulosa bacteriana (SCOBY)",
+   "o": "Bacteriano",
+   "a": "Su propia celulosa (polisacárido)",
+   "p": "Cultivado",
+   "q": "Biofabricado",
+   "fuentes": [
+    8,
+    9,
+    16
+   ]
+  },
+  {
+   "f": "Micelio",
+   "o": "Fúngico",
+   "a": "El propio micelio: pared con quitina, glucanos y proteínas",
+   "p": "Cultivado",
+   "q": "Biofabricado",
+   "fuentes": [
+    10,
+    11,
+    14,
+    15
+   ]
+  },
+  {
+   "f": "Materiales vivos",
+   "o": "Varios organismos",
+   "a": "El organismo (varía)",
+   "p": "Cultivado",
+   "q": "Biofabricado",
+   "fuentes": [
+    12
+   ]
+  }
+ ],
+ "revision": "noviembre 2026"
+}
