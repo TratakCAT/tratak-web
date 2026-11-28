@@ -25,7 +25,7 @@
   .app p{ margin:0 0 10px; font-size:16px; line-height:1.5; } .app .suave{ opacity:.72; font-size:14.5px; }
   .app .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
   .app label{ display:block; font-weight:700; font-size:15px; margin:14px 0 6px; }
-  .app input[type=text],.app input[type=number],.app select,.app textarea{ width:100%; font:inherit; font-size:16.5px; padding:12px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
+  .app input[type=text],.app input[type=url],.app input[type=number],.app select,.app textarea{ width:100%; font:inherit; font-size:16.5px; padding:12px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
   .app textarea{ min-height:76px; resize:vertical; }
   .app .btn{ display:block; width:100%; border:0; border-radius:999px; padding:15px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; background:var(--tk-ink); color:#fff; margin-top:16px; text-align:center; text-decoration:none; }
   .app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:10px; }
@@ -43,6 +43,15 @@
   .barra{ display:flex; height:14px; border-radius:8px; overflow:hidden; margin:6px 0; background:rgba(36,31,24,.1); } .barra i{ display:block; height:100%; }
   .hint{ background:#fff4d9; border-radius:12px; padding:8px 10px; margin-top:8px; font-size:14px; line-height:1.4; }
   .ing{ border:1.5px solid rgba(36,31,24,.15); border-radius:18px; padding:12px 14px; margin-top:12px; } .ing h3{ margin:0 0 4px; font-family:Georgia,serif; font-weight:400; font-size:20px; }
+  .pizarra{ margin-top:8px; } .pizarra canvas{ width:100%; height:auto; aspect-ratio:3/2; background:#fff; border:1.5px solid rgba(36,31,24,.25); border-radius:14px; touch-action:none; display:block; }
+  .herr{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px; font-size:13px; }
+  .herr input[type=color]{ width:42px; height:34px; padding:0; border:1.5px solid rgba(36,31,24,.25); border-radius:10px; background:#fff; }
+  .herr input[type=range]{ flex:1; min-width:90px; padding:0; }
+  .herr .chip{ padding:6px 10px; font-size:13px; }
+  .swatch{ width:26px; height:26px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1.5px rgba(36,31,24,.3); cursor:pointer; padding:0; }
+  .hall{ border:1.5px solid rgba(36,31,24,.15); border-radius:18px; padding:12px 14px; margin-top:12px; }
+  .hall textarea{ min-height:90px; } .hall input{ margin-top:8px; }
+  .ficha-img{ width:100%; border-radius:12px; border:1px solid rgba(36,31,24,.2); margin:4px 0 8px; display:block; }
   [hidden]{ display:none !important; }
 </style>
 </head>
@@ -109,6 +118,15 @@
         <h2>¿De qué <em>está hecho?</em></h2>
         <p class="suave">Para cada ingrediente, marca los componentes que crees que contiene y cómo lo supiste. Si no estás segura o seguro, dilo: eso también cuenta.</p>
         <div id="desglose"></div>
+        <button class="btn" data-sig>Siguiente</button><button class="atras" data-atras>Atrás</button>
+      </section>
+
+      <section class="paso">
+        <h2>Ahora, <em>investiga</em></h2>
+        <p>Cada material esconde muchos elementos. Busca de qué están hechos tu carga y tu aglutinante, y cuéntanos todo lo que encuentres: componentes, porcentajes, para qué sirven, curiosidades. Puedes escribir todo lo que quieras.</p>
+        <p class="suave"><b>Por cada dato, pega el link</b> de donde lo sacaste (artículo, estudio, página). Sin link no sabemos si es cierto. Con esto vamos a alimentar la Guía de consulta.</p>
+        <div id="hallazgos"></div>
+        <button class="btn sec" id="addh" type="button">+ Agregar un hallazgo</button>
         <button class="btn" data-sig>Ver mi ficha</button><button class="atras" data-atras>Atrás</button>
       </section>
 
@@ -140,7 +158,7 @@
   var COMO = ['Lo vi en la Guía', 'Me lo dijo una receta', 'Lo probé en la mezcla', 'Es una intuición', 'No sé'];
   var CARGAS = ['Hueso de aguacate', 'Cáscara de naranja', 'Café molido', 'Bagazo de agave', 'Fibra de coco', 'Aserrín', 'Cascarón de huevo', 'Cáscara de plátano', 'Olote de maíz', 'Posos de té'];
   var G = null;
-  var S = { paso: 0, nombre: '', carga: '', aglu: '', ad: [{ n: '', g: '', t: 'carga', tx: [] }], fo: [{ n: '', r: [] }], sor: '', de: {} };
+  var S = { paso: 0, nombre: '', carga: '', aglu: '', ad: [{ n: '', g: '', t: 'carga', tx: [] }], fo: [{ n: '', r: [], d: '' }], sor: '', de: {}, hl: [{ t: '', x: '', u: '' }] };
   try { var g0 = JSON.parse(localStorage.getItem(K) || 'null'); if (g0) S = Object.assign(S, g0); } catch (e) {}
   function guardar() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
   var pasos = Array.prototype.slice.call(document.querySelectorAll('.paso')), puntos = $('puntos');
@@ -149,7 +167,7 @@
     S.paso = n; guardar();
     pasos.forEach(function (p, i) { p.classList.toggle('on', i === n); });
     Array.prototype.forEach.call(puntos.children, function (d, i) { d.className = i === n ? 'on' : (i < n ? 'hecho' : ''); });
-    if (n === 2) pintarAd(); if (n === 3) pintarFo(); if (n === 4) pintarDe(); if (n === 5) ficha();
+    if (n === 2) pintarAd(); if (n === 3) pintarFo(); if (n === 4) pintarDe(); if (n === 5) pintarHl(); if (n === 6) ficha();
     window.scrollTo(0, 0);
   }
   Array.prototype.forEach.call(document.querySelectorAll('[data-sig]'), function (b) { b.onclick = function () { cap(); ir(S.paso + 1); }; });
@@ -188,18 +206,42 @@
   }
   $('add').onclick = function () { S.ad.push({ n: '', g: '', t: 'carga', tx: [] }); pintarAd(); };
   // ---- formas
+  var PALETA = ['#241f18', '#e03131', '#f08c00', '#2f9e44', '#1971c2', '#9c36b5', '#ffffff'];
+  function pizarra(cont, f) {
+    var w = document.createElement('div'); w.className = 'pizarra';
+    var cv = document.createElement('canvas'); cv.width = 600; cv.height = 400; w.appendChild(cv);
+    var c = cv.getContext('2d'); c.fillStyle = '#fff'; c.fillRect(0, 0, 600, 400); c.lineCap = 'round'; c.lineJoin = 'round';
+    if (f.d) { var im = new Image(); im.onload = function () { c.drawImage(im, 0, 0); }; im.src = f.d; }
+    var col = PALETA[0], gro = 6, borr = false, dib = false, ux = 0, uy = 0;
+    var h = document.createElement('div'); h.className = 'herr';
+    var sw = PALETA.map(function (k) { return '<button type="button" class="swatch" data-k="' + k + '" style="background:' + k + '" aria-label="Color ' + k + '"></button>'; }).join('');
+    h.innerHTML = sw + '<input type="color" value="#241f18" aria-label="Elegir color"><input type="range" min="2" max="40" value="6" aria-label="Grosor"><button type="button" class="chip" data-b="b">Borrador</button><button type="button" class="chip" data-b="l">Limpiar</button>';
+    w.appendChild(h);
+    function pos(e) { var r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * 600 / r.width, (e.clientY - r.top) * 400 / r.height]; }
+    cv.addEventListener('pointerdown', function (e) { dib = true; cv.setPointerCapture(e.pointerId); var p = pos(e); ux = p[0]; uy = p[1]; c.strokeStyle = borr ? '#fff' : col; c.lineWidth = gro; c.beginPath(); c.moveTo(ux, uy); c.lineTo(ux + 0.1, uy + 0.1); c.stroke(); e.preventDefault(); });
+    cv.addEventListener('pointermove', function (e) { if (!dib) return; var p = pos(e); c.strokeStyle = borr ? '#fff' : col; c.lineWidth = gro; c.beginPath(); c.moveTo(ux, uy); c.lineTo(p[0], p[1]); c.stroke(); ux = p[0]; uy = p[1]; e.preventDefault(); });
+    function fin() { if (!dib) return; dib = false; try { f.d = cv.toDataURL('image/png'); guardar(); } catch (e) {} }
+    cv.addEventListener('pointerup', fin); cv.addEventListener('pointercancel', fin);
+    Array.prototype.forEach.call(h.querySelectorAll('.swatch'), function (b) { b.onclick = function () { col = b.getAttribute('data-k'); borr = false; h.querySelector('[data-b=b]').classList.remove('on'); }; });
+    h.querySelector('input[type=color]').oninput = function () { col = this.value; borr = false; h.querySelector('[data-b=b]').classList.remove('on'); };
+    h.querySelector('input[type=range]').oninput = function () { gro = +this.value; };
+    h.querySelector('[data-b=b]').onclick = function () { borr = !borr; this.classList.toggle('on', borr); };
+    h.querySelector('[data-b=l]').onclick = function () { if (!confirm('¿Borrar este dibujo?')) return; c.fillStyle = '#fff'; c.fillRect(0, 0, 600, 400); f.d = ''; guardar(); };
+    cont.appendChild(w);
+  }
   function pintarFo() {
     var c = $('formas'); c.innerHTML = '';
     S.fo.forEach(function (f, i) {
       var d = document.createElement('div'); d.className = 'fila';
-      d.innerHTML = '<small>Forma ' + (i + 1) + '</small><input type="text" placeholder="¿Qué forma intentaste? (esfera, placa, cordón…)" value="' + esc(f.n) + '"><div class="chips"></div>';
+      d.innerHTML = '<small>Forma ' + (i + 1) + '</small><input type="text" placeholder="¿Qué forma intentaste? (esfera, placa, cordón…)" value="' + esc(f.n) + '"><div class="chips"></div><small style="display:block;margin-top:10px">Dibújala (elige color y grosor)</small>';
       d.querySelector('input').oninput = function () { f.n = this.value; guardar(); };
       chips(d.querySelector('.chips'), RES, f.r, function () {});
+      pizarra(d, f);
       c.appendChild(d);
     });
     $('addf').hidden = S.fo.length >= 3; $('sorpresa').value = S.sor;
   }
-  $('addf').onclick = function () { if (S.fo.length < 3) { S.fo.push({ n: '', r: [] }); pintarFo(); } };
+  $('addf').onclick = function () { if (S.fo.length < 3) { S.fo.push({ n: '', r: [], d: '' }); pintarFo(); } };
   // ---- desglose
   function ingredientes() {
     var l = [];
@@ -226,37 +268,73 @@
       c.appendChild(d);
     });
   }
+  // ---- investiga
+  function pintarHl() {
+    var c = $('hallazgos'); c.innerHTML = '';
+    S.hl.forEach(function (h, i) {
+      var d = document.createElement('div'); d.className = 'hall';
+      d.innerHTML = '<small>Hallazgo ' + (i + 1) + '</small><input type="text" placeholder="¿De qué elemento o material hablas? (ej. almidón del hueso de aguacate)" maxlength="80" value="' + esc(h.t) + '"><textarea placeholder="¿Qué encontraste? Escribe lo que quieras." maxlength="1200">' + esc(h.x) + '</textarea><input type="url" inputmode="url" placeholder="Link de donde lo sacaste (https://…)" value="' + esc(h.u) + '"><button class="atras" type="button">Quitar</button>';
+      var a = d.querySelectorAll('input'), t = d.querySelector('textarea');
+      a[0].oninput = function () { h.t = this.value; guardar(); }; t.oninput = function () { h.x = this.value; guardar(); }; a[1].oninput = function () { h.u = this.value; guardar(); };
+      d.querySelector('.atras').onclick = function () { if (S.hl.length > 1) { S.hl.splice(i, 1); guardar(); pintarHl(); } else { h.t = h.x = h.u = ''; guardar(); pintarHl(); } };
+      c.appendChild(d);
+    });
+  }
+  $('addh').onclick = function () { S.hl.push({ t: '', x: '', u: '' }); pintarHl(); };
   // ---- ficha
   function datos() {
     var s = sumas(), de = ingredientes().map(function (n) { var e = S.de[norm(n)] || { c: [] }; return { n: n, c: e.c.map(function (x) { return x === 'Otro' && e.o ? e.o : x; }), f: e.f || '' }; });
-    return { nombre: S.nombre || 'Sin nombre', carga: S.carga, aglu: S.aglu, s: s, fo: S.fo.filter(function (f) { return f.n || f.r.length; }), sor: S.sor, de: de, n: S.ad.filter(function (a) { return a.n || a.g; }).length };
+    return { nombre: S.nombre || 'Sin nombre', carga: S.carga, aglu: S.aglu, s: s, fo: S.fo.filter(function (f) { return f.n || f.r.length || f.d; }), sor: S.sor, de: de, n: S.ad.filter(function (a) { return a.n || a.g; }).length, hl: S.hl.filter(function (h) { return h.t || h.x || h.u; }) };
   }
   function resumenProp(d) { var p = []; TIPOS.forEach(function (k) { if (d.s.t[k[0]] > 0) p.push(k[1] + ' ' + Math.round(d.s.t[k[0]] / d.s.tot * 100) + '%'); }); return p.join(' · '); }
   function ficha() {
     var d = datos(), h = '<h2 style="margin-top:0">' + esc(d.nombre) + '</h2>';
     h += '<p><b>Carga:</b> ' + esc(d.carga || '—') + '<br><b>Aglutinante:</b> ' + esc(d.aglu || '—') + '</p>';
-    if (d.s.tot) h += '<p><b>Mezcla:</b> ' + Math.round(d.s.tot * 10) / 10 + ' g en ' + d.n + ' adiciones<br>' + resumenProp(d) + '</p>';
-    d.fo.forEach(function (f, i) { h += '<p><b>Forma ' + (i + 1) + ':</b> ' + esc(f.n || '—') + (f.r.length ? ' (' + esc(f.r.join(', ')) + ')' : '') + '</p>'; });
+    if (d.s.tot) {
+      h += '<p style="margin-bottom:2px"><b>Mezcla:</b> ' + Math.round(d.s.tot * 10) / 10 + ' g en ' + d.n + ' adiciones</p><div class="barra" style="height:22px">';
+      TIPOS.forEach(function (k) { var p = d.s.t[k[0]] / d.s.tot * 100; if (p > 0) h += '<i style="width:' + p + '%;background:' + COLOR[k[0]] + '"></i>'; });
+      h += '</div><p class="suave">' + TIPOS.filter(function (k) { return d.s.t[k[0]] > 0; }).map(function (k) { return '<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + COLOR[k[0]] + ';margin-right:4px"></span>' + k[1] + ' ' + Math.round(d.s.t[k[0]] / d.s.tot * 100) + '% (' + Math.round(d.s.t[k[0]] * 10) / 10 + ' g)'; }).join(' &nbsp; ') + '</p>';
+    }
+    d.fo.forEach(function (f, i) { h += '<p style="margin-bottom:4px"><b>Forma ' + (i + 1) + ':</b> ' + esc(f.n || '—') + (f.r.length ? ' (' + esc(f.r.join(', ')) + ')' : '') + '</p>' + (f.d ? '<img class="ficha-img" alt="Dibujo de la forma ' + (i + 1) + '" src="' + f.d + '">' : ''); });
     if (d.sor) h += '<p><b>Me sorprendió:</b> ' + esc(d.sor) + '</p>';
     d.de.forEach(function (x) { h += '<p><b>' + esc(x.n) + ':</b> ' + (x.c.length ? esc(x.c.join(', ')) : 'sin marcar') + (x.f ? ' <small class="suave">(' + esc(x.f.toLowerCase()) + ')</small>' : '') + '</p>'; });
+    if (d.hl.length) {
+      h += '<h3 style="font-family:Georgia,serif;font-weight:400;font-size:21px;margin:16px 0 6px">Lo que investigué</h3>';
+      d.hl.forEach(function (x) { h += '<div class="fila"><b>' + esc(x.t || 'Sin título') + '</b><br>' + esc(x.x).replace(/\n/g, '<br>') + (x.u ? '<br><small><a href="' + esc(x.u) + '" target="_blank" rel="noopener">' + esc(x.u.slice(0, 60)) + '</a></small>' : '<br><small class="suave">⚠️ Sin link</small>') + '</div>'; });
+    }
     $('ficha').innerHTML = h;
   }
   function envolver(c, t, x, y, w, lh) { var ws = String(t).split(' '), l = ''; ws.forEach(function (p) { var pr = l ? l + ' ' + p : p; if (c.measureText(pr).width > w && l) { c.fillText(l, x, y); y += lh; l = p; } else l = pr; }); c.fillText(l, x, y); return y + lh; }
+  function cargaImg(src) { return new Promise(function (ok) { if (!src) return ok(null); var im = new Image(); im.onload = function () { ok(im); }; im.onerror = function () { ok(null); }; im.src = src; }); }
   $('descargar').onclick = function () {
-    var d = datos(), W = 1080, H = 2400, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
-    g.addColorStop(0, '#1d2b24'); g.addColorStop(1, '#241f18'); c.fillStyle = g; c.fillRect(0, 0, W, H);
-    var y = 120, X = 90, A = W - 180;
-    function bl(k, v, f) { if (!v) return; c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText(k.toUpperCase(), X, y); y += 44; c.fillStyle = '#fff'; c.font = f + 'px Georgia,serif'; y = envolver(c, v, X, y, A, f * 1.3) + 24; }
-    c.fillStyle = '#6ee19a'; c.font = '700 40px system-ui,sans-serif'; c.fillText('FORMA AMORFA', X, y); y += 80;
-    c.fillStyle = '#fff'; c.font = '400 84px Georgia,serif'; y = envolver(c, d.nombre, X, y, A, 92) + 20;
-    bl('Carga', d.carga, 42); bl('Aglutinante', d.aglu, 42);
-    if (d.s.tot) { bl('Mezcla', Math.round(d.s.tot * 10) / 10 + ' g · ' + resumenProp(d), 36); }
-    d.fo.forEach(function (f, i) { bl('Forma ' + (i + 1), (f.n || '') + (f.r.length ? ' — ' + f.r.join(', ') : ''), 34); });
-    bl('Me sorprendió', d.sor, 34);
-    d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
-    var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
-    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
-    out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
+    var d = datos();
+    Promise.all(d.fo.map(function (f) { return cargaImg(f.d); })).then(function (imgs) {
+      var W = 1080, H = 9000, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
+      g.addColorStop(0, '#1d2b24'); g.addColorStop(1, '#241f18'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+      var y = 120, X = 90, A = W - 180;
+      function bl(k, v, f) { if (!v) return; c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText(k.toUpperCase(), X, y); y += 44; c.fillStyle = '#fff'; c.font = f + 'px Georgia,serif'; y = envolver(c, v, X, y, A, f * 1.3) + 24; }
+      c.fillStyle = '#6ee19a'; c.font = '700 40px system-ui,sans-serif'; c.fillText('FORMA AMORFA', X, y); y += 80;
+      c.fillStyle = '#fff'; c.font = '400 84px Georgia,serif'; y = envolver(c, d.nombre, X, y, A, 92) + 20;
+      bl('Carga', d.carga, 42); bl('Aglutinante', d.aglu, 42);
+      if (d.s.tot) {
+        bl('Mezcla', Math.round(d.s.tot * 10) / 10 + ' g en ' + d.n + ' adiciones', 36);
+        var bx = X, bw = A; c.save(); c.beginPath(); c.roundRect ? c.roundRect(X, y, A, 44, 22) : c.rect(X, y, A, 44); c.clip();
+        TIPOS.forEach(function (k) { var w = d.s.t[k[0]] / d.s.tot * bw; if (w > 0) { c.fillStyle = COLOR[k[0]]; c.fillRect(bx, y, w, 44); bx += w; } }); c.restore(); y += 84;
+        var lx = X; c.font = '600 28px system-ui,sans-serif';
+        TIPOS.forEach(function (k) { if (d.s.t[k[0]] <= 0) return; var t = k[1] + ' ' + Math.round(d.s.t[k[0]] / d.s.tot * 100) + '%  ·  ' + Math.round(d.s.t[k[0]] * 10) / 10 + ' g'; c.fillStyle = COLOR[k[0]]; c.beginPath(); c.arc(X + 12, y - 8, 12, 0, 7); c.fill(); c.fillStyle = '#fff'; c.fillText(t, X + 36, y); y += 46; });
+        y += 20;
+      }
+      d.fo.forEach(function (f, i) {
+        bl('Forma ' + (i + 1), (f.n || '') + (f.r.length ? ' — ' + f.r.join(', ') : ''), 34);
+        if (imgs[i]) { c.drawImage(imgs[i], X, y, A, A * 2 / 3); y += A * 2 / 3 + 30; }
+      });
+      bl('Me sorprendió', d.sor, 34);
+      d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
+      d.hl.forEach(function (x) { bl("Investigué · " + (x.t || ""), x.x.replace(/\n+/g, " · "), 30); if (x.u) { c.fillStyle = '#9fd3ff'; c.font = '26px system-ui,sans-serif'; y = envolver(c, x.u, X, y, A, 34) + 24; } else y += 6; });
+      var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
+      o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
+      out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
+    });
   };
   $('wa').onclick = function () {
     var d = datos(), t = ['*Forma amorfa · ficha de ' + d.nombre + '*', 'Carga: ' + (d.carga || '—'), 'Aglutinante: ' + (d.aglu || '—')];
@@ -264,6 +342,8 @@
     d.fo.forEach(function (f, i) { t.push('Forma ' + (i + 1) + ': ' + (f.n || '—') + (f.r.length ? ' (' + f.r.join(', ') + ')' : '')); });
     if (d.sor) t.push('Me sorprendió: ' + d.sor);
     d.de.forEach(function (x) { t.push(x.n + ': ' + (x.c.join(', ') || 'sin marcar') + (x.f ? ' [' + x.f + ']' : '')); });
+    d.hl.forEach(function (x) { t.push('Investigué — ' + (x.t || '') + ': ' + x.x + (x.u ? ' ' + x.u : ' (sin link)')); });
+    t.push('(Te mando aparte la imagen de mi ficha con los dibujos)');
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t.join('\n')), '_blank', 'noopener');
   };
   $('reiniciar').onclick = function () { if (!confirm('¿Borrar tus respuestas y empezar de nuevo?')) return; try { localStorage.removeItem(K); } catch (e) {} location.reload(); };
