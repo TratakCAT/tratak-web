@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/icon_180.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="styles.css?v=38">
+<link rel="stylesheet" href="assets/shishi.css?v=38">
+<meta name="apple-mobile-web-app-title" content="TRATAK CAT">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#b9edb2">
+<title>Forma amorfa · TRATAK CAT</title>
+<style>
+  :root{ --tk-ink:#241f18; --tk-mor:#6d49b8; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ min-height:100vh; background:linear-gradient(160deg,#c9a6ee 0%,#a9d2f0 55%,#c3f0b9 100%) fixed !important; }
+  .app{ max-width:680px; margin:0 auto; padding:18px 16px 130px; color:var(--tk-ink); font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+  body.con-nav .app{ padding-top:10px; }
+  .app .card{ background:rgba(255,255,255,.9); border-radius:26px; padding:22px 20px 24px; box-shadow:0 12px 40px rgba(60,40,110,.16); margin-bottom:14px; }
+  .app h1,.app h2{ font-family:Georgia,'Times New Roman',serif; font-weight:400; margin:0 0 10px; line-height:1.1; max-width:none; color:var(--tk-ink); }
+  .app h1{ font-size:clamp(32px,8.4vw,44px); } .app h2{ font-size:clamp(24px,6vw,29px); } .app h1 em,.app h2 em{ color:var(--tk-mor); }
+  .app p{ margin:0 0 10px; font-size:16px; line-height:1.5; } .app .suave{ opacity:.72; font-size:14.5px; }
+  .app .tag{ display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; background:var(--tk-ink); color:#fff; border-radius:999px; padding:6px 12px; margin-bottom:12px; }
+  .app label{ display:block; font-weight:700; font-size:15px; margin:14px 0 6px; }
+  .app input[type=text],.app input[type=number],.app select,.app textarea{ width:100%; font:inherit; font-size:16.5px; padding:12px 14px; border-radius:16px; border:1.5px solid rgba(36,31,24,.22); background:#fff; color:var(--tk-ink); }
+  .app textarea{ min-height:76px; resize:vertical; }
+  .app .btn{ display:block; width:100%; border:0; border-radius:999px; padding:15px 20px; font:inherit; font-size:16.5px; font-weight:700; cursor:pointer; background:var(--tk-ink); color:#fff; margin-top:16px; text-align:center; text-decoration:none; }
+  .app .btn.sec{ background:transparent; color:var(--tk-ink); border:1.5px solid var(--tk-ink); font-weight:600; margin-top:10px; }
+  .app .btn.wa{ background:#1fa855; }
+  .app .atras{ background:none; border:0; font:inherit; font-size:14px; text-decoration:underline; color:var(--tk-ink); opacity:.7; cursor:pointer; margin-top:12px; padding:6px 0; }
+  .paso{ display:none; } .paso.on{ display:block; }
+  .puntos{ display:flex; gap:6px; margin:0 0 12px; } .puntos i{ flex:1; height:6px; border-radius:6px; background:rgba(36,31,24,.15); } .puntos i.on{ background:var(--tk-ink); } .puntos i.hecho{ background:#4aa75f; }
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+  .chip{ border:1.5px solid rgba(36,31,24,.25); background:#fff; border-radius:999px; font:inherit; font-size:14px; font-weight:600; padding:7px 12px; cursor:pointer; color:var(--tk-ink); }
+  .chip.on{ background:var(--tk-ink); color:#fff; border-color:var(--tk-ink); }
+  .fila{ background:#f7f4fc; border-radius:16px; padding:10px 12px; margin-top:8px; }
+  .fila .r{ display:grid; grid-template-columns:1fr 92px; gap:8px; } .fila .r2{ display:block; margin-top:8px; } .fila .r2 .chips{ margin-top:8px; }
+  .fila small{ opacity:.6; } .fila .x{ float:right; background:none; border:0; font-size:18px; cursor:pointer; opacity:.6; }
+  .total{ background:#eef9ec; border-radius:16px; padding:12px 14px; margin-top:12px; font-size:15px; line-height:1.5; }
+  .barra{ display:flex; height:14px; border-radius:8px; overflow:hidden; margin:6px 0; background:rgba(36,31,24,.1); } .barra i{ display:block; height:100%; }
+  .hint{ background:#fff4d9; border-radius:12px; padding:8px 10px; margin-top:8px; font-size:14px; line-height:1.4; }
+  .ing{ border:1.5px solid rgba(36,31,24,.15); border-radius:18px; padding:12px 14px; margin-top:12px; } .ing h3{ margin:0 0 4px; font-family:Georgia,serif; font-weight:400; font-size:20px; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<div id="site-top"></div>
+<div id="site-floating"></div>
+<div class="app">
+  <div class="card" id="gate">
+    <span class="tag">Cultura Biomaterial · 4</span>
+    <h1>Forma <em>amorfa</em></h1>
+    <p>Esta actividad se hace en clase. Escribe la clave que se dijo en clase para entrar.</p>
+    <label for="clave">Clave</label>
+    <input type="text" id="clave" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Escríbela aquí">
+    <p id="gate-error" class="suave" style="color:#b3261e;margin-top:8px" hidden>Esa no es. Revisa lo que se dijo en clase.</p>
+    <button class="btn" id="entrar">Entrar</button>
+  </div>
+  <div id="actividad" hidden>
+    <a href="actividades.html" style="color:inherit;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none">← Actividades</a>
+    <div class="puntos" id="puntos" style="margin-top:10px"></div>
+    <div class="card">
+
+      <section class="paso on">
+        <span class="tag">Cultura Biomaterial · 4 · Forma amorfa</span>
+        <h1>Partículas sueltas, <em>cuerpo cohesivo</em></h1>
+        <p><b>Objetivo:</b> explorar cómo partículas dispersas se transforman en una estructura cohesiva con agua y aglutinante.</p>
+        <p>Vas a mezclar a ojo, pero con la báscula: anota cada vez que agregues algo. Al final tendrás una ficha con tus proporciones, tus formas y de qué está hecho lo que usaste.</p>
+        <label for="nombre">Tu nombre o apodo</label>
+        <input type="text" id="nombre" maxlength="40" autocomplete="off" placeholder="¿Cómo te llamamos?">
+        <button class="btn" data-sig>Empezar</button>
+      </section>
+
+      <section class="paso">
+        <h2>Tu <em>carga</em> y tu <em>aglutinante</em></h2>
+        <p class="suave">Carga: el material (residuo, fibra, polvo). Aglutinante: lo que lo une. Si dudas, mira la <a href="guia.html" target="_blank" rel="noopener" style="color:var(--tk-mor)">Guía de consulta</a>.</p>
+        <label for="carga">Tu carga (puedes elegir de la lista o escribir otra)</label>
+        <input type="text" id="carga" list="l-carga" maxlength="60" placeholder="Ej. hueso de aguacate molido">
+        <datalist id="l-carga"></datalist>
+        <label for="aglu">Tu aglutinante</label>
+        <input type="text" id="aglu" list="l-aglu" maxlength="60" placeholder="Ej. almidón, alginato, pectina…">
+        <datalist id="l-aglu"></datalist>
+        <button class="btn" data-sig>Siguiente</button><button class="atras" data-atras>Atrás</button>
+      </section>
+
+      <section class="paso">
+        <h2>Bitácora <em>de la mezcla</em></h2>
+        <p class="suave">Cada vez que agregues algo, añade una línea con los gramos que midiste (1 ml de agua ≈ 1 g).</p>
+        <div id="adiciones"></div>
+        <button class="btn sec" id="add" type="button">+ Agregar una adición</button>
+        <div class="total" id="total"></div>
+        <button class="btn" data-sig>Siguiente</button><button class="atras" data-atras>Atrás</button>
+      </section>
+
+      <section class="paso">
+        <h2>Las <em>formas</em> que intentaste</h2>
+        <p class="suave">Prueba distintas formas. Anota hasta tres.</p>
+        <div id="formas"></div>
+        <button class="btn sec" id="addf" type="button">+ Otra forma</button>
+        <label for="sorpresa">¿Qué te sorprendió de tu mezcla?</label>
+        <textarea id="sorpresa" maxlength="220"></textarea>
+        <button class="btn" data-sig>Siguiente</button><button class="atras" data-atras>Atrás</button>
+      </section>
+
+      <section class="paso">
+        <h2>¿De qué <em>está hecho?</em></h2>
+        <p class="suave">Para cada ingrediente, marca los componentes que crees que contiene y cómo lo supiste. Si no estás segura o seguro, dilo: eso también cuenta.</p>
+        <div id="desglose"></div>
+        <button class="btn" data-sig>Ver mi ficha</button><button class="atras" data-atras>Atrás</button>
+      </section>
+
+      <section class="paso">
+        <h2>Tu <em>ficha</em></h2>
+        <div id="ficha"></div>
+        <button class="btn" id="descargar">Guardar mi ficha como imagen</button>
+        <button class="btn wa" id="wa">Enviar mi ficha por WhatsApp</button>
+        <button class="atras" data-atras>Editar</button> <button class="atras" id="reiniciar" style="margin-left:14px">Empezar de nuevo</button>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="assets/site.js?v=45"></script>
+<script src="assets/shishi.js?v=38"></script>
+<script>
+(function () {
+  'use strict';
+  var WA = '523332480698', K = 'tk-forma-amorfa', CLAVE_HASH = '22uzdjel903';
+  var $ = function (i) { return document.getElementById(i); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
+  function cyrb53(str) { var h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (var i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); }
+  var TIPOS = [['carga', 'Carga'], ['aglu', 'Aglutinante'], ['agua', 'Agua'], ['otro', 'Otro']];
+  var COLOR = { carga: '#9fcbec', aglu: '#c0a2ec', agua: '#b9edb2', otro: '#f2c94c' };
+  var TEXT = ['seca', 'grumosa', 'pegajosa', 'moldeable', 'líquida', 'quebradiza'];
+  var RES = ['se sostuvo', 'se agrietó', 'se deshizo', 'se pegó al molde', 'quedó frágil', 'quedó firme'];
+  var COMP = ['Celulosa', 'Hemicelulosa', 'Lignina', 'Almidón', 'Proteína', 'Pectina', 'Azúcares', 'Grasas o ceras', 'Minerales (calcio…)', 'Agua', 'Otro'];
+  var COMO = ['Lo vi en la Guía', 'Me lo dijo una receta', 'Lo probé en la mezcla', 'Es una intuición', 'No sé'];
+  var CARGAS = ['Hueso de aguacate', 'Cáscara de naranja', 'Café molido', 'Bagazo de agave', 'Fibra de coco', 'Aserrín', 'Cascarón de huevo', 'Cáscara de plátano', 'Olote de maíz', 'Posos de té'];
+  var G = null;
+  var S = { paso: 0, nombre: '', carga: '', aglu: '', ad: [{ n: '', g: '', t: 'carga', tx: [] }], fo: [{ n: '', r: [] }], sor: '', de: {} };
+  try { var g0 = JSON.parse(localStorage.getItem(K) || 'null'); if (g0) S = Object.assign(S, g0); } catch (e) {}
+  function guardar() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
+  var pasos = Array.prototype.slice.call(document.querySelectorAll('.paso')), puntos = $('puntos');
+  pasos.forEach(function () { puntos.appendChild(document.createElement('i')); });
+  function ir(n) {
+    S.paso = n; guardar();
+    pasos.forEach(function (p, i) { p.classList.toggle('on', i === n); });
+    Array.prototype.forEach.call(puntos.children, function (d, i) { d.className = i === n ? 'on' : (i < n ? 'hecho' : ''); });
+    if (n === 2) pintarAd(); if (n === 3) pintarFo(); if (n === 4) pintarDe(); if (n === 5) ficha();
+    window.scrollTo(0, 0);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sig]'), function (b) { b.onclick = function () { cap(); ir(S.paso + 1); }; });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-atras]'), function (b) { b.onclick = function () { cap(); ir(S.paso - 1); }; });
+  function cap() { S.nombre = $('nombre').value.trim(); S.carga = $('carga').value.trim(); S.aglu = $('aglu').value.trim(); S.sor = $('sorpresa').value.trim(); guardar(); }
+  function chips(cont, lista, sel, cb) {
+    cont.innerHTML = '';
+    lista.forEach(function (x) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (sel.indexOf(x) >= 0 ? ' on' : ''); b.textContent = x; b.onclick = function () { var i = sel.indexOf(x); if (i >= 0) sel.splice(i, 1); else sel.push(x); b.classList.toggle('on'); cb(); guardar(); }; cont.appendChild(b); });
+  }
+  // ---- bitácora
+  function sumas() {
+    var t = { carga: 0, aglu: 0, agua: 0, otro: 0 }, tot = 0;
+    S.ad.forEach(function (a) { var g = parseFloat(a.g) || 0; t[a.t] += g; tot += g; });
+    return { t: t, tot: tot };
+  }
+  function pintarTotal() {
+    var s = sumas(), h = '';
+    if (!s.tot) { $('total').innerHTML = 'Aún sin gramos. Mide y anota para ver tus proporciones.'; return; }
+    var barra = '<div class="barra">', txt = [];
+    TIPOS.forEach(function (k) { var p = s.t[k[0]] / s.tot * 100; if (p > 0) { barra += '<i style="width:' + p + '%;background:' + COLOR[k[0]] + '"></i>'; txt.push(k[1] + ' ' + Math.round(p) + '% (' + Math.round(s.t[k[0]] * 10) / 10 + ' g)'); } });
+    $('total').innerHTML = '<b>Total: ' + Math.round(s.tot * 10) / 10 + ' g</b>' + barra + '</div>' + txt.join(' · ') + (s.t.carga ? '<br>Aglutinante por cada 100 g de carga: <b>' + Math.round(s.t.aglu / s.t.carga * 1000) / 10 + ' g</b> · Agua por cada 100 g de carga: <b>' + Math.round(s.t.agua / s.t.carga * 1000) / 10 + ' g</b>' : '');
+  }
+  function pintarAd() {
+    var c = $('adiciones'); c.innerHTML = '';
+    S.ad.forEach(function (a, i) {
+      var d = document.createElement('div'); d.className = 'fila';
+      d.innerHTML = '<button class="x" type="button" aria-label="Quitar">✕</button><small>Adición ' + (i + 1) + '</small><div class="r"><input type="text" placeholder="¿Qué agregaste?" value="' + esc(a.n) + '"><input type="number" inputmode="decimal" min="0" step="0.1" placeholder="gramos" value="' + esc(a.g) + '"></div><div class="r2"><select>' + TIPOS.map(function (k) { return '<option value="' + k[0] + '"' + (a.t === k[0] ? ' selected' : '') + '>' + k[1] + '</option>'; }).join('') + '</select><div class="chips"></div></div>';
+      var ins = d.querySelectorAll('input'), sel = d.querySelector('select');
+      ins[0].oninput = function () { a.n = this.value; guardar(); }; ins[1].oninput = function () { a.g = this.value; guardar(); pintarTotal(); };
+      sel.onchange = function () { a.t = this.value; guardar(); pintarTotal(); };
+      chips(d.querySelector('.chips'), TEXT, a.tx, function () {});
+      d.querySelector('.x').onclick = function () { if (S.ad.length > 1) { S.ad.splice(i, 1); guardar(); pintarAd(); } };
+      c.appendChild(d);
+    });
+    pintarTotal();
+  }
+  $('add').onclick = function () { S.ad.push({ n: '', g: '', t: 'carga', tx: [] }); pintarAd(); };
+  // ---- formas
+  function pintarFo() {
+    var c = $('formas'); c.innerHTML = '';
+    S.fo.forEach(function (f, i) {
+      var d = document.createElement('div'); d.className = 'fila';
+      d.innerHTML = '<small>Forma ' + (i + 1) + '</small><input type="text" placeholder="¿Qué forma intentaste? (esfera, placa, cordón…)" value="' + esc(f.n) + '"><div class="chips"></div>';
+      d.querySelector('input').oninput = function () { f.n = this.value; guardar(); };
+      chips(d.querySelector('.chips'), RES, f.r, function () {});
+      c.appendChild(d);
+    });
+    $('addf').hidden = S.fo.length >= 3; $('sorpresa').value = S.sor;
+  }
+  $('addf').onclick = function () { if (S.fo.length < 3) { S.fo.push({ n: '', r: [] }); pintarFo(); } };
+  // ---- desglose
+  function ingredientes() {
+    var l = [];
+    [S.carga, S.aglu].forEach(function (x) { if (x) l.push(x); });
+    S.ad.forEach(function (a) { var n = a.n.trim(); if (n && a.t === 'otro' && !l.some(function (z) { return norm(z) === norm(n); })) l.push(n); });
+    return l;
+  }
+  function buscaGuia(n) {
+    if (!G) return null; var q = norm(n); if (q.length < 3) return null;
+    for (var i = 0; i < G.materiales.length; i++) { var m = G.materiales[i], nn = norm(m.nombre); if (nn.indexOf(q) >= 0 || q.indexOf(nn.split(' ')[0]) >= 0 && nn.split(' ')[0].length > 4) return m; }
+    return null;
+  }
+  function pintarDe() {
+    var c = $('desglose'); c.innerHTML = ''; var l = ingredientes();
+    if (!l.length) { c.innerHTML = '<p>Primero escribe tu carga y tu aglutinante en el paso 2.</p>'; return; }
+    l.forEach(function (n) {
+      var k = norm(n); S.de[k] = S.de[k] || { n: n, c: [], o: '', f: '' }; var e = S.de[k]; e.n = n;
+      var d = document.createElement('div'); d.className = 'ing';
+      var m = buscaGuia(n);
+      d.innerHTML = '<h3>' + esc(n) + '</h3><small>Componentes que contiene</small><div class="chips"></div><label style="margin-top:10px">¿Cómo lo supiste?</label><select><option value="">Elige…</option>' + COMO.map(function (x) { return '<option' + (e.f === x ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select>' + (e.c.indexOf('Otro') >= 0 ? '<input type="text" placeholder="¿Cuál otro?" maxlength="60" value="' + esc(e.o) + '" style="margin-top:8px">' : '') + (m ? '<div class="hint">📖 En la guía: <b>' + esc(m.nombre) + '</b>. ' + esc(m.que) + ' <a href="guia.html#materiales" target="_blank" rel="noopener">Ver la guía</a></div>' : '');
+      chips(d.querySelector('.chips'), COMP, e.c, function () { pintarDe(); });
+      d.querySelector('select').onchange = function () { e.f = this.value; guardar(); };
+      var oi = d.querySelector('input'); if (oi) oi.oninput = function () { e.o = this.value; guardar(); };
+      c.appendChild(d);
+    });
+  }
+  // ---- ficha
+  function datos() {
+    var s = sumas(), de = ingredientes().map(function (n) { var e = S.de[norm(n)] || { c: [] }; return { n: n, c: e.c.map(function (x) { return x === 'Otro' && e.o ? e.o : x; }), f: e.f || '' }; });
+    return { nombre: S.nombre || 'Sin nombre', carga: S.carga, aglu: S.aglu, s: s, fo: S.fo.filter(function (f) { return f.n || f.r.length; }), sor: S.sor, de: de, n: S.ad.filter(function (a) { return a.n || a.g; }).length };
+  }
+  function resumenProp(d) { var p = []; TIPOS.forEach(function (k) { if (d.s.t[k[0]] > 0) p.push(k[1] + ' ' + Math.round(d.s.t[k[0]] / d.s.tot * 100) + '%'); }); return p.join(' · '); }
+  function ficha() {
+    var d = datos(), h = '<h2 style="margin-top:0">' + esc(d.nombre) + '</h2>';
+    h += '<p><b>Carga:</b> ' + esc(d.carga || '—') + '<br><b>Aglutinante:</b> ' + esc(d.aglu || '—') + '</p>';
+    if (d.s.tot) h += '<p><b>Mezcla:</b> ' + Math.round(d.s.tot * 10) / 10 + ' g en ' + d.n + ' adiciones<br>' + resumenProp(d) + '</p>';
+    d.fo.forEach(function (f, i) { h += '<p><b>Forma ' + (i + 1) + ':</b> ' + esc(f.n || '—') + (f.r.length ? ' (' + esc(f.r.join(', ')) + ')' : '') + '</p>'; });
+    if (d.sor) h += '<p><b>Me sorprendió:</b> ' + esc(d.sor) + '</p>';
+    d.de.forEach(function (x) { h += '<p><b>' + esc(x.n) + ':</b> ' + (x.c.length ? esc(x.c.join(', ')) : 'sin marcar') + (x.f ? ' <small class="suave">(' + esc(x.f.toLowerCase()) + ')</small>' : '') + '</p>'; });
+    $('ficha').innerHTML = h;
+  }
+  function envolver(c, t, x, y, w, lh) { var ws = String(t).split(' '), l = ''; ws.forEach(function (p) { var pr = l ? l + ' ' + p : p; if (c.measureText(pr).width > w && l) { c.fillText(l, x, y); y += lh; l = p; } else l = pr; }); c.fillText(l, x, y); return y + lh; }
+  $('descargar').onclick = function () {
+    var d = datos(), W = 1080, H = 2400, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#1d2b24'); g.addColorStop(1, '#241f18'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    var y = 120, X = 90, A = W - 180;
+    function bl(k, v, f) { if (!v) return; c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 26px system-ui,sans-serif'; c.fillText(k.toUpperCase(), X, y); y += 44; c.fillStyle = '#fff'; c.font = f + 'px Georgia,serif'; y = envolver(c, v, X, y, A, f * 1.3) + 24; }
+    c.fillStyle = '#6ee19a'; c.font = '700 40px system-ui,sans-serif'; c.fillText('FORMA AMORFA', X, y); y += 80;
+    c.fillStyle = '#fff'; c.font = '400 84px Georgia,serif'; y = envolver(c, d.nombre, X, y, A, 92) + 20;
+    bl('Carga', d.carga, 42); bl('Aglutinante', d.aglu, 42);
+    if (d.s.tot) { bl('Mezcla', Math.round(d.s.tot * 10) / 10 + ' g · ' + resumenProp(d), 36); }
+    d.fo.forEach(function (f, i) { bl('Forma ' + (i + 1), (f.n || '') + (f.r.length ? ' — ' + f.r.join(', ') : ''), 34); });
+    bl('Me sorprendió', d.sor, 34);
+    d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
+    var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
+    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
+    out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
+  };
+  $('wa').onclick = function () {
+    var d = datos(), t = ['*Forma amorfa · ficha de ' + d.nombre + '*', 'Carga: ' + (d.carga || '—'), 'Aglutinante: ' + (d.aglu || '—')];
+    if (d.s.tot) t.push('Mezcla: ' + Math.round(d.s.tot * 10) / 10 + ' g (' + resumenProp(d) + ')');
+    d.fo.forEach(function (f, i) { t.push('Forma ' + (i + 1) + ': ' + (f.n || '—') + (f.r.length ? ' (' + f.r.join(', ') + ')' : '')); });
+    if (d.sor) t.push('Me sorprendió: ' + d.sor);
+    d.de.forEach(function (x) { t.push(x.n + ': ' + (x.c.join(', ') || 'sin marcar') + (x.f ? ' [' + x.f + ']' : '')); });
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(t.join('\n')), '_blank', 'noopener');
+  };
+  $('reiniciar').onclick = function () { if (!confirm('¿Borrar tus respuestas y empezar de nuevo?')) return; try { localStorage.removeItem(K); } catch (e) {} location.reload(); };
+  // ---- clave (filtro para la clase, no seguridad real)
+  function abrir() {
+    $('gate').hidden = true; $('actividad').hidden = false; try { sessionStorage.setItem('tk-act-t3c4', '1'); } catch (e) {}
+    $('nombre').value = S.nombre; $('carga').value = S.carga; $('aglu').value = S.aglu; $('sorpresa').value = S.sor; ir(S.paso || 0);
+  }
+  $('entrar').onclick = function () { var ok = cyrb53(norm($('clave').value)) === CLAVE_HASH; $('gate-error').hidden = ok; if (ok) abrir(); };
+  $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('entrar').click(); });
+  try { if (sessionStorage.getItem('tk-act-t3c4') === '1') abrir(); } catch (e) {}
+  fetch('assets/guia.json?v=1').then(function (r) { return r.json(); }).then(function (d) {
+    G = d; var names = d.materiales.map(function (m) { return m.nombre; });
+    $('l-carga').innerHTML = CARGAS.concat(names).map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+    $('l-aglu').innerHTML = names.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+  }).catch(function () {});
+  fetch('content.json?_=' + Date.now()).then(function (r) { return r.json(); }).then(function (content) {
+    var R = window.TratakRender; R.applyTheme(content.theme, document.documentElement.style);
+    $('site-top').innerHTML = R.renderNav(content.theme); $('site-floating').innerHTML = R.renderFloatingButtons(content.contacto);
+    document.body.classList.add('con-nav'); R.bindGlobalInteractions(content.theme); if (window.Shishi) Shishi.montar(content);
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
