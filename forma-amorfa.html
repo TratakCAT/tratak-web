@@ -53,6 +53,8 @@
   .hall textarea{ min-height:90px; } .hall input{ margin-top:8px; }
   .shishi-b{ display:flex; align-items:center; gap:10px; background:#f3efe8; border-radius:18px; padding:10px 14px; margin-top:14px; }
   .shishi-b .sh{ position:relative; flex:none; width:96px; aspect-ratio:700/570; } .shishi-b .sh img{ position:absolute; inset:0; width:100%; height:100%; }
+  .shishi-b .sh .bo{ position:absolute; left:12.32%; top:57.93%; width:25.14%; aspect-ratio:1; filter:drop-shadow(0 0 5px rgba(140,110,230,.55)); } .shishi-b .sh .bo svg{ width:100%; height:100%; display:block; overflow:visible; }
+  .shishi-b .sh svg.oj{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; } .shishi-b .sh svg.oj ellipse{ fill:#14171a; } .shishi-b .sh svg.oj circle{ fill:#fff6dc; }
   .shishi-b p{ margin:0; font-family:Georgia,serif; font-style:italic; font-size:16px; line-height:1.35; }
   .ficha-img{ width:100%; border-radius:12px; border:1px solid rgba(36,31,24,.2); margin:4px 0 8px; display:block; }
   [hidden]{ display:none !important; }
@@ -307,15 +309,15 @@
       h += '<h3 style="font-family:Georgia,serif;font-weight:400;font-size:21px;margin:16px 0 6px">Lo que investigué</h3>';
       d.hl.forEach(function (x) { h += '<div class="fila"><b>' + esc(x.t || 'Sin título') + '</b><br>' + esc(x.x).replace(/\n/g, '<br>') + (x.u ? '<br><small><a href="' + esc(x.u) + '" target="_blank" rel="noopener">' + esc(x.u.slice(0, 60)) + '</a></small>' : '<br><small class="suave">⚠️ Sin link</small>') + '</div>'; });
     }
-    h += '<div class="shishi-b"><div class="sh"><img alt="" src="images/shishi/shishi-cuerpo.webp"><img alt="" src="images/shishi/shishi-cola.webp"></div><p>“' + esc(fraseShishi(d)) + '”<br><small class="suave" style="font-style:normal">— Shishi</small></p></div>';
+    h += '<div class="shishi-b"><div class="sh"><span class="bo">' + (window.TratakRender && TratakRender.gankyilSVG ? TratakRender.gankyilSVG({ id: 'fab' }) : '') + '</span><img alt="" src="images/shishi/shishi-cuerpo.webp"><img alt="" src="images/shishi/shishi-cola.webp"><svg class="oj" viewBox="0 0 700 570" aria-hidden="true"><ellipse cx="241.4" cy="124.1" rx="5.8" ry="6"/><circle cx="239.2" cy="121.8" r="1.7"/><ellipse cx="300.1" cy="125.4" rx="5.8" ry="6"/><circle cx="297.9" cy="123.1" r="1.7"/></svg></div><p>“' + esc(fraseShishi(d)) + '”<br><small class="suave" style="font-style:normal">— Shishi</small></p></div>';
     $('ficha').innerHTML = h;
   }
   function envolver(c, t, x, y, w, lh) { var ws = String(t).split(' '), l = ''; ws.forEach(function (p) { var pr = l ? l + ' ' + p : p; if (c.measureText(pr).width > w && l) { c.fillText(l, x, y); y += lh; l = p; } else l = pr; }); c.fillText(l, x, y); return y + lh; }
   function cargaImg(src) { return new Promise(function (ok) { if (!src) return ok(null); var im = new Image(); im.onload = function () { ok(im); }; im.onerror = function () { ok(null); }; im.src = src; }); }
   $('descargar').onclick = function () {
     var d = datos();
-    Promise.all(d.fo.map(function (f) { return cargaImg(f.d); }).concat([cargaImg('images/shishi/shishi-cuerpo.webp'), cargaImg('images/shishi/shishi-cola.webp')])).then(function (imgs) {
-      var shC = imgs[imgs.length - 2], shT = imgs[imgs.length - 1];
+    Promise.all(d.fo.map(function (f) { return cargaImg(f.d); }).concat([cargaImg('images/shishi/shishi-cuerpo.webp'), cargaImg('images/shishi/shishi-cola.webp'), cargaImg(window.TratakRender && TratakRender.gankyilSVG ? 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TratakRender.gankyilSVG({ id: 'fac' }).replace('<svg ', '<svg width="400" height="400" ')) : null)])).then(function (imgs) {
+      var shC = imgs[imgs.length - 3], shT = imgs[imgs.length - 2], shB = imgs[imgs.length - 1];
       var W = 1080, H = 9000, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
       g.addColorStop(0, '#1d2b24'); g.addColorStop(1, '#241f18'); c.fillStyle = g; c.fillRect(0, 0, W, H);
       var y = 120, X = 90, A = W - 180;
@@ -338,7 +340,7 @@
       bl('Me sorprendió', d.sor, 34);
       d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
       d.hl.forEach(function (x) { bl("Investigué · " + (x.t || ""), x.x.replace(/\n+/g, " · "), 30); if (x.u) { c.fillStyle = '#9fd3ff'; c.font = '26px system-ui,sans-serif'; y = envolver(c, x.u, X, y, A, 34) + 24; } else y += 6; });
-      if (shC) { var sw = 300, shh = sw * 570 / 700; y += 10; c.fillStyle = '#f3efe8'; c.beginPath(); if (c.roundRect) c.roundRect(X - 20, y - 14, sw + 40, shh + 28, 28); else c.rect(X - 20, y - 14, sw + 40, shh + 28); c.fill(); c.drawImage(shC, X, y, sw, shh); if (shT) c.drawImage(shT, X, y, sw, shh); c.fillStyle = '#fff'; c.font = 'italic 34px Georgia,serif'; envolver(c, '“' + fraseShishi(d) + '”', X + sw + 50, y + 80, A - sw - 50, 44); c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 24px system-ui,sans-serif'; c.fillText('— SHISHI', X + sw + 50, y + shh - 20); y += shh + 20; }
+      if (shC) { var sw = 300, shh = sw * 570 / 700; y += 10; c.fillStyle = '#f3efe8'; c.beginPath(); if (c.roundRect) c.roundRect(X - 20, y - 14, sw + 40, shh + 28, 28); else c.rect(X - 20, y - 14, sw + 40, shh + 28); c.fill(); var kk = sw / 700; if (shB) c.drawImage(shB, X + 0.1232 * sw, y + 0.5793 * shh, 0.2514 * sw, 0.2514 * sw); c.drawImage(shC, X, y, sw, shh); if (shT) c.drawImage(shT, X, y, sw, shh); [[241.4, 124.1, 239.2, 121.8], [300.1, 125.4, 297.9, 123.1]].forEach(function (o) { c.fillStyle = '#14171a'; c.beginPath(); c.ellipse(X + o[0] * kk, y + o[1] * kk, 5.8 * kk, 6 * kk, 0, 0, 7); c.fill(); c.fillStyle = '#fff6dc'; c.beginPath(); c.arc(X + o[2] * kk, y + o[3] * kk, 1.7 * kk, 0, 7); c.fill(); }); c.fillStyle = '#fff'; c.font = 'italic 34px Georgia,serif'; envolver(c, '“' + fraseShishi(d) + '”', X + sw + 50, y + 80, A - sw - 50, 44); c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 24px system-ui,sans-serif'; c.fillText('— SHISHI', X + sw + 50, y + shh - 20); y += shh + 20; }
       var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
       o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
       out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
