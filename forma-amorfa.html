@@ -48,9 +48,12 @@
   .herr input[type=color]{ width:42px; height:34px; padding:0; border:1.5px solid rgba(36,31,24,.25); border-radius:10px; background:#fff; }
   .herr input[type=range]{ flex:1; min-width:90px; padding:0; }
   .herr .chip{ padding:6px 10px; font-size:13px; }
-  .swatch{ width:26px; height:26px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1.5px rgba(36,31,24,.3); cursor:pointer; padding:0; }
+  .swatch{ width:24px; height:24px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1.5px rgba(36,31,24,.3); cursor:pointer; padding:0; }
   .hall{ border:1.5px solid rgba(36,31,24,.15); border-radius:18px; padding:12px 14px; margin-top:12px; }
   .hall textarea{ min-height:90px; } .hall input{ margin-top:8px; }
+  .shishi-b{ display:flex; align-items:center; gap:10px; background:#f3efe8; border-radius:18px; padding:10px 14px; margin-top:14px; }
+  .shishi-b .sh{ position:relative; flex:none; width:96px; aspect-ratio:700/570; } .shishi-b .sh img{ position:absolute; inset:0; width:100%; height:100%; }
+  .shishi-b p{ margin:0; font-family:Georgia,serif; font-style:italic; font-size:16px; line-height:1.35; }
   .ficha-img{ width:100%; border-radius:12px; border:1px solid rgba(36,31,24,.2); margin:4px 0 8px; display:block; }
   [hidden]{ display:none !important; }
 </style>
@@ -206,7 +209,7 @@
   }
   $('add').onclick = function () { S.ad.push({ n: '', g: '', t: 'carga', tx: [] }); pintarAd(); };
   // ---- formas
-  var PALETA = ['#241f18', '#e03131', '#f08c00', '#2f9e44', '#1971c2', '#9c36b5', '#ffffff'];
+  var PALETA = ['#241f18', '#868e96', '#ffffff', '#e03131', '#e64980', '#ff922b', '#f08c00', '#fcc419', '#94d82d', '#2f9e44', '#20c997', '#15aabf', '#1971c2', '#4c6ef5', '#7950f2', '#9c36b5', '#8d6e63', '#f4c7a1'];
   function pizarra(cont, f) {
     var w = document.createElement('div'); w.className = 'pizarra';
     var cv = document.createElement('canvas'); cv.width = 600; cv.height = 400; w.appendChild(cv);
@@ -287,6 +290,8 @@
     return { nombre: S.nombre || 'Sin nombre', carga: S.carga, aglu: S.aglu, s: s, fo: S.fo.filter(function (f) { return f.n || f.r.length || f.d; }), sor: S.sor, de: de, n: S.ad.filter(function (a) { return a.n || a.g; }).length, hl: S.hl.filter(function (h) { return h.t || h.x || h.u; }) };
   }
   function resumenProp(d) { var p = []; TIPOS.forEach(function (k) { if (d.s.t[k[0]] > 0) p.push(k[1] + ' ' + Math.round(d.s.t[k[0]] / d.s.tot * 100) + '%'); }); return p.join(' · '); }
+  var SHF = ['Tu {c} llegó suelta y se volvió cuerpo. Eso también es magia.', 'Cada gramo que pesaste fue una pregunta. Qué bonito preguntar con las manos.', 'No había receta y aun así encontraste el camino. Sigue jugando.', 'Una forma que se deshace también enseña. Gracias por probar.', 'La materia te escuchó. Yo también.'];
+  function fraseShishi(d) { if (typeof S.sh !== 'number') { S.sh = Math.floor(Math.random() * SHF.length); guardar(); } var c = (d.carga || 'materia').toLowerCase(); return SHF[S.sh % SHF.length].replace('{c}', c); }
   function ficha() {
     var d = datos(), h = '<h2 style="margin-top:0">' + esc(d.nombre) + '</h2>';
     h += '<p><b>Carga:</b> ' + esc(d.carga || '—') + '<br><b>Aglutinante:</b> ' + esc(d.aglu || '—') + '</p>';
@@ -302,13 +307,15 @@
       h += '<h3 style="font-family:Georgia,serif;font-weight:400;font-size:21px;margin:16px 0 6px">Lo que investigué</h3>';
       d.hl.forEach(function (x) { h += '<div class="fila"><b>' + esc(x.t || 'Sin título') + '</b><br>' + esc(x.x).replace(/\n/g, '<br>') + (x.u ? '<br><small><a href="' + esc(x.u) + '" target="_blank" rel="noopener">' + esc(x.u.slice(0, 60)) + '</a></small>' : '<br><small class="suave">⚠️ Sin link</small>') + '</div>'; });
     }
+    h += '<div class="shishi-b"><div class="sh"><img alt="" src="images/shishi/shishi-cuerpo.webp"><img alt="" src="images/shishi/shishi-cola.webp"></div><p>“' + esc(fraseShishi(d)) + '”<br><small class="suave" style="font-style:normal">— Shishi</small></p></div>';
     $('ficha').innerHTML = h;
   }
   function envolver(c, t, x, y, w, lh) { var ws = String(t).split(' '), l = ''; ws.forEach(function (p) { var pr = l ? l + ' ' + p : p; if (c.measureText(pr).width > w && l) { c.fillText(l, x, y); y += lh; l = p; } else l = pr; }); c.fillText(l, x, y); return y + lh; }
   function cargaImg(src) { return new Promise(function (ok) { if (!src) return ok(null); var im = new Image(); im.onload = function () { ok(im); }; im.onerror = function () { ok(null); }; im.src = src; }); }
   $('descargar').onclick = function () {
     var d = datos();
-    Promise.all(d.fo.map(function (f) { return cargaImg(f.d); })).then(function (imgs) {
+    Promise.all(d.fo.map(function (f) { return cargaImg(f.d); }).concat([cargaImg('images/shishi/shishi-cuerpo.webp'), cargaImg('images/shishi/shishi-cola.webp')])).then(function (imgs) {
+      var shC = imgs[imgs.length - 2], shT = imgs[imgs.length - 1];
       var W = 1080, H = 9000, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, W, H);
       g.addColorStop(0, '#1d2b24'); g.addColorStop(1, '#241f18'); c.fillStyle = g; c.fillRect(0, 0, W, H);
       var y = 120, X = 90, A = W - 180;
@@ -331,6 +338,7 @@
       bl('Me sorprendió', d.sor, 34);
       d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
       d.hl.forEach(function (x) { bl("Investigué · " + (x.t || ""), x.x.replace(/\n+/g, " · "), 30); if (x.u) { c.fillStyle = '#9fd3ff'; c.font = '26px system-ui,sans-serif'; y = envolver(c, x.u, X, y, A, 34) + 24; } else y += 6; });
+      if (shC) { var sw = 300, shh = sw * 570 / 700; y += 10; c.fillStyle = '#f3efe8'; c.beginPath(); if (c.roundRect) c.roundRect(X - 20, y - 14, sw + 40, shh + 28, 28); else c.rect(X - 20, y - 14, sw + 40, shh + 28); c.fill(); c.drawImage(shC, X, y, sw, shh); if (shT) c.drawImage(shT, X, y, sw, shh); c.fillStyle = '#fff'; c.font = 'italic 34px Georgia,serif'; envolver(c, '“' + fraseShishi(d) + '”', X + sw + 50, y + 80, A - sw - 50, 44); c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '600 24px system-ui,sans-serif'; c.fillText('— SHISHI', X + sw + 50, y + shh - 20); y += shh + 20; }
       var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
       o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
       out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
