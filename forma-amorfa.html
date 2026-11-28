@@ -51,7 +51,7 @@
 <div id="site-floating"></div>
 <div class="app">
   <div class="card" id="gate">
-    <span class="tag">Actividad 1</span>
+    <span class="tag">Cultura Biomaterial · 4</span>
     <h1>Forma <em>amorfa</em></h1>
     <p>Esta actividad se hace en clase. Escribe la clave que se dijo en clase para entrar.</p>
     <label for="clave">Clave</label>
@@ -65,7 +65,7 @@
     <div class="card">
 
       <section class="paso on">
-        <span class="tag">Actividad 1 · Forma amorfa</span>
+        <span class="tag">Cultura Biomaterial · 4 · Forma amorfa</span>
         <h1>Partículas sueltas, <em>cuerpo cohesivo</em></h1>
         <p><b>Objetivo:</b> explorar cómo partículas dispersas se transforman en una estructura cohesiva con agua y aglutinante.</p>
         <p>Vas a mezclar a ojo, pero con la báscula: anota cada vez que agregues algo. Al final tendrás una ficha con tus proporciones, tus formas y de qué está hecho lo que usaste.</p>
@@ -255,7 +255,7 @@
     bl('Me sorprendió', d.sor, 34);
     d.de.forEach(function (x) { bl('Está hecho de · ' + x.n, x.c.join(', '), 34); });
     var HF = Math.min(H, Math.max(1100, y + 200)), out = document.createElement('canvas'); out.width = W; out.height = HF; var o = out.getContext('2d'); o.drawImage(cv, 0, 0);
-    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · ACTIVIDAD 1', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
+    o.fillStyle = 'rgba(255,255,255,.5)'; o.font = '600 24px system-ui,sans-serif'; o.fillText('TRATAK CAT · CULTURA BIOMATERIAL 4', X, HF - 105); o.fillStyle = '#fff'; o.font = '600 40px Georgia,serif'; o.fillText('tratakcat.com', X, HF - 48);
     out.toBlob(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mi-ficha-forma-amorfa.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); });
   };
   $('wa').onclick = function () {
@@ -269,12 +269,12 @@
   $('reiniciar').onclick = function () { if (!confirm('¿Borrar tus respuestas y empezar de nuevo?')) return; try { localStorage.removeItem(K); } catch (e) {} location.reload(); };
   // ---- clave (filtro para la clase, no seguridad real)
   function abrir() {
-    $('gate').hidden = true; $('actividad').hidden = false; try { sessionStorage.setItem('tk-act-g1', '1'); } catch (e) {}
+    $('gate').hidden = true; $('actividad').hidden = false; try { sessionStorage.setItem('tk-act-t3c4', '1'); } catch (e) {}
     $('nombre').value = S.nombre; $('carga').value = S.carga; $('aglu').value = S.aglu; $('sorpresa').value = S.sor; ir(S.paso || 0);
   }
   $('entrar').onclick = function () { var ok = cyrb53(norm($('clave').value)) === CLAVE_HASH; $('gate-error').hidden = ok; if (ok) abrir(); };
   $('clave').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('entrar').click(); });
-  try { if (sessionStorage.getItem('tk-act-g1') === '1') abrir(); } catch (e) {}
+  try { if (sessionStorage.getItem('tk-act-t3c4') === '1') abrir(); } catch (e) {}
   fetch('assets/guia.json?v=1').then(function (r) { return r.json(); }).then(function (d) {
     G = d; var names = d.materiales.map(function (m) { return m.nombre; });
     $('l-carga').innerHTML = CARGAS.concat(names).map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
