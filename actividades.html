@@ -120,7 +120,7 @@
   function cerrarModal() { $('modal').hidden = true; actual = null; }
   function probar() {
     var a = ACT[actual];
-    if (!a) { $('m-error').textContent = 'Esta actividad todavía no tiene clave.'; $('m-error').hidden = false; return; }
+    if (!a) { $('m-error').textContent = 'Esa no es la clave de esta actividad.'; $('m-error').hidden = false; return; }
     if (cyrb53(norm($('clave').value)) !== a.hash) { $('m-error').textContent = 'Esa no es la clave de esta actividad.'; $('m-error').hidden = false; return; }
     try { sessionStorage.setItem('tk-act-' + actual, '1'); } catch (e) {}
     location.href = a.url;
